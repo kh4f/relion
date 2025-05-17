@@ -1,7 +1,7 @@
 {
-  "name": "commit-and-tag-version",
-  "version": "12.5.1",
-  "description": "replacement for `npm version` with automatic CHANGELOG generation",
+  "name": "ryly",
+  "version": "0.0.0",
+  "description": "Release workflow helper based on commit-and-tag-version",
   "bin": "bin/cli.js",
   "scripts": {
     "lint": "eslint .",
