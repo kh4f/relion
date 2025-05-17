@@ -1,9 +1,8 @@
 'use strict';
 
-const shell = require('shelljs');
-const fs = require('fs');
-
-const mockers = require('./mocks/jest-mocks');
+import shell from 'shelljs';
+import fs from 'fs';
+import * as mockers from './mocks/jest-mocks.js';
 
 // Jest swallows most standard console logs not explicitly defined into a custom logger
 // see: https://stackoverflow.com/questions/51555568/remove-logging-the-origin-line-in-jest
@@ -12,61 +11,61 @@ const consoleWarnSpy = jest.spyOn(global.console, 'warn').mockImplementation();
 const consoleInfoSpy = jest.spyOn(global.console, 'info').mockImplementation();
 
 const consoleErrorSpy = jest
-  .spyOn(global.console, 'error')
-  .mockImplementation();
+	.spyOn(global.console, 'error')
+	.mockImplementation();
 
-function exec(opt = '') {
-  if (typeof opt === 'string') {
-    const cli = require('../command');
-    opt = cli.parse(`commit-and-tag-version ${opt}`);
-  }
-  return require('../index')(opt);
+async function exec(opt = '') {
+	if (typeof opt === 'string') {
+		const cli = (await import('../command.js')).default;
+		opt = cli.parse(`commit-and-tag-version ${opt}`);
+	}
+	return (await import('../index.js')).default(opt);
 }
 
 function writePackageJson(version, option) {
-  const pkg = Object.assign({}, option, { version });
-  fs.writeFileSync('package.json', JSON.stringify(pkg), 'utf-8');
+	const pkg = Object.assign({}, option, { version });
+	fs.writeFileSync('package.json', JSON.stringify(pkg), 'utf-8');
 }
 
 function writeHook(hookName, causeError, script) {
-  shell.mkdir('-p', 'scripts');
-  let content = script || 'console.error("' + hookName + ' ran")';
-  content += causeError ? '\nthrow new Error("' + hookName + '-failure")' : '';
-  fs.writeFileSync('scripts/' + hookName + '.js', content, 'utf-8');
-  fs.chmodSync('scripts/' + hookName + '.js', '755');
+	shell.mkdir('-p', 'scripts');
+	let content = script || 'console.error("' + hookName + ' ran")';
+	content += causeError ? '\nthrow new Error("' + hookName + '-failure")' : '';
+	fs.writeFileSync('scripts/' + hookName + '.js', content, 'utf-8');
+	fs.chmodSync('scripts/' + hookName + '.js', '755');
 }
 
 function setupTempGitRepo() {
-  shell.rm('-rf', 'pre-commit-hook-temp');
-  shell.config.silent = true;
-  shell.mkdir('pre-commit-hook-temp');
-  shell.cd('pre-commit-hook-temp');
-  shell.exec('git init');
-  shell.exec('git config commit.gpgSign false');
-  shell.exec('git config core.autocrlf false');
-  shell.exec('git commit --allow-empty -m"root-commit"');
+	shell.rm('-rf', 'pre-commit-hook-temp');
+	shell.config.silent = true;
+	shell.mkdir('pre-commit-hook-temp');
+	shell.cd('pre-commit-hook-temp');
+	shell.exec('git init');
+	shell.exec('git config commit.gpgSign false');
+	shell.exec('git config core.autocrlf false');
+	shell.exec('git commit --allow-empty -m"root-commit"');
 }
 
 function setup() {
-  setupTempGitRepo();
-  writePackageJson('1.0.0');
+	setupTempGitRepo();
+	writePackageJson('1.0.0');
 }
 
 function clearCapturedSpyCalls() {
-  consoleInfoSpy.mockClear();
-  consoleWarnSpy.mockClear();
-  consoleErrorSpy.mockClear();
+	consoleInfoSpy.mockClear();
+	consoleWarnSpy.mockClear();
+	consoleErrorSpy.mockClear();
 }
 
 function resetShell() {
-  shell.cd('../');
-  shell.rm('-rf', 'pre-commit-hook-temp');
+	shell.cd('../');
+	shell.rm('-rf', 'pre-commit-hook-temp');
 }
 
 function reset() {
-  resetShell();
+	resetShell();
 
-  clearCapturedSpyCalls();
+	clearCapturedSpyCalls();
 }
 
 /**
@@ -77,116 +76,116 @@ function reset() {
  * tags?: string[] | Error
  */
 function mock({ bump, changelog, tags }) {
-  if (bump === undefined) throw new Error('bump must be defined for mock()');
+	if (bump === undefined) throw new Error('bump must be defined for mock()');
 
-  mockers.mockRecommendedBump({ bump });
+	mockers.mockRecommendedBump({ bump });
 
-  if (!Array.isArray(changelog)) changelog = [changelog];
-  mockers.mockConventionalChangelog({ changelog });
+	if (!Array.isArray(changelog)) changelog = [changelog];
+	mockers.mockConventionalChangelog({ changelog });
 
-  mockers.mockGitSemverTags({ tags });
+	mockers.mockGitSemverTags({ tags });
 }
 
 function getLog(expectedLog, spy = consoleInfoSpy) {
-  const consoleInfoLogs = spy.mock.calls.map((args) => args[0]);
-  return consoleInfoLogs.find((log) => log.includes(expectedLog));
+	const consoleInfoLogs = spy.mock.calls.map((args) => args[0]);
+	return consoleInfoLogs.find((log) => log.includes(expectedLog));
 }
 
 function verifyLogPrinted(expectedLog, spy = consoleInfoSpy) {
-  const logType = spy === consoleInfoSpy ? 'info' : 'warn';
-  const desiredLog = getLog(expectedLog, spy);
-  if (desiredLog) {
-    expect(desiredLog).toMatch(expectedLog);
-  } else {
-    expect(`no ${logType} Log printed matching`).toMatch(expectedLog);
-  }
+	const logType = spy === consoleInfoSpy ? 'info' : 'warn';
+	const desiredLog = getLog(expectedLog, spy);
+	if (desiredLog) {
+		expect(desiredLog).toMatch(expectedLog);
+	} else {
+		expect(`no ${logType} Log printed matching`).toMatch(expectedLog);
+	}
 }
 
 describe('precommit hook', function () {
-  beforeEach(function () {
-    setup();
-  });
+	beforeEach(function () {
+		setup();
+	});
 
-  afterEach(function () {
-    reset();
-  });
+	afterEach(function () {
+		reset();
+	});
 
-  it('should run the precommit hook when provided via .versionrc.json (#371)', async function () {
-    fs.writeFileSync(
-      '.versionrc.json',
-      JSON.stringify({
-        scripts: { precommit: 'node scripts/precommit' },
-      }),
-      'utf-8',
-    );
+	it('should run the precommit hook when provided via .versionrc.json (#371)', async function () {
+		fs.writeFileSync(
+			'.versionrc.json',
+			JSON.stringify({
+				scripts: { precommit: 'node scripts/precommit' },
+			}),
+			'utf-8',
+		);
 
-    writeHook('precommit');
-    fs.writeFileSync(
-      'CHANGELOG.md',
-      'legacy header format<a name="1.0.0">\n',
-      'utf-8',
-    );
-    mock({ bump: 'minor' });
-    await exec('');
-    verifyLogPrinted('precommit ran', consoleWarnSpy);
-  });
+		writeHook('precommit');
+		fs.writeFileSync(
+			'CHANGELOG.md',
+			'legacy header format<a name="1.0.0">\n',
+			'utf-8',
+		);
+		mock({ bump: 'minor' });
+		await exec('');
+		verifyLogPrinted('precommit ran', consoleWarnSpy);
+	});
 
-  it('should run the precommit hook when provided', async function () {
-    writePackageJson('1.0.0', {
-      'commit-and-tag-version': {
-        scripts: { precommit: 'node scripts/precommit' },
-      },
-    });
-    writeHook('precommit');
-    fs.writeFileSync(
-      'CHANGELOG.md',
-      'legacy header format<a name="1.0.0">\n',
-      'utf-8',
-    );
+	it('should run the precommit hook when provided', async function () {
+		writePackageJson('1.0.0', {
+			'commit-and-tag-version': {
+				scripts: { precommit: 'node scripts/precommit' },
+			},
+		});
+		writeHook('precommit');
+		fs.writeFileSync(
+			'CHANGELOG.md',
+			'legacy header format<a name="1.0.0">\n',
+			'utf-8',
+		);
 
-    mock({ bump: 'minor' });
-    await exec('--patch');
-    verifyLogPrinted('precommit ran', consoleWarnSpy);
-  });
+		mock({ bump: 'minor' });
+		await exec('--patch');
+		verifyLogPrinted('precommit ran', consoleWarnSpy);
+	});
 
-  it('should run the precommit hook and throw error when precommit fails', async function () {
-    writePackageJson('1.0.0', {
-      'commit-and-tag-version': {
-        scripts: { precommit: 'node scripts/precommit' },
-      },
-    });
-    writeHook('precommit', true);
-    fs.writeFileSync(
-      'CHANGELOG.md',
-      'legacy header format<a name="1.0.0">\n',
-      'utf-8',
-    );
+	it('should run the precommit hook and throw error when precommit fails', async function () {
+		writePackageJson('1.0.0', {
+			'commit-and-tag-version': {
+				scripts: { precommit: 'node scripts/precommit' },
+			},
+		});
+		writeHook('precommit', true);
+		fs.writeFileSync(
+			'CHANGELOG.md',
+			'legacy header format<a name="1.0.0">\n',
+			'utf-8',
+		);
 
-    mock({ bump: 'minor' });
-    let errorMessage = '';
-    try {
-      await exec('--patch');
-    } catch (e) {
-      errorMessage = e.message;
-    }
-    expect(errorMessage).toMatch('precommit-failure');
-  });
+		mock({ bump: 'minor' });
+		let errorMessage = '';
+		try {
+			await exec('--patch');
+		} catch (e) {
+			errorMessage = e.message;
+		}
+		expect(errorMessage).toMatch('precommit-failure');
+	});
 
-  it('should allow an alternate commit message to be provided by precommit script', async function () {
-    writePackageJson('1.0.0', {
-      'commit-and-tag-version': {
-        scripts: { precommit: 'node scripts/precommit' },
-      },
-    });
-    writeHook('precommit', false, 'console.log("releasing %s delivers #222")');
-    fs.writeFileSync(
-      'CHANGELOG.md',
-      'legacy header format<a name="1.0.0">\n',
-      'utf-8',
-    );
+	it('should allow an alternate commit message to be provided by precommit script', async function () {
+		writePackageJson('1.0.0', {
+			'commit-and-tag-version': {
+				scripts: { precommit: 'node scripts/precommit' },
+			},
+		});
+		writeHook('precommit', false, 'console.log("releasing %s delivers #222")');
+		fs.writeFileSync(
+			'CHANGELOG.md',
+			'legacy header format<a name="1.0.0">\n',
+			'utf-8',
+		);
 
-    mock({ bump: 'minor' });
-    await exec('--patch');
-    expect(shell.exec('git log --oneline -n1').stdout).toMatch(/delivers #222/);
-  });
+		mock({ bump: 'minor' });
+		await exec('--patch');
+		expect(shell.exec('git log --oneline -n1').stdout).toMatch(/delivers #222/);
+	});
 });

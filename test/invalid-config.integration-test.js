@@ -1,15 +1,12 @@
-'use strict';
+import shell from 'shelljs';
+import fs from 'fs';
+import mockers from './mocks/jest-mocks.js';
 
-const shell = require('shelljs');
-const fs = require('fs');
-
-const mockers = require('./mocks/jest-mocks');
-
-function exec() {
-  const cli = require('../command');
-  const opt = cli.parse('commit-and-tag-version');
-  opt.skip = { commit: true, tag: true };
-  return require('../index')(opt);
+async function exec() {
+	const cli = (await import('../command.js')).default;
+	const opt = cli.parse('commit-and-tag-version');
+	opt.skip = { commit: true, tag: true };
+	return (await import('../index.js')).default(opt);
 }
 
 /**
@@ -22,25 +19,25 @@ function exec() {
  * tags?: string[] | Error
  */
 function mock({ bump, changelog, tags } = {}) {
-  mockers.mockRecommendedBump({ bump });
+	mockers.mockRecommendedBump({ bump });
 
-  if (!Array.isArray(changelog)) changelog = [changelog];
+	if (!Array.isArray(changelog)) changelog = [changelog];
 
-  mockers.mockConventionalChangelog({ changelog });
+	mockers.mockConventionalChangelog({ changelog });
 
-  mockers.mockGitSemverTags({ tags });
+	mockers.mockGitSemverTags({ tags });
 }
 
 function setupTestDirectory() {
-  shell.rm('-rf', 'invalid-config-temp');
-  shell.config.silent = true;
-  shell.mkdir('invalid-config-temp');
-  shell.cd('invalid-config-temp');
+	shell.rm('-rf', 'invalid-config-temp');
+	shell.config.silent = true;
+	shell.mkdir('invalid-config-temp');
+	shell.cd('invalid-config-temp');
 }
 
 function resetShell() {
-  shell.cd('../');
-  shell.rm('-rf', 'invalid-config-temp');
+	shell.cd('../');
+	shell.rm('-rf', 'invalid-config-temp');
 }
 
 /**
@@ -50,24 +47,24 @@ function resetShell() {
  * somewhere in the "real" or "tmp" filesystem, despite the shell code seemingly setting up and tearing down correctly
  */
 describe('invalid .versionrc', function () {
-  beforeEach(function () {
-    setupTestDirectory();
+	beforeEach(function () {
+		setupTestDirectory();
 
-    fs.writeFileSync(
-      'package.json',
-      JSON.stringify({ version: '1.0.0' }),
-      'utf-8',
-    );
-  });
+		fs.writeFileSync(
+			'package.json',
+			JSON.stringify({ version: '1.0.0' }),
+			'utf-8',
+		);
+	});
 
-  afterEach(function () {
-    resetShell();
-  });
+	afterEach(function () {
+		resetShell();
+	});
 
-  it('throws an error when a non-object is returned from .versionrc.js', async function () {
-    mock({ bump: 'minor' });
-    fs.writeFileSync('.versionrc.js', 'module.exports = 3', 'utf-8');
+	it('throws an error when a non-object is returned from .versionrc.js', async function () {
+		mock({ bump: 'minor' });
+		fs.writeFileSync('.versionrc.js', 'module.exports = 3', 'utf-8');
 
-    expect(exec).toThrow(/Invalid configuration/);
-  });
+		expect(exec).toThrow(/Invalid configuration/);
+	});
 });

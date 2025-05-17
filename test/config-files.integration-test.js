@@ -1,15 +1,12 @@
-'use strict';
+import shell from 'shelljs';
+import fs from 'fs';
+import * as mockers from './mocks/jest-mocks.js';
 
-const shell = require('shelljs');
-const fs = require('fs');
-
-const mockers = require('./mocks/jest-mocks');
-
-function exec() {
-  const cli = require('../command');
-  const opt = cli.parse('commit-and-tag-version');
-  opt.skip = { commit: true, tag: true };
-  return require('../index')(opt);
+async function exec() {
+	const cli = (await import('../command.js')).default;
+	const opt = cli.parse('commit-and-tag-version');
+	opt.skip = { commit: true, tag: true };
+	return (await import('../index.js')).default(opt);
 }
 
 /**
@@ -22,93 +19,93 @@ function exec() {
  * tags?: string[] | Error
  */
 function mock({ bump, changelog, tags } = {}) {
-  mockers.mockRecommendedBump({ bump });
+	mockers.mockRecommendedBump({ bump });
 
-  if (!Array.isArray(changelog)) changelog = [changelog];
+	if (!Array.isArray(changelog)) changelog = [changelog];
 
-  mockers.mockConventionalChangelog({ changelog });
+	mockers.mockConventionalChangelog({ changelog });
 
-  mockers.mockGitSemverTags({ tags });
+	mockers.mockGitSemverTags({ tags });
 }
 
 function setupTestDirectory() {
-  shell.rm('-rf', 'config-files-temp');
-  shell.config.silent = true;
-  shell.mkdir('config-files-temp');
-  shell.cd('config-files-temp');
+	shell.rm('-rf', 'config-files-temp');
+	shell.config.silent = true;
+	shell.mkdir('config-files-temp');
+	shell.cd('config-files-temp');
 }
 
 function resetShell() {
-  shell.cd('../');
-  shell.rm('-rf', 'config-files-temp');
+	shell.cd('../');
+	shell.rm('-rf', 'config-files-temp');
 }
 
 describe('config files', function () {
-  beforeEach(function () {
-    setupTestDirectory();
+	beforeEach(function () {
+		setupTestDirectory();
 
-    fs.writeFileSync(
-      'package.json',
-      JSON.stringify({ version: '1.0.0' }),
-      'utf-8',
-    );
-  });
+		fs.writeFileSync(
+			'package.json',
+			JSON.stringify({ version: '1.0.0' }),
+			'utf-8',
+		);
+	});
 
-  afterEach(function () {
-    resetShell();
-    4;
-  });
+	afterEach(function () {
+		resetShell();
+		4;
+	});
 
-  it('reads config from .versionrc', async function () {
-    const issueUrlFormat = 'http://www.foo.com/{{id}}';
-    const changelog = ({ preset }) => preset.issueUrlFormat;
+	it('reads config from .versionrc', async function () {
+		const issueUrlFormat = 'http://www.foo.com/{{id}}';
+		const changelog = ({ preset }) => preset.issueUrlFormat;
 
-    mock({ bump: 'minor', changelog });
-    fs.writeFileSync('.versionrc', JSON.stringify({ issueUrlFormat }), 'utf-8');
+		mock({ bump: 'minor', changelog });
+		fs.writeFileSync('.versionrc', JSON.stringify({ issueUrlFormat }), 'utf-8');
 
-    await exec();
-    const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
-    expect(content).toContain(issueUrlFormat);
-  });
+		await exec();
+		const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
+		expect(content).toContain(issueUrlFormat);
+	});
 
-  it('reads config from .versionrc.json', async function () {
-    const issueUrlFormat = 'http://www.foo.com/{{id}}';
-    const changelog = ({ preset }) => preset.issueUrlFormat;
-    mock({ bump: 'minor', changelog });
-    fs.writeFileSync(
-      '.versionrc.json',
-      JSON.stringify({ issueUrlFormat }),
-      'utf-8',
-    );
+	it('reads config from .versionrc.json', async function () {
+		const issueUrlFormat = 'http://www.foo.com/{{id}}';
+		const changelog = ({ preset }) => preset.issueUrlFormat;
+		mock({ bump: 'minor', changelog });
+		fs.writeFileSync(
+			'.versionrc.json',
+			JSON.stringify({ issueUrlFormat }),
+			'utf-8',
+		);
 
-    await exec();
-    const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
-    expect(content).toContain(issueUrlFormat);
-  });
+		await exec();
+		const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
+		expect(content).toContain(issueUrlFormat);
+	});
 
-  it('evaluates a config-function from .versionrc.js', async function () {
-    const issueUrlFormat = 'http://www.foo.com/{{id}}';
-    const src = `module.exports = function() { return ${JSON.stringify({
-      issueUrlFormat,
-    })} }`;
-    const changelog = ({ preset }) => preset.issueUrlFormat;
-    mock({ bump: 'minor', changelog });
-    fs.writeFileSync('.versionrc.js', src, 'utf-8');
+	it('evaluates a config-function from .versionrc.js', async function () {
+		const issueUrlFormat = 'http://www.foo.com/{{id}}';
+		const src = `module.exports = function() { return ${JSON.stringify({
+			issueUrlFormat,
+		})} }`;
+		const changelog = ({ preset }) => preset.issueUrlFormat;
+		mock({ bump: 'minor', changelog });
+		fs.writeFileSync('.versionrc.js', src, 'utf-8');
 
-    await exec();
-    const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
-    expect(content).toContain(issueUrlFormat);
-  });
+		await exec();
+		const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
+		expect(content).toContain(issueUrlFormat);
+	});
 
-  it('evaluates a config-object from .versionrc.js', async function () {
-    const issueUrlFormat = 'http://www.foo.com/{{id}}';
-    const src = `module.exports = ${JSON.stringify({ issueUrlFormat })}`;
-    const changelog = ({ preset }) => preset.issueUrlFormat;
-    mock({ bump: 'minor', changelog });
-    fs.writeFileSync('.versionrc.js', src, 'utf-8');
+	it('evaluates a config-object from .versionrc.js', async function () {
+		const issueUrlFormat = 'http://www.foo.com/{{id}}';
+		const src = `module.exports = ${JSON.stringify({ issueUrlFormat })}`;
+		const changelog = ({ preset }) => preset.issueUrlFormat;
+		mock({ bump: 'minor', changelog });
+		fs.writeFileSync('.versionrc.js', src, 'utf-8');
 
-    await exec();
-    const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
-    expect(content).toContain(issueUrlFormat);
-  });
+		await exec();
+		const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
+		expect(content).toContain(issueUrlFormat);
+	});
 });

@@ -1,15 +1,12 @@
-'use strict';
+import shell from 'shelljs';
+import fs from 'fs';
+import mockers from './mocks/jest-mocks.js';
 
-const shell = require('shelljs');
-const fs = require('fs');
-
-const mockers = require('./mocks/jest-mocks');
-
-function exec() {
-  const cli = require('../command');
-  const opt = cli.parse('commit-and-tag-version');
-  opt.skip = { commit: true, tag: true };
-  return require('../index')(opt);
+async function exec() {
+	const cli = (await import('../command.js')).default;
+	const opt = cli.parse('commit-and-tag-version');
+	opt.skip = { commit: true, tag: true };
+	return (await import('../index.js')).default(opt);
 }
 
 /**
@@ -22,62 +19,62 @@ function exec() {
  * tags?: string[] | Error
  */
 function mock({ bump, changelog, tags } = {}) {
-  mockers.mockRecommendedBump({ bump });
+	mockers.mockRecommendedBump({ bump });
 
-  if (!Array.isArray(changelog)) changelog = [changelog];
+	if (!Array.isArray(changelog)) changelog = [changelog];
 
-  mockers.mockConventionalChangelog({ changelog });
+	mockers.mockConventionalChangelog({ changelog });
 
-  mockers.mockGitSemverTags({ tags });
+	mockers.mockGitSemverTags({ tags });
 }
 
 function setupTempGitRepo() {
-  shell.rm('-rf', 'config-keys-temp');
-  shell.config.silent = true;
-  shell.mkdir('config-keys-temp');
-  shell.cd('config-keys-temp');
+	shell.rm('-rf', 'config-keys-temp');
+	shell.config.silent = true;
+	shell.mkdir('config-keys-temp');
+	shell.cd('config-keys-temp');
 }
 
 function resetShell() {
-  shell.cd('../');
-  shell.rm('-rf', 'config-keys-temp');
+	shell.cd('../');
+	shell.rm('-rf', 'config-keys-temp');
 }
 
 describe('config files', function () {
-  beforeEach(function () {
-    setupTempGitRepo();
+	beforeEach(function () {
+		setupTempGitRepo();
 
-    fs.writeFileSync(
-      'package.json',
-      JSON.stringify({ version: '1.0.0' }),
-      'utf-8',
-    );
-  });
+		fs.writeFileSync(
+			'package.json',
+			JSON.stringify({ version: '1.0.0' }),
+			'utf-8',
+		);
+	});
 
-  afterEach(function () {
-    resetShell();
-  });
+	afterEach(function () {
+		resetShell();
+	});
 
-  const configKeys = ['commit-and-tag-version', 'standard-version'];
+	const configKeys = ['commit-and-tag-version', 'standard-version'];
 
-  configKeys.forEach((configKey) => {
-    it(`reads config from package.json key '${configKey}'`, async function () {
-      const issueUrlFormat =
-        'https://commit-and-tag-version.company.net/browse/{{id}}';
-      mock({
-        bump: 'minor',
-        changelog: ({ preset }) => preset.issueUrlFormat,
-      });
-      const pkg = {
-        version: '1.0.0',
-        repository: { url: 'git+https://company@scm.org/office/app.git' },
-        [configKey]: { issueUrlFormat },
-      };
-      fs.writeFileSync('package.json', JSON.stringify(pkg), 'utf-8');
+	configKeys.forEach((configKey) => {
+		it(`reads config from package.json key '${configKey}'`, async function () {
+			const issueUrlFormat =
+				'https://commit-and-tag-version.company.net/browse/{{id}}';
+			mock({
+				bump: 'minor',
+				changelog: ({ preset }) => preset.issueUrlFormat,
+			});
+			const pkg = {
+				version: '1.0.0',
+				repository: { url: 'git+https://company@scm.org/office/app.git' },
+				[configKey]: { issueUrlFormat },
+			};
+			fs.writeFileSync('package.json', JSON.stringify(pkg), 'utf-8');
 
-      await exec();
-      const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
-      expect(content).toMatch(issueUrlFormat);
-    });
-  });
+			await exec();
+			const content = fs.readFileSync('CHANGELOG.md', 'utf-8');
+			expect(content).toMatch(issueUrlFormat);
+		});
+	});
 });

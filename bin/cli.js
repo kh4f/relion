@@ -1,14 +1,9 @@
 #!/usr/bin/env node
 
-/* istanbul ignore if */
-if (process.version.match(/v(\d+)\./)[1] < 6) {
-  console.error(
-    'commit-and-tag-version: Node v6 or greater is required. `commit-and-tag-version` did not run.',
-  );
-} else {
-  const standardVersion = require('../index');
-  const cmdParser = require('../command');
-  standardVersion(cmdParser.argv).catch(() => {
-    process.exit(1);
-  });
-}
+import standardVersion from "../src/index.js";
+import cmdParser from "./command.js";
+
+standardVersion(cmdParser.argv).catch((err) => {
+	console.error(err);
+	process.exit(1);
+});
