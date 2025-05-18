@@ -47,7 +47,7 @@ export async function createWriterOpts(config) {
 		commit,
 		footer
 	] = await Promise.all([
-		readFile(resolve(dirname, './templates/template.hbs'), 'utf-8'),
+		readFile(resolve(dirname, './templates/main.hbs'), 'utf-8'),
 		readFile(resolve(dirname, './templates/header.hbs'), 'utf-8'),
 		readFile(resolve(dirname, './templates/commit.hbs'), 'utf-8'),
 		readFile(resolve(dirname, './templates/footer.hbs'), 'utf-8')
