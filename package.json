@@ -5,6 +5,9 @@
 	"main": "index.js",
 	"type": "module",
 	"bin": "bin/cli.js",
+	"repository": {"type": "git", "url": "git+https://github.com/Kh4f/ryly.git"},
+	"bugs": {"url": "https://github.com/Kh4f/ryly/issues"},
+	"homepage": "https://github.com/Kh4f/ryly#readme",
 	"scripts": {
 		"lint": "eslint .",
 		"lint:fix": "npm run lint -- --fix",
@@ -13,7 +16,6 @@
 		"format:check": "npm run format:base -- --check",
 		"release": "node bin/cli.js"
 	},
-	"repository": "absolute-version/commit-and-tag-version",
 	"keywords": [
 		"conventional-changelog",
 		"recommended",
@@ -29,10 +31,6 @@
 		"Timothy Jones <timothy.l.jones@gmail.com> (https://github.com/TimothyJones)"
 	],
 	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/absolute-version/commit-and-tag-version/issues"
-	},
-	"homepage": "https://github.com/absolute-version/commit-and-tag-version#readme",
 	"dependencies": {
 		"chalk": "^5.4.1",
 		"conventional-changelog": "^6.0.0",
