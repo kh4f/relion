@@ -1,7 +1,7 @@
-## {{#if linkCompare~}}
+## {{#if previousTag~}}
 [{{currentTag}}]({{compareUrlFormat}})
-{{~else}}
-{{~currentTag}}
+{{~else~}}
+[{{currentTag}}]({{host}}/{{owner}}/{{repository}}/commits/{{currentTag}})
 {{~/if}}
 {{~#if title}} "{{title}}"
 {{~/if}}
