@@ -24,6 +24,7 @@ const defaults = {
 
 	context: {
 		linkReferences: true,
+		fullChangelogLink: false,
 	},
 
 	preset: {

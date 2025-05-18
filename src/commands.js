@@ -120,6 +120,11 @@ const yargsInstance = yargs(hideBin(process.argv))
 		type: 'boolean',
 		default: defaults.context.linkReferences,
 	})
+	.option('context.fullChangelogLink', {
+		describe: 'Add a "Full Changelog: v1...v2" link to the footer',
+		type: 'boolean',
+		default: defaults.context.fullChangelogLink,
+	})
 	.option('dry-run', {
 		type: 'boolean',
 		default: defaults.dryRun,
