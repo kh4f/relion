@@ -11,7 +11,7 @@
     "format:base": "prettier \"./**/*.{ts,js}\"",
     "format:fix": "npm run format:base -- --write",
     "format:check": "npm run format:base -- --check",
-    "release": "bin/cli.js"
+    "release": "node bin/cli.js"
   },
   "repository": "absolute-version/commit-and-tag-version",
   "engines": {
