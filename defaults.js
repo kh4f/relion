@@ -1,4 +1,5 @@
 import spec from 'conventional-changelog-config-spec';
+const presetFileURL = import.meta.resolve('./preset/index.js');
 
 const defaults = {
 	infile: 'CHANGELOG.md',
@@ -15,7 +16,7 @@ const defaults = {
 	dryRun: false,
 	tagForce: false,
 	gitTagFallback: true,
-	preset: 'conventionalcommits',
+	preset: presetFileURL,
 	npmPublishHint: undefined,
 };
 
