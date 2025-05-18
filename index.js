@@ -1,4 +1,4 @@
-import bump from './lib/lifecycles/bump.js';
+import bump, { getNewVersion } from './lib/lifecycles/bump.js';
 import changelog from './lib/lifecycles/changelog.js';
 import commit from './lib/lifecycles/commit.js';
 import fs from 'fs';
@@ -85,10 +85,8 @@ export default async function ryly(argv) {
 			throw new Error('no package file found');
 		}
 
-		const newVersion = await bump(args, version);
-		await changelog(args, newVersion);
-		await commit(args, newVersion);
-		await tag(newVersion, pkg ? pkg.private : false, args);
+		const newVersion = await getNewVersion(args, version);
+		args.bump && await bump(args, newVersion);
 	} catch (err) {
 		printError(args, err.message);
 		throw err;
