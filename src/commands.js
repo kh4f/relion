@@ -147,8 +147,6 @@ const yargsInstance = yargs(hideBin(process.argv))
 	.check((argv) => {
 		if (typeof argv.scripts !== 'object' || Array.isArray(argv.scripts)) {
 			throw Error('scripts must be an object');
-		} else if (typeof argv.skip !== 'object' || Array.isArray(argv.skip)) {
-			throw Error('skip must be an object');
 		} else {
 			return true;
 		}
