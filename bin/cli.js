@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import ryly from '../index.js';
-import cmdParser from '../command.js';
+import ryly from '../src/index.js';
+import cmdParser from '../src/commands.js';
 
 ryly(cmdParser.argv).catch((err) => {
 	console.error(err);
