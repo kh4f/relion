@@ -1,6 +1,11 @@
 const defaultPresetURL = import.meta.resolve('./preset/index.js');
 
 const defaults = {
+	bump: false,
+	changelog: false,
+	commit: false,
+	tag: false,
+
 	infile: 'CHANGELOG.md',
 	sign: false,
 	signoff: false,
@@ -10,7 +15,6 @@ const defaults = {
 	tagPrefix: 'v',
 	releaseCount: 1,
 	scripts: {},
-	skip: {},
 	dryRun: false,
 	tagForce: false,
 	gitTagFallback: true,

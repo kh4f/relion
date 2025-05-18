@@ -90,9 +90,29 @@ const yargsInstance = yargs(hideBin(process.argv))
 			'Provide scripts to execute for lifecycle events (prebump, precommit, etc.,)',
 		default: defaults.scripts,
 	})
-	.option('skip', {
-		describe: 'Map of steps in the release process that should be skipped',
-		default: defaults.skip,
+	.option('bump', {
+		alias: 'b',
+		describe: 'Bump the version in bumpFiles',
+		type: 'boolean',
+		default: defaults.bump,
+	})
+	.option('changelog', {
+		alias: 'l',
+		describe: 'Generate a changelog',
+		type: 'boolean',
+		default: defaults.changelog,
+	})
+	.option('commit', {
+		alias: 'c',
+		describe: 'Create a git commit',
+		type: 'boolean',
+		default: defaults.commit,
+	})
+	.option('tag', {
+		alias: 't',
+		describe: 'Create a git tag',
+		type: 'boolean',
+		default: defaults.tag,
 	})
 	.option('dry-run', {
 		type: 'boolean',
