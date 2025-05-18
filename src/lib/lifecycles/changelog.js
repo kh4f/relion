@@ -85,7 +85,6 @@ function outputChangelog(args, newVersion) {
 					args.infile,
 					changelogFrontMatter +
 					header +
-					'\n' +
 					(content + oldContentBody).replace(/\n+$/, '\n'),
 				);
 			return resolve();
