@@ -16,15 +16,13 @@ const yargsInstance = yargs(hideBin(process.argv))
 	})
 	.option('release-as', {
 		alias: 'r',
-		describe:
-			'Specify the release type manually (like npm version <major|minor|patch>)',
+		describe: 'Specify the release type manually (like npm version <major|minor|patch>)',
 		requiresArg: true,
 		string: true,
 	})
 	.option('prerelease', {
 		alias: 'p',
-		describe:
-			'make a pre-release with optional option value to specify a tag id',
+		describe: 'make a pre-release with optional option value to specify a tag id',
 		string: true,
 	})
 	.option('infile', {
@@ -51,15 +49,13 @@ const yargsInstance = yargs(hideBin(process.argv))
 	})
 	.option('no-verify', {
 		alias: 'n',
-		describe:
-			'Bypass pre-commit or commit-msg git hooks during the commit phase',
+		describe: 'Bypass pre-commit or commit-msg git hooks during the commit phase',
 		type: 'boolean',
 		default: defaults.noVerify,
 	})
 	.option('commit-all', {
 		alias: 'a',
-		describe:
-			'Commit all staged changes, not just files affected by commit-and-tag-version',
+		describe: 'Commit all staged changes, not just files affected by commit-and-tag-version',
 		type: 'boolean',
 		default: defaults.commitAll,
 	})
@@ -86,8 +82,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 		default: defaults.tagForce,
 	})
 	.option('scripts', {
-		describe:
-			'Provide scripts to execute for lifecycle events (prebump, precommit, etc.,)',
+		describe: 'Provide scripts to execute for lifecycle events (prebump, precommit, etc.,)',
 		default: defaults.scripts,
 	})
 	.option('bump', {

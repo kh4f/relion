@@ -38,13 +38,8 @@ export default async function ryly(argv) {
 		}
 	}
 
-	if (
-		argv.preset.header &&
-		argv.preset.header.search(changelog.START_OF_LAST_RELEASE_PATTERN) !== -1
-	) {
-		throw Error(
-			`custom changelog header must not match ${changelog.START_OF_LAST_RELEASE_PATTERN}`,
-		);
+	if (argv.preset.header && argv.preset.header.search(changelog.START_OF_LAST_RELEASE_PATTERN) !== -1) {
+		throw Error(`custom changelog header must not match ${changelog.START_OF_LAST_RELEASE_PATTERN}`);
 	}
 
 	/**
@@ -86,10 +81,10 @@ export default async function ryly(argv) {
 		}
 
 		const newVersion = await getNewVersion(args, version);
-		args.bump && await bump(args, newVersion);
-		args.changelog && await changelog(args, newVersion);
-		args.commit && await commit(args, newVersion);
-		args.tag && await tag(newVersion, pkg ? pkg.private : false, args);
+		args.bump && (await bump(args, newVersion));
+		args.changelog && (await changelog(args, newVersion));
+		args.commit && (await commit(args, newVersion));
+		args.tag && (await tag(newVersion, pkg ? pkg.private : false, args));
 	} catch (err) {
 		printError(args, err.message);
 		throw err;
