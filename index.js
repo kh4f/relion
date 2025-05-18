@@ -9,7 +9,7 @@ import tag from './lib/lifecycles/tag.js';
 import { resolveUpdaterObjectFromArgument } from './lib/updaters/index.js';
 import defaults from './defaults.js';
 
-export default async function standardVersion(argv) {
+export default async function ryly(argv) {
 	/**
 	 * `--message` (`-m`) support will be removed in the next major version.
 	 */
