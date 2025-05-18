@@ -1,9 +1,10 @@
 import spec from 'conventional-changelog-config-spec';
 import { getConfiguration } from './lib/configuration.js';
 import defaults from './defaults.js';
-import yargsModule from 'yargs';
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers';
 
-const yargs = yargsModule
+const yargsInstance = yargs(hideBin(process.argv))
 	.usage('Usage: $0 [options]')
 	.option('packageFiles', {
 		default: defaults.packageFiles,
@@ -119,11 +120,6 @@ const yargs = yargsModule
 		describe:
 			'[DEPRECATED] Use a custom header when generating and updating changelog.\nThis option will be removed in the next major version, please use --header.',
 	})
-	.option('preset', {
-		type: 'string',
-		default: defaults.preset,
-		describe: 'Commit message guideline preset',
-	})
 	.option('lerna-package', {
 		type: 'string',
 		describe: 'Name of the package from which the tags will be extracted',
@@ -156,12 +152,11 @@ const yargs = yargsModule
 
 Object.keys(spec.properties).forEach((propertyKey) => {
 	const property = spec.properties[propertyKey];
-	yargs.option(propertyKey, {
+	yargsInstance.option('preset.' + propertyKey, {
 		type: property.type,
 		describe: property.description,
 		default: defaults[propertyKey] ? defaults[propertyKey] : property.default,
-		group: 'Preset Configuration:',
 	});
 });
 
-export default yargs;
+export default yargsInstance;

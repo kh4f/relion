@@ -1,5 +1,4 @@
-import spec from 'conventional-changelog-config-spec';
-const presetFileURL = import.meta.resolve('./preset/index.js');
+const defaultPresetURL = import.meta.resolve('./preset/index.js');
 
 const defaults = {
 	infile: 'CHANGELOG.md',
@@ -16,24 +15,36 @@ const defaults = {
 	dryRun: false,
 	tagForce: false,
 	gitTagFallback: true,
-	preset: presetFileURL,
 	npmPublishHint: undefined,
+
+	preset: {
+		name: defaultPresetURL,
+		// defaults provided by the spec
+		// https://github.com/conventional-changelog/conventional-changelog-config-spec/tree/master/versions/2.2.0
+		header: "# Changelog\n\n",
+		types: [
+			{ "type": "feat", "section": "Features" },
+			{ "type": "fix", "section": "Bug Fixes" },
+			{ "type": "chore", "hidden": true },
+			{ "type": "docs", "hidden": true },
+			{ "type": "style", "hidden": true },
+			{ "type": "refactor", "hidden": true },
+			{ "type": "perf", "hidden": true },
+			{ "type": "test", "hidden": true }
+		],
+		/* preMajor value is defined in spec, but should not be in defaults 
+		   since it's set to true automatically if version < 1.0.0, 
+		   or matches the user config if provided.
+		*/
+		// preMajor: false,
+		commitUrlFormat: "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
+		compareUrlFormat: "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}",
+		issueUrlFormat: "{{host}}/{{owner}}/{{repository}}/issues/{{id}}",
+		userUrlFormat: "{{host}}/{{user}}",
+		releaseCommitMessageFormat: "chore(release): {{currentTag}}",
+		issuePrefixes: ["#"],
+	},
 };
-
-/**
- * Merge in defaults provided by the spec
- */
-Object.keys(spec.properties).forEach((propertyKey) => {
-	const property = spec.properties[propertyKey];
-	defaults[propertyKey] = property.default;
-});
-
-/**
- * Sets the default for `header` (provided by the spec) for backwards
- * compatibility. This should be removed in the next major version.
- */
-defaults.header =
-	'# Changelog\n\nAll notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.\n';
 
 defaults.packageFiles = ['package.json', 'bower.json', 'manifest.json'];
 

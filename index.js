@@ -8,6 +8,7 @@ import printError from './lib/print-error.js';
 import tag from './lib/lifecycles/tag.js';
 import { resolveUpdaterObjectFromArgument } from './lib/updaters/index.js';
 import defaults from './defaults.js';
+import { mergician } from 'mergician';
 
 export default async function ryly(argv) {
 	/**
@@ -20,7 +21,7 @@ export default async function ryly(argv) {
 		 * for the substitution defined in the config-spec for future-proofing upstream
 		 * handling.
 		 */
-		argv.releaseCommitMessageFormat = message.replace(/%s/g, '{{currentTag}}');
+		argv.preset.releaseCommitMessageFormat = message.replace(/%s/g, '{{currentTag}}');
 		if (!argv.silent) {
 			console.warn(
 				'[commit-and-tag-version]: --message (-m) will be removed in the next major release. Use --releaseCommitMessageFormat.',
@@ -29,7 +30,7 @@ export default async function ryly(argv) {
 	}
 
 	if (argv.changelogHeader) {
-		argv.header = argv.changelogHeader;
+		argv.preset.header = argv.changelogHeader;
 		if (!argv.silent) {
 			console.warn(
 				'[commit-and-tag-version]: --changelogHeader will be removed in the next major release. Use --header.',
@@ -38,8 +39,8 @@ export default async function ryly(argv) {
 	}
 
 	if (
-		argv.header &&
-		argv.header.search(changelog.START_OF_LAST_RELEASE_PATTERN) !== -1
+		argv.preset.header &&
+		argv.preset.header.search(changelog.START_OF_LAST_RELEASE_PATTERN) !== -1
 	) {
 		throw Error(
 			`custom changelog header must not match ${changelog.START_OF_LAST_RELEASE_PATTERN}`,
@@ -53,7 +54,7 @@ export default async function ryly(argv) {
 		defaults.bumpFiles = defaults.bumpFiles.concat(argv.packageFiles);
 	}
 
-	const args = Object.assign({}, defaults, argv);
+	const args = mergician(defaults, argv);
 	let pkg;
 	for (const packageFile of args.packageFiles) {
 		const updater = await resolveUpdaterObjectFromArgument(packageFile);
