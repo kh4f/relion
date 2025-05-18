@@ -11,13 +11,6 @@ import defaults from './defaults.js';
 import { mergician } from 'mergician';
 
 export default async function ryly(argv) {
-	if (args.all) {
-		args.bump = true;
-		args.changelog = true;
-		args.commit = true;
-		args.tag = true;
-	}
-
 	/**
 	 * `--message` (`-m`) support will be removed in the next major version.
 	 */
@@ -85,6 +78,13 @@ export default async function ryly(argv) {
 			version = await latestSemverTag(args);
 		} else {
 			throw new Error('no package file found');
+		}
+
+		if (args.all) {
+			args.bump = true;
+			args.changelog = true;
+			args.commit = true;
+			args.tag = true;
 		}
 
 		const newVersion = await getNewVersion(args, version);
