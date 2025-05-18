@@ -109,6 +109,12 @@ const yargsInstance = yargs(hideBin(process.argv))
 		type: 'boolean',
 		default: defaults.tag,
 	})
+	.option('all', {
+		alias: 'a',
+		describe: 'Run all lifecycle events',
+		type: 'boolean',
+		default: defaults.all,
+	})
 	.option('dry-run', {
 		type: 'boolean',
 		default: defaults.dryRun,

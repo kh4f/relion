@@ -5,6 +5,7 @@ const defaults = {
 	changelog: false,
 	commit: false,
 	tag: false,
+	all: false,
 
 	infile: 'CHANGELOG.md',
 	sign: false,

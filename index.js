@@ -11,6 +11,13 @@ import defaults from './defaults.js';
 import { mergician } from 'mergician';
 
 export default async function ryly(argv) {
+	if (args.all) {
+		args.bump = true;
+		args.changelog = true;
+		args.commit = true;
+		args.tag = true;
+	}
+
 	/**
 	 * `--message` (`-m`) support will be removed in the next major version.
 	 */
