@@ -10,6 +10,16 @@
 	"repository": {"type": "git", "url": "git+https://github.com/Kh4f/ryly.git"},
 	"bugs": {"url": "https://github.com/Kh4f/ryly/issues"},
 	"homepage": "https://github.com/Kh4f/ryly#readme",
+	"keywords": [
+		"ryly",
+		"release",
+		"release-workflow",
+		"release-helper",
+		"semantic-release",
+		"conventional-changelog",
+		"standard-version",
+		"commit-and-tag-version"
+	],
 	"scripts": {
 		"lint": "eslint .",
 		"lint:fix": "npm run lint -- --fix",
@@ -18,16 +28,6 @@
 		"format:check": "npm run format:base -- --check",
 		"release": "node bin/cli.js"
 	},
-	"keywords": [
-		"conventional-changelog",
-		"recommended",
-		"changelog",
-		"automatic",
-		"workflow",
-		"version",
-		"angular",
-		"standard"
-	],
 	"dependencies": {
 		"chalk": "^5.4.1",
 		"conventional-changelog": "^6.0.0",
