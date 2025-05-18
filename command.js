@@ -54,7 +54,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 		default: defaults.noVerify,
 	})
 	.option('commit-all', {
-		alias: 'a',
+		alias: 'C',
 		describe: 'Commit all staged changes, not just files affected by commit-and-tag-version',
 		type: 'boolean',
 		default: defaults.commitAll,
@@ -65,7 +65,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 		default: defaults.silent,
 	})
 	.option('tag-prefix', {
-		alias: 't',
+		alias: 'T',
 		describe: 'Set a custom prefix for the git tag to be created',
 		type: 'string',
 		default: defaults.tagPrefix,
