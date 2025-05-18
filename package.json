@@ -12,6 +12,14 @@
 	"main": "index.js",
 	"type": "module",
 	"bin": "bin/cli.js",
+	"files": [
+		"bin",
+		"src",
+		"package.json",
+		"LICENSE",
+		"README.md",
+		"CHANGELOG.md"
+	],
 	"scripts": {
 		"lint": "eslint .",
 		"lint:fix": "npm run lint -- --fix",
