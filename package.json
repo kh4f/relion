@@ -14,9 +14,6 @@
     "release": "node bin/cli.js"
   },
   "repository": "absolute-version/commit-and-tag-version",
-  "engines": {
-    "node": ">=18"
-  },
   "keywords": [
     "conventional-changelog",
     "recommended",
