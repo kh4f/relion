@@ -48,6 +48,10 @@ const defaults = {
 		releaseCommitMessageFormat: 'chore(release): {{currentTag}}',
 		issuePrefixes: ['#'],
 	},
+
+	writerOpts: {
+		commitsSort: false,
+	},
 };
 
 defaults.bumpFiles = defaults.packageFiles.concat([
