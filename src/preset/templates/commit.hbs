@@ -16,15 +16,15 @@
   , closes
   {{~#each references}} {{#if @root.linkReferences~}}
     [
-    {{~#if this.owner}}
-      {{~this.owner}}/
+    {{~#if owner}}
+      {{~owner}}/
     {{~/if}}
-    {{~this.repository}}{{this.prefix}}{{this.issue}}]({{issueUrlFormat}})
+    {{~repository}}{{prefix}}{{issue}}]({{issueUrlFormat}})
   {{~else}}
-    {{~#if this.owner}}
-      {{~this.owner}}/
+    {{~#if owner}}
+      {{~owner}}/
     {{~/if}}
-    {{~this.repository}}{{this.prefix}}{{this.issue}}
+    {{~repository}}{{prefix}}{{issue}}
   {{~/if}}{{/each}}
 {{~/if}}
 
