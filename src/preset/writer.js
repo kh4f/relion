@@ -48,6 +48,7 @@ export async function createWriterOpts(config) {
 		.replace(/{{commitUrlFormat}}/g, commitUrlFormat)
 		.replace(/{{issueUrlFormat}}/g, issueUrlFormat)
 	writerOpts.footerPartial = footer
+		.replace(/{{compareUrlFormat}}/g, compareUrlFormat)
 
 	return writerOpts
 }
