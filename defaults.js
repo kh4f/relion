@@ -2,7 +2,6 @@ const defaultPresetURL = import.meta.resolve('./preset/index.js');
 
 const defaults = {
 	infile: 'CHANGELOG.md',
-	firstRelease: false,
 	sign: false,
 	signoff: false,
 	noVerify: false,

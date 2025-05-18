@@ -38,12 +38,6 @@ const yargsInstance = yargs(hideBin(process.argv))
 			'[DEPRECATED] Commit message, replaces %s with new version.\nThis option will be removed in the next major version, please use --releaseCommitMessageFormat.',
 		type: 'string',
 	})
-	.option('first-release', {
-		alias: 'f',
-		describe: 'Is this the first release?',
-		type: 'boolean',
-		default: defaults.firstRelease,
-	})
 	.option('sign', {
 		alias: 's',
 		describe: 'Should the git commit and tag be signed?',
