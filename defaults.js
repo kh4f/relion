@@ -21,6 +21,8 @@ const defaults = {
 	npmPublishHint: undefined,
 	packageFiles: ['package.json', 'bower.json', 'manifest.json'],
 
+	context: {},
+
 	preset: {
 		name: defaultPresetURL,
 		// defaults provided by the spec

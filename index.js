@@ -81,6 +81,7 @@ export default async function ryly(argv) {
 		}
 
 		const newVersion = await getNewVersion(args, version);
+		args.context.version = newVersion;
 		args.bump && (await bump(args, newVersion));
 		args.changelog && (await changelog(args, newVersion));
 		args.commit && (await commit(args, newVersion));
