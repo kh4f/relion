@@ -1,30 +1,19 @@
-*{{#if scope}} **{{scope}}:**
-{{~/if}} {{#if subject}}
-  {{~subject}}
-{{~else}}
-  {{~header}}
+* {{#if scope}}`{{scope}}` {{/if~}}
+{{#if subject}}{{subject}}{{else}}{{header}}{{/if}}
+
+{{~! commit link}}
+{{~#if hash}}
+	{{~#if @root.linkReferences}} ([{{shortHash}}]({{commitUrlFormat}}))
+	{{~else}} {{shortHash}}{{~/if}}
 {{~/if}}
 
-{{~!-- commit link --}}{{~#if hash}} {{#if @root.linkReferences~}}
-  ([{{shortHash}}]({{commitUrlFormat}}))
-{{~else}}
-  {{~shortHash}}
-{{~/if}}{{~/if}}
-
-{{~!-- commit references --}}
-{{~#if references~}}
-  , closes
-  {{~#each references}} {{#if @root.linkReferences~}}
-    [
-    {{~#if owner}}
-      {{~owner}}/
-    {{~/if}}
-    {{~repository}}{{prefix}}{{issue}}]({{issueUrlFormat}})
-  {{~else}}
-    {{~#if owner}}
-      {{~owner}}/
-    {{~/if}}
-    {{~repository}}{{prefix}}{{issue}}
-  {{~/if}}{{/each}}
+{{~! commit references}}
+{{~#if references}} (
+{{~#each references}}
+	{{#if @root.linkReferences~}}
+		[{{~#if owner}}{{owner}}/{{/if}}{{repository}}{{prefix}}{{issue}}]({{issueUrlFormat}})
+	{{~else}}
+		{{~#if owner}}{{owner}}/{{/if}}{{repository}}{{prefix}}{{issue}}
+{{~/if}}{{~#unless @last}}, {{/unless}}{{~#if @last}}){{~/if}}
+{{~/each}}
 {{~/if}}
-
