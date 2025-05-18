@@ -115,6 +115,11 @@ const yargsInstance = yargs(hideBin(process.argv))
 		type: 'boolean',
 		default: defaults.all,
 	})
+	.option('context.linkReferences', {
+		describe: 'Should all references be linked?',
+		type: 'boolean',
+		default: defaults.context.linkReferences,
+	})
 	.option('dry-run', {
 		type: 'boolean',
 		default: defaults.dryRun,
