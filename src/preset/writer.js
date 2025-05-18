@@ -1,10 +1,8 @@
-import { readFile } from 'fs/promises'
-import { resolve } from 'path'
-import { fileURLToPath } from 'url'
 import compareFunc from 'compare-func'
 import { DEFAULT_COMMIT_TYPES } from './constants.js'
+import { main, commit, header, footer } from './templates/index.js';
 
-const dirname = fileURLToPath(new URL('.', import.meta.url))
+
 const COMMIT_HASH_LENGTH = 7
 const releaseAsRegex = /release-as:\s*\w*@?([0-9]+\.[0-9]+\.[0-9a-z]+(-[0-9a-z.]+)?)\s*/i
 /**
@@ -41,20 +39,9 @@ export async function createWriterOpts(config) {
 		id: '{{this.issue}}',
 		prefix: '{{this.prefix}}'
 	})
-	const [
-		template,
-		header,
-		commit,
-		footer
-	] = await Promise.all([
-		readFile(resolve(dirname, './templates/main.hbs'), 'utf-8'),
-		readFile(resolve(dirname, './templates/header.hbs'), 'utf-8'),
-		readFile(resolve(dirname, './templates/commit.hbs'), 'utf-8'),
-		readFile(resolve(dirname, './templates/footer.hbs'), 'utf-8')
-	])
 	const writerOpts = getWriterOpts(finalConfig)
 
-	writerOpts.mainTemplate = template
+	writerOpts.mainTemplate = main
 	writerOpts.headerPartial = header
 		.replace(/{{compareUrlFormat}}/g, compareUrlFormat)
 	writerOpts.commitPartial = commit

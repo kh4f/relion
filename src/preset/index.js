@@ -4,6 +4,7 @@ import { createWriterOpts } from './writer.js';
 import { createWhatBump } from './whatBump.js';
 
 export { DEFAULT_COMMIT_TYPES };
+export * from './templates/index.js';
 
 export default async function createPreset(config) {
 	return {
