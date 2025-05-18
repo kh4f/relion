@@ -3,6 +3,7 @@
 	"version": "0.0.0",
 	"description": "Release workflow helper based on commit-and-tag-version",
 	"author": "Kh4f",
+	"license": "MIT",
 	"main": "index.js",
 	"type": "module",
 	"bin": "bin/cli.js",
@@ -27,7 +28,6 @@
 		"angular",
 		"standard"
 	],
-	"license": "ISC",
 	"dependencies": {
 		"chalk": "^5.4.1",
 		"conventional-changelog": "^6.0.0",
