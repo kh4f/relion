@@ -16,6 +16,7 @@ const defaults = {
 	tagForce: false,
 	gitTagFallback: true,
 	npmPublishHint: undefined,
+	packageFiles: ['package.json', 'bower.json', 'manifest.json'],
 
 	preset: {
 		name: defaultPresetURL,
@@ -45,8 +46,6 @@ const defaults = {
 		issuePrefixes: ["#"],
 	},
 };
-
-defaults.packageFiles = ['package.json', 'bower.json', 'manifest.json'];
 
 defaults.bumpFiles = defaults.packageFiles.concat([
 	'package-lock.json',
