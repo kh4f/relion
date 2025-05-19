@@ -1,5 +1,4 @@
 {
-	"changelog": true,
 	"preset": {
 		"types": [
 			{ "type": "feat", "section": "✨ Features", "hidden": false },
@@ -8,5 +7,23 @@
 			{ "type": "chore", "section": "🧹 Adjustments", "hidden": true },
 			{ "type": "refactor", "section": "🧹 Adjustments", "hidden": true }
 		]
+	},
+
+	"_gh-release-notes": {
+		"bump": false,
+		"commit": false,
+		"tag": false,
+		"changelog": true,
+		"infile": "RELEASE.md",
+		"preset": {
+			"header": ""
+		},
+		"context": {
+			"fullChangelogLink": true,
+			"linkReferences": false
+		},
+		"writerOpts": {
+			"headerPartial": ""
+		}
 	}
 }
