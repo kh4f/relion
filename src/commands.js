@@ -21,7 +21,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 		string: true,
 	})
 	.option('prerelease', {
-		alias: 'p',
+		alias: 'P',
 		describe: 'make a pre-release with optional option value to specify a tag id',
 		string: true,
 	})
@@ -124,6 +124,11 @@ const yargsInstance = yargs(hideBin(process.argv))
 		describe: 'Add a "Full Changelog: v1...v2" link to the footer',
 		type: 'boolean',
 		default: defaults.context.fullChangelogLink,
+	})
+	.option('profile', {
+		alias: 'p',
+		describe: 'Specify a named config profile to merge with the base config (properties under _<profile-name> in .versionrc)',
+		type: 'string',
 	})
 	.option('dry-run', {
 		type: 'boolean',

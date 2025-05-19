@@ -49,7 +49,11 @@ export default async function ryly(argv) {
 		defaults.bumpFiles = defaults.bumpFiles.concat(argv.packageFiles);
 	}
 
-	const args = mergician(defaults, argv);
+	let args = mergician(defaults, argv);
+	if (args.profile) {
+		args = mergeProfileConfig(args);
+	}
+	
 	let pkg;
 	for (const packageFile of args.packageFiles) {
 		const updater = await resolveUpdaterObjectFromArgument(packageFile);
@@ -97,4 +101,32 @@ export default async function ryly(argv) {
 		printError(args, err.message);
 		throw err;
 	}
+}
+
+/**
+ * Merge profile config if args.profile is specified.
+ * Merges args._<profile> into args, then deletes args._<profile>.
+ */
+function mergeProfileConfig(args) {
+	function uniqBy(arr, keyFn) {
+		const seen = new Set();
+		return arr.filter(item => {
+			const key = keyFn(item);
+			if (seen.has(key)) return false;
+			seen.add(key);
+			return true;
+		});
+	}
+
+	const profileKey = `_${args.profile}`;
+	const merged = mergician({
+		prependArrays: true,
+		dedupArrays: true
+	})(args, structuredClone(args[profileKey]));
+
+	const dedupedTypes = uniqBy(merged.preset.types, item => item.type);
+	merged.preset.types = dedupedTypes;
+
+	delete merged[profileKey];
+	return merged;
 }
