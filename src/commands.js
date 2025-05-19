@@ -180,6 +180,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 
 Object.keys(spec.properties).forEach((propertyKey) => {
 	const property = spec.properties[propertyKey];
+	if (!defaults.preset[propertyKey]) return;
 	yargsInstance.option('preset.' + propertyKey, {
 		type: property.type,
 		describe: property.description,
