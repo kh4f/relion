@@ -3,11 +3,9 @@ import { findUpSync } from 'find-up';
 import { readFileSync } from 'fs';
 
 const CONFIGURATION_FILES = [
-	'.versionrc',
-	'.versionrc.cjs',
-	'.versionrc.json',
-	'.versionrc.js',
-];
+	'', '.json', '.js', '.cjs', '.mjs', '.ts']
+	.map(ext => `.versionrc${ext}`);
+
 
 export async function getConfiguration() {
 	let config = {};
@@ -16,10 +14,8 @@ export async function getConfiguration() {
 		return config;
 	}
 	const ext = path.extname(configPath);
-	if (ext === '.js' || ext === '.cjs') {
-		const jsConfiguration = (await import(configPath)).default;
-		if (typeof jsConfiguration === 'function') {
-			config = jsConfiguration();
+	const regex = /^\.([cm]?js|ts)$/;
+	if (regex.test(ext)) {
 		} else {
 			config = jsConfiguration;
 		}
