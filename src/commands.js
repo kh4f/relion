@@ -184,7 +184,7 @@ Object.keys(spec.properties).forEach((propertyKey) => {
 	yargsInstance.option('preset.' + propertyKey, {
 		type: property.type,
 		describe: property.description,
-		default: defaults[propertyKey] ? defaults[propertyKey] : property.default,
+		default: defaults.preset[propertyKey],
 	});
 });
 
