@@ -173,7 +173,6 @@ const yargsInstance = yargs(hideBin(process.argv))
 		'$0 -m "%s: see changelog for details"',
 		'Update changelog and tag release with custom commit message',
 	)
-	.pkgConf('standard-version')
 	.pkgConf('ryly')
 	.config(await getConfiguration())
 	.wrap(97);
