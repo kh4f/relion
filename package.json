@@ -1,7 +1,7 @@
 {
 	"name": "ryly",
 	"version": "0.0.0",
-	"description": "Release workflow helper based on commit-and-tag-version",
+	"description": "Release workflow helper for Node.js projects.",
 	"author": "Kh4f",
 	"license": "MIT",
 	"repository": {"type": "git", "url": "git+https://github.com/Kh4f/ryly.git"},
