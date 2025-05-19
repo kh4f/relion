@@ -1,10 +1,12 @@
 {
-  "types": [
-    {"type":"feat","section":"Features"},
-    {"type":"fix","section":"Bug Fixes"},
-    {"type":"test","section":"Tests", "hidden": true},
-    {"type":"build","section":"Build System", "hidden": true},
-    {"type":"ci","hidden":true}
-  ]
+	"changelog": true,
+	"preset": {
+		"types": [
+			{ "type": "feat", "section": "✨ Features", "hidden": false },
+			{ "type": "fix", "section": "🩹 Bug Fixes", "hidden": false },
+			{ "type": "perf", "section": "⚡ Performance", "hidden": false },
+			{ "type": "chore", "section": "🧹 Adjustments", "hidden": true },
+			{ "type": "refactor", "section": "🧹 Adjustments", "hidden": true }
+		]
+	}
 }
-
