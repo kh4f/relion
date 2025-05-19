@@ -1,0 +1,46 @@
+name: Release Package
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set version tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Create release archive
+        run: zip -r "relow-${tag}.zip" bin/ src/ package.json README.md LICENSE CHANGELOG.md
+
+      - name: Generate checksum file
+        run: sha256sum "relow-${tag}.zip" > "relow-${tag}-checksum.sha256"
+
+      - name: Generate release notes
+        run: npm run release:gh-notes
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RELEASE_NOTES=$(cat RELEASE.md)
+
+          gh release create "$tag" \
+            --title="$tag" \
+            --notes "$RELEASE_NOTES" \
+            --draft \
+            "relow-${tag}.zip" "relow-${tag}-checksum.sha256"
