@@ -55,7 +55,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 	})
 	.option('commit-all', {
 		alias: 'C',
-		describe: 'Commit all staged changes, not just files affected by commit-and-tag-version',
+		describe: 'Commit all staged changes, not just files affected by ryly',
 		type: 'boolean',
 		default: defaults.commitAll,
 	})
@@ -133,7 +133,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 	.option('dry-run', {
 		type: 'boolean',
 		default: defaults.dryRun,
-		describe: 'See the commands that running commit-and-tag-version would run',
+		describe: 'See the commands that running ryly would run',
 	})
 	.option('git-tag-fallback', {
 		type: 'boolean',
@@ -174,7 +174,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 		'Update changelog and tag release with custom commit message',
 	)
 	.pkgConf('standard-version')
-	.pkgConf('commit-and-tag-version')
+	.pkgConf('ryly')
 	.config(await getConfiguration())
 	.wrap(97);
 

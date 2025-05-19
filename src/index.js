@@ -24,7 +24,7 @@ export default async function ryly(argv) {
 		argv.preset.releaseCommitMessageFormat = message.replace(/%s/g, '{{currentTag}}');
 		if (!argv.silent) {
 			console.warn(
-				'[commit-and-tag-version]: --message (-m) will be removed in the next major release. Use --releaseCommitMessageFormat.',
+				'[ryly]: --message (-m) will be removed in the next major release. Use --releaseCommitMessageFormat.',
 			);
 		}
 	}
@@ -33,7 +33,7 @@ export default async function ryly(argv) {
 		argv.preset.header = argv.changelogHeader;
 		if (!argv.silent) {
 			console.warn(
-				'[commit-and-tag-version]: --changelogHeader will be removed in the next major release. Use --header.',
+				'[ryly]: --changelogHeader will be removed in the next major release. Use --header.',
 			);
 		}
 	}

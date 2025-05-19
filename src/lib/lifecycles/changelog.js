@@ -18,7 +18,7 @@ export default Changelog;
 
 /**
  * Front matter is only extracted and therefore retained in final output where Changelog "header" begins with #Changelog,
- * e.g. meets Standard-Version (last release) or commit-and-tag-version(current) format
+ * e.g. meets Standard-Version (last release) or ryly(current) format
  */
 function extractFrontMatter(oldContent) {
 	const headerStart = oldContent.indexOf('# Changelog');
