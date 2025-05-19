@@ -1,6 +1,8 @@
 import path from 'path';
 import { findUpSync } from 'find-up';
 import { readFileSync } from 'fs';
+import { pathToFileURL } from 'url';
+
 
 const CONFIGURATION_FILES = [
 	'', '.json', '.js', '.cjs', '.mjs', '.ts']
@@ -10,27 +12,23 @@ const CONFIGURATION_FILES = [
 export async function getConfiguration() {
 	let config = {};
 	const configPath = findUpSync(CONFIGURATION_FILES);
-	if (!configPath) {
-		return config;
-	}
+	if (!configPath) return config;
+
 	const ext = path.extname(configPath);
 	const regex = /^\.([cm]?js|ts)$/;
 	if (regex.test(ext)) {
+		const exportedConfig = (await import(pathToFileURL(configPath).href)).default;
+		if (typeof exportedConfig === 'function') {
+			config = exportedConfig();
 		} else {
-			config = jsConfiguration;
+			config = exportedConfig;
 		}
 	} else {
 		config = JSON.parse(readFileSync(configPath));
 	}
 
-	/**
-	 * @todo we could eventually have deeper validation of the configuration (using `ajv`) and
-	 * provide a more helpful error.
-	 */
 	if (typeof config !== 'object') {
-		throw Error(
-			`[commit-and-tag-version] Invalid configuration in ${configPath} provided. Expected an object but found ${typeof config}.`,
-		);
+		throw Error(`[commit-and-tag-version] Invalid configuration in ${configPath} provided. Expected an object but found ${typeof config}.`,);
 	}
 
 	return config;
