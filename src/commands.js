@@ -55,7 +55,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 	})
 	.option('commit-all', {
 		alias: 'C',
-		describe: 'Commit all staged changes, not just files affected by ryly',
+		describe: 'Commit all staged changes, not just files affected by relion',
 		type: 'boolean',
 		default: defaults.commitAll,
 	})
@@ -133,7 +133,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 	.option('dry-run', {
 		type: 'boolean',
 		default: defaults.dryRun,
-		describe: 'See the commands that running ryly would run',
+		describe: 'See the commands that running relion would run',
 	})
 	.option('git-tag-fallback', {
 		type: 'boolean',
@@ -173,7 +173,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 		'$0 -m "%s: see changelog for details"',
 		'Update changelog and tag release with custom commit message',
 	)
-	.pkgConf('ryly')
+	.pkgConf('relion')
 	.config(await getConfiguration())
 	.wrap(97);
 

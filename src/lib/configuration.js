@@ -28,7 +28,7 @@ export async function getConfiguration() {
 	}
 
 	if (typeof config !== 'object') {
-		throw Error(`[ryly] Invalid configuration in ${configPath} provided. Expected an object but found ${typeof config}.`,);
+		throw Error(`[relion] Invalid configuration in ${configPath} provided. Expected an object but found ${typeof config}.`,);
 	}
 
 	return config;
