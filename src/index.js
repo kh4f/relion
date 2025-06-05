@@ -9,6 +9,7 @@ import tag from './lib/lifecycles/tag.js';
 import { resolveUpdaterObjectFromArgument } from './lib/updaters/index.js';
 import defaults from './defaults.js';
 import { mergician } from 'mergician';
+import { execSync } from 'child_process';
 
 export default async function relion(argv) {
 	/**
@@ -94,6 +95,12 @@ export default async function relion(argv) {
 		const newVersion = await getNewVersion(args, version);
 		args.context.version = newVersion;
 		args.context.newTag = args.tagPrefix + newVersion;
+
+		if (lastCommitHasTag()) {
+			// use the current version as the new version if there's no new commits
+			// to avoid empty new release changelog generation
+			args.context.version = version;
+		}
 		
 		args.bump && (await bump(args, newVersion));
 		args.changelog && (await changelog(args, newVersion));
@@ -103,6 +110,12 @@ export default async function relion(argv) {
 		printError(args, err.message);
 		throw err;
 	}
+}
+
+function lastCommitHasTag() {
+	const lastCommit = execSync('git rev-parse HEAD').toString().trim();
+	const tags = execSync(`git tag --points-at ${lastCommit}`).toString().trim();
+	return !!tags;
 }
 
 /**
