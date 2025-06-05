@@ -27,7 +27,7 @@
 		"format:fix": "npm run format:base -- --write",
 		"format:check": "npm run format:base -- --check",
 		"release": "node bin/cli.js --changelog --bum --commit --tag",
-		"release:gh-notes": "node bin/cli.js --profile gh-release-notes"
+		"release:gh-notes": "node bin/cli.js --profile gh-release-notes --changelog"
 	},
 	"dependencies": {
 		"chalk": "^5.4.1",

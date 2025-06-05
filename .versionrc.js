@@ -10,10 +10,6 @@ export default {
 	},
 
 	"_gh-release-notes": {
-		bump: false,
-		commit: false,
-		tag: false,
-		changelog: true,
 		infile: "RELEASE.md",
 		preset: {
 			header: ""
