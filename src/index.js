@@ -100,6 +100,11 @@ export default async function relion(argv) {
 			// use the current version as the new version if there's no new commits
 			// to avoid empty new release changelog generation
 			args.context.version = version;
+
+			if (args.releaseCount === 1) {
+				// genearate the last release changelog
+				args.releaseCount = 2;
+			}
 		}
 		
 		args.bump && (await bump(args, newVersion));
