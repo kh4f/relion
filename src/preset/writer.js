@@ -57,6 +57,21 @@ function getWriterOpts(config) {
 	const commitGroupOrder = config.types.flatMap(t => t.section).filter(t => t)
 
 	return {
+		finalizeContext: (context, _writerOpts, _filteredCommits, keyCommit) => {
+			if (keyCommit) {
+				const versionTagRegex = /tag:\s*([^,\s)]+)/i
+				const keyCommitTag = keyCommit.gitTags?.match(versionTagRegex)
+				if (keyCommitTag) {
+					context.currentTag = keyCommitTag[1];
+					const currentTagIndex = context.gitSemverTags.indexOf(context.currentTag);
+					context.previousTag = (currentTagIndex === -1) ? null : context.gitSemverTags[currentTagIndex + 1];
+				}
+			} else {
+				context.currentTag = context.newTag || null;
+				context.previousTag = context.gitSemverTags[0] || null;
+			}
+			return context;
+		},
 		transform: (commit, context) => {
 			let discard = true
 			const issues = []

@@ -93,6 +93,8 @@ export default async function relion(argv) {
 
 		const newVersion = await getNewVersion(args, version);
 		args.context.version = newVersion;
+		args.context.newTag = args.tagPrefix + newVersion;
+		
 		args.bump && (await bump(args, newVersion));
 		args.changelog && (await changelog(args, newVersion));
 		args.commit && (await commit(args, newVersion));
