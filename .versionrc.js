@@ -1,4 +1,5 @@
 export default {
+	sign: true,
 	preset: {
 		types: [
 			{ type: "feat", section: "✨ Features", hidden: false },
