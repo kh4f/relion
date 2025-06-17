@@ -26,7 +26,7 @@
 		"format:base": "prettier \"./**/*.{ts,js}\"",
 		"format:fix": "npm run format:base -- --write",
 		"format:check": "npm run format:base -- --check",
-		"release": "node bin/cli.js --changelog --bum --commit --tag",
+		"release": "node bin/cli.js --changelog --bump --commit --tag",
 		"release:gh-notes": "node bin/cli.js --profile gh-release-notes --changelog"
 	},
 	"dependencies": {
