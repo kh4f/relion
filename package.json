@@ -1,14 +1,27 @@
 {
 	"name": "relion",
-	"version": "0.0.0",
+	"version": "0.1.1",
 	"description": "Release workflow helper for Node.js projects.",
 	"author": "Kh4f",
 	"license": "MIT",
-	"repository": {"type": "git", "url": "git+https://github.com/Kh4f/relion.git"},
-	"bugs": {"url": "https://github.com/Kh4f/relion/issues"},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Kh4f/relion.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Kh4f/relion/issues"
+	},
 	"homepage": "https://github.com/Kh4f/relion#readme",
-	"keywords": ["relion","release", "release-workflow", "release-helper", "semantic-release",
-		"conventional-changelog", "standard-version", "commit-and-tag-version"],
+	"keywords": [
+		"relion",
+		"release",
+		"release-workflow",
+		"release-helper",
+		"semantic-release",
+		"conventional-changelog",
+		"standard-version",
+		"commit-and-tag-version"
+	],
 	"main": "./src/index.js",
 	"type": "module",
 	"bin": "bin/cli.js",
