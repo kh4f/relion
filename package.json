@@ -44,6 +44,7 @@
 	},
 	"dependencies": {
 		"chalk": "^5.4.1",
+		"compare-func": "^2.0.0",
 		"conventional-changelog": "^6.0.0",
 		"conventional-changelog-config-spec": "^2.1.0",
 		"conventional-changelog-conventionalcommits": "^8.0.0",
