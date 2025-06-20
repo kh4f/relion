@@ -1,67 +1,60 @@
-import globals from 'globals';
-import js from '@eslint/js';
-import jest from 'eslint-plugin-jest';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import { defineConfig, globalIgnores } from 'eslint/config'
+import eslint from '@eslint/js'
+import tseslint from 'typescript-eslint'
+import stylistic from '@stylistic/eslint-plugin'
+import globals from 'globals'
 
-/**
- * @type {import("eslint").Linter.Config}
- */
-export default [
+const isExtensionMode = !!process.env.VSCODE_CWD
+
+export default defineConfig([
+	globalIgnores([
+		'dist',
+		// Lint `temp` directory only in extension mode
+		(!isExtensionMode ? 'temp' : ''),
+	].filter(Boolean), 'Global Ignores'),
 	{
-		ignores: ['.git/', '.github/', '.husky/', '.scannerwork/', '.vscode/', 'coverage/', 'node_modules/'],
-		name: 'Files to ignore',
-	},
-	{
-		...eslintConfigPrettier,
-		name: 'Prettier',
-	},
-	{
-		...js.configs.recommended,
-		files: ['**/*.{js,cjs,mjs}'],
-		languageOptions: {
-			ecmaVersion: 2023,
-		},
-		name: 'JavaScript files',
-		rules: {
-			...js.configs.recommended.rules,
-			'no-var': 'error',
-			'no-unused-vars': [
-				'error',
-				{
-					argsIgnorePattern: '_.*',
-				},
-			],
-		},
-	},
-	{
-		files: ['**/*.mjs'],
-		languageOptions: {
-			sourceType: 'module',
-		},
-		name: 'JavaScript modules',
-	},
-	{
-		files: ['**/*.{js,cjs,mjs}'],
+		name: 'Base Rules',
+		files: ['**/*.{js,ts}'],
+		extends: [
+			eslint.configs.recommended,
+		],
 		languageOptions: {
 			globals: {
 				...globals.node,
 			},
 		},
-		name: 'Node.js files',
 	},
 	{
-		...jest.configs['flat/recommended'],
-		files: ['test/**/*{spec,test}.{js,cjs,mjs}', 'test/mocks/jest-mocks.js'],
+		name: 'Type-Aware Rules',
+		files: ['**/*.ts'],
+		extends: [
+			// @ts-expect-error TS2322: type mismatch between ESLint and typescript-eslint
+			// see https://github.com/eslint/eslint/issues/19570#issuecomment-2749093867
+			tseslint.configs.recommendedTypeChecked,
+			// @ts-expect-error TS2322: type mismatch between ESLint and typescript-eslint
+			tseslint.configs.stylisticTypeChecked,
+		],
 		languageOptions: {
-			globals: {
-				...globals.jest,
+			parserOptions: {
+				projectService: true,
+				tsconfigRootDir: import.meta.dirname,
 			},
 		},
-		name: 'Test files',
+	},
+	{
+		name: 'Stylistic Rules',
+		files: ['**/*.{js,ts}'],
+		plugins: {
+			'@stylistic': stylistic,
+		},
+		extends: [
+			stylistic.configs.recommended,
+		],
 		rules: {
-			...jest.configs['flat/recommended'].rules,
-			'jest/prefer-expect-assertions': 'off',
-			'jest/expect-expect': 'off',
+			'@stylistic/indent': ['error', 'tab'],
+			'@stylistic/no-tabs': 'off',
+			'@stylistic/linebreak-style': ['error', 'unix'],
+			'@stylistic/eol-last': ['error', 'never'],
 		},
 	},
-];
+])
