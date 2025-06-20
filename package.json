@@ -35,10 +35,10 @@
 	],
 	"scripts": {
 		"lint": "eslint .",
-		"lint:fix": "npm run lint -- --fix",
+		"lint:fix": "pnpm lint -- --fix",
 		"format:base": "prettier \"./**/*.{ts,js}\"",
-		"format:fix": "npm run format:base -- --write",
-		"format:check": "npm run format:base -- --check",
+		"format:fix": "pnpm format:base -- --write",
+		"format:check": "pnpm format:base -- --check",
 		"release": "node bin/cli.js --changelog --bump --commit --tag",
 		"release:gh-notes": "node bin/cli.js --profile gh-release-notes --changelog"
 	},
