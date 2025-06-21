@@ -24,9 +24,8 @@
 	],
 	"main": "./src/index.js",
 	"type": "module",
-	"bin": "bin/cli.js",
+	"bin": "./src/cli.js",
 	"files": [
-		"bin",
 		"src",
 		"package.json",
 		"LICENSE",

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import relion from '../src/index.js'
-import cmdParser from '../src/commands.js'
+import relion from './index.js'
+import cmdParser from './commands.js'
 
 relion(cmdParser.argv).catch((err) => {
 	console.error(err)
