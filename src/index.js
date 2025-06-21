@@ -60,19 +60,12 @@ export default async function relion(argv) {
 		const updater = await resolveUpdaterObjectFromArgument(packageFile)
 		if (!updater) return
 		const pkgPath = path.resolve(process.cwd(), updater.filename)
-		try {
-			const contents = fs.readFileSync(pkgPath, 'utf8')
-			pkg = {
-				version: updater.updater.readVersion(contents),
-				private:
-					typeof updater.updater.isPrivate === 'function'
-						? updater.updater.isPrivate(contents)
-						: false,
-			}
-			break
-		}
-		catch (err) {
-			/* This probably shouldn't be empty? */
+		const contents = fs.readFileSync(pkgPath, 'utf8')
+		pkg = {
+			version: updater.updater.readVersion(contents),
+			private: typeof updater.updater.isPrivate === 'function'
+				? updater.updater.isPrivate(contents)
+				: false,
 		}
 	}
 	try {
