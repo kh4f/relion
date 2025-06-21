@@ -13,4 +13,4 @@ export const DEFAULT_COMMIT_TYPES = Object.freeze(
 		{ type: 'build', section: 'Build System', hidden: true },
 		{ type: 'ci', section: 'Continuous Integration', hidden: true },
 	].map(Object.freeze),
-);
+)

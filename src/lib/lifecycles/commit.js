@@ -1,61 +1,61 @@
-import bump from '../lifecycles/bump.js';
-import checkpoint from '../checkpoint.js';
-import formatCommitMessage from '../format-commit-message.js';
-import path from 'path';
-import runExecFile from '../run-execFile.js';
-import runLifecycleScript from '../run-lifecycle-script.js';
+import bump from '../lifecycles/bump.js'
+import checkpoint from '../checkpoint.js'
+import formatCommitMessage from '../format-commit-message.js'
+import path from 'path'
+import runExecFile from '../run-execFile.js'
+import runLifecycleScript from '../run-lifecycle-script.js'
 
 export default async function (args, newVersion) {
-	const message = await runLifecycleScript(args, 'precommit');
-	if (message && message.length) args.preset.releaseCommitMessageFormat = message;
-	await execCommit(args, newVersion);
-	await runLifecycleScript(args, 'postcommit');
+	const message = await runLifecycleScript(args, 'precommit')
+	if (message && message.length) args.preset.releaseCommitMessageFormat = message
+	await execCommit(args, newVersion)
+	await runLifecycleScript(args, 'postcommit')
 }
 
 async function execCommit(args, newVersion) {
-	let msg = 'committing %s';
-	let paths = [];
-	const verify = args.verify === false || args.n ? ['--no-verify'] : [];
-	const sign = args.sign ? ['-S'] : [];
-	const signoff = args.signoff ? ['--signoff'] : [];
-	const toAdd = [];
+	let msg = 'committing %s'
+	let paths = []
+	const verify = args.verify === false || args.n ? ['--no-verify'] : []
+	const sign = args.sign ? ['-S'] : []
+	const signoff = args.signoff ? ['--signoff'] : []
+	const toAdd = []
 
 	// only start with a pre-populated paths list when CHANGELOG processing is not skipped
 	if (args.changelog) {
-		paths = [args.infile];
-		toAdd.push(args.infile);
+		paths = [args.infile]
+		toAdd.push(args.infile)
 	}
 
 	// commit any of the config files that we've updated
 	// the version # for.
 	Object.keys(bump.getUpdatedConfigs()).forEach(function (p) {
-		paths.unshift(p);
-		toAdd.push(path.relative(process.cwd(), p));
+		paths.unshift(p)
+		toAdd.push(path.relative(process.cwd(), p))
 
 		// account for multiple files in the output message
 		if (paths.length > 1) {
-			msg += ' and %s';
+			msg += ' and %s'
 		}
-	});
+	})
 
 	if (args.commitAll) {
-		msg += ' and %s';
-		paths.push('all staged files');
+		msg += ' and %s'
+		paths.push('all staged files')
 	}
 
-	checkpoint(args, msg, paths);
+	checkpoint(args, msg, paths)
 
 	// nothing to do, exit without commit anything
 	if (
-		!args.commitAll &&
-		!args.changelog &&
-		!args.bump &&
-		toAdd.length === 0
+		!args.commitAll
+		&& !args.changelog
+		&& !args.bump
+		&& toAdd.length === 0
 	) {
-		return;
+		return
 	}
 
-	await runExecFile(args, 'git', ['add'].concat(toAdd));
+	await runExecFile(args, 'git', ['add'].concat(toAdd))
 	await runExecFile(
 		args,
 		'git',
@@ -63,5 +63,5 @@ async function execCommit(args, newVersion) {
 			'-m',
 			`${formatCommitMessage(args)}`,
 		]),
-	);
+	)
 }

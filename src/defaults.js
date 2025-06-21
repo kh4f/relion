@@ -1,4 +1,4 @@
-const defaultPresetURL = import.meta.resolve('./preset/index.js');
+const defaultPresetURL = import.meta.resolve('./preset/index.js')
 
 const defaults = {
 	bump: false,
@@ -42,8 +42,8 @@ const defaults = {
 			{ type: 'perf', hidden: true },
 			{ type: 'test', hidden: true },
 		],
-		/* preMajor value is defined in spec, but should not be in defaults 
-		   since it's set to true automatically if version < 1.0.0, 
+		/* preMajor value is defined in spec, but should not be in defaults
+		   since it's set to true automatically if version < 1.0.0,
 		   or matches the user config if provided.
 		*/
 		// preMajor: false,
@@ -58,11 +58,11 @@ const defaults = {
 	writerOpts: {
 		commitsSort: false,
 	},
-};
+}
 
 defaults.bumpFiles = defaults.packageFiles.concat([
 	'package-lock.json',
 	'npm-shrinkwrap.json',
-]);
+])
 
-export default defaults;
+export default defaults

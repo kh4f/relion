@@ -1,7 +1,6 @@
 import compareFunc from 'compare-func'
 import { DEFAULT_COMMIT_TYPES } from './constants.js'
-import { main, commit, header, footer } from './templates/index.js';
-
+import { main, commit, header, footer } from './templates/index.js'
 
 const COMMIT_HASH_LENGTH = 7
 const releaseAsRegex = /release-as:\s*\w*@?([0-9]+\.[0-9]+\.[0-9a-z]+(-[0-9a-z.]+)?)\s*/i
@@ -20,24 +19,24 @@ export async function createWriterOpts(config) {
 		compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
 		userUrlFormat: '{{host}}/{{user}}',
 		issuePrefixes: ['#'],
-		...config
+		...config,
 	}
 	const commitUrlFormat = expandTemplate(finalConfig.commitUrlFormat, {
 		host,
 		owner,
-		repository
+		repository,
 	})
 	const compareUrlFormat = expandTemplate(finalConfig.compareUrlFormat, {
 		host,
 		owner,
-		repository
+		repository,
 	})
 	const issueUrlFormat = expandTemplate(finalConfig.issueUrlFormat, {
 		host,
 		owner,
 		repository,
 		id: '{{this.issue}}',
-		prefix: '{{this.prefix}}'
+		prefix: '{{this.prefix}}',
 	})
 	const writerOpts = getWriterOpts(finalConfig)
 
@@ -62,15 +61,16 @@ function getWriterOpts(config) {
 				const versionTagRegex = /tag:\s*([^,\s)]+)/i
 				const keyCommitTag = keyCommit.gitTags?.match(versionTagRegex)
 				if (keyCommitTag) {
-					context.currentTag = keyCommitTag[1];
-					const currentTagIndex = context.gitSemverTags.indexOf(context.currentTag);
-					context.previousTag = (currentTagIndex === -1) ? null : context.gitSemverTags[currentTagIndex + 1];
+					context.currentTag = keyCommitTag[1]
+					const currentTagIndex = context.gitSemverTags.indexOf(context.currentTag)
+					context.previousTag = (currentTagIndex === -1) ? null : context.gitSemverTags[currentTagIndex + 1]
 				}
-			} else {
-				context.currentTag = context.newTag || null;
-				context.previousTag = context.gitSemverTags[0] || null;
 			}
-			return context;
+			else {
+				context.currentTag = context.newTag || null
+				context.previousTag = context.gitSemverTags[0] || null
+			}
+			return context
 		},
 		transform: (commit, context) => {
 			let discard = true
@@ -80,7 +80,7 @@ function getWriterOpts(config) {
 			// Add an entry in the CHANGELOG if special Release-As footer
 			// is used:
 			if ((commit.footer && releaseAsRegex.test(commit.footer))
-				|| (commit.body && releaseAsRegex.test(commit.body))) {
+			  || (commit.body && releaseAsRegex.test(commit.body))) {
 				discard = false
 			}
 
@@ -89,13 +89,13 @@ function getWriterOpts(config) {
 
 				return {
 					...note,
-					title: 'BREAKING CHANGES'
+					title: 'BREAKING CHANGES',
 				}
 			})
 
 			// breaking changes attached to any type are still displayed.
 			if (discard && (entry === undefined
-				|| entry.hidden)) {
+			  || entry.hidden)) {
 				return undefined
 			}
 
@@ -123,7 +123,7 @@ function getWriterOpts(config) {
 						owner: context.owner,
 						repository: context.repository,
 						id: issue,
-						prefix
+						prefix,
 					})
 
 					return `[${prefix}${issue}](${url})`
@@ -139,7 +139,7 @@ function getWriterOpts(config) {
 						host: context.host,
 						owner: context.owner,
 						repository: context.repository,
-						user
+						user,
 					})
 
 					return `[@${user}](${usernameUrl})`
@@ -155,7 +155,7 @@ function getWriterOpts(config) {
 				scope,
 				shortHash,
 				subject,
-				references
+				references,
 			}
 		},
 		groupBy: 'type',
@@ -169,7 +169,7 @@ function getWriterOpts(config) {
 		},
 		commitsSort: ['scope', 'subject'],
 		noteGroupsSort: 'title',
-		notesSort: compareFunc
+		notesSort: compareFunc,
 	}
 }
 

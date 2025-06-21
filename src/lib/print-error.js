@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import chalk from 'chalk'
 
 export default function (args, msg, opts) {
 	if (!args.silent) {
@@ -8,8 +8,8 @@ export default function (args, msg, opts) {
 				color: 'red',
 			},
 			opts,
-		);
+		)
 
-		console[opts.level](chalk[opts.color](msg));
+		console[opts.level](chalk[opts.color](msg))
 	}
 }

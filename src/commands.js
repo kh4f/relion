@@ -1,8 +1,8 @@
-import spec from 'conventional-changelog-config-spec';
-import { getConfiguration } from './lib/configuration.js';
-import defaults from './defaults.js';
-import yargs from 'yargs/yargs';
-import { hideBin } from 'yargs/helpers';
+import spec from 'conventional-changelog-config-spec'
+import { getConfiguration } from './lib/configuration.js'
+import defaults from './defaults.js'
+import yargs from 'yargs/yargs'
+import { hideBin } from 'yargs/helpers'
 
 const yargsInstance = yargs(hideBin(process.argv))
 	.usage('Usage: $0 [options]')
@@ -60,7 +60,7 @@ const yargsInstance = yargs(hideBin(process.argv))
 		default: defaults.commitAll,
 	})
 	.option('silent', {
-		describe: "Don't print logs and errors",
+		describe: 'Don\'t print logs and errors',
 		type: 'boolean',
 		default: defaults.silent,
 	})
@@ -161,9 +161,10 @@ const yargsInstance = yargs(hideBin(process.argv))
 	})
 	.check((argv) => {
 		if (typeof argv.scripts !== 'object' || Array.isArray(argv.scripts)) {
-			throw Error('scripts must be an object');
-		} else {
-			return true;
+			throw Error('scripts must be an object')
+		}
+		else {
+			return true
 		}
 	})
 	.alias('version', 'v')
@@ -175,16 +176,16 @@ const yargsInstance = yargs(hideBin(process.argv))
 	)
 	.pkgConf('relion')
 	.config(await getConfiguration())
-	.wrap(97);
+	.wrap(97)
 
 Object.keys(spec.properties).forEach((propertyKey) => {
-	const property = spec.properties[propertyKey];
-	if (!defaults.preset[propertyKey]) return;
+	const property = spec.properties[propertyKey]
+	if (!defaults.preset[propertyKey]) return
 	yargsInstance.option('preset.' + propertyKey, {
 		type: property.type,
 		describe: property.description,
 		default: defaults.preset[propertyKey],
-	});
-});
+	})
+})
 
-export default yargsInstance;
+export default yargsInstance
