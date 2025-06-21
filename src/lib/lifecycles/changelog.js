@@ -37,7 +37,7 @@ function extractChangelogBody(oldContent) {
 		: oldContent
 }
 
-function outputChangelog(args, newVersion) {
+function outputChangelog(args) {
 	return new Promise((resolve, reject) => {
 		createIfMissing(args)
 		const header = args.preset.header

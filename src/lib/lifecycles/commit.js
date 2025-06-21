@@ -12,7 +12,7 @@ export default async function (args, newVersion) {
 	await runLifecycleScript(args, 'postcommit')
 }
 
-async function execCommit(args, newVersion) {
+async function execCommit(args) {
 	let msg = 'committing %s'
 	let paths = []
 	const verify = args.verify === false || args.n ? ['--no-verify'] : []
