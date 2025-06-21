@@ -52,6 +52,7 @@ export default defineConfig([
 		],
 		rules: {
 			'@stylistic/indent': ['error', 'tab'],
+			'@stylistic/indent-binary-ops': ['error', 'tab'],
 			'@stylistic/no-tabs': 'off',
 			'@stylistic/linebreak-style': ['error', 'unix'],
 			'@stylistic/eol-last': ['error', 'never'],
