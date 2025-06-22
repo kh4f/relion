@@ -71,8 +71,8 @@ export default async function relion(argv) {
 			}
 			break
 		}
-		catch (err) {
-			/* This probably shouldn't be empty? */
+		catch {
+			continue
 		}
 	}
 	try {
