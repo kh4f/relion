@@ -36,8 +36,14 @@
 		"lint:fix": "eslint --fix",
 		"test": "vitest run",
 		"test:watch": "vitest",
+		"commit": "cz",
 		"release": "node ./src/cli.js --changelog --bump --commit --tag",
 		"release:gh-notes": "node ./src/cli.js --changelog --profile gh-release-notes "
+	},
+	"config": {
+		"commitizen": {
+			"path": "@commitlint/cz-commitlint"
+		}
 	},
 	"dependencies": {
 		"chalk": "^5.4.1",
@@ -60,9 +66,13 @@
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/cz-commitlint": "^19.8.1",
+		"@commitlint/types": "^19.8.1",
 		"@eslint/js": "^9.29.0",
 		"@stylistic/eslint-plugin": "^4.4.1",
 		"@types/node": "^24.0.3",
+		"commitizen": "^4.3.1",
 		"eslint": "^9.29.0",
 		"globals": "^16.2.0",
 		"prettier": "^3.5.3",
