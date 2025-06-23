@@ -18,14 +18,20 @@ jobs:
           # fetch full commit history for correct release notes generation
           fetch-depth: 0
 
-      - name: Use Node.js
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: latest
+          cache: pnpm
           registry-url: https://registry.npmjs.org/
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install deps
+        run: pnpm install
 
       - name: Set version tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
@@ -34,7 +40,7 @@ jobs:
         run: zip -r "${GITHUB_REPOSITORY##*/}-${tag}.zip" bin/ src/ package.json LICENSE README.md
 
       - name: Generate release notes
-        run: npm run release:gh-notes
+        run: pnpm release:gh-notes
 
       - name: Create GitHub release
         env:
@@ -50,4 +56,4 @@ jobs:
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public --provenance
+        run: pnpm publish --access public --provenance
