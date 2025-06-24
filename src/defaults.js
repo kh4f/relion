@@ -21,6 +21,7 @@ const defaults = {
 	gitTagFallback: true,
 	npmPublishHint: undefined,
 	packageFiles: ['package.json', 'bower.json', 'manifest.json'],
+	bumpFiles: ['package.json', 'package-lock.json'],
 
 	context: {
 		linkReferences: true,
@@ -59,10 +60,5 @@ const defaults = {
 		commitsSort: false,
 	},
 }
-
-defaults.bumpFiles = defaults.packageFiles.concat([
-	'package-lock.json',
-	'npm-shrinkwrap.json',
-])
 
 export default defaults
