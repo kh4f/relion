@@ -12,33 +12,6 @@ import { mergician } from 'mergician'
 import { execSync } from 'child_process'
 
 export default async function relion(argv) {
-	/**
-	 * `--message` (`-m`) support will be removed in the next major version.
-	 */
-	const message = argv.m || argv.message
-	if (message) {
-		/**
-		 * The `--message` flag uses `%s` for version substitutions, we swap this
-		 * for the substitution defined in the config-spec for future-proofing upstream
-		 * handling.
-		 */
-		argv.preset.releaseCommitMessageFormat = message.replace(/%s/g, '{{currentTag}}')
-		if (!argv.silent) {
-			console.warn(
-				'[relion]: --message (-m) will be removed in the next major release. Use --releaseCommitMessageFormat.',
-			)
-		}
-	}
-
-	if (argv.changelogHeader) {
-		argv.preset.header = argv.changelogHeader
-		if (!argv.silent) {
-			console.warn(
-				'[relion]: --changelogHeader will be removed in the next major release. Use --header.',
-			)
-		}
-	}
-
 	if (argv.preset.header && argv.preset.header.search(changelog.START_OF_LAST_RELEASE_PATTERN) !== -1) {
 		throw Error(`custom changelog header must not match ${changelog.START_OF_LAST_RELEASE_PATTERN}`)
 	}

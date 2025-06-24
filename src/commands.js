@@ -30,12 +30,6 @@ const yargsInstance = yargs(hideBin(process.argv))
 		describe: 'Read the CHANGELOG from this file',
 		default: defaults.infile,
 	})
-	.option('message', {
-		alias: ['m'],
-		describe:
-			'[DEPRECATED] Commit message, replaces %s with new version.\nThis option will be removed in the next major version, please use --releaseCommitMessageFormat.',
-		type: 'string',
-	})
 	.option('sign', {
 		alias: 's',
 		describe: 'Should the git commit and tag be signed?',
@@ -144,11 +138,6 @@ const yargsInstance = yargs(hideBin(process.argv))
 	.option('path', {
 		type: 'string',
 		describe: 'Only populate commits made under this path',
-	})
-	.option('changelogHeader', {
-		type: 'string',
-		describe:
-			'[DEPRECATED] Use a custom header when generating and updating changelog.\nThis option will be removed in the next major version, please use --header.',
 	})
 	.option('lerna-package', {
 		type: 'string',
