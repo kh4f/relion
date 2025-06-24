@@ -1,4 +1,4 @@
-name: Release Package
+name: Release
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - '*'
 
 jobs:
-  build:
+  release:
+    name: Release & Publish
     runs-on: ubuntu-latest
     permissions:
       contents: write
