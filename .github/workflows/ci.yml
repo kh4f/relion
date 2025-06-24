@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    name: Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # fetch full commit history for correct PR commit messages validation
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: pnpm
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Validate commit message
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            pnpm commitlint --last --verbose
+          fi
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            pnpm commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+          fi
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
