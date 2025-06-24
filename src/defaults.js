@@ -41,11 +41,10 @@ const defaults = {
 			{ type: 'perf', hidden: true },
 			{ type: 'test', hidden: true },
 		],
-		/* preMajor value is defined in spec, but should not be in defaults
-		   since it's set to true automatically if version < 1.0.0,
+		/* Is set to true automatically if version < 1.0.0,
 		   or matches the user config if provided.
 		*/
-		// preMajor: false,
+		preMajor: undefined,
 		commitUrlFormat: '{{host}}/{{owner}}/{{repository}}/commit/{{hash}}',
 		compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
 		issueUrlFormat: '{{host}}/{{owner}}/{{repository}}/issues/{{id}}',
