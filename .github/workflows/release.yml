@@ -10,7 +10,9 @@ jobs:
     name: Release & Publish
     runs-on: ubuntu-latest
     permissions:
+      # permission for creating a GitHub release
       contents: write
+      # permission for publishing to npm with provenance
       id-token: write
     steps:
       - name: Checkout
