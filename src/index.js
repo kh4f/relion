@@ -12,10 +12,6 @@ import { mergician } from 'mergician'
 import { execSync } from 'child_process'
 
 export default async function relion(argv) {
-	if (argv.preset.header && argv.preset.header.search(changelog.START_OF_LAST_RELEASE_PATTERN) !== -1) {
-		throw Error(`custom changelog header must not match ${changelog.START_OF_LAST_RELEASE_PATTERN}`)
-	}
-
 	/**
 	 * If an argument for `packageFiles` provided, we include it as a "default" `bumpFile`.
 	 */
