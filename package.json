@@ -51,7 +51,7 @@
 		"commit-msg": "pnpm commitlint --edit"
 	},
 	"lint-staged": {
-		"*": "pnpm lint:fix"
+		"*.{js,ts}": "pnpm lint:fix"
 	},
 	"dependencies": {
 		"chalk": "^5.4.1",
