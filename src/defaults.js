@@ -30,8 +30,6 @@ const defaults = {
 
 	preset: {
 		name: defaultPresetURL,
-		// defaults provided by the spec
-		// https://github.com/conventional-changelog/conventional-changelog-config-spec/tree/master/versions/2.2.0
 		header: '# Changelog\n\n\n',
 		types: [
 			{ type: 'feat', section: 'Features' },
