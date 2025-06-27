@@ -44,9 +44,6 @@ export default defineConfig([
 	{
 		name: 'Stylistic Rules',
 		files: ['**/*.{js,ts}'],
-		plugins: {
-			'@stylistic': stylistic,
-		},
 		extends: [
 			stylistic.configs.recommended,
 		],
