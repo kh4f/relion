@@ -20,7 +20,6 @@ const defaults = {
 	tagForce: false,
 	gitTagFallback: true,
 	npmPublishHint: undefined,
-	packageFiles: ['package.json'],
 	bumpFiles: ['package.json', 'package-lock.json'],
 
 	context: {

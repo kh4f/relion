@@ -1,74 +1,29 @@
 import bump, { getNewVersion } from './lib/lifecycles/bump.js'
 import changelog from './lib/lifecycles/changelog.js'
 import commit from './lib/lifecycles/commit.js'
-import fs from 'fs'
-import latestSemverTag from './lib/latest-semver-tag.js'
-import path from 'path'
+import { readFileSync } from 'fs'
 import tag from './lib/lifecycles/tag.js'
-import { resolveUpdaterObjectFromArgument } from './lib/updaters/index.js'
 import defaults from './defaults.js'
 import { mergician } from 'mergician'
 import { execSync } from 'child_process'
 
 export default async function relion(argv) {
-	/**
-	 * If an argument for `packageFiles` provided, we include it as a "default" `bumpFile`.
-	 */
-	if (argv.packageFiles) {
-		defaults.bumpFiles = defaults.bumpFiles.concat(argv.packageFiles)
-	}
-
 	let args = mergician(defaults, argv)
 	if (args.profile) {
 		args = mergeProfileConfig(args)
 	}
 
-	let pkg
-	for (const packageFile of args.packageFiles) {
-		const updater = await resolveUpdaterObjectFromArgument(packageFile)
-		if (!updater) return
-		const pkgPath = path.resolve(process.cwd(), updater.filename)
-		try {
-			const contents = fs.readFileSync(pkgPath, 'utf8')
-			pkg = {
-				version: updater.updater.readVersion(contents),
-				private:
-					typeof updater.updater.isPrivate === 'function'
-						? updater.updater.isPrivate(contents)
-						: false,
-			}
-			break
-		}
-		catch {
-			continue
-		}
-	}
-	let version
-	if (pkg && pkg.version) {
-		version = pkg.version
-	}
-	else if (args.gitTagFallback) {
-		version = await latestSemverTag(args)
-	}
-	else {
-		throw new Error('no package file found')
-	}
+	if (args.all) args.bump = args.changelog = args.commit = args.tag = true
 
-	if (args.all) {
-		args.bump = true
-		args.changelog = true
-		args.commit = true
-		args.tag = true
-	}
-
-	const newVersion = await getNewVersion(args, version)
+	const currentVersion = getCurrentVersion()
+	const newVersion = await getNewVersion(args, currentVersion)
 	args.context.version = newVersion
 	args.context.newTag = args.tagPrefix + newVersion
 
 	if (lastCommitHasTag()) {
 		// use the current version as the new version if there's no new commits
 		// to avoid empty new release changelog generation
-		args.context.version = version
+		args.context.version = currentVersion
 
 		if (args.releaseCount === 1) {
 			// genearate the last release changelog
@@ -79,7 +34,12 @@ export default async function relion(argv) {
 	args.bump && (await bump(args, newVersion))
 	args.changelog && (await changelog(args, newVersion))
 	args.commit && (await commit(args, newVersion))
-	args.tag && (await tag(newVersion, pkg ? pkg.private : false, args))
+	args.tag && (await tag(newVersion, false, args))
+}
+
+function getCurrentVersion() {
+	const packageJsonContent = readFileSync('package.json', 'utf-8')
+	return /"version".*?"(.*?)"/.exec(packageJsonContent)?.[1]
 }
 
 function lastCommitHasTag() {

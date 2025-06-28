@@ -6,10 +6,6 @@ import { hideBin } from 'yargs/helpers'
 
 const yargsInstance = yargs(hideBin(process.argv))
 	.usage('Usage: $0 [options]')
-	.option('packageFiles', {
-		default: defaults.packageFiles,
-		array: true,
-	})
 	.option('bumpFiles', {
 		default: defaults.bumpFiles,
 		array: true,
