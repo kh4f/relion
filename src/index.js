@@ -4,7 +4,6 @@ import commit from './lib/lifecycles/commit.js'
 import fs from 'fs'
 import latestSemverTag from './lib/latest-semver-tag.js'
 import path from 'path'
-import printError from './lib/print-error.js'
 import tag from './lib/lifecycles/tag.js'
 import { resolveUpdaterObjectFromArgument } from './lib/updaters/index.js'
 import defaults from './defaults.js'
@@ -44,49 +43,43 @@ export default async function relion(argv) {
 			continue
 		}
 	}
-	try {
-		let version
-		if (pkg && pkg.version) {
-			version = pkg.version
-		}
-		else if (args.gitTagFallback) {
-			version = await latestSemverTag(args)
-		}
-		else {
-			throw new Error('no package file found')
-		}
-
-		if (args.all) {
-			args.bump = true
-			args.changelog = true
-			args.commit = true
-			args.tag = true
-		}
-
-		const newVersion = await getNewVersion(args, version)
-		args.context.version = newVersion
-		args.context.newTag = args.tagPrefix + newVersion
-
-		if (lastCommitHasTag()) {
-			// use the current version as the new version if there's no new commits
-			// to avoid empty new release changelog generation
-			args.context.version = version
-
-			if (args.releaseCount === 1) {
-				// genearate the last release changelog
-				args.releaseCount = 2
-			}
-		}
-
-		args.bump && (await bump(args, newVersion))
-		args.changelog && (await changelog(args, newVersion))
-		args.commit && (await commit(args, newVersion))
-		args.tag && (await tag(newVersion, pkg ? pkg.private : false, args))
+	let version
+	if (pkg && pkg.version) {
+		version = pkg.version
 	}
-	catch (err) {
-		printError(args, err.message)
-		throw err
+	else if (args.gitTagFallback) {
+		version = await latestSemverTag(args)
 	}
+	else {
+		throw new Error('no package file found')
+	}
+
+	if (args.all) {
+		args.bump = true
+		args.changelog = true
+		args.commit = true
+		args.tag = true
+	}
+
+	const newVersion = await getNewVersion(args, version)
+	args.context.version = newVersion
+	args.context.newTag = args.tagPrefix + newVersion
+
+	if (lastCommitHasTag()) {
+		// use the current version as the new version if there's no new commits
+		// to avoid empty new release changelog generation
+		args.context.version = version
+
+		if (args.releaseCount === 1) {
+			// genearate the last release changelog
+			args.releaseCount = 2
+		}
+	}
+
+	args.bump && (await bump(args, newVersion))
+	args.changelog && (await changelog(args, newVersion))
+	args.commit && (await commit(args, newVersion))
+	args.tag && (await tag(newVersion, pkg ? pkg.private : false, args))
 }
 
 function lastCommitHasTag() {
