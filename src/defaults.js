@@ -44,7 +44,7 @@ const defaults = {
 		/* Is set to true automatically if version < 1.0.0,
 		   or matches the user config if provided.
 		*/
-		preMajor: undefined,
+		// preMajor: true,
 		commitUrlFormat: '{{host}}/{{owner}}/{{repository}}/commit/{{hash}}',
 		compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
 		issueUrlFormat: '{{host}}/{{owner}}/{{repository}}/issues/{{id}}',
