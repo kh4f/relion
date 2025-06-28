@@ -31,15 +31,6 @@ jobs:
       - name: Install deps
         run: pnpm install
 
-      - name: Validate commit message
-        run: |
-          if [ "${{ github.event_name }}" = "push" ]; then
-            pnpm commitlint --last --verbose
-          fi
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            pnpm commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
-          fi
-
       - name: Lint
         run: pnpm lint
 
