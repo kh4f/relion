@@ -31,10 +31,10 @@ export default async function relion(argv) {
 		}
 	}
 
-	args.bump && (await bump(args, newVersion))
-	args.changelog && (await changelog(args, newVersion))
-	args.commit && (await commit(args, newVersion))
-	args.tag && (await tag(newVersion, false, args))
+	if (args.bump) await bump(args, newVersion)
+	if (args.changelog) await changelog(args, newVersion)
+	if (args.commit) await commit(args, newVersion)
+	if (args.tag) await tag(newVersion, false, args)
 }
 
 function getCurrentVersion() {
