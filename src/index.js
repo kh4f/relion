@@ -9,9 +9,7 @@ import { execSync } from 'child_process'
 
 export default async function relion(argv) {
 	let args = mergician(defaults, argv)
-	if (args.profile) {
-		args = mergeProfileConfig(args)
-	}
+	if (args.profile) args = mergeProfileConfig(args)
 
 	if (args.all) args.bump = args.changelog = args.commit = args.tag = true
 
