@@ -1,6 +1,23 @@
 # Changelog
 
 
+## [v0.2.0](https://github.com/Kh4f/relion/compare/v0.1.1...v0.2.0) (2025-09-04)
+
+> [!NOTE]
+> This is the last release of `relion` as a fork of `commit-and-tag-version`. Future versions will be rewritten from scratch.
+
+### ⚠ BREAKING CHANGES
+* `options` The `packageFiles` option has been removed. The current version is now always read from `package.json`.
+* `cli` The `--message` and `--changelogHeader` CLI options have been removed.
+
+### 🩹 Bug Fixes
+* `bump` prevent default `preMajor` from overriding dynamic value ([b33844a](https://github.com/Kh4f/relion/commit/b33844a85aca6c214808dd2e85ce74de2127dbd6))
+
+### 🧹 Adjustments
+* `options` remove `packageFiles` option and related logic ([0f715c4](https://github.com/Kh4f/relion/commit/0f715c45b29f5fa7aa81ab1faf789103a693539b))
+* `cli` remove deprecated options `--message` and `--changelogHeader` ([5e56498](https://github.com/Kh4f/relion/commit/5e56498a2d2e0cdda83510e6c5cb8c79bc917e3e))
+
+
 ## [v0.1.1](https://github.com/Kh4f/relion/commits/v0.1.1) (2025-06-20)
 
 > [!NOTE]
