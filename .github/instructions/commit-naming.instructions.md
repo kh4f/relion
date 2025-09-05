@@ -10,7 +10,7 @@
   - style (formatting, styling or visual aspects)
   - perf (performance improvement)
   - docs (documentation change)
-  - chore (maintenance change)
+  - chore (maintenance change, e.g., tooling, dependencies, scripts...)
   - test (test change)
   - build (build system change)
   - ci (CI change)
