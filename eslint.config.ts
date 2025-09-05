@@ -28,10 +28,7 @@ export default defineConfig([
 		name: 'Type-Aware Rules',
 		files: ['**/*.ts'],
 		extends: [
-			// @ts-expect-error TS2322: type mismatch between ESLint and typescript-eslint
-			// see https://github.com/eslint/eslint/issues/19570#issuecomment-2749093867
 			tseslint.configs.recommendedTypeChecked,
-			// @ts-expect-error TS2322: type mismatch between ESLint and typescript-eslint
 			tseslint.configs.stylisticTypeChecked,
 		],
 		languageOptions: {
