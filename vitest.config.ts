@@ -14,10 +14,6 @@ const hbsRaw = (): Plugin => {
 }
 
 export default defineConfig({
-	resolve: {
-		alias: {
-			'@': resolve(__dirname, './src'),
-		},
-	},
+	resolve: { alias: {	'@': resolve('src') } },
 	plugins: [hbsRaw()],
 })
