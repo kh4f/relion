@@ -27,13 +27,13 @@
 
 - docs(copilot): add commit naming guidelines with examples
 - docs(copilot): add initial instructions with project description
-- feat(config)!: add support for `_<profileName>` profiles with CLI `--profile` flag
-  BREAKING CHANGE: Changed alias for 'prerelease' option to 'P' to reserve 'p' for the new '--profile' option.
+- feat(config)!: add support for `_<profileName>` profiles with CLI `--profile` flag  
+  BREAKING CHANGE: Changed alias for 'prerelease' option to 'P' to reserve 'p' for the new '--profile' option.  
   Refs #45 (support for multiple profiles)
 - ci(checks): add initial CI workflow
 - style(templates): add backtick quotes around `footer` partial
 - build(tsdown): add `tsdown` build script and configuration
-- refactor(options)!: remove `packageFiles` option and related logic
+- refactor(options)!: remove `packageFiles` option and related logic  
   BREAKING CHANGE: The `packageFiles` option has been removed. The current version is now always read from `package.json`.
 - ci(release): add `--no-git-checks` flag to npm publish command
 - refactor(core): simplify conditional lifecycle calls
@@ -43,8 +43,8 @@
 - refactor(styles): move global styles from `page.module.css` to `globals.css`
 - chore(eslint): add name to global ignores
 - chore(tsconfig): update `jsx` setting to use 'react-jsx'
-- fix(root): add `suppressHydrationWarning` property to `html` tag
-  Fixes #12 (error during hydration)
+- fix(root): add `suppressHydrationWarning` property to `html` tag  
+  Fixes #12 (error during hydration)  
   Refs #34 (conflict with chrome extension)
 - chore(root): update `metadata` with project title and description
 - chore(package): update lint script to use `eslint` instead of `next lint`
