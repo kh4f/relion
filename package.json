@@ -50,12 +50,12 @@
 		"*.{js,ts}": "pnpm lint:fix"
 	},
 	"dependencies": {
-		"chalk": "^5.4.1",
+		"chalk": "^5.6.0",
 		"compare-func": "^2.0.0",
-		"conventional-changelog": "^6.0.0",
+		"conventional-changelog": "^7.1.1",
 		"conventional-changelog-config-spec": "^2.1.0",
-		"conventional-changelog-conventionalcommits": "^8.0.0",
-		"conventional-recommended-bump": "^11.0.0",
+		"conventional-changelog-conventionalcommits": "^9.1.0",
+		"conventional-recommended-bump": "^11.2.0",
 		"detect-indent": "^7.0.1",
 		"detect-newline": "^4.0.1",
 		"dotgitignore": "^2.1.0",
@@ -66,21 +66,21 @@
 		"mergician": "^2.0.2",
 		"semver": "^7.7.2",
 		"w3c-xmlserializer": "^5.0.0",
-		"yaml": "^2.8.0",
-		"yargs": "^17.7.2"
+		"yaml": "^2.8.1",
+		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.29.0",
-		"@stylistic/eslint-plugin": "^4.4.1",
-		"@types/node": "^24.0.3",
-		"eslint": "^9.29.0",
-		"globals": "^16.2.0",
-		"lint-staged": "^16.1.2",
-		"prettier": "^3.5.3",
-		"simple-git-hooks": "^2.13.0",
-		"tsdown": "^0.12.8",
-		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.34.1",
+		"@eslint/js": "^9.34.0",
+		"@stylistic/eslint-plugin": "^5.3.1",
+		"@types/node": "^24.3.1",
+		"eslint": "^9.34.0",
+		"globals": "^16.3.0",
+		"lint-staged": "^16.1.6",
+		"prettier": "^3.6.2",
+		"simple-git-hooks": "^2.13.1",
+		"tsdown": "^0.14.2",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.42.0",
 		"vitest": "^3.2.4"
 	}
 }
