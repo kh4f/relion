@@ -20,6 +20,7 @@
 - If the `subject` is too broad and covers multiple changes, add a `body` as a bullet list of changes
 - If the commit references an Issue/PR (I’ll let you know), include a footer
 - If the commit introduces breaking changes (I’ll let you know), add a `BREAKING CHANGES: ...` section between the body (if present) and the footer (if present), separated by empty lines. Also, add a `!` before the colon in the commit header
+- Use backticks for file, folder, component, function, library and other code entity names, suffixes, etc.
 
 
 ## Examples
