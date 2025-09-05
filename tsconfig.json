@@ -5,8 +5,8 @@
 		"moduleResolution": "bundler",
 		"noEmit": true,
 		"strict": true,
-		"skipLibCheck": true,
 		"verbatimModuleSyntax": true,
+		"moduleDetection": "force",
 		"paths": { "@/*": ["./src/*"] },
 	},
 	"include": ["./**/*.ts"]
