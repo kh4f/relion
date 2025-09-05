@@ -25,8 +25,8 @@
 
 ## Examples
 
-- chore(copilot): add commit naming guidelines with examples
-- chore(copilot): add initial instructions with project description
+- docs(copilot): add commit naming guidelines with examples
+- docs(copilot): add initial instructions with project description
 - feat(config)!: add support for `_<profileName>` profiles with CLI `--profile` flag
   BREAKING CHANGE: Changed alias for 'prerelease' option to 'P' to reserve 'p' for the new '--profile' option.
   Refs #45 (support for multiple profiles)
