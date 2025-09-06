@@ -9,7 +9,6 @@ const isExtensionMode = !!process.env.VSCODE_CWD
 export default defineConfig([
 	globalIgnores([
 		'dist',
-		// Lint `temp` directory only in extension mode
 		(isExtensionMode ? '' : 'temp*/'),
 	].filter(Boolean), 'Global Ignores'),
 	{
