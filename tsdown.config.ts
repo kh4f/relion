@@ -18,12 +18,4 @@ export default defineConfig([
 			'.hbs': 'text',
 		},
 	},
-	{
-		...baseConfig,
-		entry: './src/cli.ts',
-		dts: false,
-		outputOptions: {
-			banner: `#!/usr/bin/env node\n`,
-		},
-	},
 ])
