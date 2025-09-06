@@ -1,6 +1,6 @@
 import { getVersionTags } from '@/utils'
 import type { ReleaseContext, ReleaseWithGroupedCommits, ResolvedConfig } from '@/types'
-import { readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
 import releaseTemplate from '@/templates/release.hbs'
 
@@ -53,7 +53,7 @@ export const changelog = (config: ResolvedConfig): void => {
 }
 
 const writeToChangelogFile = (outputFile: string, content: string, prevReleaseHeaderPattern: RegExp): void => {
-	const changelogContent = readFileSync(outputFile, { encoding: 'utf8' })
+	const changelogContent = existsSync(outputFile) ? readFileSync(outputFile, { encoding: 'utf8' }) : ''
 	const prevReleaseStart = changelogContent.search(prevReleaseHeaderPattern)
 	const headlessChangelog = changelogContent.slice(prevReleaseStart)
 	const newChangelog = content + headlessChangelog
