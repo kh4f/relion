@@ -12,7 +12,7 @@ export const parseVersion = (versionedFile: VersionedFile): string => {
 	return version
 }
 
-export const determineNextVersion = async (config: TransformedConfig, currentVersion?: string): Promise<string> => {
+export const determineNextVersion = async (config: TransformedConfig, currentVersion: string): Promise<string> => {
 	if (config.releaseVersion) {
 		if (!semver.valid(config.releaseVersion)) {
 			throw new Error(`Invalid release version format: '${config.releaseVersion}'`)
@@ -26,7 +26,6 @@ export const determineNextVersion = async (config: TransformedConfig, currentVer
 		const unreleasedCommits = await parseCommits('unreleased', config.commitsParser, config.prevReleaseTagPattern)
 		releaseType = calculateReleaseType(unreleasedCommits)
 	}
-	currentVersion ??= config.context?.currentVersion ?? parseVersion(config.versionSourceFile)
 	const newVersion = increaseVersion(currentVersion, releaseType)
 	console.log(`Determined new version: '${newVersion}' (release type: '${releaseType}')`)
 	return newVersion
