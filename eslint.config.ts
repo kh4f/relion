@@ -47,6 +47,8 @@ export default defineConfig([
 			'@stylistic/no-tabs': 'off',
 			'@stylistic/linebreak-style': ['error', 'unix'],
 			'@stylistic/eol-last': ['error', 'never'],
+			'@stylistic/brace-style': ['error', '1tbs'],
+			'@stylistic/operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
 		},
 	},
 ])
