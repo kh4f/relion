@@ -12,7 +12,6 @@ export default defineConfig([
 		...baseConfig,
 		entry: {
 			index: './src/index.ts',
-			preset: './src/preset/index.ts',
 		},
 		dts: true,
 		loader: {
