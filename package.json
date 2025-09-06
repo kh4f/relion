@@ -18,7 +18,7 @@
 		"commit-and-tag-version"
 	],
 	"files": [
-		"src",
+		"dist",
 		"package.json",
 		"LICENSE",
 		"README.md"
