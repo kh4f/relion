@@ -10,9 +10,7 @@ const baseConfig: UserConfig = {
 export default defineConfig([
 	{
 		...baseConfig,
-		entry: {
-			index: './src/index.ts',
-		},
+		entry: 'src/index.ts',
 		dts: true,
 		loader: {
 			'.hbs': 'text',
