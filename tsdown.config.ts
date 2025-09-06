@@ -2,7 +2,7 @@ import { defineConfig, type UserConfig } from 'tsdown'
 
 const isProd = process.argv.includes('--production')
 
-const common: UserConfig = {
+const baseConfig: UserConfig = {
 	outDir: './dist',
 	sourcemap: isProd ? false : 'inline',
 	minify: isProd,
@@ -10,7 +10,7 @@ const common: UserConfig = {
 
 export default defineConfig([
 	{
-		...common,
+		...baseConfig,
 		entry: {
 			index: './src/index.ts',
 			preset: './src/preset/index.ts',
@@ -21,7 +21,7 @@ export default defineConfig([
 		},
 	},
 	{
-		...common,
+		...baseConfig,
 		entry: './src/cli.ts',
 		dts: false,
 		outputOptions: {
