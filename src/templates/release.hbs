@@ -1,5 +1,7 @@
+{{#>header}}
 ## &ensp; [` 📦 {{tag}}  `]({{repo.homepage}}/{{#if prevTag}}compare/{{prevTag}}...{{tag}}{{else}}commits/{{tag}}{{/if}})
 
+{{/header}}
 {{#each commitGroups}}
 ### {{{repeat '&nbsp;' 5}}}{{title}}
 {{#each commits}}
