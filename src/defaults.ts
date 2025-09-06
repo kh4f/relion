@@ -67,7 +67,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 }
 
 export const defaultCommitOptions: CompleteCommitOptions = {
-	message: 'release({{repoName}}): {{newTag}}',
+	message: 'release({{repo.name}}): {{newTag}}',
 	signOff: false,
 	gpgSign: false,
 	stageAll: true,
@@ -76,7 +76,7 @@ export const defaultCommitOptions: CompleteCommitOptions = {
 
 export const defaultTagOptions: CompleteTagOptions = {
 	name: '{{newTag}}',
-	message: 'release({{repoName}}): {{newTag}}',
+	message: 'release({{repo.name}}): {{newTag}}',
 	gpgSign: false,
 	force: false,
 	extraArgs: '',
