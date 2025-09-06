@@ -22,7 +22,7 @@ export default defineConfig([
 		name: 'Type-Aware Rules',
 		files: ['**/*.ts'],
 		extends: [
-			tseslint.configs.recommendedTypeChecked,
+			tseslint.configs.strictTypeChecked,
 			tseslint.configs.stylisticTypeChecked,
 		],
 		languageOptions: {
