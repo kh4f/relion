@@ -9,6 +9,7 @@
 	"homepage": "https://github.com/kh4f/relion#readme",
 	"keywords": ["relion", "release", "release-workflow", "release-helper", "semantic-release", "conventional-changelog", "standard-version", "commit-and-tag-version"],
 	"main": "src/index.js",
+	"types": "dist/index.d.ts",
 	"type": "module",
 	"bin": "src/cli.js",
 	"files": ["src", "package.json", "LICENSE", "README.md"],
