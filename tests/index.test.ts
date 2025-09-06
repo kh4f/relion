@@ -90,4 +90,9 @@ describe('Test cli', () => {
 		process.stdout.write(spawnResult.stdout)
 		process.stderr.write(spawnResult.stderr)
 	})
+	it(`should generate changelog with 'github' profile`, () => {
+		const spawnResult = spawnSync('node dist/cli.js -l -p github', { shell: true })
+		process.stdout.write(spawnResult.stdout)
+		process.stderr.write(spawnResult.stderr)
+	})
 })
