@@ -8,6 +8,7 @@ export const defaultConfig: MergedConfig = {
 	versionSourceFile: './package.json',
 	newTagFormat: 'v{{newVersion}}',
 	prevReleaseTagPattern: /^v(?<version>\d+\.\d+\.\d+)/,
+	zeroMajorBreakingIsMinor: true,
 	dryRun: false,
 	context: {
 		commitHyperlink: true,

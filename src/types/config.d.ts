@@ -12,6 +12,7 @@ export interface UserConfig {
 	versionSourceFile?: string | VersionedFile
 	releaseVersion?: string
 	releaseType?: ReleaseType
+	zeroMajorBreakingIsMinor?: boolean
 	context?: Context
 	commitsParser?: CommitsParser
 	prevReleaseTagPattern?: RegExp

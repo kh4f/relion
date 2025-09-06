@@ -25,6 +25,7 @@ export const determineNextVersion = async (config: TransformedConfig, currentVer
 	} else {
 		const unreleasedCommits = await parseCommits('unreleased', config.commitsParser, config.prevReleaseTagPattern)
 		releaseType = calculateReleaseType(unreleasedCommits)
+		if (config.zeroMajorBreakingIsMinor && semver.major(currentVersion) === 0 && releaseType === 'major') releaseType = 'minor'
 	}
 	const newVersion = increaseVersion(currentVersion, releaseType)
 	console.log(`Determined new version: '${newVersion}' (release type: '${releaseType}')`)
