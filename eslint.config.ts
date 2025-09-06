@@ -15,14 +15,8 @@ export default defineConfig([
 	{
 		name: 'Base Rules',
 		files: ['**/*.{js,ts}'],
-		extends: [
-			eslint.configs.recommended,
-		],
-		languageOptions: {
-			globals: {
-				...globals.node,
-			},
-		},
+		extends: [eslint.configs.recommended],
+		languageOptions: { globals: { ...globals.node } },
 	},
 	{
 		name: 'Type-Aware Rules',
@@ -41,9 +35,7 @@ export default defineConfig([
 	{
 		name: 'Stylistic Rules',
 		files: ['**/*.{js,ts}'],
-		extends: [
-			stylistic.configs.recommended,
-		],
+		extends: [stylistic.configs.recommended],
 		rules: {
 			'@stylistic/indent': ['error', 'tab'],
 			'@stylistic/indent-binary-ops': ['error', 'tab'],
