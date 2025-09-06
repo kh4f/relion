@@ -35,4 +35,21 @@ describe('Test all lifecycles', () => {
 			},
 		})
 	})
+	it('should generate changelog without commit hyperlinks', async () => {
+		await relion({
+			dryRun: true,
+			changelog: {
+				stdout: true,
+				commitRange: {
+					from: 'HEAD~2',
+				},
+			},
+			profile: 'testProfile',
+			_testProfile: {
+				context: {
+					commitHyperlink: false,
+				},
+			},
+		})
+	})
 })

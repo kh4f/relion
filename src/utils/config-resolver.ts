@@ -4,11 +4,52 @@ import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultC
 import Handlebars from 'handlebars'
 
 export const resolveConfig = async (userConfig: UserConfig): Promise<ResolvedConfig> => {
-	const mergedConfig = mergeWithDefaults(userConfig)
+	const profileMergedConfig = mergeProfileConfig(userConfig)
+	const mergedConfig = mergeWithDefaults(profileMergedConfig)
 	const transformedConfig = transformVersionedFiles(mergedConfig)
 	const contextualConfig = await fillContext(transformedConfig)
 	const finalConfig = resolveTemplates(contextualConfig)
 	return finalConfig
+}
+
+const mergeProfileConfig = (baseConfig: UserConfig): UserConfig => {
+	const profileName = baseConfig.profile
+	if (!profileName) return baseConfig
+
+	const profileConfig = baseConfig[`_${profileName}`]
+	if (!profileConfig) throw new Error(`Profile "${profileName}" not found in configuration.`)
+
+	const mergeOption = <T extends keyof UserConfig>(propKey: T, ...nestedPropKeys: string[]): UserConfig[T] => {
+		type PlainObject = Record<string, unknown>
+
+		const isPlainObject = (value: unknown): value is PlainObject =>
+			Object.prototype.toString.call(value) === '[object Object]'
+
+		const mergeObjects = (baseObj: unknown, overrideObject: unknown): unknown => {
+			if (!isPlainObject(baseObj) || !isPlainObject(overrideObject)) return baseObj
+			return { ...baseObj, ...overrideObject }
+		}
+
+		const baseConfigProp = baseConfig[propKey] as PlainObject | undefined
+		const profileConfigProp = profileConfig[propKey] as PlainObject | undefined
+		const result = mergeObjects(baseConfigProp, profileConfigProp) as PlainObject | undefined
+		if (result === undefined) return undefined
+
+		nestedPropKeys.forEach((key) => {
+			result[key] = mergeObjects(baseConfigProp?.[key], profileConfigProp?.[key])
+		})
+
+		return result as UserConfig[T]
+	}
+
+	return {
+		...baseConfig, ...profileConfig,
+		commitsParser: mergeOption('commitsParser'),
+		changelog: mergeOption('changelog', 'partials', 'helpers'),
+		commit: mergeOption('commit'),
+		tag: mergeOption('tag'),
+		context: mergeOption('context'),
+	}
 }
 
 const mergeWithDefaults = (userConfig: UserConfig): MergedConfig => {

@@ -17,9 +17,11 @@ export interface UserConfig {
 	commitsParser?: CommitsParser
 	prevReleaseTagPattern?: RegExp
 	dryRun?: boolean
+	profile?: string
+	[profile: `_${string}`]: UserConfig | undefined
 }
 
-type OptionalKeys = 'releaseVersion' | 'releaseType' | 'context'
+type OptionalKeys = 'releaseVersion' | 'releaseType' | 'context' | 'profile'
 export interface MergedConfig extends Omit<Required<UserConfig>, OptionalKeys>, Pick<UserConfig, OptionalKeys> {
 	changelog: FalseOrComplete<ChangelogOptions>
 	commit: FalseOrComplete<CommitOptions>
