@@ -53,6 +53,30 @@ describe('Test all lifecycles', () => {
 			},
 		})
 	})
+	it(`should generate changelog without commit hyperlinks and headers to 'RELEASE.md'`, async () => {
+		await relion({
+			dryRun: true,
+			changelog: {
+				stdout: true,
+				commitRange: {
+					from: 'HEAD~5',
+				},
+			},
+			profile: 'github',
+			_github: {
+				context: {
+					commitHyperlink: false,
+				},
+				changelog: {
+					outputFile: 'RELEASE.md',
+					header: '',
+					partials: {
+						header: '',
+					},
+				},
+			},
+		})
+	})
 })
 
 describe('Test cli', () => {
