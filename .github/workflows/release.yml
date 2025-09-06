@@ -36,6 +36,9 @@ jobs:
       - name: Install deps
         run: pnpm install
 
+      - name: Build
+        run: pnpm build
+
       - name: Set version tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
