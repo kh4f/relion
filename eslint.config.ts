@@ -25,6 +25,11 @@ export default defineConfig([
 			tseslint.configs.strictTypeChecked,
 			tseslint.configs.stylisticTypeChecked,
 		],
+		rules: {
+			'@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
+			'@typescript-eslint/restrict-template-expressions': 'off',
+			'@typescript-eslint/no-dynamic-delete': 'off',
+		},
 		languageOptions: {
 			parserOptions: {
 				projectService: true,
