@@ -3,7 +3,6 @@ import { defineConfig, type UserConfig } from 'tsdown'
 const isProd = process.argv.includes('--production')
 
 const baseConfig: UserConfig = {
-	outDir: './dist',
 	sourcemap: isProd ? false : 'inline',
 	minify: isProd,
 }
