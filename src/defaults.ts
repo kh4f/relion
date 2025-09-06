@@ -61,9 +61,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	helpers: {
 		repeat: (string: string, n: number) => string.repeat(n),
 	},
-	partials: {
-		header: '# 123',
-	},
+	partials: {},
 }
 
 export const defaultCommitOptions: CompleteCommitOptions = {
