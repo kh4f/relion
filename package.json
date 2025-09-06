@@ -24,9 +24,9 @@
 		"README.md"
 	],
 	"type": "module",
-	"main": "src/index.js",
+	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"bin": "src/cli.js",
+	"bin": "dist/cli.js",
 	"scripts": {
 		"lint": "eslint",
 		"lint:fix": "eslint --fix",
