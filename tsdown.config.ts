@@ -1,12 +1,12 @@
-import { defineConfig } from 'tsdown'
+import { defineConfig, type UserConfig } from 'tsdown'
 
 const isProd = process.argv.includes('--production')
 
-const common = defineConfig({
+const common: UserConfig = {
 	outDir: './dist',
 	sourcemap: isProd ? false : 'inline',
 	minify: isProd,
-})
+}
 
 export default defineConfig([
 	{
