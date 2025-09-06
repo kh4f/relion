@@ -2,7 +2,7 @@
 	"name": "relion",
 	"version": "0.2.0",
 	"description": "Release workflow helper for Node.js projects.",
-	"author": "Kh4f",
+	"author": "Kh4f <kh4f.dev@gmail.com>",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
