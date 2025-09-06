@@ -13,7 +13,7 @@ export default defineConfig([
 	].filter(Boolean), 'Global Ignores'),
 	{
 		name: 'Base Rules',
-		files: ['**/*.{js,ts}'],
+		files: ['**/*.ts'],
 		extends: [eslint.configs.recommended],
 		languageOptions: { globals: { ...globals.node } },
 	},
@@ -38,7 +38,7 @@ export default defineConfig([
 	},
 	{
 		name: 'Stylistic Rules',
-		files: ['**/*.{js,ts}'],
+		files: ['**/*.ts'],
 		extends: [stylistic.configs.recommended],
 		rules: {
 			'@stylistic/indent': ['error', 'tab'],
