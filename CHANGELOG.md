@@ -3,7 +3,7 @@
 
 ## [v0.2.0](https://github.com/Kh4f/relion/compare/v0.1.1...v0.2.0) (2025-09-04)
 
-> [!NOTE]
+> [!WARNING]
 > This is the last release of `relion` as a fork of `commit-and-tag-version`. Future versions will be rewritten from scratch.
 
 ### ⚠ BREAKING CHANGES
