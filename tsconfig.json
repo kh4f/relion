@@ -9,5 +9,5 @@
 		"moduleDetection": "force",
 		"paths": { "@/*": ["./src/*"] },
 	},
-	"include": ["./**/*.ts"]
+	"include": ["**/*.ts"]
 }
