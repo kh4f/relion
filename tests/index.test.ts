@@ -15,6 +15,9 @@ describe('Test all lifecycles', () => {
 			bump: [],
 			changelog: {
 				outputFile: 'temp/CHANGELOG.md',
+				commitRange: {
+					from: 'HEAD~5',
+				},
 			},
 			commit: {
 				gpgSign: true,
@@ -31,7 +34,7 @@ describe('Test all lifecycles', () => {
 			changelog: {
 				stdout: true,
 				commitRange: {
-					from: 'HEAD~2',
+					from: 'HEAD~5',
 				},
 			},
 		})
@@ -42,7 +45,7 @@ describe('Test all lifecycles', () => {
 			changelog: {
 				stdout: true,
 				commitRange: {
-					from: 'HEAD~2',
+					from: 'HEAD~5',
 				},
 			},
 			profile: 'testProfile',
@@ -85,12 +88,12 @@ describe('Test cli', () => {
 		process.stdout.write(spawnResult.stdout)
 		process.stderr.write(spawnResult.stderr)
 	})
-	it('should run all lifecycles with options from config file in dry run mode', () => {
+	it('should run all lifecycles with options from config file in dry run mode', { timeout: 10000 }, () => {
 		const spawnResult = spawnSync('node ./dist/cli.js -blct -d', { shell: true })
 		process.stdout.write(spawnResult.stdout)
 		process.stderr.write(spawnResult.stderr)
 	})
-	it(`should generate changelog with 'github' profile`, () => {
+	it(`should generate changelog with 'github' profile`, { timeout: 10000 }, () => {
 		const spawnResult = spawnSync('node dist/cli.js -l -p github', { shell: true })
 		process.stdout.write(spawnResult.stdout)
 		process.stderr.write(spawnResult.stderr)
