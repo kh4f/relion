@@ -44,7 +44,7 @@ export const changelog = (config: ResolvedConfig): void => {
 	})
 
 	if (options.stdout) {
-		console.log('Generated changelog:\n', result)
+		console.log(`Generated changelog:\n${result}`)
 	}
 	if (options.outputFile) {
 		console.log(`Writing changelog to file '${options.outputFile}'`)
