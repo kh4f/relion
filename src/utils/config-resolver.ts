@@ -26,8 +26,15 @@ const mergeProfileConfig = (baseConfig: UserConfig): UserConfig => {
 			Object.prototype.toString.call(value) === '[object Object]'
 
 		const mergeObjects = (baseObj: unknown, overrideObject: unknown): unknown => {
-			if (!isPlainObject(baseObj) || !isPlainObject(overrideObject)) return baseObj
-			return { ...baseObj, ...overrideObject }
+			const isBasePlainObject = isPlainObject(baseObj)
+			const isOverridePlainObject = isPlainObject(overrideObject)
+			if (isBasePlainObject && isOverridePlainObject) {
+				return { ...baseObj, ...overrideObject }
+			} else if (!isBasePlainObject && isOverridePlainObject) {
+				return overrideObject
+			} else if (isBasePlainObject && !isOverridePlainObject) {
+				return baseObj
+			}
 		}
 
 		const baseConfigProp = baseConfig[propKey] as PlainObject | undefined
