@@ -24,4 +24,15 @@ describe('Test all lifecycles', () => {
 			dryRun: true,
 		})
 	})
+	it('should print generated changelog to console', async () => {
+		await relion({
+			dryRun: true,
+			changelog: {
+				stdout: true,
+				commitRange: {
+					from: 'HEAD~2',
+				},
+			},
+		})
+	})
 })
