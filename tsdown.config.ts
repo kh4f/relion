@@ -11,8 +11,6 @@ export default defineConfig([
 	{
 		...baseConfig,
 		entry: 'src/index.ts',
-		loader: {
-			'.hbs': 'text',
-		},
+		loader: { '.hbs': 'text' },
 	},
 ])
