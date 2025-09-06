@@ -10,7 +10,7 @@ export default defineConfig([
 	globalIgnores([
 		'dist',
 		// Lint `temp` directory only in extension mode
-		(!isExtensionMode ? 'temp' : ''),
+		(isExtensionMode ? '' : 'temp*/'),
 	].filter(Boolean), 'Global Ignores'),
 	{
 		name: 'Base Rules',
