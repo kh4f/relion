@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import relion from '@/index'
+import { spawnSync } from 'node:child_process'
 
 describe('Smoke test', () => {
 	it('should pass', () => {
@@ -51,5 +52,18 @@ describe('Test all lifecycles', () => {
 				},
 			},
 		})
+	})
+})
+
+describe('Test cli', () => {
+	it('should print help message', () => {
+		const spawnResult = spawnSync('node ./dist/cli.js --help', { shell: true })
+		process.stdout.write(spawnResult.stdout)
+		process.stderr.write(spawnResult.stderr)
+	})
+	it('should run all lifecycles with options from config file in dry run mode', () => {
+		const spawnResult = spawnSync('node ./dist/cli.js -blct -d', { shell: true })
+		process.stdout.write(spawnResult.stdout)
+		process.stderr.write(spawnResult.stderr)
 	})
 })

@@ -13,4 +13,11 @@ export default defineConfig([
 		entry: 'src/index.ts',
 		loader: { '.hbs': 'text' },
 	},
+	{
+		...baseConfig,
+		entry: 'src/cli.ts',
+		dts: false,
+		external: /.*/,
+		noExternal: 'cleye',
+	},
 ])
