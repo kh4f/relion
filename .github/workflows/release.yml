@@ -37,10 +37,10 @@ jobs:
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Create release archive
-        run: zip -r "${GITHUB_REPOSITORY##*/}-${tag}.zip" src/ package.json LICENSE README.md
+        run: zip -r "${GITHUB_REPOSITORY##*/}-${tag}.zip" dist/ package.json LICENSE README.md
 
       - name: Generate release notes
-        run: pnpm release:gh-notes
+        run: pnpm release:github
 
       - name: Create GitHub release
         env:
