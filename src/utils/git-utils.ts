@@ -20,12 +20,11 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 	const versionTags = getVersionTags(prevReleaseTagPattern)
 
 	let from: string, to: string
-	if (typeof commitRange === 'string') {
-		from = {
-			all: firstCommitHash,
-			unreleased: versionTags[0] ?? firstCommitHash,
-		}[commitRange]
-		if (!from) throw new Error(`Invalid commit range: '${commitRange}'`)
+	if (commitRange === 'all') {
+		from = firstCommitHash
+		to = 'HEAD'
+	} else if (commitRange === 'unreleased') {
+		from = versionTags[0] ?? firstCommitHash
 		to = 'HEAD'
 	} else if ('from' in commitRange || 'to' in commitRange) {
 		const fromValue = 'from' in commitRange ? commitRange.from : 'firstCommit'
