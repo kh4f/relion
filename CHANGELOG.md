@@ -1,6 +1,26 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.4.0  `](https://github.com/kh4f/relion/compare/v0.3.0...v0.4.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+* `changelog` add `latest-release` commit range support for changelog generation [`b57fc35`](https://github.com/kh4f/relion/commit/b57fc35)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+* `git-utils` quote commit range to handle caret character properly [`b5214a9`](https://github.com/kh4f/relion/commit/b5214a9)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+* `git-utils` streamline the logic for determining the `from` commit [`a7fff71`](https://github.com/kh4f/relion/commit/a7fff71)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚀 CI
+* `workflows` update build step to run build in production mode [`6f70b99`](https://github.com/kh4f/relion/commit/6f70b99)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+* `package` reorder scripts by significance [`ed73343`](https://github.com/kh4f/relion/commit/ed73343)
+
+##### &emsp;&ensp;&nbsp; 🔗 [Full Commit History: `v0.3.0` → `v0.4.0`](https://github.com/kh4f/relion/compare/v0.3.0...v0.4.0) &ensp;/&ensp; _2025-09-07_
+
+
 ## &ensp; [` 📦 v0.3.0  `](https://github.com/kh4f/relion/compare/v0.2.0...v0.3.0)
 
 > [!CAUTION]
