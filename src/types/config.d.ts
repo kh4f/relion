@@ -114,6 +114,7 @@ export interface ResolvedContext extends Required<Context> {
 export type CommitRange =
 	| 'all'
 	| 'unreleased'
+	| 'latest-release'
 	| { versionTag: string }
 	| { from: 'firstCommit' | (string & {}) }
 	| { to: 'HEAD' | (string & {}) }

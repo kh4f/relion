@@ -80,6 +80,15 @@ describe('Test all lifecycles', () => {
 			},
 		})
 	})
+	it('should generate changelog for latest release', async () => {
+		await relion({
+			dryRun: true,
+			changelog: {
+				stdout: true,
+				commitRange: 'latest-release',
+			},
+		})
+	})
 })
 
 describe('Test cli', () => {

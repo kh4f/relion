@@ -36,7 +36,7 @@
 		"test:watch": "vitest",
 		"lint:fix": "eslint --fix",
 		"release": "node dist/cli.js -blct",
-		"release:github": "node dist/cli.js -l -p github",
+		"release:github": "node dist/cli.js -l -p github -L",
 		"prepare": "simple-git-hooks"
 	},
 	"dependencies": {

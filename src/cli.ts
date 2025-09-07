@@ -51,6 +51,12 @@ const argv = cli({
 			description: 'Run without making any changes',
 			default: false,
 		},
+		latest: {
+			alias: 'L',
+			type: Boolean,
+			description: 'Use the latest-release commit range in changelog',
+			default: false,
+		},
 	},
 })
 
@@ -60,5 +66,9 @@ if (!argv.flags.commit) config.commit = false
 if (!argv.flags.tag) config.tag = false
 if (argv.flags.profile) config.profile = argv.flags.profile
 if (argv.flags.dryRun) config.dryRun = argv.flags.dryRun
+if (argv.flags.latest && config.changelog) {
+	if (config.changelog === true) config.changelog = {}
+	config.changelog.commitRange = 'latest-release'
+}
 
 await relion(config)
