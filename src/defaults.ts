@@ -46,7 +46,8 @@ export const defaultChangelogSections: DefaultChangelogSections = {
 		filter: commit => !!commit.scope?.includes('deps') },
 	chore: { title: '🛠️ Chores', commitType: 'chore' },
 	test: { title: '🧪 Tests', commitType: 'test' },
-	misc: { title: '⚙️ Miscellaneous', commitType: '*' },
+	misc: { title: '⚙️ Miscellaneous', commitType: '*',
+		filter: commit => commit.type !== 'release' },
 	[Symbol.iterator]() {
 		return Object.values(this)[Symbol.iterator]()
 	},
