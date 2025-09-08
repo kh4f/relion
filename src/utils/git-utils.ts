@@ -28,7 +28,7 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 		to = 'HEAD'
 	} else if (commitRange === 'latest-release') {
 		from = versionTags[1] ?? firstCommitHash
-		to = versionTags[0] ? versionTags[0] + '^' : 'HEAD'
+		to = versionTags[0] ?? 'HEAD'
 	} else if ('from' in commitRange || 'to' in commitRange) {
 		const fromValue = 'from' in commitRange ? commitRange.from : 'firstCommit'
 		from = fromValue === 'firstCommit' ? firstCommitHash : fromValue
