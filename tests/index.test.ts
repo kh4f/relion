@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import relion from '@/index'
-import { spawnSync } from 'node:child_process'
+import { runCli } from '@/cli'
 
 describe('Smoke test', () => {
 	it('should pass', () => {
@@ -92,19 +92,15 @@ describe('Test all lifecycles', () => {
 })
 
 describe('Test cli', () => {
-	it('should print help message', () => {
-		const spawnResult = spawnSync('node ./dist/cli.js --help', { shell: true })
-		process.stdout.write(spawnResult.stdout)
-		process.stderr.write(spawnResult.stderr)
+	it('should print help message', async () => {
+		const exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
+		await runCli(undefined, ['--help'])
+		expect(exitSpy).toHaveBeenCalledWith(0)
 	})
-	it('should run all lifecycles with options from config file in dry run mode', { timeout: 10000 }, () => {
-		const spawnResult = spawnSync('node ./dist/cli.js -blct -d', { shell: true })
-		process.stdout.write(spawnResult.stdout)
-		process.stderr.write(spawnResult.stderr)
+	it('should run all lifecycles with options from config file in dry run mode', { timeout: 10000 }, async () => {
+		await runCli(undefined, ['-blct', '-d'])
 	})
-	it(`should generate changelog with 'github' profile`, { timeout: 10000 }, () => {
-		const spawnResult = spawnSync('node dist/cli.js -l -p github -d', { shell: true })
-		process.stdout.write(spawnResult.stdout)
-		process.stderr.write(spawnResult.stderr)
+	it(`should generate changelog with 'github' profile`, { timeout: 10000 }, async () => {
+		await runCli(undefined, ['-l', '-p', 'github', '-d'])
 	})
 })
