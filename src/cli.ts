@@ -63,6 +63,9 @@ export async function runCli(config?: UserConfig, argvs?: string[]) {
 		},
 	}, undefined, argvs)
 
+	// argv may be undefined if --help was passed
+	if (!(argv as ReturnType<typeof cli> | undefined)) return
+
 	if (!argv.flags.bump) config.bump = false
 	if (!argv.flags.changelog) config.changelog = false
 	if (!argv.flags.commit) config.commit = false
