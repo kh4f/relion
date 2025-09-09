@@ -62,6 +62,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	header: '# Changelog\n\n\n',
 	prevReleaseHeaderPattern: /^##.*?\d+\.\d+\.\d+/m,
 	helpers: {
+		eq: (a: unknown, b: unknown) => a === b,
 		repeat: (string: string, n: number) => string.repeat(n),
 	},
 	partials: {},

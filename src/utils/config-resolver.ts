@@ -189,7 +189,7 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 }
 
 const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionDefinition[]): ResolvedChangelogSection[] => {
-	const commitGroups: Record<string, Commit[]> = Object.fromEntries(sections.map(section => [section.title, []]))
+	const commitGroups: Record<string, { commits: Commit[], commitType: ChangelogSectionDefinition['commitType'] }> = Object.fromEntries(sections.map(section => [section.title, { commits: [], commitType: section.commitType }]))
 
 	commits.forEach((commit) => {
 		const isBreaking = !!commit.breakingChanges
@@ -202,13 +202,13 @@ const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionDef
 			const sectionTypes = [section.commitType].flat()
 
 			if (isBreaking && !isBreakingGrouped && sectionTypes.includes('breaking')) {
-				commitGroups[section.title].push(commit)
+				commitGroups[section.title].commits.push(commit)
 				isBreakingGrouped = true
 				continue
 			}
 
 			if (!isGrouped && (sectionTypes.includes(commit.type) || sectionTypes.includes('*'))) {
-				commitGroups[section.title].push(commit)
+				commitGroups[section.title].commits.push(commit)
 				isGrouped = true
 			}
 
@@ -217,10 +217,10 @@ const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionDef
 	})
 
 	Object.keys(commitGroups).forEach((key) => {
-		if (!commitGroups[key].length) delete commitGroups[key]
+		if (!commitGroups[key].commits.length) delete commitGroups[key]
 	})
 
-	return Object.entries(commitGroups).map(([title, commits]) => ({ title, commits }))
+	return Object.entries(commitGroups).map(([title, { commits, commitType }]) => ({ title, commits, commitType }))
 }
 
 const resolveTemplates = (config: ContextualConfig): ResolvedConfig => {
