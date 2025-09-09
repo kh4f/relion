@@ -10,6 +10,7 @@ export default defineConfig({
 		gpgSign: true,
 	},
 	_github: {
+		silent: true,
 		context: {
 			commitHyperlink: false,
 		},
