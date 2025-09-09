@@ -89,6 +89,15 @@ describe('Test all lifecycles', () => {
 			},
 		})
 	})
+	it('should print only changelog to console', async () => {
+		await relion({
+			silent: true,
+			changelog: {
+				output: 'stdout',
+				commitRange: { from: 'HEAD~5' },
+			},
+		})
+	})
 })
 
 describe('Test cli', () => {
