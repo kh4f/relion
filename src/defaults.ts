@@ -43,6 +43,7 @@ export const defaultChangelogSections: DefaultChangelogSections = {
 	build: { title: '📦 Build', commitType: 'build' },
 	ci: { title: '🚀 CI', commitType: 'ci' },
 	revert: { title: '♻️ Reverts', commitType: 'revert' },
+	types: { title: '🏷️ Types', commitType: 'types' },
 	deps: { title: '🧩 Dependencies', commitType: 'chore',
 		filter: commit => !!commit.scope?.includes('deps') },
 	chore: { title: '🛠️ Chores', commitType: 'chore' },
