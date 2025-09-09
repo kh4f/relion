@@ -110,6 +110,6 @@ describe('Test cli', () => {
 		await runCli(undefined, ['-blct', '-d'])
 	})
 	it(`should generate changelog with 'github' profile`, { timeout: 10000 }, async () => {
-		await runCli(undefined, ['-l', '-p', 'github', '-d'])
+		await runCli(undefined, ['-l', '-p', 'github', '-L'])
 	})
 })
