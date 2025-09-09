@@ -45,14 +45,11 @@ jobs:
       - name: Create release archive
         run: zip -r "${GITHUB_REPOSITORY##*/}-${tag}.zip" dist/ package.json LICENSE README.md
 
-      - name: Generate release notes
-        run: pnpm release:github
-
       - name: Create GitHub release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          RELEASE_NOTES=$(cat RELEASE.md)
+          RELEASE_NOTES=$(pnpm release:github)
           gh release create "$tag" \
             --title="$tag" \
             --notes "$RELEASE_NOTES" \
