@@ -1,6 +1,46 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.5.0  `](https://github.com/kh4f/relion/compare/v0.4.0...v0.5.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+* `changelog` replace `stdout` and `outputFile` options with unified `output` [`00d6ff4`](https://github.com/kh4f/relion/commit/00d6ff4)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+* `config` add silent mode to suppress console output [`4bd9334`](https://github.com/kh4f/relion/commit/4bd9334)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+* `core` handle `silent` setting from profile config [`8107bd6`](https://github.com/kh4f/relion/commit/8107bd6)
+* `cli` handle undefined `argv` when `--help` is passed [`a662f9c`](https://github.com/kh4f/relion/commit/a662f9c)
+* `git-utils` include release tag in commit range for latest release [`b6db5b2`](https://github.com/kh4f/relion/commit/b6db5b2)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+* `changelog` replace `stdout` and `outputFile` options with unified `output` [`00d6ff4`](https://github.com/kh4f/relion/commit/00d6ff4)
+* `utils` move `deepLog` function to `logger.ts` module [`da665c4`](https://github.com/kh4f/relion/commit/da665c4)
+* `cli` move CLI logic in `runCli` exported function [`3cdc734`](https://github.com/kh4f/relion/commit/3cdc734)
+* `defaults` exclude release commits from `Miscellaneous` changelog section by default [`e4e2545`](https://github.com/kh4f/relion/commit/e4e2545)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚀 CI
+* `release` streamline release notes generation [`51c2f52`](https://github.com/kh4f/relion/commit/51c2f52)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♻️ Reverts
+* `release` update import path for `defineConfig` in relion config [`85884fd`](https://github.com/kh4f/relion/commit/85884fd)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩 Dependencies
+* `dev-deps` add `tsx` to devDependencies [`b032984`](https://github.com/kh4f/relion/commit/b032984)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+* `release` enable silent mode for github profile [`2715333`](https://github.com/kh4f/relion/commit/2715333)
+* `release` update changelog output option to new format [`1092648`](https://github.com/kh4f/relion/commit/1092648)
+* `release` update import path for `defineConfig` in relion config [`1102afe`](https://github.com/kh4f/relion/commit/1102afe)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+* `changelog` add test to print only changelog to console [`8139725`](https://github.com/kh4f/relion/commit/8139725)
+* `cli` refactor CLI tests to use `runCli` function instead of executing `dist/cli.js` [`f633ecd`](https://github.com/kh4f/relion/commit/f633ecd)
+
+##### &emsp;&ensp;&nbsp; 🔗 [Full Commit History: `v0.4.0` → `v0.5.0`](https://github.com/kh4f/relion/compare/v0.4.0...v0.5.0) &ensp;/&ensp; _2025-09-09_
+
+
 ## &ensp; [` 📦 v0.4.0  `](https://github.com/kh4f/relion/compare/v0.3.0...v0.4.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
