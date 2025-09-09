@@ -11,6 +11,7 @@
   - perf (performance improvement)
   - docs (documentation change)
   - chore (maintenance change, e.g., tooling, dependencies, scripts...)
+  - types (type definitions)
   - test (test change)
   - build (build system change)
   - ci (CI change)
@@ -40,6 +41,7 @@
 - refactor(pages): move `page.tsx` from `app` to `home`
 - refactor(homepage): replace CSS modules with `linaria` for styling
 - feat(cli): add `context.linkReferences` option
+- types(changelog): extend `ResolvedChangelogSection` from `ChangelogSectionDefinition` 
 - refactor(styles): move global styles from `page.module.css` to `globals.css`
 - chore(eslint): add name to global ignores
 - chore(tsconfig): update `jsx` setting to use 'react-jsx'
