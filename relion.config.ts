@@ -1,4 +1,4 @@
-import { defineConfig } from '@/index'
+import { defineConfig } from './dist/index.js'
 
 export default defineConfig({
 	bump: [],
