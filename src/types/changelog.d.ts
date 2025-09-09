@@ -6,8 +6,7 @@ export interface ChangelogSectionDefinition {
 	filter?: (commit: Commit) => boolean
 }
 
-export interface ResolvedChangelogSection {
-	title: string
+export interface ResolvedChangelogSection extends Omit<ChangelogSectionDefinition, 'commitType' | 'filter'> {
 	commits: Commit[]
 }
 
