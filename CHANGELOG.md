@@ -1,6 +1,29 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.6.0  `](https://github.com/kh4f/relion/compare/v0.5.0...v0.6.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+* `changelog` add `types` to default changelog sections [`a0d37de`](https://github.com/kh4f/relion/commit/a0d37de)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+* `changelog` use `breakingChanges` property instead of `subject` for BREAKING CHANGES section [`d975690`](https://github.com/kh4f/relion/commit/d975690)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📚 Documentation
+* `copilot` add `types` to commit types list and example [`6857cf3`](https://github.com/kh4f/relion/commit/6857cf3)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚀 CI
+* `release` enable silent mode for `pnpm release:github` command [`1fd0b6b`](https://github.com/kh4f/relion/commit/1fd0b6b)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+* `changelog` extend `ResolvedChangelogSection` from `ChangelogSectionDefinition` [`2cc0aad`](https://github.com/kh4f/relion/commit/2cc0aad)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+* `cli` change unnecessary `-d` to `-L` flag for generating latest release [`02cb36b`](https://github.com/kh4f/relion/commit/02cb36b)
+
+##### &emsp;&ensp;&nbsp; 🔗 [Full Commit History: `v0.5.0` → `v0.6.0`](https://github.com/kh4f/relion/compare/v0.5.0...v0.6.0) &ensp;/&ensp; _2025-09-09_
+
+
 ## &ensp; [` 📦 v0.5.0  `](https://github.com/kh4f/relion/compare/v0.4.0...v0.5.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
