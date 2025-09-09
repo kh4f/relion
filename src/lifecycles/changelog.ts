@@ -43,12 +43,12 @@ export const changelog = (config: ResolvedConfig): void => {
 		result += rendered
 	})
 
-	if (options.stdout) {
-		log(`Generated changelog:\n${result}`)
-	}
-	if (options.outputFile) {
-		log(`Writing changelog to file '${options.outputFile}'`)
-		if (!config.dryRun) writeToChangelogFile(options.outputFile, result, options.prevReleaseHeaderPattern)
+	if (options.output === 'stdout') {
+		log(`Generated changelog:`)
+		console.log(result)
+	} else {
+		log(`Writing changelog to file '${options.output}'`)
+		if (!config.dryRun) writeToChangelogFile(options.output, result, options.prevReleaseHeaderPattern)
 	}
 }
 

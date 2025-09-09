@@ -43,8 +43,7 @@ export type ResolvedConfig = ContextualConfig
 export type BumpFiles = (string | VersionedFile)[]
 
 export interface ChangelogOptions {
-	stdout?: boolean
-	outputFile?: string
+	output?: 'stdout' | (string & {})
 	commitRange?: CommitRange
 	sections?: ChangelogSectionDefinition[]
 	header?: string

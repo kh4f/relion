@@ -14,7 +14,7 @@ export default defineConfig({
 			commitHyperlink: false,
 		},
 		changelog: {
-			outputFile: 'RELEASE.md',
+			output: 'RELEASE.md',
 			header: '',
 			partials: {
 				header: '',

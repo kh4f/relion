@@ -14,7 +14,7 @@ describe('Test all lifecycles', () => {
 			versionSourceFile: 'package.json',
 			bump: [],
 			changelog: {
-				outputFile: 'temp/CHANGELOG.md',
+				output: 'temp/CHANGELOG.md',
 				commitRange: {
 					from: 'HEAD~5',
 				},
@@ -32,7 +32,7 @@ describe('Test all lifecycles', () => {
 		await relion({
 			dryRun: true,
 			changelog: {
-				stdout: true,
+				output: 'stdout',
 				commitRange: {
 					from: 'HEAD~5',
 				},
@@ -43,7 +43,7 @@ describe('Test all lifecycles', () => {
 		await relion({
 			dryRun: true,
 			changelog: {
-				stdout: true,
+				output: 'stdout',
 				commitRange: {
 					from: 'HEAD~5',
 				},
@@ -60,7 +60,7 @@ describe('Test all lifecycles', () => {
 		await relion({
 			dryRun: true,
 			changelog: {
-				stdout: true,
+				output: 'stdout',
 				commitRange: {
 					from: 'HEAD~5',
 				},
@@ -71,7 +71,7 @@ describe('Test all lifecycles', () => {
 					commitHyperlink: false,
 				},
 				changelog: {
-					outputFile: 'RELEASE.md',
+					output: 'RELEASE.md',
 					header: '',
 					partials: {
 						header: '',
@@ -84,7 +84,7 @@ describe('Test all lifecycles', () => {
 		await relion({
 			dryRun: true,
 			changelog: {
-				stdout: true,
+				output: 'stdout',
 				commitRange: 'latest-release',
 			},
 		})

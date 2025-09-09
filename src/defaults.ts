@@ -55,8 +55,7 @@ export const defaultChangelogSections: DefaultChangelogSections = {
 }
 
 export const defaultChangelogOptions: CompleteChangelogOptions = {
-	stdout: false,
-	outputFile: './CHANGELOG.md',
+	output: 'CHANGELOG.md',
 	commitRange: 'unreleased',
 	sections: [...defaultChangelogSections],
 	header: '# Changelog\n\n\n',
