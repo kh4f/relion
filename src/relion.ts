@@ -1,8 +1,9 @@
 import { bump, commit, tag, changelog } from '@/lifecycles'
-import { resolveConfig } from '@/utils'
+import { resolveConfig, setSilent } from '@/utils'
 import type { UserConfig } from '@/types'
 
 export default async function relion(userConfig: UserConfig) {
+	setSilent(!!userConfig.silent)
 	const config = await resolveConfig(userConfig)
 	bump(config)
 	changelog(config)

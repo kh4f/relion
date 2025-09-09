@@ -1,4 +1,4 @@
-import { getVersionTags } from '@/utils'
+import { getVersionTags, log } from '@/utils'
 import type { ReleaseContext, ReleaseWithGroupedCommits, ResolvedConfig } from '@/types'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
@@ -44,10 +44,10 @@ export const changelog = (config: ResolvedConfig): void => {
 	})
 
 	if (options.stdout) {
-		console.log(`Generated changelog:\n${result}`)
+		log(`Generated changelog:\n${result}`)
 	}
 	if (options.outputFile) {
-		console.log(`Writing changelog to file '${options.outputFile}'`)
+		log(`Writing changelog to file '${options.outputFile}'`)
 		if (!config.dryRun) writeToChangelogFile(options.outputFile, result, options.prevReleaseHeaderPattern)
 	}
 }

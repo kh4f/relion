@@ -70,7 +70,7 @@ export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParse
 			refs: refs.length ? refs : undefined,
 		}
 		// if (hash && !(hash in commitStore)) commitStore[hash] = parsedCommit
-		// console.log(Object.keys(commitStore).length, 'commits in store')
+		// log(Object.keys(commitStore).length, 'commits in store')
 		return parsedCommit
 	}))).filter(commit => commit !== undefined)
 }

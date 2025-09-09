@@ -2,6 +2,7 @@ export * from './config-resolver'
 export * from './version-manager'
 export * from './commits-parser'
 export * from './git-utils'
+export * from './logger'
 
 import { inspect } from 'node:util'
 

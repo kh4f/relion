@@ -18,6 +18,7 @@ export interface UserConfig {
 	prevReleaseTagPattern?: RegExp
 	dryRun?: boolean
 	profile?: string
+	silent?: boolean
 	[profile: `_${string}`]: UserConfig | undefined
 }
 

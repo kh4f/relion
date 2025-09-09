@@ -1,14 +1,14 @@
 import { readFileSync } from 'node:fs'
 import semver from 'semver'
 import type { ReleaseType, Commit, VersionedFile, TransformedConfig } from '@/types'
-import { parseCommits } from '@/utils'
+import { log, parseCommits } from '@/utils'
 
 export const parseVersion = (versionedFile: VersionedFile): string => {
 	const fileContent = readFileSync(versionedFile.filePath, 'utf8')
 	const version = versionedFile.versionPattern.exec(fileContent)?.[2]
 	if (!version) throw new Error(`Version not found in '${versionedFile.filePath}' with pattern '${versionedFile.versionPattern}'`)
 	if (!semver.valid(version)) throw new Error(`Invalid version format in '${versionedFile.filePath}': '${version}'`)
-	console.log(`Current version from '${versionedFile.filePath}': '${version}'`)
+	log(`Current version from '${versionedFile.filePath}': '${version}'`)
 	return version
 }
 
@@ -28,7 +28,7 @@ export const determineNextVersion = async (config: TransformedConfig, currentVer
 		if (config.zeroMajorBreakingIsMinor && semver.major(currentVersion) === 0 && releaseType === 'major') releaseType = 'minor'
 	}
 	const newVersion = increaseVersion(currentVersion, releaseType)
-	console.log(`Determined new version: '${newVersion}' (release type: '${releaseType}')`)
+	log(`Determined new version: '${newVersion}' (release type: '${releaseType}')`)
 	return newVersion
 }
 

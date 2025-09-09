@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import type { ResolvedConfig } from '@/types'
+import { log } from '@/utils'
 
 export const bump = (config: ResolvedConfig): void => {
 	if (!config.bump) return
@@ -8,6 +9,6 @@ export const bump = (config: ResolvedConfig): void => {
 		const fileContent = readFileSync(versionedFile.filePath, 'utf8')
 		const updatedContent = fileContent.replace(versionedFile.versionPattern, `$1${newVersion}$3`)
 		if (!config.dryRun) writeFileSync(versionedFile.filePath, updatedContent, 'utf8')
-		console.log(`Updated version in '${versionedFile.filePath}' to '${newVersion}'`)
+		log(`Updated version in '${versionedFile.filePath}' to '${newVersion}'`)
 	})
 }
