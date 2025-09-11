@@ -1,6 +1,33 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.7.0  `](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+* **core**: add `defaultChangelogSections` export [`86da78a`](https://github.com/kh4f/relion/commit/86da78a)
+* **changelog**: extend section definitions with optional `id` property [`41c838a`](https://github.com/kh4f/relion/commit/41c838a)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+* **templates**: use `id` property instead of `commitType` for breaking changes condition [`205b9f8`](https://github.com/kh4f/relion/commit/205b9f8)
+* **defaults**: update `prevReleaseTagPattern` regex to allow optional leading `v` [`1c631eb`](https://github.com/kh4f/relion/commit/1c631eb)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📚 Documentation
+* **commit-naming**: update commit message guidelines with clarified rules and examples [`94ca4fc`](https://github.com/kh4f/relion/commit/94ca4fc)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+* **changelog**: update title for default `style` section from 'Formatting' to 'Style' [`d47d472`](https://github.com/kh4f/relion/commit/d47d472)
+* **templates**: remove emoji from footer commit link [`7ea3c1d`](https://github.com/kh4f/relion/commit/7ea3c1d)
+* **templates**: update release footer with italic link and `•` separator [`7e56b38`](https://github.com/kh4f/relion/commit/7e56b38)
+* **templates**: simplify release footer by omitting `prevTag → tag` [`df84af2`](https://github.com/kh4f/relion/commit/df84af2)
+* **templates**: update footer link label to 'All Release Commits' [`2ca80a6`](https://github.com/kh4f/relion/commit/2ca80a6)
+* **templates**: update commit scope formatting to bold with colon [`37dcb53`](https://github.com/kh4f/relion/commit/37dcb53)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+* **renovate**: add initial configuration for Renovate [`bc296e9`](https://github.com/kh4f/relion/commit/bc296e9)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0) &ensp;•&ensp; _2025-09-11_
+
+
 ## &ensp; [` 📦 v0.6.0  `](https://github.com/kh4f/relion/compare/v0.5.0...v0.6.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
