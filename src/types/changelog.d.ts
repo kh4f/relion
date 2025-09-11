@@ -1,6 +1,7 @@
 import type { Commit, ResolvedContext } from '@/types'
 
 export interface ChangelogSectionDefinition {
+	id?: string
 	title: string
 	commitType: 'breaking' | '*' | (string & {}) | string[]
 	filter?: (commit: Commit) => boolean

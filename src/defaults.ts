@@ -51,7 +51,7 @@ export const defaultChangelogSections: DefaultChangelogSections = {
 	misc: { title: '⚙️ Miscellaneous', commitType: '*',
 		filter: commit => commit.type !== 'release' },
 	[Symbol.iterator]() {
-		return Object.values(this)[Symbol.iterator]()
+		return Object.entries(this).map(([id, rest]) => ({ id, ...rest }))[Symbol.iterator]()
 	},
 }
 

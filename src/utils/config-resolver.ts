@@ -189,7 +189,7 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 }
 
 const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionDefinition[]): ResolvedChangelogSection[] => {
-	const commitGroups: Record<string, { commits: Commit[], commitType: ChangelogSectionDefinition['commitType'] }> = Object.fromEntries(sections.map(section => [section.title, { commits: [], commitType: section.commitType }]))
+	const commitGroups: Record<string, Omit<ResolvedChangelogSection, 'title'>> = Object.fromEntries(sections.map(section => [section.title, { id: section.id, commitType: section.commitType, commits: [] }]))
 
 	commits.forEach((commit) => {
 		const isBreaking = !!commit.breakingChanges
@@ -220,7 +220,7 @@ const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionDef
 		if (!commitGroups[key].commits.length) delete commitGroups[key]
 	})
 
-	return Object.entries(commitGroups).map(([title, { commits, commitType }]) => ({ title, commits, commitType }))
+	return Object.entries(commitGroups).map(([title, { id, commits, commitType }]) => ({ id, title, commits, commitType }))
 }
 
 const resolveTemplates = (config: ContextualConfig): ResolvedConfig => {
