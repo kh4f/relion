@@ -7,7 +7,7 @@ export const defaultConfig: MergedConfig = {
 	tag: false,
 	versionSourceFile: './package.json',
 	newTagFormat: 'v{{newVersion}}',
-	prevReleaseTagPattern: /^v(?<version>\d+\.\d+\.\d+)/,
+	prevReleaseTagPattern: /^v?(?<version>\d+\.\d+\.\d+)/,
 	zeroMajorBreakingIsMinor: true,
 	dryRun: false,
 	silent: false,
