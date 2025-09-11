@@ -5,7 +5,7 @@
 {{#each commitGroups}}
 ### {{{repeat '&nbsp;' 5}}}{{title}}
 {{#each commits}}
-* {{#if scope}}`{{scope}}` {{/if}}{{#if (eq ../commitType 'breaking')}}{{{breakingChanges}}}{{else}}{{{subject}}}{{/if}} {{#if ../../commitHyperlink}}[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}}){{else}}{{hash}}{{/if}}
+* {{#if scope}}**{{scope}}**: {{/if}}{{#if (eq ../commitType 'breaking')}}{{{breakingChanges}}}{{else}}{{{subject}}}{{/if}} {{#if ../../commitHyperlink}}[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}}){{else}}{{hash}}{{/if}}
 {{/each}}
 
 {{/each}}
