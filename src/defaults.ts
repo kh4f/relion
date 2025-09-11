@@ -39,7 +39,7 @@ export const defaultChangelogSections: DefaultChangelogSections = {
 	perf: { title: '⚡ Performance', commitType: 'perf' },
 	refactor: { title: '🚜 Refactoring', commitType: 'refactor' },
 	docs: { title: '📚 Documentation', commitType: 'docs' },
-	style: { title: '🎨 Formatting', commitType: 'style' },
+	style: { title: `🎨 Style`, commitType: 'style' },
 	build: { title: '📦 Build', commitType: 'build' },
 	ci: { title: '🚀 CI', commitType: 'ci' },
 	revert: { title: '♻️ Reverts', commitType: 'revert' },
