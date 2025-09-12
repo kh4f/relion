@@ -19,7 +19,7 @@ export interface ReleaseWithFlatCommits {
 }
 
 export interface ReleaseWithGroupedCommits extends Omit<ReleaseWithFlatCommits, 'commits'> {
-	commitGroups: ResolvedChangelogSection[]
+	commitTypeGroups: ResolvedChangelogSection[]
 }
 
 export interface ReleaseContext extends ReleaseWithGroupedCommits, ResolvedContext {

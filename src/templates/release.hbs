@@ -2,7 +2,7 @@
 ## &ensp; [` 📦 {{tag}}  `]({{repo.homepage}}/{{#if prevTag}}compare/{{prevTag}}...{{tag}}{{else}}commits/{{tag}}{{/if}})
 
 {{/header}}
-{{#each commitGroups}}
+{{#each commitTypeGroups}}
 ### {{{repeat '&nbsp;' 5}}}{{title}}
 {{#each commits}}
 * {{#if scope}}**{{scope}}**: {{/if}}{{#if (eq ../id 'breaking')}}{{{breakingChanges}}}{{else}}{{{subject}}}{{/if}} {{#if ../../commitHyperlink}}[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}}){{else}}{{hash}}{{/if}}

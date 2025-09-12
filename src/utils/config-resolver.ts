@@ -184,7 +184,7 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 	const { commits, ...releaseWithoutCommits } = release
 	return {
 		...releaseWithoutCommits,
-		commitGroups: groupCommitsBySections(commits, sections),
+		commitTypeGroups: groupCommitsBySections(commits, sections),
 	}
 }
 
