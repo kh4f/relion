@@ -14,7 +14,7 @@ export type RawCommit = CommitMessageString | {
 	gpgSigKeyId?: string
 }
 
-export interface Commit extends CommitMessage {
+export interface ParsedCommit extends CommitMessage {
 	hash?: string
 	tags?: string[]
 	authors?: Contributor[]

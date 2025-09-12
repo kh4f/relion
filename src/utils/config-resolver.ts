@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, Commit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -150,7 +150,7 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 	return contextualConfig
 }
 
-const groupCommitsByReleases = (commits: Commit[], sections: ChangelogSectionsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {
+const groupCommitsByReleases = (commits: ParsedCommit[], sections: ChangelogSectionsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -188,8 +188,8 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 	}
 }
 
-const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionsMap): ResolvedChangelogSection[] => {
-	type ChangelogSectionWithCommits = ChangelogSectionDefinition & { commits: Commit[] }
+const groupCommitsBySections = (commits: ParsedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSection[] => {
+	type ChangelogSectionWithCommits = ChangelogSectionDefinition & { commits: ParsedCommit[] }
 	type ChangelogSectionsMapWithCommits = Record<string, ChangelogSectionWithCommits>
 
 	const commitTypeGroupsMap: ChangelogSectionsMapWithCommits = Object.fromEntries(Object.entries(sections).map(([id, def]) => ([id, { ...def, commits: [] }])))

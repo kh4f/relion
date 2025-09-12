@@ -1,4 +1,4 @@
-import type { Commit, RawCommit, ReleaseWithGroupedCommits, ChangelogSectionsMap } from '@/types'
+import type { ParsedCommit, RawCommit, ReleaseWithGroupedCommits, ChangelogSectionsMap } from '@/types'
 import type { HelperDeclareSpec } from 'handlebars'
 
 export type FalseOrComplete<T> = false | Required<T>
@@ -98,7 +98,7 @@ export interface RepoInfo {
 	homepage?: string
 }
 export interface Context {
-	commits?: Commit[] | RawCommit[]
+	commits?: ParsedCommit[] | RawCommit[]
 	currentVersion?: string
 	currentTag?: string
 	newVersion?: string
@@ -107,7 +107,7 @@ export interface Context {
 	[key: string]: unknown
 }
 export interface ResolvedContext extends Required<Context> {
-	commits: Commit[]
+	commits: ParsedCommit[]
 	releases: ReleaseWithGroupedCommits[] | null
 }
 

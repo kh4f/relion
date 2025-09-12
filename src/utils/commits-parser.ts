@@ -1,10 +1,10 @@
-import type { CompleteCommitsParser, Commit, RawCommit, RawReference, RefLabel, Reference, Contributor, CommitMessage, CommitRange } from '@/types'
+import type { CompleteCommitsParser, ParsedCommit, RawCommit, RawReference, RefLabel, Reference, Contributor, CommitMessage, CommitRange } from '@/types'
 import { GpgSigLabel } from '@/enums'
 import { getRawCommits } from '@/utils'
 
 // const commitStore: Record<string, Commit> = {}
 
-export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<Commit[]> => {
+export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<ParsedCommit[]> => {
 	const rawCommits = Array.isArray(arg1) ? arg1 : getRawCommits(arg1, prevReleaseTagPattern)
 	const parser = commitsParser
 
@@ -109,7 +109,7 @@ const parseCommitMessage = (message: string, parser: CompleteCommitsParser): Com
 	}
 }
 
-const parseBreakingChanges = (value: string, parser: CompleteCommitsParser): Commit['breakingChanges'] => {
+const parseBreakingChanges = (value: string, parser: CompleteCommitsParser): ParsedCommit['breakingChanges'] => {
 	const breakingChanges = parser.breakingChangesPattern.exec(value)?.groups?.content
 	if (!breakingChanges) throw new Error(`Failed to extract breaking changes content from '${value}' using pattern "${parser.breakingChangesPattern}"`)
 

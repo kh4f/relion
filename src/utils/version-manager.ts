@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import semver from 'semver'
-import type { ReleaseType, Commit, VersionedFile, TransformedConfig } from '@/types'
+import type { ReleaseType, ParsedCommit, VersionedFile, TransformedConfig } from '@/types'
 import { log, parseCommits } from '@/utils'
 
 export const parseVersion = (versionedFile: VersionedFile): string => {
@@ -32,7 +32,7 @@ export const determineNextVersion = async (config: TransformedConfig, currentVer
 	return newVersion
 }
 
-const calculateReleaseType = (commits: Commit[]): ReleaseType => {
+const calculateReleaseType = (commits: ParsedCommit[]): ReleaseType => {
 	const hasBreakingChange = commits.some(commit => commit.breakingChanges)
 	if (hasBreakingChange) return 'major'
 
