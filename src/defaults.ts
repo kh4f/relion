@@ -32,7 +32,7 @@ export const defaultConfig: MergedConfig = {
 	},
 }
 
-export const defaultChangelogSections: ChangelogSectionsMap = {
+export const defaultChangelogSections = {
 	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking' },
 	feat: { title: '✨ Features', commitType: 'feat' },
 	fix: { title: '🩹 Fixes', commitType: 'fix' },
@@ -50,7 +50,7 @@ export const defaultChangelogSections: ChangelogSectionsMap = {
 	test: { title: '🧪 Tests', commitType: 'test' },
 	misc: { title: '⚙️ Miscellaneous', commitType: '*',
 		filter: commit => commit.type !== 'release' },
-}
+} as const satisfies ChangelogSectionsMap
 
 export const defaultChangelogOptions: CompleteChangelogOptions = {
 	output: 'CHANGELOG.md',
