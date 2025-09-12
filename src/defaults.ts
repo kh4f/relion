@@ -1,4 +1,4 @@
-import type { MergedConfig, DefaultVersionedFile, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, DefaultChangelogSections } from '@/types'
+import type { MergedConfig, DefaultVersionedFile, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, ChangelogSectionsMap } from '@/types'
 
 export const defaultConfig: MergedConfig = {
 	bump: false,
@@ -32,7 +32,7 @@ export const defaultConfig: MergedConfig = {
 	},
 }
 
-export const defaultChangelogSections: DefaultChangelogSections = {
+export const defaultChangelogSections: ChangelogSectionsMap = {
 	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking' },
 	feat: { title: '✨ Features', commitType: 'feat' },
 	fix: { title: '🩹 Fixes', commitType: 'fix' },
@@ -50,15 +50,12 @@ export const defaultChangelogSections: DefaultChangelogSections = {
 	test: { title: '🧪 Tests', commitType: 'test' },
 	misc: { title: '⚙️ Miscellaneous', commitType: '*',
 		filter: commit => commit.type !== 'release' },
-	[Symbol.iterator]() {
-		return Object.entries(this).map(([id, rest]) => ({ id, ...rest }))[Symbol.iterator]()
-	},
 }
 
 export const defaultChangelogOptions: CompleteChangelogOptions = {
 	output: 'CHANGELOG.md',
 	commitRange: 'unreleased',
-	sections: [...defaultChangelogSections],
+	sections: defaultChangelogSections,
 	header: '# Changelog\n\n\n',
 	prevReleaseHeaderPattern: /^##.*?\d+\.\d+\.\d+/m,
 	helpers: {

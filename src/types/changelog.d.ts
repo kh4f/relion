@@ -1,13 +1,14 @@
 import type { Commit, ResolvedContext } from '@/types'
 
 export interface ChangelogSectionDefinition {
-	id?: string
 	title: string
 	commitType: 'breaking' | '*' | (string & {}) | string[]
 	filter?: (commit: Commit) => boolean
 }
+export type ChangelogSectionsMap = Record<string, ChangelogSectionDefinition>
 
 export interface ResolvedChangelogSection extends Omit<ChangelogSectionDefinition, 'filter'> {
+	id: string
 	commits: Commit[]
 }
 
@@ -25,10 +26,4 @@ export interface ReleaseWithGroupedCommits extends Omit<ReleaseWithFlatCommits, 
 export interface ReleaseContext extends ReleaseWithGroupedCommits, ResolvedContext {
 	prevTag?: string
 	prevVersion?: string
-}
-
-export type ChangelogSectionsMap = Record<string, ChangelogSectionDefinition>
-
-export interface DefaultChangelogSections extends ChangelogSectionsMap {
-	[Symbol.iterator](): Iterator<ChangelogSectionDefinition>
 }

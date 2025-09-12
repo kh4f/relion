@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, Commit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, Commit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -150,7 +150,7 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 	return contextualConfig
 }
 
-const groupCommitsByReleases = (commits: Commit[], sections: ChangelogSectionDefinition[], config: ContextualConfig): ReleaseWithGroupedCommits[] => {
+const groupCommitsByReleases = (commits: Commit[], sections: ChangelogSectionsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -180,7 +180,7 @@ const groupCommitsByReleases = (commits: Commit[], sections: ChangelogSectionDef
 	return Object.values(releases).map(release => groupReleaseCommitsBySections(release, sections))
 }
 
-const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections: ChangelogSectionDefinition[]): ReleaseWithGroupedCommits => {
+const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections: ChangelogSectionsMap): ReleaseWithGroupedCommits => {
 	const { commits, ...releaseWithoutCommits } = release
 	return {
 		...releaseWithoutCommits,
@@ -188,27 +188,30 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 	}
 }
 
-const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionDefinition[]): ResolvedChangelogSection[] => {
-	const commitGroups: Record<string, Omit<ResolvedChangelogSection, 'title'>> = Object.fromEntries(sections.map(section => [section.title, { id: section.id, commitType: section.commitType, commits: [] }]))
+const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionsMap): ResolvedChangelogSection[] => {
+	type ChangelogSectionWithCommits = ChangelogSectionDefinition & { commits: Commit[] }
+	type ChangelogSectionsMapWithCommits = Record<string, ChangelogSectionWithCommits>
+
+	const commitTypeGroupsMap: ChangelogSectionsMapWithCommits = Object.fromEntries(Object.entries(sections).map(([id, def]) => ([id, { ...def, commits: [] }])))
 
 	commits.forEach((commit) => {
 		const isBreaking = !!commit.breakingChanges
 		let isGrouped = false
 		let isBreakingGrouped = false
 
-		for (const section of sections) {
-			if (section.filter && !section.filter(commit)) continue
+		for (const sectionId in sections) {
+			if (sections[sectionId].filter && !sections[sectionId].filter(commit)) continue
 
-			const sectionTypes = [section.commitType].flat()
+			const sectionTypes = [sections[sectionId].commitType].flat()
 
 			if (isBreaking && !isBreakingGrouped && sectionTypes.includes('breaking')) {
-				commitGroups[section.title].commits.push(commit)
+				commitTypeGroupsMap[sectionId].commits.push(commit)
 				isBreakingGrouped = true
 				continue
 			}
 
 			if (!isGrouped && (sectionTypes.includes(commit.type) || sectionTypes.includes('*'))) {
-				commitGroups[section.title].commits.push(commit)
+				commitTypeGroupsMap[sectionId].commits.push(commit)
 				isGrouped = true
 			}
 
@@ -216,11 +219,11 @@ const groupCommitsBySections = (commits: Commit[], sections: ChangelogSectionDef
 		}
 	})
 
-	Object.keys(commitGroups).forEach((key) => {
-		if (!commitGroups[key].commits.length) delete commitGroups[key]
+	Object.keys(commitTypeGroupsMap).forEach((key) => {
+		if (!commitTypeGroupsMap[key].commits.length) delete commitTypeGroupsMap[key]
 	})
 
-	return Object.entries(commitGroups).map(([title, { id, commits, commitType }]) => ({ id, title, commits, commitType }))
+	return Object.entries(commitTypeGroupsMap).map(([id, { title, commits, commitType }]) => ({ id, title, commits, commitType }))
 }
 
 const resolveTemplates = (config: ContextualConfig): ResolvedConfig => {

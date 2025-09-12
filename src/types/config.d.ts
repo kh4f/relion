@@ -1,4 +1,4 @@
-import type { Commit, RawCommit, ChangelogSectionDefinition, ReleaseWithGroupedCommits } from '@/types'
+import type { Commit, RawCommit, ReleaseWithGroupedCommits, ChangelogSectionsMap } from '@/types'
 import type { HelperDeclareSpec } from 'handlebars'
 
 export type FalseOrComplete<T> = false | Required<T>
@@ -45,7 +45,7 @@ export type BumpFiles = (string | VersionedFile)[]
 export interface ChangelogOptions {
 	output?: 'stdout' | (string & {})
 	commitRange?: CommitRange
-	sections?: ChangelogSectionDefinition[]
+	sections?: ChangelogSectionsMap
 	header?: string
 	prevReleaseHeaderPattern?: RegExp
 	helpers?: HelperDeclareSpec
