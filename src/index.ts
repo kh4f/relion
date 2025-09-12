@@ -1,3 +1,3 @@
 export { default, defineConfig } from '@/relion'
-export { defaultChangelogSections } from '@/defaults'
+export { changelogSectionsSelector } from '@/utils'
 export type * from '@/types'

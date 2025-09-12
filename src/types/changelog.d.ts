@@ -1,4 +1,5 @@
 import type { Commit, ResolvedContext } from '@/types'
+import { defaultChangelogSections } from '@/defaults'
 
 export interface ChangelogSectionDefinition {
 	title: string
@@ -26,4 +27,11 @@ export interface ReleaseWithGroupedCommits extends Omit<ReleaseWithFlatCommits, 
 export interface ReleaseContext extends ReleaseWithGroupedCommits, ResolvedContext {
 	prevTag?: string
 	prevVersion?: string
+}
+
+export type DefaultChangelogSections = typeof defaultChangelogSections
+
+export interface ChangelogSectionsSelector extends DefaultChangelogSections {
+	pick(...keys: (keyof DefaultChangelogSections)[]): Partial<DefaultChangelogSections>
+	omit(...keys: (keyof DefaultChangelogSections)[]): Partial<DefaultChangelogSections>
 }
