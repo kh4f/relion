@@ -1,6 +1,25 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.8.0  `](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+* **utils**: The `defaultChangelogSections` export has been removed from the public API. Use `changelogSectionsSelector` instead, which provides the same sections plus `pick` and `omit` methods. [`3febcbc`](https://github.com/kh4f/relion/commit/3febcbc)
+* **changelog**: The `sections` option in changelog configuration is now an object with section IDs as keys instead of an array. [`349fed9`](https://github.com/kh4f/relion/commit/349fed9)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+* **utils**: add `changelogSectionsSelector` with `pick` and `omit` methods [`3febcbc`](https://github.com/kh4f/relion/commit/3febcbc)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+* **changelog**: change `sections` from array to object format for better usability [`349fed9`](https://github.com/kh4f/relion/commit/349fed9)
+* **changelog**: rename `commitGroups` property to `commitTypeGroups` [`6ec89a8`](https://github.com/kh4f/relion/commit/6ec89a8)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+* **defaults**: use `satisfies ChangelogSectionsMap` for `defaultChangelogSections` [`4343e6f`](https://github.com/kh4f/relion/commit/4343e6f)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _2025-09-12_
+
+
 ## &ensp; [` 📦 v0.7.0  `](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
