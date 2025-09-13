@@ -2,7 +2,7 @@ import type { CompleteCommitsParser, ParsedCommit, RawCommit, RawReference, RefL
 import { GpgSigLabel } from '@/enums'
 import { getRawCommits } from '@/utils'
 
-// const commitStore: Record<string, Commit> = {}
+const parsedCommits: Record<string, ParsedCommit> = {}
 
 export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<ParsedCommit[]> => {
 	const rawCommits = Array.isArray(arg1) ? arg1 : getRawCommits(arg1, prevReleaseTagPattern)
@@ -16,6 +16,8 @@ export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsPars
 	if (typeof commit === 'string') commit = { message: commit }
 
 	const { hash, tagRefs } = commit
+
+	if (hash && hash in parsedCommits) return parsedCommits[hash]
 
 	const message = commit.message.trim()
 	if (!message) throw new Error(`Message is missing for commit: ${JSON.stringify(commit)}`)
@@ -73,8 +75,9 @@ export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsPars
 		authors: authors.length ? authors : undefined,
 		refs: refs.length ? refs : undefined,
 	}
-	// if (hash && !(hash in commitStore)) commitStore[hash] = parsedCommit
-	// log(Object.keys(commitStore).length, 'commits in store')
+
+	if (hash && !(hash in parsedCommits)) parsedCommits[hash] = parsedCommit
+
 	return parsedCommit
 }
 
