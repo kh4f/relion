@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap, ResolvedCommit, ParsedCommitWithReleaseTag } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ChangelogSectionDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap, ResolvedCommit, ParsedCommitWithReleaseTag, ResolvedChangelogSectionsMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -205,7 +205,7 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 	}
 }
 
-const groupCommitsBySections = (commits: ResolvedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSection[] => {
+const groupCommitsBySections = (commits: ResolvedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSectionsMap => {
 	type ChangelogSectionWithCommits = ChangelogSectionDefinition & { commits: ResolvedCommit[] }
 	type ChangelogSectionsMapWithCommits = Record<string, ChangelogSectionWithCommits>
 
@@ -240,7 +240,7 @@ const groupCommitsBySections = (commits: ResolvedCommit[], sections: ChangelogSe
 		if (!commitTypeGroupsMap[key].commits.length) delete commitTypeGroupsMap[key]
 	})
 
-	return Object.entries(commitTypeGroupsMap).map(([id, { title, commits, commitType }]) => ({ id, title, commits, commitType }))
+	return commitTypeGroupsMap
 }
 
 const resolveTemplates = (config: ContextualConfig): ResolvedConfig => {

@@ -9,9 +9,9 @@ export interface ChangelogSectionDefinition {
 export type ChangelogSectionsMap = Record<string, ChangelogSectionDefinition>
 
 export interface ResolvedChangelogSection extends Omit<ChangelogSectionDefinition, 'filter'> {
-	id: string
 	commits: ResolvedCommit[]
 }
+export type ResolvedChangelogSectionsMap = Record<string, ResolvedChangelogSection>
 
 export interface ReleaseWithFlatCommits {
 	tag: string
@@ -21,7 +21,7 @@ export interface ReleaseWithFlatCommits {
 }
 
 export interface ReleaseWithGroupedCommits extends Omit<ReleaseWithFlatCommits, 'commits'> {
-	commitTypeGroups: ResolvedChangelogSection[]
+	commitTypeGroups: ResolvedChangelogSectionsMap
 }
 
 export interface ReleaseContext extends ReleaseWithGroupedCommits, ResolvedContext {
