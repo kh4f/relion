@@ -38,7 +38,7 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 		range = commitRange
 	}
 
-	if (from && to) range = from === '{{firstCommit}}' ? `${from}^! ${to}` : `"${from}..${to}"`
+	if (from && to) range = from === '{{firstCommit}}' ? `"${from}^!" ${to}` : `"${from}..${to}"`
 
 	range = range.replace('{{firstCommit}}', firstCommitHash)
 
