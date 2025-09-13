@@ -4,7 +4,7 @@ import { getRawCommits } from '@/utils'
 import { createHash } from 'node:crypto'
 
 const parsedCommits: Record<string, ParsedCommit> = {}
-let recentReleaseTag: string | null = null
+let recentReleaseTag: ParsedCommit['releaseTag']
 
 export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<ParsedCommit[]> => {
 	const rawCommits = Array.isArray(arg1) ? arg1 : getRawCommits(arg1, prevReleaseTagPattern)
@@ -13,7 +13,7 @@ export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParse
 	const parsedCommits = (await Promise.all(rawCommits.map(async commit => parseCommit(commit, parser, prevReleaseTagPattern))))
 		.filter(commit => commit !== null)
 
-	recentReleaseTag = null
+	recentReleaseTag = undefined
 
 	return parsedCommits
 }

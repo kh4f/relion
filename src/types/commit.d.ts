@@ -23,12 +23,12 @@ export interface ParsedCommit extends CommitMessage {
 	gpgSig?: GpgSig
 	date?: string
 	releaseTag?: string
-	associatedReleaseTag?: string | null
+	associatedReleaseTag?: string
 	isReverted?: 'inTheSameRelease' | 'inOtherRelease' | null
 }
 
 interface ParsedCommitWithReleaseTag extends ParsedCommit {
-	associatedReleaseTag: string
+	associatedReleaseTag: NonNullable<ParsedCommit['associatedReleaseTag']>
 }
 
 export interface ResolvedCommit extends ParsedCommitWithReleaseTag {
