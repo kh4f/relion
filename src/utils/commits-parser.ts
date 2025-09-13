@@ -9,10 +9,10 @@ export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParse
 	const parser = commitsParser
 
 	return (await Promise.all(rawCommits.map(async commit => parseCommit(commit, parser))))
-		.filter(commit => commit !== undefined)
+		.filter(commit => commit !== null)
 }
 
-export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsParser): Promise<ParsedCommit | undefined> => {
+export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsParser): Promise<ParsedCommit | null> => {
 	if (typeof commit === 'string') commit = { message: commit }
 
 	const { hash, tagRefs } = commit
@@ -25,7 +25,7 @@ export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsPars
 		parsedMessage = parseCommitMessage(message, parser)
 	} catch (error) {
 		console.warn(`Error parsing commit '${hash ?? '<no hash>'}':`, (error as Error).message)
-		return
+		return null
 	}
 	const { type, scope, subject, body, breakingChanges, footer } = parsedMessage
 	const tags = tagRefs ? [...tagRefs.matchAll(parser.tagPattern)].map(m => m.groups?.tag ?? '') : []
