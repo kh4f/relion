@@ -42,7 +42,7 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 		throw new Error(`Invalid commit range provided`)
 	}
 
-	const gitLogCommits = execSync(`git log "${from}..${to}" --pretty="${commitLogFormat}"`, { encoding: 'utf8' })
+	const gitLogCommits = execSync(`git log "${from}^..${to}" --pretty="${commitLogFormat}"`, { encoding: 'utf8' })
 	return [...gitLogCommits.matchAll(rawCommitPattern)].map(m => m.groups as RawCommit)
 }
 
