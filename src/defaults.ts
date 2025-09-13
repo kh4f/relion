@@ -29,6 +29,7 @@ export const defaultConfig: MergedConfig = {
 		refActionPattern: /Fixes|Closes|Refs/i,
 		dateSource: 'authorDate',
 		dateFormat: 'YYYY-MM-DD',
+		revertCommitBodyPattern: /^This reverts commit (?<hash>.{7})\./m,
 	},
 }
 

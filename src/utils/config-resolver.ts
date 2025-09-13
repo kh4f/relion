@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap, ResolvedCommit } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap, ResolvedCommit, ParsedCommitWithReleaseTag } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -141,7 +141,7 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 	resolvedContext.newVersion ??= await determineNextVersion(config, resolvedContext.currentVersion)
 	resolvedContext.newTag ??= compileTemplate(config.newTagFormat, resolvedContext as ResolvedContext)
 
-	resolvedContext.commits = resolveCommits(parsedCommits, resolvedContext.newTag)
+	resolvedContext.commits = resolveCommits(parsedCommits, resolvedContext.newTag, config.commitsParser.revertCommitBodyPattern)
 
 	const contextualConfig = { ...config, context: resolvedContext as ResolvedContext }
 
@@ -152,16 +152,29 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 	return contextualConfig
 }
 
-const resolveCommits = (commits: ParsedCommit[], newTag: string): ResolvedCommit[] => {
-	const resolveCommitReleaseTags = (commits: ParsedCommit[], newTag: string): ResolvedCommit[] => {
+const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBodyPattern: RegExp): ResolvedCommit[] => {
+	const resolveCommitReleaseTags = (commits: ParsedCommit[], newTag: string): ParsedCommitWithReleaseTag[] => {
 		return commits.map(commit => ({
 			...commit,
 			associatedReleaseTag: commit.associatedReleaseTag ?? newTag,
 		}))
 	}
 
+	const resolveCommitRevertStatus = (commits: ParsedCommitWithReleaseTag[]): ResolvedCommit[] => {
+		return commits.map((commit) => {
+			let isRevertedStatus: ResolvedCommit['isReverted'] = null
+			const revertCommit = commits.find(c => c.type === 'revert' && revertCommitBodyPattern.exec(c.body ?? '')?.groups?.hash === commit.hash)
+			if (revertCommit) isRevertedStatus = revertCommit.associatedReleaseTag === commit.associatedReleaseTag ? 'inTheSameRelease' : 'inOtherRelease'
+			return {
+				...commit,
+				isReverted: commit.isReverted ?? isRevertedStatus,
+			}
+		})
+	}
+
 	const commitsWithReleaseTags = resolveCommitReleaseTags(commits, newTag)
-	return commitsWithReleaseTags
+	const commitsWithRevertStatus = resolveCommitRevertStatus(commitsWithReleaseTags)
+	return commitsWithRevertStatus
 }
 
 const groupCommitsByReleases = (commits: ResolvedCommit[], sections: ChangelogSectionsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {

@@ -88,6 +88,7 @@ export interface CommitsParser {
 	signerPattern?: RegExp
 	dateSource?: 'authorDate' | 'committerDate'
 	dateFormat?: string
+	revertCommitBodyPattern?: RegExp
 }
 export type CompleteCommitsParser = Required<CommitsParser>
 
