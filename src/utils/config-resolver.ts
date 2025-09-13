@@ -201,11 +201,11 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 	const { commits, ...releaseWithoutCommits } = release
 	return {
 		...releaseWithoutCommits,
-		commitTypeGroups: groupCommitsBySections(commits, sections),
+		commitTypeGroups: groupCommitsByType(commits, sections),
 	}
 }
 
-const groupCommitsBySections = (commits: ResolvedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSectionsMap => {
+const groupCommitsByType = (commits: ResolvedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSectionsMap => {
 	type ChangelogSectionWithCommits = TypeGroupDefinition & { commits: ResolvedCommit[] }
 	type ChangelogSectionsMapWithCommits = Record<string, ChangelogSectionWithCommits>
 
