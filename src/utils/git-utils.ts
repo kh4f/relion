@@ -36,8 +36,8 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 	} else if ('versionTag' in commitRange) {
 		const targetTagIndex = versionTags.indexOf(commitRange.versionTag)
 		if (targetTagIndex === -1) throw new Error(`Version tag '${commitRange.versionTag}' not found`)
-		from = versionTags[targetTagIndex]
-		to = versionTags[targetTagIndex + 1] ?? 'HEAD'
+		to = versionTags[targetTagIndex]
+		from = versionTags[targetTagIndex + 1] ?? firstCommitHash
 	} else {
 		throw new Error(`Invalid commit range provided`)
 	}
