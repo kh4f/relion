@@ -16,7 +16,7 @@
 	{{/each}}
 {{else}}
 {{#each commits}}
-* {{#if scope}}**{{scope}}**: {{/if}}{{{subject}}} {{#if ../../commitHyperlink}}[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}}){{else}}{{hash}}{{/if}}
+- {{#if scope}}**{{scope}}**: {{/if}}{{{subject}}} {{#if ../../commitHyperlink}}[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}}){{else}}{{hash}}{{/if}}
 {{/each}}
 {{/if}}
 
