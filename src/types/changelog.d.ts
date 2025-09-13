@@ -8,10 +8,10 @@ export interface TypeGroupDefinition {
 }
 export type TypeGroupsMap = Record<string, TypeGroupDefinition>
 
-export interface ResolvedChangelogSection extends Omit<TypeGroupDefinition, 'filter'> {
+export interface FilledTypeGroup extends Omit<TypeGroupDefinition, 'filter'> {
 	commits: ResolvedCommit[]
 }
-export type ResolvedChangelogSectionsMap = Record<string, ResolvedChangelogSection>
+export type ResolvedChangelogSectionsMap = Record<string, FilledTypeGroup>
 
 export interface ReleaseWithFlatCommits {
 	tag: string
