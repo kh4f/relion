@@ -194,7 +194,7 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: ChangelogSe
 		}
 	})
 
-	return Object.values(releases).map(release => groupReleaseCommitsBySections(release, sections))
+	return Object.values(releases).map(release => groupReleaseCommitsBySections(release, sections)).filter(release => Object.keys(release.commitTypeGroups).length)
 }
 
 const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections: ChangelogSectionsMap): ReleaseWithGroupedCommits => {
