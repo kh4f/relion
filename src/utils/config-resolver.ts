@@ -154,25 +154,15 @@ const groupCommitsByReleases = (commits: ParsedCommit[], sections: ChangelogSect
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
-		const releaseTag = commit.tags?.find(tag => config.prevReleaseTagPattern.test(tag))
-		if (releaseTag) {
-			releases[releaseTag] ??= {
+		const releaseTag = commit.associatedReleaseTag ?? config.context.newTag
+		if (releaseTag in releases) {
+			releases[releaseTag].commits.push(commit)
+		} else {
+			releases[releaseTag] = {
 				tag: releaseTag,
 				version: config.prevReleaseTagPattern.exec(releaseTag)?.groups?.version,
 				date: commit.date,
 				commits: [commit],
-			}
-		} else {
-			const nearestReleaseTag = Object.keys(releases).at(-1)
-			if (nearestReleaseTag) {
-				releases[nearestReleaseTag].commits.push(commit)
-			} else {
-				releases[config.context.newTag] = {
-					tag: config.context.newTag,
-					version: config.context.newVersion,
-					date: commit.date,
-					commits: [commit],
-				}
 			}
 		}
 	})
