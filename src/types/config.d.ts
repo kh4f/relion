@@ -117,9 +117,7 @@ export type CommitRange =
 	| 'unreleased'
 	| 'latest-release'
 	| { versionTag: string }
-	| { from: 'firstCommit' | (string & {}) }
-	| { to: 'HEAD' | (string & {}) }
-	| { from: 'firstCommit' | (string & {}), to: 'HEAD' | (string & {}) }
+	| (string & {})
 
 export type ReleaseType = 'major' | 'minor' | 'patch'
 

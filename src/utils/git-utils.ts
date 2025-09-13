@@ -19,30 +19,30 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 	const firstCommitHash = getFirstCommitHash()
 	const versionTags = getVersionTags(prevReleaseTagPattern)
 
-	let from: string, to: string
+	let from = '', to = '', range = ''
 	if (commitRange === 'all') {
-		from = firstCommitHash
+		from = '{{firstCommit}}'
 		to = 'HEAD'
 	} else if (commitRange === 'unreleased') {
-		from = versionTags[0] ?? firstCommitHash
+		from = versionTags[0] ?? '{{firstCommit}}'
 		to = 'HEAD'
 	} else if (commitRange === 'latest-release') {
-		from = versionTags[1] ?? firstCommitHash
+		from = versionTags[1] ?? '{{firstCommit}}'
 		to = versionTags[0] ?? 'HEAD'
-	} else if ('from' in commitRange || 'to' in commitRange) {
-		const fromValue = 'from' in commitRange ? commitRange.from : 'firstCommit'
-		from = fromValue === 'firstCommit' ? firstCommitHash : fromValue
-		to = 'to' in commitRange ? commitRange.to : 'HEAD'
-	} else if ('versionTag' in commitRange) {
+	} else if (typeof commitRange === 'object') {
 		const targetTagIndex = versionTags.indexOf(commitRange.versionTag)
 		if (targetTagIndex === -1) throw new Error(`Version tag '${commitRange.versionTag}' not found`)
+		from = versionTags[targetTagIndex + 1] ?? '{{firstCommit}}'
 		to = versionTags[targetTagIndex]
-		from = versionTags[targetTagIndex + 1] ?? firstCommitHash
 	} else {
-		throw new Error(`Invalid commit range provided`)
+		range = commitRange
 	}
 
-	const gitLogCommits = execSync(`git log "${from}^..${to}" --pretty="${commitLogFormat}"`, { encoding: 'utf8' })
+	if (from && to) range = from === '{{firstCommit}}' ? `${from}^! ${to}` : `"${from}..${to}"`
+
+	range = range.replace('{{firstCommit}}', firstCommitHash)
+
+	const gitLogCommits = execSync(`git log ${range} --pretty="${commitLogFormat}"`, { encoding: 'utf8' })
 	return [...gitLogCommits.matchAll(rawCommitPattern)].map(m => m.groups as RawCommit)
 }
 

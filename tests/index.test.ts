@@ -15,9 +15,7 @@ describe('Test all lifecycles', () => {
 			bump: [],
 			changelog: {
 				output: 'temp/CHANGELOG.md',
-				commitRange: {
-					from: 'HEAD~5',
-				},
+				commitRange: 'HEAD~5..',
 			},
 			commit: {
 				gpgSign: true,
@@ -33,9 +31,7 @@ describe('Test all lifecycles', () => {
 			dryRun: true,
 			changelog: {
 				output: 'stdout',
-				commitRange: {
-					from: 'HEAD~5',
-				},
+				commitRange: 'HEAD~5..',
 			},
 		})
 	})
@@ -44,9 +40,7 @@ describe('Test all lifecycles', () => {
 			dryRun: true,
 			changelog: {
 				output: 'stdout',
-				commitRange: {
-					from: 'HEAD~5',
-				},
+				commitRange: 'HEAD~5..',
 			},
 			profile: 'testProfile',
 			_testProfile: {
@@ -61,9 +55,7 @@ describe('Test all lifecycles', () => {
 			dryRun: true,
 			changelog: {
 				output: 'stdout',
-				commitRange: {
-					from: 'HEAD~5',
-				},
+				commitRange: 'HEAD~5..',
 			},
 			profile: 'github',
 			_github: {
@@ -94,7 +86,7 @@ describe('Test all lifecycles', () => {
 			silent: true,
 			changelog: {
 				output: 'stdout',
-				commitRange: { from: 'HEAD~5' },
+				commitRange: 'HEAD~5..',
 			},
 		})
 	})
