@@ -8,71 +8,74 @@ export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParse
 	const rawCommits = Array.isArray(arg1) ? arg1 : getRawCommits(arg1, prevReleaseTagPattern)
 	const parser = commitsParser
 
-	return (await Promise.all(rawCommits.map(async (commit) => {
-		if (typeof commit === 'string') commit = { message: commit }
+	return (await Promise.all(rawCommits.map(async commit => parseCommit(commit, parser))))
+		.filter(commit => commit !== undefined)
+}
 
-		const { hash, tagRefs } = commit
+export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsParser): Promise<ParsedCommit | undefined> => {
+	if (typeof commit === 'string') commit = { message: commit }
 
-		const message = commit.message.trim()
-		if (!message) throw new Error(`Message is missing for commit: ${JSON.stringify(commit)}`)
+	const { hash, tagRefs } = commit
 
-		let parsedMessage
-		try {
-			parsedMessage = parseCommitMessage(message, parser)
-		} catch (error) {
-			console.warn(`Error parsing commit '${hash ?? '<no hash>'}':`, (error as Error).message)
-			return
+	const message = commit.message.trim()
+	if (!message) throw new Error(`Message is missing for commit: ${JSON.stringify(commit)}`)
+
+	let parsedMessage
+	try {
+		parsedMessage = parseCommitMessage(message, parser)
+	} catch (error) {
+		console.warn(`Error parsing commit '${hash ?? '<no hash>'}':`, (error as Error).message)
+		return
+	}
+	const { type, scope, subject, body, breakingChanges, footer } = parsedMessage
+	const tags = tagRefs ? [...tagRefs.matchAll(parser.tagPattern)].map(m => m.groups?.tag ?? '') : []
+
+	const signers = footer
+		? [...footer.matchAll(parser.signerPattern)].map(m => m.groups as unknown as Contributor)
+		: []
+
+	const authors: Contributor[] = []
+	const addAuthor = (contributor: Contributor): void => {
+		if (!authors.some(a => a.email === contributor.email)) authors.push(contributor)
+	}
+
+	const author = commit.authorName && commit.authorEmail
+		? getContributorDetails({ name: commit.authorName, email: commit.authorEmail }, signers)
+		: undefined
+	if (author) addAuthor(author)
+
+	const committer = commit.committerName && commit.committerEmail
+		? getContributorDetails({ name: commit.committerName, email: commit.committerEmail }, signers)
+		: undefined
+	if (committer) addAuthor(committer)
+
+	const coAuthors = footer
+		? [...footer.matchAll(parser.coAuthorPattern)].map(m => m.groups as unknown as Contributor)
+			.map(coAuthor => getContributorDetails(coAuthor, signers))
+		: []
+	coAuthors.forEach(coAuthor => addAuthor(coAuthor))
+
+	const refs = await parseRefs((footer ?? ''), parser)
+
+	const gpgSig = commit.gpgSigCode
+		? {
+			code: commit.gpgSigCode,
+			label: GpgSigLabel[commit.gpgSigCode],
+			keyId: commit.gpgSigKeyId,
 		}
-		const { type, scope, subject, body, breakingChanges, footer } = parsedMessage
-		const tags = tagRefs ? [...tagRefs.matchAll(parser.tagPattern)].map(m => m.groups?.tag ?? '') : []
+		: undefined
 
-		const signers = footer
-			? [...footer.matchAll(parser.signerPattern)].map(m => m.groups as unknown as Contributor)
-			: []
+	let date = commit[parser.dateSource === 'committerDate' ? 'committerTs' : 'authorTs']
+	if (typeof date === 'string') date = formatDate(new Date(+date * 1000), parser.dateFormat)
 
-		const authors: Contributor[] = []
-		const addAuthor = (contributor: Contributor): void => {
-			if (!authors.some(a => a.email === contributor.email)) authors.push(contributor)
-		}
-
-		const author = commit.authorName && commit.authorEmail
-			? getContributorDetails({ name: commit.authorName, email: commit.authorEmail }, signers)
-			: undefined
-		if (author) addAuthor(author)
-
-		const committer = commit.committerName && commit.committerEmail
-			? getContributorDetails({ name: commit.committerName, email: commit.committerEmail }, signers)
-			: undefined
-		if (committer) addAuthor(committer)
-
-		const coAuthors = footer
-			? [...footer.matchAll(parser.coAuthorPattern)].map(m => m.groups as unknown as Contributor)
-				.map(coAuthor => getContributorDetails(coAuthor, signers))
-			: []
-		coAuthors.forEach(coAuthor => addAuthor(coAuthor))
-
-		const refs = await parseRefs((footer ?? ''), parser)
-
-		const gpgSig = commit.gpgSigCode
-			? {
-				code: commit.gpgSigCode,
-				label: GpgSigLabel[commit.gpgSigCode],
-				keyId: commit.gpgSigKeyId,
-			}
-			: undefined
-
-		let date = commit[parser.dateSource === 'committerDate' ? 'committerTs' : 'authorTs']
-		if (typeof date === 'string') date = formatDate(new Date(+date * 1000), parser.dateFormat)
-
-		const parsedCommit = { hash, type, scope, subject, body, breakingChanges, footer, committer, gpgSig, date,
-			tags: tags.length ? tags : undefined,
-			authors: authors.length ? authors : undefined,
-			refs: refs.length ? refs : undefined,
-		}
-		// if (hash && !(hash in commitStore)) commitStore[hash] = parsedCommit
-		// log(Object.keys(commitStore).length, 'commits in store')
-		return parsedCommit
-	}))).filter(commit => commit !== undefined)
+	const parsedCommit = { hash, type, scope, subject, body, breakingChanges, footer, committer, gpgSig, date,
+		tags: tags.length ? tags : undefined,
+		authors: authors.length ? authors : undefined,
+		refs: refs.length ? refs : undefined,
+	}
+	// if (hash && !(hash in commitStore)) commitStore[hash] = parsedCommit
+	// log(Object.keys(commitStore).length, 'commits in store')
+	return parsedCommit
 }
 
 const parseCommitMessage = (message: string, parser: CompleteCommitsParser): CommitMessage => {
