@@ -11,7 +11,7 @@ export type TypeGroupsMap = Record<string, TypeGroupDefinition>
 export interface FilledTypeGroup extends Omit<TypeGroupDefinition, 'filter'> {
 	commits: ResolvedCommit[]
 }
-export type ResolvedChangelogSectionsMap = Record<string, FilledTypeGroup>
+export type FilledTypeGroupMap = Record<string, FilledTypeGroup>
 
 export interface ReleaseWithFlatCommits {
 	tag: string
@@ -21,7 +21,7 @@ export interface ReleaseWithFlatCommits {
 }
 
 export interface ReleaseWithGroupedCommits extends Omit<ReleaseWithFlatCommits, 'commits'> {
-	commitTypeGroups: ResolvedChangelogSectionsMap
+	commitTypeGroups: FilledTypeGroupMap
 }
 
 export interface ReleaseContext extends ReleaseWithGroupedCommits, ResolvedContext {
