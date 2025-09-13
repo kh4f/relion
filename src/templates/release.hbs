@@ -22,7 +22,13 @@
 
 {{/each}}
 {{#>footer}}
-##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_]{{#if prevTag}}({{repo.homepage}}/compare/{{prevTag}}...{{tag}}){{else}}`{{tag}}`]({{repo.homepage}}/commits/{{tag}}){{/if}} &ensp;•&ensp; _{{date}}_
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_] {{" "}}
+{{~#if prevTag~}}
+	({{repo.homepage}}/compare/{{prevTag}}...{{tag}})
+{{~else}}
+	({{repo.homepage}}/commits/{{tag}})
+{{/if~}}
+{{" "}} &ensp;•&ensp; _{{date}}_
 
 
 {{/footer}}
