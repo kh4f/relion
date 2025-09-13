@@ -28,7 +28,7 @@ export const defaultConfig: MergedConfig = {
 		refLabelPattern: /(?:(?<owner>\S+?)\/(?<repo>\S+?))?#(?<number>\d+)/g,
 		refActionPattern: /Fixes|Closes|Refs/i,
 		dateSource: 'authorDate',
-		dateFormat: 'YYYY-MM-DD',
+		dateFormat: 'US',
 		revertCommitBodyPattern: /^This reverts commit (?<hash>.{7})\./m,
 	},
 }
