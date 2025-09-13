@@ -163,9 +163,9 @@ const groupCommitsByReleases = (commits: ParsedCommit[], sections: ChangelogSect
 				commits: [commit],
 			}
 		} else {
-			const latestReleaseTag = Object.keys(releases).at(-1)
-			if (latestReleaseTag) {
-				releases[latestReleaseTag].commits.push(commit)
+			const nearestReleaseTag = Object.keys(releases).at(-1)
+			if (nearestReleaseTag) {
+				releases[nearestReleaseTag].commits.push(commit)
 			} else {
 				releases[config.context.newTag] = {
 					tag: config.context.newTag,
