@@ -1,6 +1,41 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.10.0  `](https://github.com/kh4f/relion/compare/v0.9.0...v0.10.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `from` and `to` properties have been removed from commit range configuration. Use string-based commit ranges instead.
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **commits-parser**: add support for predefined 'US' and 'ISO' date formats [`74f7891`](https://github.com/kh4f/relion/commit/74f7891)
+- **templates**: add support for array-based breaking changes [`6cb69bb`](https://github.com/kh4f/relion/commit/6cb69bb)
+- **commit**: add `releaseTag` property to parsed commits [`ad9d34e`](https://github.com/kh4f/relion/commit/ad9d34e)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **git-utils**: wrap `from^!` in quotes to prevent shell parsing issues [`163ac1c`](https://github.com/kh4f/relion/commit/163ac1c)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **defaults**: change `dateFormat` from 'YYYY-MM-DD' to 'US' [`4e84690`](https://github.com/kh4f/relion/commit/4e84690)
+- **git-utils**: replace `from` and `to` properties with string-based commit range [`a15b362`](https://github.com/kh4f/relion/commit/a15b362)
+- **config-resolver**: rename `groupCommitsBySections` to `groupCommitsByType` [`f7b996f`](https://github.com/kh4f/relion/commit/f7b996f)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+- **templates**: adjust spacing in footer [`8cbda21`](https://github.com/kh4f/relion/commit/8cbda21)
+- **templates**: improve spacing and readability for footer [`2c1e7f8`](https://github.com/kh4f/relion/commit/2c1e7f8)
+- **templates**: replace asterisk with dash for commit list items [`2738df7`](https://github.com/kh4f/relion/commit/2738df7)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **commit**: update `isReverted` type to use `NonNullable` [`6c63064`](https://github.com/kh4f/relion/commit/6c63064)
+- **commit**: use `undefined` instead of `null` for `associatedReleaseTag` property [`fc09940`](https://github.com/kh4f/relion/commit/fc09940)
+- **changelog**: rename `ReleaseWithGroupedCommits` to `ReleaseWithTypeGroups` [`5bc42d9`](https://github.com/kh4f/relion/commit/5bc42d9)
+- **changelog**: rename `ResolvedChangelogSectionsMap` to `FilledTypeGroupMap` [`25ed5ab`](https://github.com/kh4f/relion/commit/25ed5ab)
+- **changelog**: rename `ResolvedChangelogSection` to `FilledTypeGroup` [`be7c4b1`](https://github.com/kh4f/relion/commit/be7c4b1)
+- **changelog**: rename `ChangelogSectionsMap` to `TypeGroupsMap` [`3a82288`](https://github.com/kh4f/relion/commit/3a82288)
+- **changelog**: rename `ChangelogSectionDefinition` to `TypeGroupDefinition` [`593f478`](https://github.com/kh4f/relion/commit/593f478)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.9.0...v0.10.0) &ensp;•&ensp; _Sep 14, 2025_
+
+
 ## &ensp; [` 📦 v0.9.0  `](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
