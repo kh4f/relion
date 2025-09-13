@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ChangelogSectionDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap, ResolvedCommit, ParsedCommitWithReleaseTag, ResolvedChangelogSectionsMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, TypeGroupDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap, ResolvedCommit, ParsedCommitWithReleaseTag, ResolvedChangelogSectionsMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -206,7 +206,7 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 }
 
 const groupCommitsBySections = (commits: ResolvedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSectionsMap => {
-	type ChangelogSectionWithCommits = ChangelogSectionDefinition & { commits: ResolvedCommit[] }
+	type ChangelogSectionWithCommits = TypeGroupDefinition & { commits: ResolvedCommit[] }
 	type ChangelogSectionsMapWithCommits = Record<string, ChangelogSectionWithCommits>
 
 	const commitTypeGroupsMap: ChangelogSectionsMapWithCommits = Object.fromEntries(Object.entries(sections).map(([id, def]) => ([id, { ...def, commits: [] }])))

@@ -1,14 +1,14 @@
 import type { ResolvedCommit, ResolvedContext } from '@/types'
 import { defaultChangelogSections } from '@/defaults'
 
-export interface ChangelogSectionDefinition {
+export interface TypeGroupDefinition {
 	title: string
 	commitType: 'breaking' | '*' | (string & {}) | string[]
 	filter?: (commit: ResolvedCommit) => boolean
 }
-export type ChangelogSectionsMap = Record<string, ChangelogSectionDefinition>
+export type ChangelogSectionsMap = Record<string, TypeGroupDefinition>
 
-export interface ResolvedChangelogSection extends Omit<ChangelogSectionDefinition, 'filter'> {
+export interface ResolvedChangelogSection extends Omit<TypeGroupDefinition, 'filter'> {
 	commits: ResolvedCommit[]
 }
 export type ResolvedChangelogSectionsMap = Record<string, ResolvedChangelogSection>
