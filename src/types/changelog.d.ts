@@ -1,23 +1,23 @@
-import type { ParsedCommit, ResolvedContext } from '@/types'
+import type { ResolvedCommit, ResolvedContext } from '@/types'
 import { defaultChangelogSections } from '@/defaults'
 
 export interface ChangelogSectionDefinition {
 	title: string
 	commitType: 'breaking' | '*' | (string & {}) | string[]
-	filter?: (commit: ParsedCommit) => boolean
+	filter?: (commit: ResolvedCommit) => boolean
 }
 export type ChangelogSectionsMap = Record<string, ChangelogSectionDefinition>
 
 export interface ResolvedChangelogSection extends Omit<ChangelogSectionDefinition, 'filter'> {
 	id: string
-	commits: ParsedCommit[]
+	commits: ResolvedCommit[]
 }
 
 export interface ReleaseWithFlatCommits {
 	tag: string
 	version?: string
 	date?: string
-	commits: ParsedCommit[]
+	commits: ResolvedCommit[]
 }
 
 export interface ReleaseWithGroupedCommits extends Omit<ReleaseWithFlatCommits, 'commits'> {

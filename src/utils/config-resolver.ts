@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ResolvedChangelogSection, ChangelogSectionDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap, ResolvedCommit } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -128,7 +128,7 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 
 	const commitRange = config.changelog ? config.changelog.commitRange : 'unreleased'
 
-	resolvedContext.commits = config.context?.commits
+	const parsedCommits = config.context?.commits
 		? (await Promise.all(config.context.commits.map(async (commit) => {
 			return ((typeof commit === 'object' && 'message' in commit) || typeof commit === 'string')
 				? (await parseCommit(commit, config.commitsParser, config.prevReleaseTagPattern))
@@ -141,6 +141,8 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 	resolvedContext.newVersion ??= await determineNextVersion(config, resolvedContext.currentVersion)
 	resolvedContext.newTag ??= compileTemplate(config.newTagFormat, resolvedContext as ResolvedContext)
 
+	resolvedContext.commits = resolveCommits(parsedCommits, resolvedContext.newTag)
+
 	const contextualConfig = { ...config, context: resolvedContext as ResolvedContext }
 
 	resolvedContext.releases = config.changelog
@@ -150,11 +152,23 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 	return contextualConfig
 }
 
-const groupCommitsByReleases = (commits: ParsedCommit[], sections: ChangelogSectionsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {
+const resolveCommits = (commits: ParsedCommit[], newTag: string): ResolvedCommit[] => {
+	const resolveCommitReleaseTags = (commits: ParsedCommit[], newTag: string): ResolvedCommit[] => {
+		return commits.map(commit => ({
+			...commit,
+			associatedReleaseTag: commit.associatedReleaseTag ?? newTag,
+		}))
+	}
+
+	const commitsWithReleaseTags = resolveCommitReleaseTags(commits, newTag)
+	return commitsWithReleaseTags
+}
+
+const groupCommitsByReleases = (commits: ResolvedCommit[], sections: ChangelogSectionsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
-		const releaseTag = commit.associatedReleaseTag ?? config.context.newTag
+		const releaseTag = commit.associatedReleaseTag
 		if (releaseTag in releases) {
 			releases[releaseTag].commits.push(commit)
 		} else {
@@ -178,8 +192,8 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 	}
 }
 
-const groupCommitsBySections = (commits: ParsedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSection[] => {
-	type ChangelogSectionWithCommits = ChangelogSectionDefinition & { commits: ParsedCommit[] }
+const groupCommitsBySections = (commits: ResolvedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSection[] => {
+	type ChangelogSectionWithCommits = ChangelogSectionDefinition & { commits: ResolvedCommit[] }
 	type ChangelogSectionsMapWithCommits = Record<string, ChangelogSectionWithCommits>
 
 	const commitTypeGroupsMap: ChangelogSectionsMapWithCommits = Object.fromEntries(Object.entries(sections).map(([id, def]) => ([id, { ...def, commits: [] }])))

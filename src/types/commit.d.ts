@@ -25,6 +25,10 @@ export interface ParsedCommit extends CommitMessage {
 	associatedReleaseTag?: string | null
 }
 
+export interface ResolvedCommit extends ParsedCommit {
+	associatedReleaseTag: string
+}
+
 export interface CommitMessage {
 	type: string
 	scope?: string
