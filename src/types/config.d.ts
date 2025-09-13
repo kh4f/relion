@@ -1,4 +1,4 @@
-import type { ParsedCommit, RawCommit, ReleaseWithGroupedCommits, TypeGroupsMap, ResolvedCommit } from '@/types'
+import type { ParsedCommit, RawCommit, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit } from '@/types'
 import type { HelperDeclareSpec } from 'handlebars'
 
 export type FalseOrComplete<T> = false | Required<T>
@@ -109,7 +109,7 @@ export interface Context {
 }
 export interface ResolvedContext extends Required<Context> {
 	commits: ResolvedCommit[]
-	releases: ReleaseWithGroupedCommits[] | null
+	releases: ReleaseWithTypeGroups[] | null
 }
 
 export type CommitRange =

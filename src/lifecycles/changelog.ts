@@ -1,5 +1,5 @@
 import { getVersionTags, log } from '@/utils'
-import type { ReleaseContext, ReleaseWithGroupedCommits, ResolvedConfig } from '@/types'
+import type { ReleaseContext, ReleaseWithTypeGroups, ResolvedConfig } from '@/types'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
 import releaseTemplate from '@/templates/release.hbs'
@@ -17,8 +17,8 @@ export const changelog = (config: ResolvedConfig): void => {
 	Handlebars.registerHelper(options.helpers)
 
 	let result = options.header
-	releases.forEach((release: ReleaseWithGroupedCommits, index: number) => {
-		const prevRelease = releases[index + 1] as ReleaseWithGroupedCommits | undefined
+	releases.forEach((release: ReleaseWithTypeGroups, index: number) => {
+		const prevRelease = releases[index + 1] as ReleaseWithTypeGroups | undefined
 		let prevTag: string | undefined, prevVersion: string | undefined
 		if (prevRelease) {
 			prevTag = prevRelease.tag

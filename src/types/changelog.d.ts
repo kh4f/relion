@@ -20,11 +20,11 @@ export interface ReleaseWithFlatCommits {
 	commits: ResolvedCommit[]
 }
 
-export interface ReleaseWithGroupedCommits extends Omit<ReleaseWithFlatCommits, 'commits'> {
+export interface ReleaseWithTypeGroups extends Omit<ReleaseWithFlatCommits, 'commits'> {
 	commitTypeGroups: FilledTypeGroupMap
 }
 
-export interface ReleaseContext extends ReleaseWithGroupedCommits, ResolvedContext {
+export interface ReleaseContext extends ReleaseWithTypeGroups, ResolvedContext {
 	prevTag?: string
 	prevVersion?: string
 }

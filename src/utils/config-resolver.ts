@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, TypeGroupDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, TypeGroupsMap, ResolvedCommit, ParsedCommitWithReleaseTag, FilledTypeGroupMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, TypeGroupDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, ParsedCommitWithReleaseTag, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -177,7 +177,7 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 	return commitsWithRevertStatus
 }
 
-const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {
+const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, config: ContextualConfig): ReleaseWithTypeGroups[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -197,7 +197,7 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 	return Object.values(releases).map(release => groupReleaseCommitsBySections(release, sections)).filter(release => Object.keys(release.commitTypeGroups).length)
 }
 
-const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections: TypeGroupsMap): ReleaseWithGroupedCommits => {
+const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections: TypeGroupsMap): ReleaseWithTypeGroups => {
 	const { commits, ...releaseWithoutCommits } = release
 	return {
 		...releaseWithoutCommits,
