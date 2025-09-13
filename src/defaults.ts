@@ -1,4 +1,4 @@
-import type { MergedConfig, DefaultVersionedFile, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, ChangelogSectionsMap } from '@/types'
+import type { MergedConfig, DefaultVersionedFile, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap } from '@/types'
 
 export const defaultConfig: MergedConfig = {
 	bump: false,
@@ -51,7 +51,7 @@ export const defaultChangelogSections = {
 	test: { title: '🧪 Tests', commitType: 'test' },
 	misc: { title: '⚙️ Miscellaneous', commitType: '*',
 		filter: commit => commit.type !== 'release' },
-} as const satisfies ChangelogSectionsMap
+} as const satisfies TypeGroupsMap
 
 export const defaultChangelogOptions: CompleteChangelogOptions = {
 	output: 'CHANGELOG.md',

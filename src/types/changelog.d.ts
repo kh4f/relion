@@ -6,7 +6,7 @@ export interface TypeGroupDefinition {
 	commitType: 'breaking' | '*' | (string & {}) | string[]
 	filter?: (commit: ResolvedCommit) => boolean
 }
-export type ChangelogSectionsMap = Record<string, TypeGroupDefinition>
+export type TypeGroupsMap = Record<string, TypeGroupDefinition>
 
 export interface ResolvedChangelogSection extends Omit<TypeGroupDefinition, 'filter'> {
 	commits: ResolvedCommit[]

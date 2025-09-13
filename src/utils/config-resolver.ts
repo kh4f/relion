@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, TypeGroupDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, ChangelogSectionsMap, ResolvedCommit, ParsedCommitWithReleaseTag, ResolvedChangelogSectionsMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, TypeGroupDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithGroupedCommits, TypeGroupsMap, ResolvedCommit, ParsedCommitWithReleaseTag, ResolvedChangelogSectionsMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -177,7 +177,7 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 	return commitsWithRevertStatus
 }
 
-const groupCommitsByReleases = (commits: ResolvedCommit[], sections: ChangelogSectionsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {
+const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, config: ContextualConfig): ReleaseWithGroupedCommits[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -197,7 +197,7 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: ChangelogSe
 	return Object.values(releases).map(release => groupReleaseCommitsBySections(release, sections)).filter(release => Object.keys(release.commitTypeGroups).length)
 }
 
-const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections: ChangelogSectionsMap): ReleaseWithGroupedCommits => {
+const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections: TypeGroupsMap): ReleaseWithGroupedCommits => {
 	const { commits, ...releaseWithoutCommits } = release
 	return {
 		...releaseWithoutCommits,
@@ -205,7 +205,7 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 	}
 }
 
-const groupCommitsByType = (commits: ResolvedCommit[], sections: ChangelogSectionsMap): ResolvedChangelogSectionsMap => {
+const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap): ResolvedChangelogSectionsMap => {
 	type ChangelogSectionWithCommits = TypeGroupDefinition & { commits: ResolvedCommit[] }
 	type ChangelogSectionsMapWithCommits = Record<string, ChangelogSectionWithCommits>
 
