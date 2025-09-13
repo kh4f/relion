@@ -5,9 +5,15 @@
 {{#each commitTypeGroups}}
 ### {{{repeat '&nbsp;' 5}}}{{title}}
 {{#if (eq @key 'breaking')}}
-{{#each commits}}
-* {{{breakingChanges}}}
-{{/each}}
+	{{#each commits}}
+		{{#if (isArray breakingChanges)}}
+			{{~#each breakingChanges~}}
+				- {{{this}}}
+			{{/each}}
+		{{else~}}
+			- {{{breakingChanges}}}
+		{{/if}}
+	{{/each}}
 {{else}}
 {{#each commits}}
 * {{#if scope}}**{{scope}}**: {{/if}}{{{subject}}} {{#if ../../commitHyperlink}}[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}}){{else}}{{hash}}{{/if}}

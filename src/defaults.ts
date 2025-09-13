@@ -62,6 +62,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	helpers: {
 		eq: (a: unknown, b: unknown) => a === b,
 		repeat: (string: string, n: number) => string.repeat(n),
+		isArray: (value: unknown) => Array.isArray(value),
 	},
 	partials: {},
 }
