@@ -1,6 +1,41 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.9.0  `](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+* **commits-parser**: add synthetic hash generation for commits without `hash` property [`99dacf0`](https://github.com/kh4f/relion/commit/99dacf0)
+* **commit**: add `isReverted` status for commit reversion detection [`96f8a9f`](https://github.com/kh4f/relion/commit/96f8a9f)
+* **commits-parser**: add `associatedReleaseTag` property to parsed commits [`e39b45a`](https://github.com/kh4f/relion/commit/e39b45a)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+* **config-resolver**: filter out empty release groups in `groupCommitsByReleases` [`bc9c482`](https://github.com/kh4f/relion/commit/bc9c482)
+* **git-utils**: include `from` commit in commit range by default [`21269f7`](https://github.com/kh4f/relion/commit/21269f7)
+* **git-utils**: swap `from` and `to` assignment logic in `getRawCommits` [`cb91e2e`](https://github.com/kh4f/relion/commit/cb91e2e)
+* **config-resolver**: prevent undefined entries in parsed commits [`f0293f7`](https://github.com/kh4f/relion/commit/f0293f7)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ Performance
+* **commits-parser**: add parsed commits caching [`c94fc63`](https://github.com/kh4f/relion/commit/c94fc63)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+* **templates**: wrap footer in partial block as failover content [`c5fbbbb`](https://github.com/kh4f/relion/commit/c5fbbbb)
+* **changelog**: change `commitTypeGroups` from array to object in `ReleaseWithGroupedCommits` [`ec97fc6`](https://github.com/kh4f/relion/commit/ec97fc6)
+* **config-resolver**: extract commit resolution logic into dedicated `resolveCommits` function [`35c2b9b`](https://github.com/kh4f/relion/commit/35c2b9b)
+* **config-resolver**: simplify commit grouping by release tag [`313aae6`](https://github.com/kh4f/relion/commit/313aae6)
+* **commits-parser**: change return type of `parseCommit` to `null` [`748f87f`](https://github.com/kh4f/relion/commit/748f87f)
+* **commits-parser**: extract single commit parsing to `parseCommit` function [`ca0f59e`](https://github.com/kh4f/relion/commit/ca0f59e)
+* **config-resolver**: rename `latestReleaseTag` to `nearestReleaseTag` [`c4a6641`](https://github.com/kh4f/relion/commit/c4a6641)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+* **commit**: rename `Commit` to `ParsedCommit` [`2bd8e26`](https://github.com/kh4f/relion/commit/2bd8e26)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+* **package**: specify `index` file for `vitest` test script [`991d331`](https://github.com/kh4f/relion/commit/991d331)
+* **gitignore**: add `temp.test.ts` to ignored files [`f1a8834`](https://github.com/kh4f/relion/commit/f1a8834)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0) &ensp;•&ensp; _2025-09-13_
+
+
 ## &ensp; [` 📦 v0.8.0  `](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
