@@ -1,6 +1,7 @@
 import type { CompleteCommitsParser, ParsedCommit, RawCommit, RawReference, RefLabel, Reference, Contributor, CommitMessage, CommitRange } from '@/types'
 import { GpgSigLabel } from '@/enums'
 import { getRawCommits } from '@/utils'
+import { createHash } from 'node:crypto'
 
 const parsedCommits: Record<string, ParsedCommit> = {}
 let recentReleaseTag: string | null = null
@@ -20,9 +21,9 @@ export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParse
 export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<ParsedCommit | null> => {
 	if (typeof commit === 'string') commit = { message: commit }
 
-	const { hash, tagRefs } = commit
+	const { tagRefs, hash = getFakeCommitHash(commit.message) } = commit
 
-	if (hash && hash in parsedCommits) return parsedCommits[hash]
+	if (hash in parsedCommits) return parsedCommits[hash]
 
 	const message = commit.message.trim()
 	if (!message) throw new Error(`Message is missing for commit: ${JSON.stringify(commit)}`)
@@ -31,7 +32,7 @@ export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsPars
 	try {
 		parsedMessage = parseCommitMessage(message, parser)
 	} catch (error) {
-		console.warn(`Error parsing commit '${hash ?? '<no hash>'}':`, (error as Error).message)
+		console.warn(`Error parsing commit '${hash}':`, (error as Error).message)
 		return null
 	}
 	const { type, scope, subject, body, breakingChanges, footer } = parsedMessage
@@ -88,6 +89,9 @@ export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsPars
 
 	return parsedCommit
 }
+
+const getFakeCommitHash = (message: string): string =>
+	'fake_' + createHash('sha256').update(message, 'utf8').digest('hex').slice(0, 7)
 
 const parseCommitMessage = (message: string, parser: CompleteCommitsParser): CommitMessage => {
 	const [header, ...details] = message.split('\n\n')

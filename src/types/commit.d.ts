@@ -15,7 +15,7 @@ export type RawCommit = CommitMessageString | {
 }
 
 export interface ParsedCommit extends CommitMessage {
-	hash?: string
+	hash: string
 	tags?: string[]
 	authors?: Contributor[]
 	committer?: Contributor
