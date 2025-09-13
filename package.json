@@ -30,10 +30,10 @@
 	"scripts": {
 		"build": "tsdown",
 		"lint": "eslint",
-		"test": "vitest run",
+		"test": "vitest run index",
 		"build:watch": "tsdown --watch",
 		"build:prod": "tsdown --production",
-		"test:watch": "vitest",
+		"test:watch": "vitest index",
 		"lint:fix": "eslint --fix",
 		"release": "node dist/cli.js -blct",
 		"release:github": "node dist/cli.js -l -p github -L",
