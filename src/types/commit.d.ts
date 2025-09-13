@@ -22,6 +22,7 @@ export interface ParsedCommit extends CommitMessage {
 	refs?: Reference[]
 	gpgSig?: GpgSig
 	date?: string
+	releaseTag?: string
 	associatedReleaseTag?: string | null
 	isReverted?: 'inTheSameRelease' | 'inOtherRelease' | null
 }

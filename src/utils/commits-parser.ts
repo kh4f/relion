@@ -76,10 +76,12 @@ export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsPars
 	let date = commit[parser.dateSource === 'committerDate' ? 'committerTs' : 'authorTs']
 	if (typeof date === 'string') date = formatDate(new Date(+date * 1000), parser.dateFormat)
 
-	const associatedReleaseTag = tags.find(tag => prevReleaseTagPattern.exec(tag)) ?? recentReleaseTag
+	const releaseTag = tags.find(tag => prevReleaseTagPattern.exec(tag))
+
+	const associatedReleaseTag = releaseTag ?? recentReleaseTag
 	if (associatedReleaseTag) recentReleaseTag = associatedReleaseTag
 
-	const parsedCommit = { hash, type, scope, subject, body, breakingChanges, footer, committer, gpgSig, date, associatedReleaseTag,
+	const parsedCommit = { hash, type, scope, subject, body, breakingChanges, footer, committer, gpgSig, date, releaseTag, associatedReleaseTag,
 		tags: tags.length ? tags : undefined,
 		authors: authors.length ? authors : undefined,
 		refs: refs.length ? refs : undefined,
