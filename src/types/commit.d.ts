@@ -22,6 +22,7 @@ export interface ParsedCommit extends CommitMessage {
 	refs?: Reference[]
 	gpgSig?: GpgSig
 	date?: string
+	associatedReleaseTag?: string | null
 }
 
 export interface CommitMessage {

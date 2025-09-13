@@ -131,7 +131,7 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 	resolvedContext.commits = config.context?.commits
 		? (await Promise.all(config.context.commits.map(async (commit) => {
 			return ((typeof commit === 'object' && 'message' in commit) || typeof commit === 'string')
-				? (await parseCommit(commit, config.commitsParser))
+				? (await parseCommit(commit, config.commitsParser, config.prevReleaseTagPattern))
 				: commit
 		}))).filter(c => c != null)
 		: await parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern)

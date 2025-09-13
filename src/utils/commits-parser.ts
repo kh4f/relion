@@ -3,16 +3,21 @@ import { GpgSigLabel } from '@/enums'
 import { getRawCommits } from '@/utils'
 
 const parsedCommits: Record<string, ParsedCommit> = {}
+let recentReleaseTag: string | null = null
 
 export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<ParsedCommit[]> => {
 	const rawCommits = Array.isArray(arg1) ? arg1 : getRawCommits(arg1, prevReleaseTagPattern)
 	const parser = commitsParser
 
-	return (await Promise.all(rawCommits.map(async commit => parseCommit(commit, parser))))
+	const parsedCommits = (await Promise.all(rawCommits.map(async commit => parseCommit(commit, parser, prevReleaseTagPattern))))
 		.filter(commit => commit !== null)
+
+	recentReleaseTag = null
+
+	return parsedCommits
 }
 
-export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsParser): Promise<ParsedCommit | null> => {
+export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<ParsedCommit | null> => {
 	if (typeof commit === 'string') commit = { message: commit }
 
 	const { hash, tagRefs } = commit
@@ -70,7 +75,10 @@ export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsPars
 	let date = commit[parser.dateSource === 'committerDate' ? 'committerTs' : 'authorTs']
 	if (typeof date === 'string') date = formatDate(new Date(+date * 1000), parser.dateFormat)
 
-	const parsedCommit = { hash, type, scope, subject, body, breakingChanges, footer, committer, gpgSig, date,
+	const associatedReleaseTag = tags.find(tag => prevReleaseTagPattern.exec(tag)) ?? recentReleaseTag
+	if (associatedReleaseTag) recentReleaseTag = associatedReleaseTag
+
+	const parsedCommit = { hash, type, scope, subject, body, breakingChanges, footer, committer, gpgSig, date, associatedReleaseTag,
 		tags: tags.length ? tags : undefined,
 		authors: authors.length ? authors : undefined,
 		refs: refs.length ? refs : undefined,
