@@ -87,7 +87,7 @@ export interface CommitsParser {
 	remoteUrlPattern?: RegExp
 	signerPattern?: RegExp
 	dateSource?: 'authorDate' | 'committerDate'
-	dateFormat?: string
+	dateFormat?: 'US' | 'ISO' | (string & {})
 	revertCommitBodyPattern?: RegExp
 }
 export type CompleteCommitsParser = Required<CommitsParser>

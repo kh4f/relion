@@ -168,6 +168,12 @@ const parseRefs = async (value: string, parser: CompleteCommitsParser): Promise<
 const formatDate = (date: Date, format: string): string => {
 	const pad = (num: number) => num.toString().padStart(2, '0')
 
+	if (format === 'US') {
+		return date.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+	} else if (format === 'ISO') {
+		return date.toISOString().split('T')[0]
+	}
+
 	const dateParts: Record<string, string> = {
 		YYYY: date.getUTCFullYear().toString(),
 		MM: pad(date.getUTCMonth() + 1),
