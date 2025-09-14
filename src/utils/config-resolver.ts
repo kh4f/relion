@@ -223,11 +223,7 @@ const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap):
 		}
 	})
 
-	Object.keys(filledTypeGroupsMap).forEach((key) => {
-		if (!filledTypeGroupsMap[key].commits.length) delete filledTypeGroupsMap[key]
-	})
-
-	return filledTypeGroupsMap
+	return Object.fromEntries(Object.entries(filledTypeGroupsMap).filter(([_, group]) => group.commits.length))
 }
 
 const resolveTemplates = (config: ContextualConfig): ResolvedConfig => {
