@@ -8,15 +8,16 @@
 	{{#each commits}}
 		{{#if (isArray breakingChanges)}}
 			{{~#each breakingChanges~}}
-				- {{{this}}}
+				- {{{this}}} {{#if (isBreakingCommitInOtherTypeGroup ../this)}}<sup>[{{../breakingChangeIndex}}]</sup>{{/if}}
 			{{/each}}
 		{{else~}}
-			- {{{breakingChanges}}}
+			- {{{breakingChanges}}} {{#if (isBreakingCommitInOtherTypeGroup this)}}<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
 		{{/if}}
 	{{/each}}
 {{else}}
 {{#each commits}}
-- {{#if scope}}**{{scope}}**: {{/if}}{{{subject}}} {{#if ../../commitHyperlink}}[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}}){{else}}{{hash}}{{/if}}
+- {{#if scope}}**{{scope}}**: {{/if}}{{{subject}}}{{#if ../../commitHyperlink}}[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}}){{else}}{{hash}}{{/if}}
+{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
 {{/each}}
 {{/if}}
 

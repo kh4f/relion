@@ -1,4 +1,4 @@
-import type { MergedConfig, DefaultVersionedFile, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap } from '@/types'
+import type { MergedConfig, DefaultVersionedFile, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 
 export const defaultConfig: MergedConfig = {
 	bump: false,
@@ -63,6 +63,11 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 		eq: (a: unknown, b: unknown) => a === b,
 		repeat: (string: string, n: number) => string.repeat(n),
 		isArray: (value: unknown) => Array.isArray(value),
+		isBreakingCommitInOtherTypeGroup: (commit: ResolvedCommit, options: { data: { root: { commitTypeGroups: FilledTypeGroupMap } } }) => {
+			return Object.entries(options.data.root.commitTypeGroups)
+				.filter(([, { commitType }]) => commitType !== 'breaking')
+				.some(([, group]) => group.commits.includes(commit))
+		},
 	},
 	partials: {},
 }
