@@ -206,7 +206,9 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 }
 
 const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap): FilledTypeGroupMap => {
-	const commitTypeGroupsMap: FilledTypeGroupMap = Object.fromEntries(Object.entries(sections).map(([id, def]) => ([id, { ...def, commits: [] }])))
+	const commitTypeGroupsMap: FilledTypeGroupMap = Object.fromEntries(
+		Object.entries(sections).map(([id, { filter: _, ...defWithoutFilter }]) => [id, { ...defWithoutFilter, commits: [] }]),
+	)
 
 	commits.forEach((commit) => {
 		const isBreaking = !!commit.breakingChanges
