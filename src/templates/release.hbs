@@ -2,32 +2,36 @@
 	## &ensp; [` 📦 {{tag}}  `]({{repo.homepage}}/{{#if prevTag}}compare/{{prevTag}}...{{tag}}{{else}}commits/{{tag}}{{/if}})
 
 {{/header}}
-{{#each commitTypeGroups~}}
-	### {{{repeat '&nbsp;' 5}}}{{title}}
-	{{#if (eq @key 'breaking')}}
-		{{#each commits}}
-			{{#if (isArray breakingChanges)}}
-				{{~#each breakingChanges~}}
-					- {{{this}}} {{#if (isBreakingCommitInOtherTypeGroup ../this)}}<sup>[{{../breakingChangeIndex}}]</sup>{{/if}}
-				{{/each}}
-			{{else~}}
-				- {{{breakingChanges}}} {{#if (isBreakingCommitInOtherTypeGroup this)}}<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
-			{{/if}}
-		{{/each}}
-	{{else}}
-		{{#each commits~}}
-			- {{#if scope}}**{{scope}}**: {{/if}}{{{subject}}} {{" "}}
-			{{~#if ../../commitHyperlink~}}
-				[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}})
-			{{~else~}}
-				{{hash}}
-			{{~/if~}}
-			{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
-		{{/each}}
-	{{/if}}
 
-{{/each}}
-{{#>footer~}}
+{{~#>main~}}
+	{{#each commitTypeGroups~}}
+		### {{{repeat '&nbsp;' 5}}}{{title}}
+		{{#if (eq @key 'breaking')}}
+			{{#each commits}}
+				{{#if (isArray breakingChanges)}}
+					{{~#each breakingChanges~}}
+						- {{{this}}} {{#if (isBreakingCommitInOtherTypeGroup ../this)}}<sup>[{{../breakingChangeIndex}}]</sup>{{/if}}
+					{{/each}}
+				{{else~}}
+					- {{{breakingChanges}}} {{#if (isBreakingCommitInOtherTypeGroup this)}}<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
+				{{/if}}
+			{{/each}}
+		{{else}}
+			{{#each commits~}}
+				- {{#if scope}}**{{scope}}**: {{/if}}{{{subject}}} {{" "}}
+				{{~#if ../../commitHyperlink~}}
+					[`{{hash}}`]({{../../repo.homepage}}/commit/{{hash}})
+				{{~else~}}
+					{{hash}}
+				{{~/if~}}
+				{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
+			{{/each}}
+		{{/if}}
+
+	{{/each}}
+{{/main}}
+
+{{~#>footer~}}
 	##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_]
 	{{~#if prevTag~}}
 		({{repo.homepage}}/compare/{{prevTag}}...{{tag}})
