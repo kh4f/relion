@@ -206,7 +206,7 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 }
 
 const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap): FilledTypeGroupMap => {
-	const commitTypeGroupsMap: FilledTypeGroupMap = Object.fromEntries(
+	const filledTypeGroupsMap: FilledTypeGroupMap = Object.fromEntries(
 		Object.entries(sections).map(([id, { filter: _, ...defWithoutFilter }]) => [id, { ...defWithoutFilter, commits: [] }]),
 	)
 
@@ -221,13 +221,13 @@ const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap):
 			const sectionTypes = [sections[sectionId].commitType].flat()
 
 			if (isBreaking && !isBreakingGrouped && sectionTypes.includes('breaking')) {
-				commitTypeGroupsMap[sectionId].commits.push(commit)
+				filledTypeGroupsMap[sectionId].commits.push(commit)
 				isBreakingGrouped = true
 				continue
 			}
 
 			if (!isGrouped && (sectionTypes.includes(commit.type) || sectionTypes.includes('*'))) {
-				commitTypeGroupsMap[sectionId].commits.push(commit)
+				filledTypeGroupsMap[sectionId].commits.push(commit)
 				isGrouped = true
 			}
 
@@ -235,11 +235,11 @@ const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap):
 		}
 	})
 
-	Object.keys(commitTypeGroupsMap).forEach((key) => {
-		if (!commitTypeGroupsMap[key].commits.length) delete commitTypeGroupsMap[key]
+	Object.keys(filledTypeGroupsMap).forEach((key) => {
+		if (!filledTypeGroupsMap[key].commits.length) delete filledTypeGroupsMap[key]
 	})
 
-	return commitTypeGroupsMap
+	return filledTypeGroupsMap
 }
 
 const resolveTemplates = (config: ContextualConfig): ResolvedConfig => {
