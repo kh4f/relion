@@ -28,6 +28,8 @@ export default defineConfig([
 			'@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
 			'@typescript-eslint/restrict-template-expressions': 'off',
 			'@typescript-eslint/no-dynamic-delete': 'off',
+			'@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+
 		},
 		languageOptions: {
 			parserOptions: {
