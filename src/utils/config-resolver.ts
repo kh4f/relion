@@ -153,6 +153,7 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 }
 
 const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBodyPattern: RegExp): ResolvedCommit[] => {
+	let breakingChangesIndex = 0
 	return commits.map((commit) => {
 		let isRevertedStatus: ResolvedCommit['isReverted'] = null
 		const revertCommit = commits.find(c => c.type === 'revert' && revertCommitBodyPattern.exec(c.body ?? '')?.groups?.hash === commit.hash)
@@ -161,6 +162,7 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 			...commit,
 			associatedReleaseTag: commit.associatedReleaseTag ?? newTag,
 			isReverted: commit.isReverted ?? isRevertedStatus,
+			breakingChangeIndex: commit.breakingChanges ? ++breakingChangesIndex : undefined,
 		}
 	})
 }

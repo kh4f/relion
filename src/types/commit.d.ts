@@ -30,6 +30,7 @@ export interface ParsedCommit extends CommitMessage {
 export interface ResolvedCommit extends ParsedCommit {
 	associatedReleaseTag: NonNullable<ParsedCommit['associatedReleaseTag']>
 	isReverted: NonNullable<ParsedCommit['isReverted']> | null
+	breakingChangeIndex?: number
 }
 
 export interface CommitMessage {
