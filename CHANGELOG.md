@@ -1,6 +1,34 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.11.0  `](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: add breaking change indicators [`cde45c0`](https://github.com/kh4f/relion/commit/cde45c0)
+- **commit**: add `breakingChangeIndex` to `ResolvedCommit` for numbering breaking changes in changelog [`9b24b3f`](https://github.com/kh4f/relion/commit/9b24b3f)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **defaults**: correct regex for `revertCommitBodyPattern` to remove the trailing period [`c664157`](https://github.com/kh4f/relion/commit/c664157)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **templates**: wrap changelog main section in `main` partial block [`b0d2ded`](https://github.com/kh4f/relion/commit/b0d2ded)
+- **config-resolver**: use `.filter`for removing empty commit groups in `groupCommitsByType` [`018d88b`](https://github.com/kh4f/relion/commit/018d88b)
+- **config-resolver**: simplify commit resolution logic [`78ed11c`](https://github.com/kh4f/relion/commit/78ed11c)
+- **config-resolver**: rename `commitTypeGroupsMap` to `filledTypeGroupsMap` [`8e81abc`](https://github.com/kh4f/relion/commit/8e81abc)
+- **config-resolver**: exclude `filter` from grouped section output [`14e05ba`](https://github.com/kh4f/relion/commit/14e05ba)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+- **templates**: improve indentation for better readability [`5e1921d`](https://github.com/kh4f/relion/commit/5e1921d)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **config-resolver**: use imported `FilledTypeGroupMap` instead of local type definitions [`b844a3a`](https://github.com/kh4f/relion/commit/b844a3a)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+- **eslint**: update `no-unused-vars` rule to ignore variables starting with `_` [`b239056`](https://github.com/kh4f/relion/commit/b239056)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0) &ensp;•&ensp; _Sep 14, 2025_
+
+
 ## &ensp; [` 📦 v0.10.0  `](https://github.com/kh4f/relion/compare/v0.9.0...v0.10.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
