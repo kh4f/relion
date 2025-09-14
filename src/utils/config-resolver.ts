@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, TypeGroupDefinition, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, ParsedCommitWithReleaseTag, FilledTypeGroupMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, ParsedCommitWithReleaseTag, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -206,10 +206,7 @@ const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections
 }
 
 const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap): FilledTypeGroupMap => {
-	type ChangelogSectionWithCommits = TypeGroupDefinition & { commits: ResolvedCommit[] }
-	type ChangelogSectionsMapWithCommits = Record<string, ChangelogSectionWithCommits>
-
-	const commitTypeGroupsMap: ChangelogSectionsMapWithCommits = Object.fromEntries(Object.entries(sections).map(([id, def]) => ([id, { ...def, commits: [] }])))
+	const commitTypeGroupsMap: FilledTypeGroupMap = Object.fromEntries(Object.entries(sections).map(([id, def]) => ([id, { ...def, commits: [] }])))
 
 	commits.forEach((commit) => {
 		const isBreaking = !!commit.breakingChanges
