@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, ParsedCommitWithReleaseTag, FilledTypeGroupMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -153,28 +153,16 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 }
 
 const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBodyPattern: RegExp): ResolvedCommit[] => {
-	const resolveCommitReleaseTags = (commits: ParsedCommit[], newTag: string): ParsedCommitWithReleaseTag[] => {
-		return commits.map(commit => ({
+	return commits.map((commit) => {
+		let isRevertedStatus: ResolvedCommit['isReverted'] = null
+		const revertCommit = commits.find(c => c.type === 'revert' && revertCommitBodyPattern.exec(c.body ?? '')?.groups?.hash === commit.hash)
+		if (revertCommit) isRevertedStatus = revertCommit.associatedReleaseTag === commit.associatedReleaseTag ? 'inTheSameRelease' : 'inOtherRelease'
+		return {
 			...commit,
 			associatedReleaseTag: commit.associatedReleaseTag ?? newTag,
-		}))
-	}
-
-	const resolveCommitRevertStatus = (commits: ParsedCommitWithReleaseTag[]): ResolvedCommit[] => {
-		return commits.map((commit) => {
-			let isRevertedStatus: ResolvedCommit['isReverted'] = null
-			const revertCommit = commits.find(c => c.type === 'revert' && revertCommitBodyPattern.exec(c.body ?? '')?.groups?.hash === commit.hash)
-			if (revertCommit) isRevertedStatus = revertCommit.associatedReleaseTag === commit.associatedReleaseTag ? 'inTheSameRelease' : 'inOtherRelease'
-			return {
-				...commit,
-				isReverted: commit.isReverted ?? isRevertedStatus,
-			}
-		})
-	}
-
-	const commitsWithReleaseTags = resolveCommitReleaseTags(commits, newTag)
-	const commitsWithRevertStatus = resolveCommitRevertStatus(commitsWithReleaseTags)
-	return commitsWithRevertStatus
+			isReverted: commit.isReverted ?? isRevertedStatus,
+		}
+	})
 }
 
 const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, config: ContextualConfig): ReleaseWithTypeGroups[] => {

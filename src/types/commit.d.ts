@@ -27,11 +27,8 @@ export interface ParsedCommit extends CommitMessage {
 	isReverted?: 'inTheSameRelease' | 'inOtherRelease' | null
 }
 
-interface ParsedCommitWithReleaseTag extends ParsedCommit {
+export interface ResolvedCommit extends ParsedCommit {
 	associatedReleaseTag: NonNullable<ParsedCommit['associatedReleaseTag']>
-}
-
-export interface ResolvedCommit extends ParsedCommitWithReleaseTag {
 	isReverted: NonNullable<ParsedCommit['isReverted']> | null
 }
 
