@@ -29,12 +29,12 @@
 	"bin": "dist/cli.js",
 	"scripts": {
 		"build": "tsdown",
-		"lint": "eslint",
-		"test": "vitest run index",
 		"build:watch": "tsdown --watch",
 		"build:prod": "tsdown --production",
-		"test:watch": "vitest index",
+		"lint": "eslint",
 		"lint:fix": "eslint --fix",
+		"test": "vitest run index",
+		"test:watch": "vitest index",
 		"release": "node dist/cli.js -blct",
 		"release:github": "node dist/cli.js -l -p github -L",
 		"prepare": "simple-git-hooks"
