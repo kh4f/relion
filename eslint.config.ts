@@ -9,7 +9,7 @@ const isExtensionMode = !!process.env.VSCODE_CWD
 export default defineConfig([
 	globalIgnores([
 		'dist',
-		(isExtensionMode ? '' : 'temp*/'),
+		(isExtensionMode ? '' : 'temp/'),
 	].filter(Boolean), 'Global Ignores'),
 	{
 		name: 'Base Rules',
