@@ -7,7 +7,7 @@ export const resolveConfig = async (userConfig: UserConfig): Promise<ResolvedCon
 	const profileMergedConfig = mergeProfileConfig(userConfig)
 	const mergedConfig = mergeWithDefaults(profileMergedConfig)
 	const transformedConfig = transformVersionedFiles(mergedConfig)
-	const contextualConfig = await fillContext(transformedConfig)
+	const contextualConfig = await resolveContext(transformedConfig)
 	const finalConfig = resolveTemplates(contextualConfig)
 	return finalConfig
 }
@@ -120,7 +120,7 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 	}
 }
 
-const fillContext = async (config: TransformedConfig): Promise<ContextualConfig> => {
+const resolveContext = async (config: TransformedConfig): Promise<ContextualConfig> => {
 	const resolvedContext = (config.context ?? {}) as Partial<ResolvedContext>
 
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
