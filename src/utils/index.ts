@@ -1,5 +1,5 @@
 export * from './config-resolver'
-export * from './version-manager'
+export * from './versioner'
 export * from './commits-parser'
 export * from './git-utils'
 export * from './logger'
