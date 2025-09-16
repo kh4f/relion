@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -7,8 +7,8 @@ export const resolveConfig = async (userConfig: UserConfig): Promise<ResolvedCon
 	const profileMergedConfig = mergeProfileConfig(userConfig)
 	const mergedConfig = mergeWithDefaults(profileMergedConfig)
 	const transformedConfig = transformVersionedFiles(mergedConfig)
-	const contextualConfig = await resolveContext(transformedConfig)
-	const finalConfig = resolveTemplates(contextualConfig)
+	const ResolvedConfig = await resolveContext(transformedConfig)
+	const finalConfig = resolveTemplates(ResolvedConfig)
 	return finalConfig
 }
 
@@ -120,7 +120,7 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 	}
 }
 
-const resolveContext = async (config: TransformedConfig): Promise<ContextualConfig> => {
+const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig> => {
 	const resolvedContext = (config.context ?? {}) as Partial<ResolvedContext>
 
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
@@ -143,13 +143,13 @@ const resolveContext = async (config: TransformedConfig): Promise<ContextualConf
 
 	resolvedContext.commits = resolveCommits(parsedCommits, resolvedContext.newTag, config.commitsParser.revertCommitBodyPattern)
 
-	const contextualConfig = { ...config, context: resolvedContext as ResolvedContext }
+	const ResolvedConfig = { ...config, context: resolvedContext as ResolvedContext }
 
 	resolvedContext.releases = config.changelog
-		? groupCommitsByReleases(resolvedContext.commits, config.changelog.sections, contextualConfig)
+		? groupCommitsByReleases(resolvedContext.commits, config.changelog.sections, ResolvedConfig)
 		: null
 
-	return contextualConfig
+	return ResolvedConfig
 }
 
 const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBodyPattern: RegExp): ResolvedCommit[] => {
@@ -167,7 +167,7 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 	})
 }
 
-const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, config: ContextualConfig): ReleaseWithTypeGroups[] => {
+const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, config: ResolvedConfig): ReleaseWithTypeGroups[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -222,7 +222,7 @@ const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap):
 	return Object.fromEntries(Object.entries(filledTypeGroupsMap).filter(([_, group]) => group.commits.length))
 }
 
-const resolveTemplates = (config: ContextualConfig): ResolvedConfig => {
+const resolveTemplates = (config: ResolvedConfig): ResolvedConfig => {
 	return {
 		...config,
 		commit: config.commit

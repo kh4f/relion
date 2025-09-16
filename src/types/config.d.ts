@@ -35,11 +35,9 @@ export interface TransformedConfig extends Omit<MergedConfig, 'changelog'> {
 	changelog: false | ResolvedChangelogOptions
 }
 
-export interface ContextualConfig extends TransformedConfig {
+export interface ResolvedConfig extends TransformedConfig {
 	context: ResolvedContext
 }
-export type ResolvedConfig = ContextualConfig
-
 export type BumpFiles = (string | VersionedFile)[]
 
 export interface ChangelogOptions {
