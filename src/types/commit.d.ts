@@ -1,6 +1,6 @@
 import type { GpgSigLabel, RefType } from '@/enums'
 
-export type RawCommit = CommitMessageString | {
+export type RawCommit = string | {
 	hash?: string
 	message: string
 	tagRefs?: string
@@ -41,7 +41,6 @@ export interface CommitMessage {
 	breakingChanges?: string | string[]
 	footer?: string
 }
-type CommitMessageString = string
 
 export interface Reference {
 	action: string
