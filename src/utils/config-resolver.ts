@@ -146,7 +146,7 @@ const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig
 	const ResolvedConfig = { ...config, context: resolvedContext as ResolvedContext }
 
 	resolvedContext.releases = config.changelog
-		? groupCommitsByReleases(resolvedContext.commits, config.changelog.sections, ResolvedConfig)
+		? groupCommitsByReleases(resolvedContext.commits, config.changelog.sections, config.prevReleaseTagPattern)
 		: null
 
 	return ResolvedConfig
@@ -167,7 +167,7 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 	})
 }
 
-const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, config: ResolvedConfig): ReleaseWithTypeGroups[] => {
+const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, prevReleaseTagPattern: RegExp): ReleaseWithTypeGroups[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -177,7 +177,7 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 		} else {
 			releases[releaseTag] = {
 				tag: releaseTag,
-				version: extractVersionFromTag(releaseTag, config.prevReleaseTagPattern),
+				version: extractVersionFromTag(releaseTag, prevReleaseTagPattern),
 				date: commit.date,
 				commits: [commit],
 			}
