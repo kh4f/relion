@@ -12,6 +12,10 @@ export const parseVersion = (versionedFile: VersionedFile): string => {
 	return version
 }
 
+export const getVersionFromTag = (tag: string, tagPattern: RegExp): string | undefined => {
+	return tagPattern.exec(tag)?.groups?.version
+}
+
 export const determineNextVersion = async (config: TransformedConfig, currentVersion: string): Promise<string> => {
 	if (config.releaseVersion) {
 		if (!semver.valid(config.releaseVersion)) {
