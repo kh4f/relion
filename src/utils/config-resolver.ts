@@ -184,15 +184,9 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 		}
 	})
 
-	return Object.values(releases).map(release => groupReleaseCommitsBySections(release, sections)).filter(release => Object.keys(release.commitTypeGroups).length)
-}
-
-const groupReleaseCommitsBySections = (release: ReleaseWithFlatCommits, sections: TypeGroupsMap): ReleaseWithTypeGroups => {
-	const { commits, ...releaseWithoutCommits } = release
-	return {
-		...releaseWithoutCommits,
-		commitTypeGroups: groupCommitsByType(commits, sections),
-	}
+	return Object.values(releases)
+		.map(({ commits, ...rest }) => ({ ...rest, commitTypeGroups: groupCommitsByType(commits, sections) }))
+		.filter(release => Object.keys(release.commitTypeGroups).length)
 }
 
 const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap): FilledTypeGroupMap => {
