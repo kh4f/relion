@@ -18,27 +18,17 @@ export const changelog = (config: ResolvedConfig): void => {
 
 	let result = options.header
 	releases.forEach((release: ReleaseWithTypeGroups, index: number) => {
-		const prevRelease = releases[index + 1] as ReleaseWithTypeGroups | undefined
-		let prevTag: string | undefined, prevVersion: string | undefined
-		if (prevRelease) {
-			prevTag = prevRelease.tag
-			prevVersion = extractVersionFromTag(prevTag, config.prevReleaseTagPattern)
-		} else {
+		let prevRelease = releases[index + 1] as Partial<ReleaseWithTypeGroups> | undefined
+		if (!prevRelease) {
 			const targetTagIndex = versionTags.indexOf(release.tag)
-			if (targetTagIndex === -1) {
-				prevTag = config.context.currentTag
-				prevVersion = extractVersionFromTag(prevTag, config.prevReleaseTagPattern)
+			if (targetTagIndex !== -1) {
+				const prevTag = versionTags[targetTagIndex + 1]
+				prevRelease = { tag: prevTag, version: prevTag && extractVersionFromTag(prevTag, config.prevReleaseTagPattern) }
 			} else {
-				prevTag = versionTags[targetTagIndex + 1]
-				prevVersion = prevTag && extractVersionFromTag(prevTag, config.prevReleaseTagPattern)
+				prevRelease = { tag: config.context.currentTag, version: config.context.currentVersion }
 			}
 		}
-		const releaseContext: ReleaseContext = {
-			...release,
-			...config.context,
-			prevTag,
-			prevVersion,
-		}
+		const releaseContext: ReleaseContext = { ...release, ...config.context, prevRelease }
 		const rendered = renderTemplate(releaseTemplate, releaseContext)
 		result += rendered
 	})

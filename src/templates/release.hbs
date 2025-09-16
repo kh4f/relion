@@ -1,5 +1,5 @@
 {{#>header~}}
-	## &ensp; [` 📦 {{tag}}  `]({{repo.homepage}}/{{#if prevTag}}compare/{{prevTag}}...{{tag}}{{else}}commits/{{tag}}{{/if}})
+	## &ensp; [` 📦 {{tag}}  `]({{repo.homepage}}/{{#if prevRelease.tag}}compare/{{prevRelease.tag}}...{{tag}}{{else}}commits/{{tag}}{{/if}})
 
 {{/header}}
 
@@ -33,8 +33,8 @@
 
 {{~#>footer~}}
 	##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_]
-	{{~#if prevTag~}}
-		({{repo.homepage}}/compare/{{prevTag}}...{{tag}})
+	{{~#if prevRelease.tag~}}
+		({{repo.homepage}}/compare/{{prevRelease.tag}}...{{tag}})
 	{{~else~}}
 		({{repo.homepage}}/commits/{{tag}})
 	{{~/if~}}

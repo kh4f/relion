@@ -25,8 +25,7 @@ export interface ReleaseWithTypeGroups extends Omit<ReleaseWithFlatCommits, 'com
 }
 
 export interface ReleaseContext extends ReleaseWithTypeGroups, ResolvedContext {
-	prevTag?: string
-	prevVersion?: string
+	prevRelease: Partial<ReleaseWithTypeGroups>
 }
 
 export type DefaultChangelogSections = typeof defaultChangelogSections
