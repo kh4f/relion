@@ -1,6 +1,41 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.12.0  `](https://github.com/kh4f/relion/compare/v0.11.0...v0.12.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `newTagFormat` option now uses simple string replacement with `{{version}}` placeholder instead of Handlebars template rendering. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **config-resolver**: simplify `resolveContext` function [`1e60703`](https://github.com/kh4f/relion/commit/1e60703)
+- **config-resolver**: update `groupCommitsByReleases` to use `prevReleaseTagPattern` directly [`8c23ec6`](https://github.com/kh4f/relion/commit/8c23ec6)
+- **config**: update `newTagFormat` to use direct `{{version}}` substitution instead of hbs template [`06cadc7`](https://github.com/kh4f/relion/commit/06cadc7) ⚠️<sup>[1]</sup>
+- **config-resolver**: rename `fillContext` function to `resolveContext` [`f1b0023`](https://github.com/kh4f/relion/commit/f1b0023)
+- **changelog**: replace `prevTag` and `prevVersion` with unified `prevRelease` object [`d2d165f`](https://github.com/kh4f/relion/commit/d2d165f)
+- **utils**: rename `getVersionFromTag` to `extractVersionFromTag` [`87c5c81`](https://github.com/kh4f/relion/commit/87c5c81)
+- **utils**: move `getVersionFromTag` function to `versioner.ts` module [`badb78e`](https://github.com/kh4f/relion/commit/badb78e)
+- **config-resolver**: inline `groupReleaseCommitsBySections` function into `groupCommitsByReleases` [`317a307`](https://github.com/kh4f/relion/commit/317a307)
+- **utils**: rename `git-utils` module to `git-helper` [`158047c`](https://github.com/kh4f/relion/commit/158047c)
+- **utils**: rename `version-manager` module to `versioner` [`2384b38`](https://github.com/kh4f/relion/commit/2384b38)
+- **utils**: unify template rendering with `renderTemplate` function [`3e1afdc`](https://github.com/kh4f/relion/commit/3e1afdc)
+- **templates**: remove unused `index.ts` module [`0afb9de`](https://github.com/kh4f/relion/commit/0afb9de)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+- **package**: group npm scripts by type [`15d2629`](https://github.com/kh4f/relion/commit/15d2629)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚀 CI
+- **release**: restrict tag pattern to 'v*' for release triggers [`527be49`](https://github.com/kh4f/relion/commit/527be49)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **config**: remove `ContextualConfig` type and update `ResolvedConfig` definition [`273b1bc`](https://github.com/kh4f/relion/commit/273b1bc)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+- **eslint**: update global ignores to use 'temp/' instead of 'temp*/' [`23fb868`](https://github.com/kh4f/relion/commit/23fb868)
+- **gitignore**: remove `temp.test.ts` from ignored files [`dacd529`](https://github.com/kh4f/relion/commit/dacd529)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.11.0...v0.12.0) &ensp;•&ensp; _Sep 16, 2025_
+
+
 ## &ensp; [` 📦 v0.11.0  `](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
