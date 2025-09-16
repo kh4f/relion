@@ -1,4 +1,4 @@
-import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit } from '@/utils'
+import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit, renderTemplate } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
@@ -139,7 +139,7 @@ const fillContext = async (config: TransformedConfig): Promise<ContextualConfig>
 	resolvedContext.currentVersion ??= parseVersion(config.versionSourceFile)
 	resolvedContext.currentTag ??= getVersionTags(config.prevReleaseTagPattern)[0]
 	resolvedContext.newVersion ??= await determineNextVersion(config, resolvedContext.currentVersion)
-	resolvedContext.newTag ??= compileTemplate(config.newTagFormat, resolvedContext as ResolvedContext)
+	resolvedContext.newTag ??= renderTemplate(config.newTagFormat, resolvedContext as ResolvedContext)
 
 	resolvedContext.commits = resolveCommits(parsedCommits, resolvedContext.newTag, config.commitsParser.revertCommitBodyPattern)
 
@@ -232,19 +232,14 @@ const resolveTemplates = (config: ContextualConfig): ResolvedConfig => {
 	return {
 		...config,
 		commit: config.commit
-			? { ...config.commit, message: compileTemplate(config.commit.message, config.context) }
+			? { ...config.commit, message: renderTemplate(config.commit.message, config.context) }
 			: config.commit,
 		tag: config.tag
 			? {
 				...config.tag,
-				name: compileTemplate(config.tag.name, config.context),
-				message: compileTemplate(config.tag.message, config.context),
+				name: renderTemplate(config.tag.name, config.context),
+				message: renderTemplate(config.tag.message, config.context),
 			}
 			: config.tag,
 	}
-}
-
-const compileTemplate = (value: string, context: ResolvedContext): string => {
-	const compile = Handlebars.compile(value)
-	return compile(context)
 }

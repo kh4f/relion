@@ -1,4 +1,4 @@
-import { getVersionTags, log } from '@/utils'
+import { getVersionTags, log, renderTemplate } from '@/utils'
 import type { ReleaseContext, ReleaseWithTypeGroups, ResolvedConfig } from '@/types'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
@@ -58,11 +58,6 @@ const writeToChangelogFile = (outputFile: string, content: string, prevReleaseHe
 	const headlessChangelog = changelogContent.slice(prevReleaseStart)
 	const newChangelog = content + headlessChangelog
 	writeFileSync(outputFile, newChangelog, { encoding: 'utf8' })
-}
-
-const renderTemplate = (template: string, releaseContext: ReleaseContext): string => {
-	const compile = Handlebars.compile(template)
-	return compile(releaseContext)
 }
 
 const getVersionFromTag = (tag: string, tagPattern: RegExp): string | undefined => {
