@@ -12,7 +12,7 @@ export const parseVersion = (versionedFile: VersionedFile): string => {
 	return version
 }
 
-export const getVersionFromTag = (tag: string, tagPattern: RegExp): string | undefined => {
+export const extractVersionFromTag = (tag: string, tagPattern: RegExp): string | undefined => {
 	return tagPattern.exec(tag)?.groups?.version
 }
 

@@ -1,4 +1,4 @@
-import { getVersionFromTag, getVersionTags, log, renderTemplate } from '@/utils'
+import { extractVersionFromTag, getVersionTags, log, renderTemplate } from '@/utils'
 import type { ReleaseContext, ReleaseWithTypeGroups, ResolvedConfig } from '@/types'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
@@ -22,15 +22,15 @@ export const changelog = (config: ResolvedConfig): void => {
 		let prevTag: string | undefined, prevVersion: string | undefined
 		if (prevRelease) {
 			prevTag = prevRelease.tag
-			prevVersion = getVersionFromTag(prevTag, config.prevReleaseTagPattern)
+			prevVersion = extractVersionFromTag(prevTag, config.prevReleaseTagPattern)
 		} else {
 			const targetTagIndex = versionTags.indexOf(release.tag)
 			if (targetTagIndex === -1) {
 				prevTag = config.context.currentTag
-				prevVersion = getVersionFromTag(prevTag, config.prevReleaseTagPattern)
+				prevVersion = extractVersionFromTag(prevTag, config.prevReleaseTagPattern)
 			} else {
 				prevTag = versionTags[targetTagIndex + 1]
-				prevVersion = prevTag && getVersionFromTag(prevTag, config.prevReleaseTagPattern)
+				prevVersion = prevTag && extractVersionFromTag(prevTag, config.prevReleaseTagPattern)
 			}
 		}
 		const releaseContext: ReleaseContext = {

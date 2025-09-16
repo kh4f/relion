@@ -1,4 +1,4 @@
-import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, getVersionFromTag } from '@/utils'
+import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ContextualConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
@@ -177,7 +177,7 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 		} else {
 			releases[releaseTag] = {
 				tag: releaseTag,
-				version: getVersionFromTag(releaseTag, config.prevReleaseTagPattern),
+				version: extractVersionFromTag(releaseTag, config.prevReleaseTagPattern),
 				date: commit.date,
 				commits: [commit],
 			}
