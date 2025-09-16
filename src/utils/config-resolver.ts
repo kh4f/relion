@@ -139,7 +139,7 @@ const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig
 	resolvedContext.currentVersion ??= parseVersion(config.versionSourceFile)
 	resolvedContext.currentTag ??= getVersionTags(config.prevReleaseTagPattern)[0]
 	resolvedContext.newVersion ??= await determineNextVersion(config, resolvedContext.currentVersion)
-	resolvedContext.newTag ??= renderTemplate(config.newTagFormat, resolvedContext as ResolvedContext)
+	resolvedContext.newTag ??= config.newTagFormat.replace('{{version}}', resolvedContext.newVersion)
 
 	resolvedContext.commits = resolveCommits(parsedCommits, resolvedContext.newTag, config.commitsParser.revertCommitBodyPattern)
 
