@@ -121,15 +121,17 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 }
 
 const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig> => {
+	const oldContext = config.context ?? {}
+
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
-	const currentVersion = parseVersion(config.versionSourceFile)
-	const currentTag = getVersionTags(config.prevReleaseTagPattern)[0]
-	const newVersion = await determineNextVersion(config, currentVersion)
-	const newTag = config.newTagFormat.replace('{{version}}', newVersion)
+	const currentVersion = oldContext.currentVersion ?? parseVersion(config.versionSourceFile)
+	const currentTag = oldContext.currentTag ?? getVersionTags(config.prevReleaseTagPattern)[0]
+	const newVersion = oldContext.newVersion ?? await determineNextVersion(config, currentVersion)
+	const newTag = oldContext.newTag ?? config.newTagFormat.replace('{{version}}', newVersion)
 
 	const commitRange = config.changelog ? config.changelog.commitRange : 'unreleased'
-	const parsedCommits = config.context?.commits
-		? (await Promise.all(config.context.commits.map(async (commit) => {
+	const parsedCommits = oldContext.commits
+		? (await Promise.all(oldContext.commits.map(async (commit) => {
 			return ((typeof commit === 'object' && 'message' in commit) || typeof commit === 'string')
 				? (await parseCommit(commit, config.commitsParser, config.prevReleaseTagPattern))
 				: commit
@@ -138,7 +140,7 @@ const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig
 
 	const resolvedCommits = resolveCommits(parsedCommits, newTag, config.commitsParser.revertCommitBodyPattern)
 	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern) : null
-	const { commits: _commits, ...oldContextWithoutCommits } = config.context ?? {}
+	const { commits: _, ...noCommitsOldContext } = oldContext
 
 	return {
 		...config,
@@ -149,7 +151,7 @@ const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig
 			newTag,
 			commits: resolvedCommits,
 			releases,
-			...oldContextWithoutCommits,
+			...noCommitsOldContext,
 			repo: {
 				...repoInfo,
 				...config.context?.repo,
