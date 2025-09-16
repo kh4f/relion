@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, ResolvedContext, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -121,13 +121,13 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 }
 
 const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig> => {
-	const resolvedContext = (config.context ?? {}) as Partial<ResolvedContext>
-
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
-	resolvedContext.repo = { ...repoInfo, ...resolvedContext.repo }
+	const currentVersion = parseVersion(config.versionSourceFile)
+	const currentTag = getVersionTags(config.prevReleaseTagPattern)[0]
+	const newVersion = await determineNextVersion(config, currentVersion)
+	const newTag = config.newTagFormat.replace('{{version}}', newVersion)
 
 	const commitRange = config.changelog ? config.changelog.commitRange : 'unreleased'
-
 	const parsedCommits = config.context?.commits
 		? (await Promise.all(config.context.commits.map(async (commit) => {
 			return ((typeof commit === 'object' && 'message' in commit) || typeof commit === 'string')
@@ -136,20 +136,26 @@ const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig
 		}))).filter(c => c != null)
 		: await parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern)
 
-	resolvedContext.currentVersion ??= parseVersion(config.versionSourceFile)
-	resolvedContext.currentTag ??= getVersionTags(config.prevReleaseTagPattern)[0]
-	resolvedContext.newVersion ??= await determineNextVersion(config, resolvedContext.currentVersion)
-	resolvedContext.newTag ??= config.newTagFormat.replace('{{version}}', resolvedContext.newVersion)
+	const resolvedCommits = resolveCommits(parsedCommits, newTag, config.commitsParser.revertCommitBodyPattern)
+	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern) : null
+	const { commits: _commits, ...oldContextWithoutCommits } = config.context ?? {}
 
-	resolvedContext.commits = resolveCommits(parsedCommits, resolvedContext.newTag, config.commitsParser.revertCommitBodyPattern)
-
-	const ResolvedConfig = { ...config, context: resolvedContext as ResolvedContext }
-
-	resolvedContext.releases = config.changelog
-		? groupCommitsByReleases(resolvedContext.commits, config.changelog.sections, config.prevReleaseTagPattern)
-		: null
-
-	return ResolvedConfig
+	return {
+		...config,
+		context: {
+			currentVersion,
+			currentTag,
+			newVersion,
+			newTag,
+			commits: resolvedCommits,
+			releases,
+			...oldContextWithoutCommits,
+			repo: {
+				...repoInfo,
+				...config.context?.repo,
+			},
+		},
+	}
 }
 
 const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBodyPattern: RegExp): ResolvedCommit[] => {
