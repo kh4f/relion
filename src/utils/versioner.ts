@@ -17,11 +17,11 @@ export const extractVersionFromTag = (tag: string, tagPattern: RegExp): string |
 }
 
 export const determineNextVersion = async (config: TransformedConfig, currentVersion: string): Promise<string> => {
-	if (config.releaseVersion) {
-		if (!semver.valid(config.releaseVersion)) {
-			throw new Error(`Invalid release version format: '${config.releaseVersion}'`)
+	if (config.context?.newVersion) {
+		if (!semver.valid(config.context.newVersion)) {
+			throw new Error(`Invalid release version format: '${config.context.newVersion}'`)
 		}
-		return config.releaseVersion
+		return config.context.newVersion
 	}
 	let releaseType: ReleaseType
 	if (config.releaseType) {
