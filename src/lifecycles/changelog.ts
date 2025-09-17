@@ -4,12 +4,12 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
 import releaseTemplate from '@/templates/release.hbs'
 
-export const changelog = (config: ResolvedConfig): void => {
-	if (!config.changelog) return
+export const changelog = (config: ResolvedConfig): string | null => {
+	if (!config.changelog) return null
 
 	const options = config.changelog
 	const releases = config.context.releases
-	if (!releases) return
+	if (!releases) return null
 
 	const versionTags = getVersionTags(config.prevReleaseTagPattern)
 
@@ -40,6 +40,8 @@ export const changelog = (config: ResolvedConfig): void => {
 		log(`Writing changelog to file '${options.output}'`)
 		if (!config.dryRun) writeToChangelogFile(options.output, result, options.prevReleaseHeaderPattern)
 	}
+
+	return result
 }
 
 const writeToChangelogFile = (outputFile: string, content: string, prevReleaseHeaderPattern: RegExp): void => {

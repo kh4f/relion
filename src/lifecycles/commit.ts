@@ -2,8 +2,8 @@ import { execSync } from 'node:child_process'
 import type { ResolvedConfig } from '@/types'
 import { log } from '@/utils'
 
-export const commit = (config: ResolvedConfig): void => {
-	if (!config.commit) return
+export const commit = (config: ResolvedConfig): string | null => {
+	if (!config.commit) return null
 	const options = config.commit
 	const command = [
 		options.stageAll && 'git add -A &&',
@@ -14,4 +14,5 @@ export const commit = (config: ResolvedConfig): void => {
 	].filter(Boolean).join(' ')
 	log(`Committing with command: '${command}'`)
 	if (!config.dryRun) execSync(command, { stdio: 'inherit' })
+	return command
 }
