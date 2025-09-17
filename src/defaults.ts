@@ -77,7 +77,7 @@ export const defaultCommitOptions: CompleteCommitOptions = {
 	signOff: false,
 	gpgSign: false,
 	stageAll: true,
-	extraArgs: '',
+	extraArgs: null,
 }
 
 export const defaultTagOptions: CompleteTagOptions = {
@@ -85,7 +85,7 @@ export const defaultTagOptions: CompleteTagOptions = {
 	message: 'release({{repo.name}}): {{newTag}}',
 	gpgSign: false,
 	force: false,
-	extraArgs: '',
+	extraArgs: null,
 }
 
 export const defaultVersionedFiles: DefaultVersionedFile[] = [

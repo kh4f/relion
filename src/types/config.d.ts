@@ -58,7 +58,7 @@ export interface CommitOptions {
 	signOff?: boolean
 	gpgSign?: boolean
 	stageAll?: boolean
-	extraArgs?: string
+	extraArgs?: string | null
 }
 export type CompleteCommitOptions = Required<CommitOptions>
 
@@ -67,7 +67,7 @@ export interface TagOptions {
 	message?: string
 	gpgSign?: boolean
 	force?: boolean
-	extraArgs?: string
+	extraArgs?: string | null
 }
 export type CompleteTagOptions = Required<TagOptions>
 
