@@ -1,7 +1,6 @@
-import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag } from '@/utils'
+import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag, compilePartials } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
-import Handlebars from 'handlebars'
 
 export const resolveConfig = async (userConfig: UserConfig): Promise<ResolvedConfig> => {
 	const profileMergedConfig = mergeProfileConfig(userConfig)
@@ -114,9 +113,7 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 		bump: resolveBump(config.bump),
 		changelog: config.changelog === false
 			? false
-			: { ...config.changelog,
-				compiledPartials: Object.fromEntries(Object.entries(config.changelog.partials).map(([key, template]) => [key, Handlebars.compile(template)])),
-			},
+			: { ...config.changelog, compiledPartials: compilePartials(config.changelog.partials) },
 	}
 }
 
