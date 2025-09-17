@@ -18,6 +18,5 @@ export default defineConfig([
 		entry: 'src/cli.ts',
 		dts: false,
 		external: /.*/,
-		noExternal: 'cleye',
 	},
 ])
