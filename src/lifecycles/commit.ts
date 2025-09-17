@@ -5,7 +5,13 @@ import { log } from '@/utils'
 export const commit = (config: ResolvedConfig): void => {
 	if (!config.commit) return
 	const options = config.commit
-	log('Committing with options:', options)
-	if (options.stageAll && !config.dryRun) execSync('git add -A', { stdio: 'inherit' })
-	if (!config.dryRun) execSync(`git commit -m "${options.message}" ${options.signOff ? '-s' : ''} ${options.gpgSign ? '-S' : ''} ${options.extraArgs}`, { stdio: 'inherit' })
+	const command = [
+		options.stageAll && 'git add -A &&',
+		`git commit -m "${options.message}"`,
+		options.signOff && '-s',
+		options.gpgSign && '-S',
+		options.extraArgs,
+	].filter(Boolean).join(' ')
+	log(`Committing with command: '${command}'`)
+	if (!config.dryRun) execSync(command, { stdio: 'inherit' })
 }
