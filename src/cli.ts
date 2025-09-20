@@ -60,7 +60,7 @@ export async function runCli(config?: UserConfig, inputArgs?: string | string[])
 				default: false,
 			},
 		},
-	}, undefined, inputArgs)
+	}, undefined, inputArgs ? [...inputArgs] : process.argv.slice(2))
 
 	if (!config) {
 		try {
