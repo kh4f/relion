@@ -9,7 +9,7 @@
 	"semanticCommits": "enabled",
 	"commitMessageAction": "bump",
 	"commitMessageTopic": "{{depName}}",
-	"commitMessageExtra": "from {{currentValue}} to {{newValue}}",
+	"commitMessageExtra": "from {{currentVersion}} to {{newVersion}}",
 	"commitBody": "Signed-off-by: {{{gitAuthor}}}",
 	"branchTopic": "{{depNameSanitized}}-{{newVersion}}",
 	"packageRules": [
