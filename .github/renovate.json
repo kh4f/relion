@@ -8,7 +8,7 @@
 	"prHourlyLimit": 0,
 	"semanticCommits": "enabled",
 	"commitMessageAction": "bump",
-	"commitMessageTopic": "{{depName}}",
+	"commitMessageTopic": "`{{depName}}`",
 	"commitMessageExtra": "from {{currentVersion}} to {{newVersion}}",
 	"commitBody": "Signed-off-by: {{{gitAuthor}}}",
 	"branchTopic": "{{depNameSanitized}}-{{newVersion}}",
