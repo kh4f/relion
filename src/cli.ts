@@ -6,8 +6,8 @@ import { cli } from 'cleye'
 
 if (import.meta.main) await runCli()
 
-export async function runCli(config?: UserConfig, argvs?: string[]) {
-	const argv = cli({
+export async function runCli(config?: UserConfig, inputArgs?: string[]) {
+	const parsedArgs = cli({
 		name: 'relion',
 		flags: {
 			config: {
@@ -57,11 +57,11 @@ export async function runCli(config?: UserConfig, argvs?: string[]) {
 				default: false,
 			},
 		},
-	}, undefined, argvs)
+	}, undefined, inputArgs)
 
 	if (!config) {
 		try {
-			const configPath = argv.flags.config ?? 'relion.config.ts'
+			const configPath = parsedArgs.flags.config ?? 'relion.config.ts'
 			const configFileURL = pathToFileURL(resolve(process.cwd(), configPath)).href
 			config = ((await import(configFileURL)) as { default: UserConfig }).default
 		} catch (error) {
@@ -70,15 +70,15 @@ export async function runCli(config?: UserConfig, argvs?: string[]) {
 	}
 
 	// argv may be undefined if --help was passed
-	if (!(argv as ReturnType<typeof cli> | undefined)) return
+	if (!(parsedArgs as ReturnType<typeof cli> | undefined)) return
 
-	if (!argv.flags.bump) config.bump = false
-	if (!argv.flags.changelog) config.changelog = false
-	if (!argv.flags.commit) config.commit = false
-	if (!argv.flags.tag) config.tag = false
-	if (argv.flags.profile) config.profile = argv.flags.profile
-	if (argv.flags.dryRun) config.dryRun = argv.flags.dryRun
-	if (argv.flags.latest && config.changelog) {
+	if (!parsedArgs.flags.bump) config.bump = false
+	if (!parsedArgs.flags.changelog) config.changelog = false
+	if (!parsedArgs.flags.commit) config.commit = false
+	if (!parsedArgs.flags.tag) config.tag = false
+	if (parsedArgs.flags.profile) config.profile = parsedArgs.flags.profile
+	if (parsedArgs.flags.dryRun) config.dryRun = parsedArgs.flags.dryRun
+	if (parsedArgs.flags.latest && config.changelog) {
 		if (config.changelog === true) config.changelog = {}
 		config.changelog.commitRange = 'latest-release'
 	}
