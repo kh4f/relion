@@ -6,7 +6,7 @@ import { cli } from 'cleye'
 
 if (import.meta.main) await runCli()
 
-export async function runCli(config?: UserConfig, inputArgs?: string | string[]) {
+export async function runCli(inputArgs?: string | string[], config?: UserConfig) {
 	if (typeof inputArgs === 'string') inputArgs = inputArgs.split(' ')
 	inputArgs = inputArgs && [inputArgs].flat()
 
