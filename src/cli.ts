@@ -10,6 +10,11 @@ export async function runCli(config?: UserConfig, argvs?: string[]) {
 	const argv = cli({
 		name: 'relion',
 		flags: {
+			config: {
+				alias: 'c',
+				type: String,
+				description: 'Path to the config file',
+			},
 			bump: {
 				alias: 'b',
 				type: Boolean,
@@ -23,7 +28,7 @@ export async function runCli(config?: UserConfig, argvs?: string[]) {
 				default: false,
 			},
 			commit: {
-				alias: 'c',
+				alias: 'm',
 				type: Boolean,
 				description: 'Create a commit',
 				default: false,
@@ -56,7 +61,8 @@ export async function runCli(config?: UserConfig, argvs?: string[]) {
 
 	if (!config) {
 		try {
-			const configFileURL = pathToFileURL(resolve(process.cwd(), 'relion.config.ts')).href
+			const configPath = argv.flags.config ?? 'relion.config.ts'
+			const configFileURL = pathToFileURL(resolve(process.cwd(), configPath)).href
 			config = ((await import(configFileURL)) as { default: UserConfig }).default
 		} catch (error) {
 			throw new Error(`Error loading config: ${(error as Error).message}`)

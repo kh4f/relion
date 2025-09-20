@@ -9,7 +9,7 @@ describe('CLI', () => {
 	})
 
 	it('should simulate all lifecycles with options from config file', async () => {
-		await runCli(undefined, ['-blct', '-d'])
+		await runCli(undefined, ['-blmt', '-d'])
 	})
 
 	it(`should output latest release changelog using 'github' profile`, async () => {
