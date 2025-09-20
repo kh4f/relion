@@ -6,7 +6,10 @@ import { cli } from 'cleye'
 
 if (import.meta.main) await runCli()
 
-export async function runCli(config?: UserConfig, inputArgs?: string[]) {
+export async function runCli(config?: UserConfig, inputArgs?: string | string[]) {
+	if (typeof inputArgs === 'string') inputArgs = inputArgs.split(' ')
+	inputArgs = inputArgs && [inputArgs].flat()
+
 	const parsedArgs = cli({
 		name: 'relion',
 		flags: {
