@@ -14,7 +14,13 @@
 	"branchTopic": "{{depNameSanitized}}-{{newVersion}}",
 	"packageRules": [
 		{
-            "matchUpdateTypes": ["patch", "minor"],
+            "matchUpdateTypes": "patch",
+            "automerge": true,
+			"automergeType": "branch",
+			"matchCurrentAge": "> 3 days"
+        },
+		{
+            "matchUpdateTypes": "minor",
 			"matchCurrentVersion": "!/^0/",
             "automerge": true,
 			"automergeType": "branch",
