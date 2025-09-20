@@ -29,7 +29,7 @@ export default defineConfig([
 			'@typescript-eslint/restrict-template-expressions': 'off',
 			'@typescript-eslint/no-dynamic-delete': 'off',
 			'@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
-
+			'@typescript-eslint/prefer-nullish-coalescing': ['error', { ignorePrimitives: { boolean: true } }],
 		},
 		languageOptions: {
 			parserOptions: {
