@@ -47,7 +47,7 @@ export async function runCli(config?: UserConfig, inputArgs?: string | string[])
 				type: String,
 				description: 'Use config profile',
 			},
-			dryRun: {
+			dry: {
 				alias: 'd',
 				type: Boolean,
 				description: 'Run without making any changes',
@@ -80,7 +80,7 @@ export async function runCli(config?: UserConfig, inputArgs?: string | string[])
 	config.commit ||= parsedArgs.flags.commit
 	config.tag ||= parsedArgs.flags.tag
 	config.profile ??= parsedArgs.flags.profile
-	config.dryRun ??= parsedArgs.flags.dryRun
+	config.dryRun ??= parsedArgs.flags.dry
 	if (parsedArgs.flags.latest && config.changelog) {
 		if (config.changelog === true) config.changelog = {}
 		config.changelog.commitRange = 'latest-release'
