@@ -8,7 +8,7 @@ describe('CLI', () => {
 		expect(exitSpy).toHaveBeenCalledWith(0)
 	})
 
-	it('should simulate all lifecycles with options from config file', async () => {
+	it('should simulate full release workflow', async () => {
 		await runCli({}, ['-blmt', '-d'])
 	})
 
