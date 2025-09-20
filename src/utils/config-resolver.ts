@@ -27,13 +27,8 @@ const mergeProfileConfig = (baseConfig: UserConfig): UserConfig => {
 		const mergeObjects = (baseObj: unknown, overrideObject: unknown): unknown => {
 			const isBasePlainObject = isPlainObject(baseObj)
 			const isOverridePlainObject = isPlainObject(overrideObject)
-			if (isBasePlainObject && isOverridePlainObject) {
-				return { ...baseObj, ...overrideObject }
-			} else if (!isBasePlainObject && isOverridePlainObject) {
-				return overrideObject
-			} else if (isBasePlainObject && !isOverridePlainObject) {
-				return baseObj
-			}
+			if (isBasePlainObject && isOverridePlainObject) return { ...baseObj, ...overrideObject }
+			return overrideObject ?? baseObj
 		}
 
 		const baseConfigProp = baseConfig[propKey] as PlainObject | undefined
