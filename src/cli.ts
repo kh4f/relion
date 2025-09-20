@@ -75,12 +75,12 @@ export async function runCli(config?: UserConfig, inputArgs?: string | string[])
 	// argv may be undefined if --help was passed
 	if (!(parsedArgs as ReturnType<typeof cli> | undefined)) return
 
-	if (!parsedArgs.flags.bump) config.bump = false
-	if (!parsedArgs.flags.changelog) config.changelog = false
-	if (!parsedArgs.flags.commit) config.commit = false
-	if (!parsedArgs.flags.tag) config.tag = false
-	if (parsedArgs.flags.profile) config.profile = parsedArgs.flags.profile
-	if (parsedArgs.flags.dryRun) config.dryRun = parsedArgs.flags.dryRun
+	config.bump ||= parsedArgs.flags.bump
+	config.changelog ||= parsedArgs.flags.changelog
+	config.commit ||= parsedArgs.flags.commit
+	config.tag ||= parsedArgs.flags.tag
+	config.profile ??= parsedArgs.flags.profile
+	config.dryRun ??= parsedArgs.flags.dryRun
 	if (parsedArgs.flags.latest && config.changelog) {
 		if (config.changelog === true) config.changelog = {}
 		config.changelog.commitRange = 'latest-release'

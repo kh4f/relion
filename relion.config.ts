@@ -1,8 +1,6 @@
 import { defineConfig } from './dist/index.js'
 
 export default defineConfig({
-	bump: [],
-	changelog: {},
 	commit: {
 		gpgSign: true,
 	},
@@ -10,6 +8,9 @@ export default defineConfig({
 		gpgSign: true,
 	},
 	_github: {
+		bump: false,
+		commit: false,
+		tag: false,
 		silent: true,
 		context: {
 			commitHyperlink: false,

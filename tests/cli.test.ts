@@ -9,12 +9,7 @@ describe('CLI', () => {
 	})
 
 	it('should simulate full release workflow', async () => {
-		await runCli({
-			bump: true,
-			changelog: true,
-			commit: true,
-			tag: true,
-		}, ['-blmt', '-d'])
+		await runCli({}, ['-blmt', '-d'])
 	})
 
 	it(`should output latest release changelog using 'github' profile`, async () => {
