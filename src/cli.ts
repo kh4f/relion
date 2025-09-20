@@ -7,15 +7,6 @@ import { cli } from 'cleye'
 if (import.meta.main) await runCli()
 
 export async function runCli(config?: UserConfig, argvs?: string[]) {
-	if (!config) {
-		try {
-			const configFileURL = pathToFileURL(resolve(process.cwd(), 'relion.config.ts')).href
-			config = ((await import(configFileURL)) as { default: UserConfig }).default
-		} catch (error) {
-			throw new Error(`Error loading config: ${(error as Error).message}`)
-		}
-	}
-
 	const argv = cli({
 		name: 'relion',
 		flags: {
@@ -62,6 +53,15 @@ export async function runCli(config?: UserConfig, argvs?: string[]) {
 			},
 		},
 	}, undefined, argvs)
+
+	if (!config) {
+		try {
+			const configFileURL = pathToFileURL(resolve(process.cwd(), 'relion.config.ts')).href
+			config = ((await import(configFileURL)) as { default: UserConfig }).default
+		} catch (error) {
+			throw new Error(`Error loading config: ${(error as Error).message}`)
+		}
+	}
 
 	// argv may be undefined if --help was passed
 	if (!(argv as ReturnType<typeof cli> | undefined)) return
