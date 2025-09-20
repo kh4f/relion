@@ -1,6 +1,39 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.13.0  `](https://github.com/kh4f/relion/compare/v0.12.0...v0.13.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `releaseVersion` config option has been removed. Use `context.newVersion` instead to specify a custom release version.function to utilize `context.newVersion` for version determination <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core, lifecycles**: add return values for improved testability [`ba18286`](https://github.com/kh4f/relion/commit/ba18286)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ Performance
+- **config-resolver**: optimize context resolution for already existing values [`6c93419`](https://github.com/kh4f/relion/commit/6c93419)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **config**: change `extraArgs` option to allow null values [`cf3910f`](https://github.com/kh4f/relion/commit/cf3910f)
+- **templater**: simplify `renderTemplate` function [`220de89`](https://github.com/kh4f/relion/commit/220de89)
+- **utils**: extract `compilePartials` function to `templater` module [`fe46583`](https://github.com/kh4f/relion/commit/fe46583)
+- **commit, tag**: improve command construction readability and logging [`e15b718`](https://github.com/kh4f/relion/commit/e15b718)
+- **tsdown**: remove redundant `noExternal` option from cli config [`64bb035`](https://github.com/kh4f/relion/commit/64bb035)
+- **config**: remove `releaseVersion` option and use `context.newVersion` instead [`9973c44`](https://github.com/kh4f/relion/commit/9973c44) ⚠️<sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **commit**: change `RawCommit` type definition to use `string` directly instead of `CommitMessageString` [`f558ab9`](https://github.com/kh4f/relion/commit/f558ab9)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+- **package, ci**: specify `pnpm` version at 10.17.0 [`2f30a3e`](https://github.com/kh4f/relion/commit/2f30a3e)
+- **renovate**: add backticks around `depName` in commit message topic [`26970db`](https://github.com/kh4f/relion/commit/26970db)
+- **renovate**: remove caret from versions in commit message [`c034cba`](https://github.com/kh4f/relion/commit/c034cba)
+- **renovate**: fix automerge configuration for v0.x dependencies [`010c51f`](https://github.com/kh4f/relion/commit/010c51f)
+- **renovate**: configure semantic commit scope for `pnpm` updates [`4ba43e0`](https://github.com/kh4f/relion/commit/4ba43e0)
+- **renovate**: enhance security with package age restriction for automerge [`fdfdc8e`](https://github.com/kh4f/relion/commit/fdfdc8e)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.12.0...v0.13.0) &ensp;•&ensp; _Sep 20, 2025_
+
+
 ## &ensp; [` 📦 v0.12.0  `](https://github.com/kh4f/relion/compare/v0.11.0...v0.12.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
