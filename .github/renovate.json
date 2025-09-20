@@ -4,7 +4,6 @@
 	"ignorePaths": [ "node_modules/**", "tests/**", "temp*/**"],
 	"dependencyDashboard": true,
 	"rangeStrategy": "bump",
-	"prConcurrentLimit": 0,
 	"prHourlyLimit": 0,
 	"semanticCommits": "enabled",
 	"commitMessageAction": "bump",
