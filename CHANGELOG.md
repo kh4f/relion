@@ -1,6 +1,58 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.14.0  `](https://github.com/kh4f/relion/compare/v0.13.0...v0.14.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The CLI flag `--dry-run` has been renamed to `--dry` . <sup>[1]</sup>
+- CLI lifecycle flags now override falsy config values instead of being ignored when config explicitly sets them to false. <sup>[2]</sup>
+- The alias for the `commit` flag has been changed to 'm'. <sup>[3]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **cli**: add support for custom config file path via `--config` flag [`db88953`](https://github.com/kh4f/relion/commit/db88953) ⚠️<sup>[3]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **cli**: use parsed `--config` flag value when loading config file [`87f82d7`](https://github.com/kh4f/relion/commit/87f82d7)
+- **config-resolver**: always return override object if defined, even if false [`52542ad`](https://github.com/kh4f/relion/commit/52542ad)
+- **cli**: prevent `inputArgs` from being cleared after `cli()` call [`054fc8d`](https://github.com/kh4f/relion/commit/054fc8d)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **release**: explicitly set `bump` and `changelog` options in config instead of passing flags in release scripts [`eaf1747`](https://github.com/kh4f/relion/commit/eaf1747)
+- **release**: use `tsx` + `hbs-load-hook` to execute `cli.ts` instead of `cli.js` [`dc4cd36`](https://github.com/kh4f/relion/commit/dc4cd36)
+- **utils**: rename `templater` module to `hbs-helper` [`dec081e`](https://github.com/kh4f/relion/commit/dec081e)
+- **cli**: extract config file loading to `loadConfigFile` function [`ee404aa`](https://github.com/kh4f/relion/commit/ee404aa)
+- **cli**: reorder parameters in `runCli` function [`a2f0024`](https://github.com/kh4f/relion/commit/a2f0024)
+- **cli**: update dry run flag name to `dry` [`7587e2c`](https://github.com/kh4f/relion/commit/7587e2c) ⚠️<sup>[1]</sup>
+- **cli**: enable lifecycle flags to override falsy config values [`149b9a2`](https://github.com/kh4f/relion/commit/149b9a2) ⚠️<sup>[2]</sup>
+- **cli**: allow `inputArgs` to be a string [`1805684`](https://github.com/kh4f/relion/commit/1805684)
+- **cli**: rename `argvs` to `inputArgs` and `argv` to `parsedArgs` [`a71b9f8`](https://github.com/kh4f/relion/commit/a71b9f8)
+- **cli**: mode config file handling after parsing args [`90fe6e2`](https://github.com/kh4f/relion/commit/90fe6e2)
+- **cli**: return result from `relion` function in `runCli` [`31693f9`](https://github.com/kh4f/relion/commit/31693f9)
+- **tests**: separate CLI tests into dedicated `cli.test.ts` file [`2c46d68`](https://github.com/kh4f/relion/commit/2c46d68)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+- **license**: remove trailing newline [`6abf71a`](https://github.com/kh4f/relion/commit/6abf71a)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+- **package**: add `engines` field to specify Node.js version requirement [`86a9a13`](https://github.com/kh4f/relion/commit/86a9a13)
+- **package**: add `relion` script and update `release*` commands [`574bac3`](https://github.com/kh4f/relion/commit/574bac3)
+- **lint-staged**: restrict linting to ts files only [`14ea3f1`](https://github.com/kh4f/relion/commit/14ea3f1)
+- **eslint**: update `prefer-nullish-coalescing` to ignore boolean [`357f775`](https://github.com/kh4f/relion/commit/357f775)
+- **renovate**: narrow ignore pattern to `temp` only [`6f9725d`](https://github.com/kh4f/relion/commit/6f9725d)
+- **renovate**: remove `prConcurrentLimit` to use default value [`8b5ff3f`](https://github.com/kh4f/relion/commit/8b5ff3f)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+- **cli**: update test description for help message output [`8edaad5`](https://github.com/kh4f/relion/commit/8edaad5)
+- **cli**: replace aliases with long-form flags for clarity [`0275d1f`](https://github.com/kh4f/relion/commit/0275d1f)
+- **cli**: update full release workflow test options [`1ef5e4e`](https://github.com/kh4f/relion/commit/1ef5e4e)
+- **cli**: update test name for full release workflow [`cefd1e4`](https://github.com/kh4f/relion/commit/cefd1e4)
+- **cli**: pass config directly to `runCli` as a parameter [`b4b5e5c`](https://github.com/kh4f/relion/commit/b4b5e5c)
+- **cli**: remove timeouts [`3b7b5b6`](https://github.com/kh4f/relion/commit/3b7b5b6)
+- **cli**: make test names clearer and consistent [`7bb3958`](https://github.com/kh4f/relion/commit/7bb3958)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.13.0...v0.14.0) &ensp;•&ensp; _Sep 21, 2025_
+
+
 ## &ensp; [` 📦 v0.13.0  `](https://github.com/kh4f/relion/compare/v0.12.0...v0.13.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
