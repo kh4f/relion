@@ -25,4 +25,12 @@ describe('CLI', () => {
 			},
 		})
 	})
+
+	it('should load config from default path (relion.config.ts)', async () => {
+		await runCli('--changelog --dry')
+	})
+
+	it('should load config from custom path', async () => {
+		await runCli('--config tests/fixtures/relion.config.ts --dry')
+	})
 })
