@@ -1,73 +1,43 @@
-import { describe, it } from 'vitest'
-import relion from '@/.'
+import { describe, expect, it } from 'vitest'
+import relion, { type UserConfig } from '@/.'
 
-describe('Test all lifecycles', () => {
-	it('should print generated changelog to console', async () => {
-		await relion({
-			dryRun: true,
-			changelog: {
-				output: 'stdout',
-				commitRange: 'HEAD~5..',
-			},
-		})
+const baseConfig: UserConfig = {
+	silent: true,
+	profile: 'test',
+	_test: {
+		changelog: {
+			output: 'stdout',
+		},
+	},
+}
+
+describe('changelog generation', () => {
+	it('should print upcoming release changelog', async () => {
+		await relion({ ...baseConfig })
 	})
 
-	it('should generate changelog without commit hyperlinks', async () => {
-		await relion({
-			dryRun: true,
+	it('should print latest release changelog', async () => {
+		await relion({ ...baseConfig,
 			changelog: {
-				output: 'stdout',
-				commitRange: 'HEAD~5..',
-			},
-			profile: 'testProfile',
-			_testProfile: {
-				context: {
-					commitHyperlink: false,
-				},
-			},
-		})
-	})
-
-	it(`should generate changelog without commit hyperlinks and headers to 'RELEASE.md'`, async () => {
-		await relion({
-			dryRun: true,
-			changelog: {
-				output: 'stdout',
-				commitRange: 'HEAD~5..',
-			},
-			profile: 'github',
-			_github: {
-				context: {
-					commitHyperlink: false,
-				},
-				changelog: {
-					output: 'RELEASE.md',
-					header: '',
-					partials: {
-						header: '',
-					},
-				},
-			},
-		})
-	})
-
-	it('should generate changelog for latest release', async () => {
-		await relion({
-			dryRun: true,
-			changelog: {
-				output: 'stdout',
 				commitRange: 'latest-release',
 			},
 		})
 	})
 
-	it('should print only changelog to console', async () => {
-		await relion({
-			silent: true,
+	it('should print changelog for last 5 commits', async () => {
+		await relion({ ...baseConfig,
 			changelog: {
-				output: 'stdout',
 				commitRange: 'HEAD~5..',
 			},
 		})
+	})
+
+	it.for(['v0.7.0', 'v0.8.0'])('should print changelog for release $0', async (versionTag) => {
+		const result = await relion({ ...baseConfig,
+			changelog: {
+				commitRange: { versionTag },
+			},
+		})
+		expect(result.generatedChangelog).toMatchSnapshot()
 	})
 })

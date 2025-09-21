@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`changelog generation > should print changelog for release 'v0.7.0' 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.7.0  \`](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: add \`defaultChangelogSections\` export 86da78a
+- **changelog**: extend section definitions with optional \`id\` property 41c838a
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **templates**: use \`id\` property instead of \`commitType\` for breaking changes condition 205b9f8
+- **defaults**: update \`prevReleaseTagPattern\` regex to allow optional leading \`v\` 1c631eb
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📚 Documentation
+- **commit-naming**: update commit message guidelines with clarified rules and examples 94ca4fc
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+- **changelog**: update title for default \`style\` section from 'Formatting' to 'Style' d47d472
+- **templates**: remove emoji from footer commit link 7ea3c1d
+- **templates**: update release footer with italic link and \`•\` separator 7e56b38
+- **templates**: simplify release footer by omitting \`prevTag → tag\` df84af2
+- **templates**: update footer link label to 'All Release Commits' 2ca80a6
+- **templates**: update commit scope formatting to bold with colon 37dcb53
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+- **renovate**: add initial configuration for Renovate bc296e9
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0) &ensp;•&ensp; _Sep 11, 2025_
+
+
+"
+`;
+
+exports[`changelog generation > should print changelog for release 'v0.8.0' 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.8.0  \`](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The \`defaultChangelogSections\` export has been removed from the public API. Use \`changelogSectionsSelector\` instead, which provides the same sections plus \`pick\` and \`omit\` methods. <sup>[1]</sup>
+- The \`sections\` option in changelog configuration is now an object with section IDs as keys instead of an array. <sup>[2]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **utils**: add \`changelogSectionsSelector\` with \`pick\` and \`omit\` methods 3febcbc ⚠️<sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **changelog**: change \`sections\` from array to object format for better usability 349fed9 ⚠️<sup>[2]</sup>
+- **changelog**: rename \`commitGroups\` property to \`commitTypeGroups\` 6ec89a8
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **defaults**: use \`satisfies ChangelogSectionsMap\` for \`defaultChangelogSections\` 4343e6f
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
+
+
+"
+`;
