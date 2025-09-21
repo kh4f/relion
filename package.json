@@ -36,8 +36,9 @@
 		"lint:fix": "eslint --fix",
 		"test": "vitest run index",
 		"test:watch": "vitest index",
-		"release": "tsx scripts/relion-runner -blmt",
-		"release:github": "tsx scripts/relion-runner -l -p github -L",
+		"release": "pnpm relion -blmt",
+		"release:github": "pnpm relion -l -p github -L",
+		"relion": "tsx scripts/relion-runner",
 		"prepare": "simple-git-hooks"
 	},
 	"dependencies": {
