@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { runCli } from '@/cli'
 
 describe('CLI', () => {
-	it('should print help message when `--help` is passed', async () => {
+	it('should output help message when `--help` is passed', async () => {
 		const exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 		await runCli('--help', {})
 		expect(exitSpy).toHaveBeenCalledWith(0)
