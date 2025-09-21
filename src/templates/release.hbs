@@ -1,5 +1,15 @@
-{{#>header~}}
-	## &ensp; [` 📦 {{tag}}  `]({{repo.homepage}}/{{#if prevRelease.tag}}compare/{{prevRelease.tag}}...{{tag}}{{else}}commits/{{tag}}{{/if}})
+{{#*inline "compareLink"~}}
+	{{repo.homepage~}}
+	{{#if prevRelease.tag~}}
+		/compare/{{prevRelease.tag}}...
+	{{~else~}}
+		/commits/
+	{{~/if}}
+	{{~tag}}
+{{~/inline}}
+
+{{~#>header~}}
+	## &ensp; [` 📦 {{tag}}  `]({{>compareLink}})
 
 {{/header}}
 
@@ -32,13 +42,7 @@
 {{/main}}
 
 {{~#>footer~}}
-	##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_]
-	{{~#if prevRelease.tag~}}
-		({{repo.homepage}}/compare/{{prevRelease.tag}}...{{tag}})
-	{{~else~}}
-		({{repo.homepage}}/commits/{{tag}})
-	{{~/if~}}
-	{{" "}} &ensp;•&ensp; _{{date}}_
+	##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_]({{>compareLink}}) &ensp;•&ensp; _{{date}}_
 
 
 {{/footer}}
