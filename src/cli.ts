@@ -17,6 +17,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 				alias: 'c',
 				type: String,
 				description: 'Path to the config file',
+				default: 'relion.config.ts',
 			},
 			bump: {
 				alias: 'b',
@@ -65,7 +66,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 	// argv may be undefined if --help was passed
 	if (!(parsedArgs as ReturnType<typeof cli> | undefined)) return
 
-	config ??= await loadConfigFile(parsedArgs.flags.config ?? 'relion.config.ts')
+	config ??= await loadConfigFile(parsedArgs.flags.config)
 
 	config.bump ||= parsedArgs.flags.bump
 	config.changelog ||= parsedArgs.flags.changelog
