@@ -1,4 +1,4 @@
-import { defineConfig } from './dist/index.js'
+import { defineConfig } from '@/.'
 
 export default defineConfig({
 	commit: {
