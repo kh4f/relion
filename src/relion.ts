@@ -14,5 +14,3 @@ export default async function relion(userConfig: UserConfig) {
 
 	return { resolvedConfig, generatedChangelog, commitCommand, tagCommand, bumpResults }
 }
-
-export const defineConfig = (config: UserConfig): UserConfig => config
