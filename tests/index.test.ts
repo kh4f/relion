@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import relion from '@/index'
+import relion from '@/.'
 
 describe('Smoke test', () => {
 	it('should pass', () => {
