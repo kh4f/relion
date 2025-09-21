@@ -62,18 +62,10 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 		},
 	}, undefined, inputArgs ? [...inputArgs] : process.argv.slice(2))
 
-	if (!config) {
-		try {
-			const configPath = parsedArgs.flags.config ?? 'relion.config.ts'
-			const configFileURL = pathToFileURL(resolve(process.cwd(), configPath)).href
-			config = ((await import(configFileURL)) as { default: UserConfig }).default
-		} catch (error) {
-			throw new Error(`Error loading config: ${(error as Error).message}`)
-		}
-	}
-
 	// argv may be undefined if --help was passed
 	if (!(parsedArgs as ReturnType<typeof cli> | undefined)) return
+
+	config ??= await loadConfigFile(parsedArgs.flags.config ?? 'relion.config.ts')
 
 	config.bump ||= parsedArgs.flags.bump
 	config.changelog ||= parsedArgs.flags.changelog
@@ -87,4 +79,13 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 	}
 
 	return await relion(config)
+}
+
+const loadConfigFile = async (configPath: string): Promise<UserConfig> => {
+	try {
+		const configFileURL = pathToFileURL(resolve(process.cwd(), configPath)).href
+		return ((await import(configFileURL)) as { default: UserConfig }).default
+	} catch (error) {
+		throw new Error(`Error loading config: ${(error as Error).message}`)
+	}
 }
