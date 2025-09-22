@@ -16,7 +16,7 @@ export const extractVersionFromTag = (tag: string, tagPattern: RegExp): string |
 	return tagPattern.exec(tag)?.groups?.version
 }
 
-export const determineNextVersion = async (config: TransformedConfig, currentVersion: string): Promise<string> => {
+export const determineNextVersion = (config: TransformedConfig, currentVersion: string): string => {
 	if (config.context?.newVersion) {
 		if (!semver.valid(config.context.newVersion)) {
 			throw new Error(`Invalid release version format: '${config.context.newVersion}'`)
@@ -27,7 +27,7 @@ export const determineNextVersion = async (config: TransformedConfig, currentVer
 	if (config.releaseType) {
 		releaseType = config.releaseType
 	} else {
-		const unreleasedCommits = await parseCommits('unreleased', config.commitsParser, config.prevReleaseTagPattern)
+		const unreleasedCommits = parseCommits('unreleased', config.commitsParser, config.prevReleaseTagPattern)
 		releaseType = calculateReleaseType(unreleasedCommits)
 		if (config.zeroMajorBreakingIsMinor && semver.major(currentVersion) === 0 && releaseType === 'major') releaseType = 'minor'
 	}

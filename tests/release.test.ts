@@ -2,8 +2,8 @@ import { describe, it } from 'vitest'
 import relion from '@/.'
 
 describe('release workflow', () => {
-	it('should simulate full release workflow', async () => {
-		await relion({
+	it('should simulate full release workflow', () => {
+		relion({
 			bump: true,
 			changelog: true,
 			commit: true,

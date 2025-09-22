@@ -79,7 +79,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 		config.changelog.commitRange = 'latest-release'
 	}
 
-	return await relion(config)
+	return relion(config)
 }
 
 const loadConfigFile = async (configPath: string): Promise<UserConfig> => {

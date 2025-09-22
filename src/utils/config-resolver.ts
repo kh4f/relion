@@ -2,11 +2,11 @@ import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseC
 import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 
-export const resolveConfig = async (userConfig: UserConfig): Promise<ResolvedConfig> => {
+export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
 	const profileMergedConfig = mergeProfileConfig(userConfig)
 	const mergedConfig = mergeWithDefaults(profileMergedConfig)
 	const transformedConfig = transformVersionedFiles(mergedConfig)
-	const ResolvedConfig = await resolveContext(transformedConfig)
+	const ResolvedConfig = resolveContext(transformedConfig)
 	const finalConfig = resolveTemplates(ResolvedConfig)
 	return finalConfig
 }
@@ -112,23 +112,23 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 	}
 }
 
-const resolveContext = async (config: TransformedConfig): Promise<ResolvedConfig> => {
+const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 	const oldContext = config.context ?? {}
 
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
 	const currentVersion = oldContext.currentVersion ?? parseVersion(config.versionSourceFile)
 	const currentTag = oldContext.currentTag ?? getVersionTags(config.prevReleaseTagPattern)[0]
-	const newVersion = oldContext.newVersion ?? await determineNextVersion(config, currentVersion)
+	const newVersion = oldContext.newVersion ?? determineNextVersion(config, currentVersion)
 	const newTag = oldContext.newTag ?? config.newTagFormat.replace('{{version}}', newVersion)
 
 	const commitRange = config.changelog ? config.changelog.commitRange : 'unreleased'
 	const parsedCommits = oldContext.commits
-		? (await Promise.all(oldContext.commits.map(async (commit) => {
+		? oldContext.commits.map((commit) => {
 			return ((typeof commit === 'object' && 'message' in commit) || typeof commit === 'string')
-				? (await parseCommit(commit, config.commitsParser, config.prevReleaseTagPattern))
+				? parseCommit(commit, config.commitsParser, config.prevReleaseTagPattern)
 				: commit
-		}))).filter(c => c != null)
-		: await parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern)
+		}).filter(c => c != null)
+		: parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern)
 
 	const resolvedCommits = resolveCommits(parsedCommits, newTag, config.commitsParser.revertCommitBodyPattern)
 	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern) : null

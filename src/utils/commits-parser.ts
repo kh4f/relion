@@ -6,11 +6,11 @@ import { createHash } from 'node:crypto'
 const parsedCommits: Record<string, ParsedCommit> = {}
 let recentReleaseTag: ParsedCommit['releaseTag']
 
-export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<ParsedCommit[]> => {
+export const parseCommits = (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): ParsedCommit[] => {
 	const rawCommits = Array.isArray(arg1) ? arg1 : getRawCommits(arg1, prevReleaseTagPattern)
 	const parser = commitsParser
 
-	const parsedCommits = (await Promise.all(rawCommits.map(async commit => parseCommit(commit, parser, prevReleaseTagPattern))))
+	const parsedCommits = rawCommits.map(commit => parseCommit(commit, parser, prevReleaseTagPattern))
 		.filter(commit => commit !== null)
 
 	recentReleaseTag = undefined
@@ -18,7 +18,7 @@ export const parseCommits = async (arg1: CommitRange | RawCommit[], commitsParse
 	return parsedCommits
 }
 
-export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): Promise<ParsedCommit | null> => {
+export const parseCommit = (commit: RawCommit, parser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): ParsedCommit | null => {
 	if (typeof commit === 'string') commit = { message: commit }
 
 	const { tagRefs, hash = getFakeCommitHash(commit.message) } = commit
@@ -63,7 +63,7 @@ export const parseCommit = async (commit: RawCommit, parser: CompleteCommitsPars
 		: []
 	coAuthors.forEach(coAuthor => addAuthor(coAuthor))
 
-	const refs = await parseRefs((footer ?? ''), parser)
+	const refs = parseRefs((footer ?? ''), parser)
 
 	const gpgSig = commit.gpgSigCode
 		? {
@@ -150,8 +150,8 @@ const getContributorDetails = (contributor: Contributor, signers: Contributor[])
 	}
 }
 
-const parseRefs = async (value: string, parser: CompleteCommitsParser): Promise<Reference[]> =>
-	await Promise.all([...value.matchAll(parser.refPattern)].map(m => m.groups as unknown as RawReference)
+const parseRefs = (value: string, parser: CompleteCommitsParser): Reference[] =>
+	[...value.matchAll(parser.refPattern)].map(m => m.groups as unknown as RawReference)
 		.filter(rawRef => parser.refActionPattern.test(rawRef.action))
 		.flatMap(rawRef =>
 			[...rawRef.labels.matchAll(parser.refLabelPattern)].map(m => m.groups as unknown as RefLabel)
@@ -162,8 +162,7 @@ const parseRefs = async (value: string, parser: CompleteCommitsParser): Promise<
 					repo: label.repo,
 					number: label.number,
 				})),
-		),
-	)
+		)
 
 const formatDate = (date: Date, format: string): string => {
 	const pad = (num: number) => num.toString().padStart(2, '0')
