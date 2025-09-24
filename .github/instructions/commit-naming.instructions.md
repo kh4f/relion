@@ -4,7 +4,6 @@
 - Use English
 - Use backticks for file, folder, component, function, library and other code entity names, suffixes, flags, etc.
 
-
 ## Commit Message Format
 The commit message should be structured as follows:
 ```
@@ -17,7 +16,6 @@ The commit message should be structured as follows:
 [footer]
 ```
 Type, scope and subject (a.k.a. commit header) are mandatory. Body, breaking changes and footer (a.k.a. commit details) are optional.
-
 
 ### Header
 
@@ -98,7 +96,6 @@ The area of the codebase affected (e.g., component, module, feature). Scope is a
 
 #### Subject
 A brief summary of the change. Use present tense, imperative mood, and lowercase.
-
 
 ### Details
 
