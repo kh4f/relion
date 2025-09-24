@@ -2,7 +2,7 @@
 
 ## General Rules
 - Use English
-- Use backticks for file, folder, component, function, library and other code entity names, suffixes, etc.
+- Use backticks for file, folder, component, function, library and other code entity names, suffixes, flags, etc.
 
 
 ## Commit Message Format
