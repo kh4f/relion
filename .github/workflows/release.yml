@@ -2,29 +2,26 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ['v*']
 
 jobs:
   release:
     name: Release & Publish
     runs-on: ubuntu-latest
     permissions:
-      # permission for creating a GitHub release
-      contents: write
-      # permission for publishing to npm with provenance
-      id-token: write
+      contents: write # for creating a GitHub release
+      id-token: write # for publishing to npm with provenance
+    env:
+      TAG: ${{ github.ref_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        # Fetch full history for correct commits parsing
-        with:
-          fetch-depth: 0
+        with: 
+          fetch-depth: 0 # fetch full history for correct commits parsing
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10.17.1
+        with: { version: 10.17.1 }
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -39,22 +36,21 @@ jobs:
       - name: Build
         run: pnpm build:prod
 
-      - name: Set version tag
-        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-
       - name: Create release archive
-        run: zip -r "${GITHUB_REPOSITORY##*/}-${tag}.zip" dist/ package.json LICENSE README.md
+        run: |
+          ARCHIVE_NAME=${GITHUB_REPOSITORY##*/}-$TAG.zip
+          echo ARCHIVE_NAME=$ARCHIVE_NAME >> $GITHUB_ENV
+          zip -r $ARCHIVE_NAME dist package.json LICENSE README.md
 
       - name: Create GitHub release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          RELEASE_NOTES=$(pnpm --silent release:github)
-          gh release create "$tag" \
-            --title="$tag" \
-            --notes "$RELEASE_NOTES" \
+          gh release create $TAG \
+            --title $TAG \
+            --notes $(pnpm --silent release:github) \
             --draft \
-            "${GITHUB_REPOSITORY##*/}-${tag}.zip"
+            $ARCHIVE_NAME
 
       - name: Publish to npm
         env:
