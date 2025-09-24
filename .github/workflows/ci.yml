@@ -2,8 +2,7 @@ name: CI
 
 on:
   push:
-    branches:
-      - '**'
+    branches: ['**']
 
 jobs:
   check:
@@ -12,20 +11,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        # Fetch full history for correct commits parsing
-        with:
-          fetch-depth: 0
+        # fetch full history for correct commits parsing
+        with: { fetch-depth: 0 }
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10.17.1
+        with: { version: 10.17.1 }
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
-        with:
-          node-version: latest
-          cache: pnpm
+        with: { node-version: latest, cache: pnpm }
 
       - name: Install deps
         run: pnpm install
