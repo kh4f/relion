@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          ref: main
+          ref: main # attach HEAD to 'main' to avoid pnpm publish error ERR_PNPM_GIT_UNKNOWN_BRANCH
           fetch-depth: 0 # fetch full history for correct commits parsing
 
       - name: Setup pnpm
