@@ -49,7 +49,7 @@ jobs:
         run: |
           gh release create $TAG \
             --title $TAG \
-            --notes $(pnpm --silent release:github) \
+            --notes "$(pnpm --silent release:github)" \
             --draft \
             $ARCHIVE_NAME
 
