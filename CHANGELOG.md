@@ -1,6 +1,45 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.14.1  `](https://github.com/kh4f/relion/compare/v0.14.0...v0.14.1)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **ci**: simplify `ci.yml` structure [`100bae3`](https://github.com/kh4f/relion/commit/100bae3)
+- **ci**: simplify `release.yml` structure and improve readability [`c8698c8`](https://github.com/kh4f/relion/commit/c8698c8)
+- **commits-parser**: remove unnecessary `Promise` from `parseRefs` and update related functions [`52bd01b`](https://github.com/kh4f/relion/commit/52bd01b)
+- **core**: move `defineConfig` export from `relion.ts` to `index.ts` [`616f12b`](https://github.com/kh4f/relion/commit/616f12b)
+- **tests**: rename release workflow test file to `release.test.ts` [`39df949`](https://github.com/kh4f/relion/commit/39df949)
+- **tests**: clean up `index.test.ts` and move changelog tests to dedicated module [`b9a8ffb`](https://github.com/kh4f/relion/commit/b9a8ffb)
+- **tests**: simplify import path for `relion` module [`5cd32fd`](https://github.com/kh4f/relion/commit/5cd32fd)
+- **templates**: extract `compareLink` to inline partial [`5274dde`](https://github.com/kh4f/relion/commit/5274dde)
+- **templates**: use `@root` instead of `../../` [`a7200a7`](https://github.com/kh4f/relion/commit/a7200a7)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚀 CI
+- **release**: wrap `pnpm --silent release:github` in quotes for proper execution [`9ac5eaa`](https://github.com/kh4f/relion/commit/9ac5eaa)
+- **release**: fix publish workflow by specifying `ref: main` instead of disabling git checks [`1eebd3c`](https://github.com/kh4f/relion/commit/1eebd3c)
+- **checks**: simplify workflow triggers to avoid double runs for PRs [`4502e9f`](https://github.com/kh4f/relion/commit/4502e9f)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩 Dependencies
+- **dev-deps**: bump `@stylistic/eslint-plugin` from 5.3.1 to 5.4.0 [`2da60b5`](https://github.com/kh4f/relion/commit/2da60b5)
+- **dev-deps**: bump `@eslint/js` from 9.34.0 to 9.36.0 [`f54418f`](https://github.com/kh4f/relion/commit/f54418f)
+- **deps**: bump node.js from v24.5.0 to v24.8.0 [`745b215`](https://github.com/kh4f/relion/commit/745b215)
+- **dev-deps**: bump `tsdown` from 0.14.2 to 0.15.4 (#1) [`ac9b5ce`](https://github.com/kh4f/relion/commit/ac9b5ce)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+- **gitignore**: add release archives to ignored files to fix unclean working tree error [`99b15b6`](https://github.com/kh4f/relion/commit/99b15b6)
+- **package-manager**: bump pnpm from 10.17.0 to 10.17.1 [`c655a24`](https://github.com/kh4f/relion/commit/c655a24)
+- **actions**: bump actions/checkout action from v4 to v5 (#2) [`d7037e9`](https://github.com/kh4f/relion/commit/d7037e9)
+- **actions**: bump actions/setup-node action from v4 to v5 (#3) [`10a1a1d`](https://github.com/kh4f/relion/commit/10a1a1d)
+- **package**: update `test` script to run all tests [`942b38f`](https://github.com/kh4f/relion/commit/942b38f)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+- **changelog**: clean up tests, keep only informative ones [`7e40210`](https://github.com/kh4f/relion/commit/7e40210)
+- **cli**: rename test suite to `runCli` [`ff78678`](https://github.com/kh4f/relion/commit/ff78678)
+- **cli**: add tests for config loading from default and custom paths [`8b25e13`](https://github.com/kh4f/relion/commit/8b25e13)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.14.0...v0.14.1) &ensp;•&ensp; _Sep 24, 2025_
+
+
 ## &ensp; [` 📦 v0.14.0  `](https://github.com/kh4f/relion/compare/v0.13.0...v0.14.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES

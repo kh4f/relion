@@ -1,6 +1,6 @@
 {
 	"name": "relion",
-	"version": "0.14.0",
+	"version": "0.14.1",
 	"description": "Release workflow helper for Node.js projects.",
 	"author": "Kh4f <kh4f.dev@gmail.com>",
 	"license": "MIT",
