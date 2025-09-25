@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import relion from '@/.'
-import { testConfig } from './fixtures/relion.config.test'
+import { testConfig } from './fixtures/relion.test-config'
 
 describe('release workflow', () => {
 	it('should simulate full release workflow', () => {
