@@ -1,6 +1,59 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.15.0  `](https://github.com/kh4f/relion/compare/v0.14.1...v0.15.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- Configuration property `changelog.versionTag` is now `changelog.releaseTag`. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **config**: add `newTagPrefix` option with priority over `newTagFormat` [`a0b25f2`](https://github.com/kh4f/relion/commit/a0b25f2)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ Performance
+- **git-helper**: implement caching for version tags retrieval [`9c03d87`](https://github.com/kh4f/relion/commit/9c03d87)
+- **commits-parser**: use `Map` for `parsedCommitsCache` [`81e9687`](https://github.com/kh4f/relion/commit/81e9687)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **cli.test**: separate manual CLI inspection tests [`1b540ec`](https://github.com/kh4f/relion/commit/1b540ec)
+- **cli**: return input config along with `relion` output [`b2d802a`](https://github.com/kh4f/relion/commit/b2d802a)
+- **tests**: rename `release.test.ts` to `relion.test.ts` [`4b6289a`](https://github.com/kh4f/relion/commit/4b6289a)
+- **tests**: remove `testConfig` and simplify changelog tests [`c518d34`](https://github.com/kh4f/relion/commit/c518d34)
+- **tests**: replace `testConfig` with `silent: true, dryRun: true` in changelog tests [`ce9af03`](https://github.com/kh4f/relion/commit/ce9af03)
+- **tests**: replace `testConfig` with `silent: true` in tag generation tests [`77fff5d`](https://github.com/kh4f/relion/commit/77fff5d)
+- **config**: rename `versionTag` to `releaseTag` across codebase [`0a188eb`](https://github.com/kh4f/relion/commit/0a188eb) ⚠️<sup>[1]</sup>
+- **commits-parser**: rename `parsedCommits` to `parsedCommitsCache` [`200e19b`](https://github.com/kh4f/relion/commit/200e19b)
+- **tests**: change config path from `relion.config.ts` to `relion.config.cli.ts` [`20f54cd`](https://github.com/kh4f/relion/commit/20f54cd)
+- **tests**: rename `relion.config.test` to `relion.test-config` to prevent vitest from treating it as a test file [`2f7fe92`](https://github.com/kh4f/relion/commit/2f7fe92)
+- **tests**: move changelog test config to `fixtures/relion.config.test.ts` [`9e3e90a`](https://github.com/kh4f/relion/commit/9e3e90a)
+- **ci**: simplify event trigger syntax [`960bfef`](https://github.com/kh4f/relion/commit/960bfef)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📚 Documentation
+- **commit-naming**: update code blocks to use md format [`67136aa`](https://github.com/kh4f/relion/commit/67136aa)
+- **commit-naming**: add rule to wrap commit message in markdown code block [`6a472a6`](https://github.com/kh4f/relion/commit/6a472a6)
+- **commit-naming**: update guidelines to include 'flags' in backtick usage [`e8ce2f5`](https://github.com/kh4f/relion/commit/e8ce2f5)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+- **commit-naming**: remove redundant blank lines [`28db47f`](https://github.com/kh4f/relion/commit/28db47f)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚀 CI
+- **release**: add comment to clarify `ref` usage in checkout step [`43695e7`](https://github.com/kh4f/relion/commit/43695e7)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **core, cli**: specify explicit return types for `runCli` and `relion` [`8c4274e`](https://github.com/kh4f/relion/commit/8c4274e)
+- **result**: update `RelionResult` to use `null` instead of `undefined` for optional properties [`9565cbd`](https://github.com/kh4f/relion/commit/9565cbd)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩 Dependencies
+- **dev-deps**: bump `@types/node` from 24.3.1 to 24.5.2 [`905f259`](https://github.com/kh4f/relion/commit/905f259)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+- **setup**: mock console output and set default `dryRun`/`changelog.output` for `relion()` tests [`726bd29`](https://github.com/kh4f/relion/commit/726bd29)
+- **changelog**: update snapshots after renaming `changelog generation` test [`9df75f0`](https://github.com/kh4f/relion/commit/9df75f0)
+- **changelog**: rename test to use 'generate' instead of 'print' [`f4af163`](https://github.com/kh4f/relion/commit/f4af163)
+- **changelog**: separate manual changelog inspection from automated tests [`daba3b5`](https://github.com/kh4f/relion/commit/daba3b5)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.14.1...v0.15.0) &ensp;•&ensp; _Sep 25, 2025_
+
+
 ## &ensp; [` 📦 v0.14.1  `](https://github.com/kh4f/relion/compare/v0.14.0...v0.14.1)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
