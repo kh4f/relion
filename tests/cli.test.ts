@@ -31,6 +31,6 @@ describe('runCli', () => {
 	})
 
 	it('should load config from custom path', async () => {
-		await runCli('--config tests/fixtures/relion.config.ts --dry')
+		await runCli('--config tests/fixtures/relion.config.cli.ts --dry')
 	})
 })
