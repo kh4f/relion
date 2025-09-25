@@ -1,4 +1,4 @@
-import { extractVersionFromTag, getVersionTags, log, renderTemplate } from '@/utils'
+import { extractVersionFromTag, getReleaseTags, log, renderTemplate } from '@/utils'
 import type { ReleaseContext, ReleaseWithTypeGroups, ResolvedConfig } from '@/types'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
@@ -11,7 +11,7 @@ export const changelog = (config: ResolvedConfig): string | null => {
 	const releases = config.context.releases
 	if (!releases) return null
 
-	const versionTags = getVersionTags(config.prevReleaseTagPattern)
+	const releaseTags = getReleaseTags(config.prevReleaseTagPattern)
 
 	Handlebars.registerPartial(options.compiledPartials)
 	Handlebars.registerHelper(options.helpers)
@@ -20,9 +20,9 @@ export const changelog = (config: ResolvedConfig): string | null => {
 	releases.forEach((release: ReleaseWithTypeGroups, index: number) => {
 		let prevRelease = releases[index + 1] as Partial<ReleaseWithTypeGroups> | undefined
 		if (!prevRelease) {
-			const targetTagIndex = versionTags.indexOf(release.tag)
+			const targetTagIndex = releaseTags.indexOf(release.tag)
 			if (targetTagIndex !== -1) {
-				const prevTag = versionTags[targetTagIndex + 1]
+				const prevTag = releaseTags[targetTagIndex + 1]
 				prevRelease = { tag: prevTag, version: prevTag && extractVersionFromTag(prevTag, config.prevReleaseTagPattern) }
 			} else {
 				prevRelease = { tag: config.context.currentTag, version: config.context.currentVersion }

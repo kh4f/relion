@@ -23,10 +23,10 @@ describe('changelog generation', () => {
 		})
 	})
 
-	it.for(['v0.7.0', 'v0.8.0'])('should print changelog for release $0', (versionTag) => {
+	it.for(['v0.7.0', 'v0.8.0'])('should print changelog for release $0', (releaseTag) => {
 		const result = relion({ ...testConfig,
 			changelog: {
-				commitRange: { versionTag },
+				commitRange: { releaseTag },
 			},
 		})
 		expect(result.generatedChangelog).toMatchSnapshot()

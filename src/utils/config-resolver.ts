@@ -1,4 +1,4 @@
-import { parseVersion, determineNextVersion, getVersionTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag, compilePartials } from '@/utils'
+import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag, compilePartials } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 
@@ -117,7 +117,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
 	const currentVersion = oldContext.currentVersion ?? parseVersion(config.versionSourceFile)
-	const currentTag = oldContext.currentTag ?? getVersionTags(config.prevReleaseTagPattern)[0]
+	const currentTag = oldContext.currentTag ?? getReleaseTags(config.prevReleaseTagPattern)[0]
 	const newVersion = oldContext.newVersion ?? determineNextVersion(config, currentVersion)
 	const newTag = oldContext.newTag ?? (config.newTagPrefix
 		? config.newTagPrefix + newVersion

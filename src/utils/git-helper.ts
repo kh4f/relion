@@ -4,7 +4,7 @@ import type { CommitRange, RawCommit, RepoInfo } from '@/types'
 const commitLogFormat = `##COMMIT##%n#HASH# %h%n#MSG# %B%n#REFS# %d%n#AUTHOR-NAME# %an%n#AUTHOR-EMAIL# %ae%n#AUTHOR-DATE# %at%n#COMMITTER-NAME# %cn%n#COMMITTER-EMAIL# %ce%n#COMMITTER-DATE# %ct%n#GPGSIG-CODE# %G?%n#GPGSIG-KEYID# %GK%n`
 const rawCommitPattern = /##COMMIT##\n#HASH# (?<hash>.+)?\n#MSG# (?<message>[\s\S]*?)\n#REFS#\s+(?<tagRefs>.+)?\n#AUTHOR-NAME# (?<authorName>.+)?\n#AUTHOR-EMAIL# (?<authorEmail>.+)?\n#AUTHOR-DATE# (?<authorTs>.+)?\n#COMMITTER-NAME# (?<committerName>.+)?\n#COMMITTER-EMAIL# (?<committerEmail>.+)?\n#COMMITTER-DATE# (?<committerTs>.+)?\n#GPGSIG-CODE# (?<gpgSigCode>.+)?\n#GPGSIG-KEYID# (?<gpgSigKeyId>.+)?/g
 
-const versionTagsCache = new Map<string, string[]>()
+const releaseTagsCache = new Map<string, string[]>()
 
 export const getRepoInfo = (remoteUrlPattern: RegExp): RepoInfo => {
 	const remoteUrl = execSync('git remote get-url origin', { encoding: 'utf8' }).trim()
@@ -19,23 +19,23 @@ export const getRepoInfo = (remoteUrlPattern: RegExp): RepoInfo => {
 
 export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: RegExp): RawCommit[] => {
 	const firstCommitHash = getFirstCommitHash()
-	const versionTags = getVersionTags(prevReleaseTagPattern)
+	const releaseTags = getReleaseTags(prevReleaseTagPattern)
 
 	let from = '', to = '', range = ''
 	if (commitRange === 'all') {
 		from = '{{firstCommit}}'
 		to = 'HEAD'
 	} else if (commitRange === 'unreleased') {
-		from = versionTags[0] ?? '{{firstCommit}}'
+		from = releaseTags[0] ?? '{{firstCommit}}'
 		to = 'HEAD'
 	} else if (commitRange === 'latest-release') {
-		from = versionTags[1] ?? '{{firstCommit}}'
-		to = versionTags[0] ?? 'HEAD'
+		from = releaseTags[1] ?? '{{firstCommit}}'
+		to = releaseTags[0] ?? 'HEAD'
 	} else if (typeof commitRange === 'object') {
-		const targetTagIndex = versionTags.indexOf(commitRange.versionTag)
-		if (targetTagIndex === -1) throw new Error(`Version tag '${commitRange.versionTag}' not found`)
-		from = versionTags[targetTagIndex + 1] ?? '{{firstCommit}}'
-		to = versionTags[targetTagIndex]
+		const targetTagIndex = releaseTags.indexOf(commitRange.releaseTag)
+		if (targetTagIndex === -1) throw new Error(`Release tag '${commitRange.releaseTag}' not found`)
+		from = releaseTags[targetTagIndex + 1] ?? '{{firstCommit}}'
+		to = releaseTags[targetTagIndex]
 	} else {
 		range = commitRange
 	}
@@ -50,12 +50,12 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 
 const getFirstCommitHash = (): string => execSync('git rev-list --max-parents=0 HEAD', { encoding: 'utf8' }).trim()
 
-export const getVersionTags = (tagPattern: RegExp): string[] => {
+export const getReleaseTags = (tagPattern: RegExp): string[] => {
 	const cacheKey = tagPattern.toString()
-	if (versionTagsCache.has(cacheKey)) return versionTagsCache.get(cacheKey) ?? []
+	if (releaseTagsCache.has(cacheKey)) return releaseTagsCache.get(cacheKey) ?? []
 
 	const rawTags = execSync('git tag --sort=-creatordate', { encoding: 'utf8' })
 	const tags = rawTags.split('\n').filter(tag => tagPattern.test(tag))
-	versionTagsCache.set(cacheKey, tags)
+	releaseTagsCache.set(cacheKey, tags)
 	return tags
 }

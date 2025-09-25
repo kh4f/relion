@@ -114,7 +114,7 @@ export type CommitRange =
 	| 'all'
 	| 'unreleased'
 	| 'latest-release'
-	| { versionTag: string }
+	| { releaseTag: string }
 	| (string & {})
 
 export type ReleaseType = 'major' | 'minor' | 'patch'
