@@ -3,7 +3,7 @@ import { GpgSigLabel } from '@/enums'
 import { getRawCommits } from '@/utils'
 import { createHash } from 'node:crypto'
 
-const parsedCommitsCache: Record<string, ParsedCommit> = {}
+const parsedCommitsCache = new Map<string, ParsedCommit>()
 let recentReleaseTag: ParsedCommit['releaseTag']
 
 export const parseCommits = (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): ParsedCommit[] => {
@@ -23,7 +23,7 @@ export const parseCommit = (commit: RawCommit, parser: CompleteCommitsParser, pr
 
 	const { tagRefs, hash = getFakeCommitHash(commit.message) } = commit
 
-	if (hash in parsedCommitsCache) return parsedCommitsCache[hash]
+	if (parsedCommitsCache.has(hash)) return parsedCommitsCache.get(hash) ?? null
 
 	const message = commit.message.trim()
 	if (!message) throw new Error(`Message is missing for commit: ${JSON.stringify(commit)}`)
@@ -87,7 +87,7 @@ export const parseCommit = (commit: RawCommit, parser: CompleteCommitsParser, pr
 		refs: refs.length ? refs : undefined,
 	}
 
-	if (hash && !(hash in parsedCommitsCache)) parsedCommitsCache[hash] = parsedCommit
+	if (hash && !parsedCommitsCache.has(hash)) parsedCommitsCache.set(hash, parsedCommit)
 
 	return parsedCommit
 }
