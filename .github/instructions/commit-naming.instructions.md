@@ -7,7 +7,7 @@
 
 ## Commit Message Format
 The commit message should be structured as follows:
-```
+```md
 <type>(<scope>): <subject>
 
 [body]
@@ -114,17 +114,17 @@ If the commit introduces breaking changes, add a `BREAKING CHANGES:` section. Al
 If the commit references an Issue/PR (I’ll let you know), include a footer.
 
 #### Commits with Details Examples
-- ```
+- ```md
   test(cli): use `runCli` function instead of executing `dist/cli.js`
   
   This removes the need for building the project before running tests.
   ```
-- ```
+- ```md
   fix(changelog): use `breakingChanges` property instead of `subject` for `BREAKING CHANGES` section
 
   Previously, when a commit had a `breakingChanges` property, the changelog would incorrectly display the commit's `subject` in the `BREAKING CHANGES` section instead of the actual `breakingChanges` content.
   ```
-- ```
+- ```md
   feat(config): add silent mode to suppress console output
   
   - Add `logger.ts` utility with `setSilent` and `log` functions
@@ -132,25 +132,25 @@ If the commit references an Issue/PR (I’ll let you know), include a footer.
   - Replace `console.log` calls with centralized `log` function across lifecycles
   - Initialize silent mode in main `relion` function
   ```
-- ```
+- ```md
   fix(root): add `suppressHydrationWarning` property to `html` tag
   
   Fixes #12 (error during hydration)
   Refs #34 (conflict with chrome extension)
   ```
-- ```
+- ```md
   feat(config)!: add support for multiple profiles with CLI `--profile` flag
   
   BREAKING CHANGE: Changed alias for 'prerelease' option to 'P' to reserve 'p' for the new '--profile' option.
   
   Refs #45 (add support for multiple profiles)
   ```
-- ```
+- ```md
   refactor(options)!: remove `packageFiles` option and related logic
   
   BREAKING CHANGE: The `packageFiles` option has been removed. The current version is now always read from `package.json`.
   ```
-- ```
+- ```md
   refactor(changelog)!: replace `stdout` and `outputFile` options with unified `output`
 
   - Update changelog generation logic to handle console output and file writing based on `output` value
