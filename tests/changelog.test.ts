@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import relion from '@/.'
 
 describe('changelog generation', () => {
-	it.for(['v0.7.0', 'v0.8.0'])('should print changelog for release $0', (releaseTag) => {
+	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0', (releaseTag) => {
 		expect(relion({ silent: true, dryRun: true,
 			changelog: { commitRange: { releaseTag } },
 		}).generatedChangelog).toMatchSnapshot()
