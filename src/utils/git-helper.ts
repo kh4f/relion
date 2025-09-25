@@ -4,6 +4,8 @@ import type { CommitRange, RawCommit, RepoInfo } from '@/types'
 const commitLogFormat = `##COMMIT##%n#HASH# %h%n#MSG# %B%n#REFS# %d%n#AUTHOR-NAME# %an%n#AUTHOR-EMAIL# %ae%n#AUTHOR-DATE# %at%n#COMMITTER-NAME# %cn%n#COMMITTER-EMAIL# %ce%n#COMMITTER-DATE# %ct%n#GPGSIG-CODE# %G?%n#GPGSIG-KEYID# %GK%n`
 const rawCommitPattern = /##COMMIT##\n#HASH# (?<hash>.+)?\n#MSG# (?<message>[\s\S]*?)\n#REFS#\s+(?<tagRefs>.+)?\n#AUTHOR-NAME# (?<authorName>.+)?\n#AUTHOR-EMAIL# (?<authorEmail>.+)?\n#AUTHOR-DATE# (?<authorTs>.+)?\n#COMMITTER-NAME# (?<committerName>.+)?\n#COMMITTER-EMAIL# (?<committerEmail>.+)?\n#COMMITTER-DATE# (?<committerTs>.+)?\n#GPGSIG-CODE# (?<gpgSigCode>.+)?\n#GPGSIG-KEYID# (?<gpgSigKeyId>.+)?/g
 
+const versionTagsCache = new Map<string, string[]>()
+
 export const getRepoInfo = (remoteUrlPattern: RegExp): RepoInfo => {
 	const remoteUrl = execSync('git remote get-url origin', { encoding: 'utf8' }).trim()
 	const remoteUrlMatch = remoteUrlPattern.exec(remoteUrl)
@@ -49,6 +51,11 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 const getFirstCommitHash = (): string => execSync('git rev-list --max-parents=0 HEAD', { encoding: 'utf8' }).trim()
 
 export const getVersionTags = (tagPattern: RegExp): string[] => {
+	const cacheKey = tagPattern.toString()
+	if (versionTagsCache.has(cacheKey)) return versionTagsCache.get(cacheKey) ?? []
+
 	const rawTags = execSync('git tag --sort=-creatordate', { encoding: 'utf8' })
-	return rawTags.split('\n').filter(tag => tagPattern.test(tag))
+	const tags = rawTags.split('\n').filter(tag => tagPattern.test(tag))
+	versionTagsCache.set(cacheKey, tags)
+	return tags
 }
