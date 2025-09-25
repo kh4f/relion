@@ -4,7 +4,9 @@ import { testConfig } from './fixtures/relion.test-config'
 
 describe('changelog generation', () => {
 	it.for(['v0.7.0', 'v0.8.0'])('should print changelog for release $0', (releaseTag) => {
-		expect(relion({ ...testConfig, changelog: { commitRange: { releaseTag } } }).generatedChangelog).toMatchSnapshot()
+		expect(relion({ silent: true, dryRun: true,
+			changelog: { commitRange: { releaseTag } },
+		}).generatedChangelog).toMatchSnapshot()
 	})
 })
 
