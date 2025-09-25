@@ -8,7 +8,7 @@ describe('changelog generation', () => {
 	})
 })
 
-describe.runIf(process.env.VITEST_VSCODE)('manual changelog inspection', () => {
+describe.runIf(process.env.VITEST_VSCODE)('changelog generation (manual)', () => {
 	beforeAll(() => logSpy.mockRestore())
 
 	it('should print upcoming release changelog', () => {

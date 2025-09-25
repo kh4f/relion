@@ -25,7 +25,7 @@ describe('runCli', () => {
 	})
 })
 
-describe.runIf(process.env.VITEST_VSCODE)('manual runCli inspection', () => {
+describe.runIf(process.env.VITEST_VSCODE)('runCli (manual)', () => {
 	beforeAll(() => logSpy.mockRestore())
 
 	it('should output help message when `--help` is passed', async () => {
