@@ -1,8 +1,8 @@
 import { bump, commit, tag, changelog } from '@/lifecycles'
 import { resolveConfig, setSilent } from '@/utils'
-import type { UserConfig } from '@/types'
+import type { UserConfig, RelionResult } from '@/types'
 
-export default function relion(userConfig: UserConfig) {
+export default function relion(userConfig: UserConfig): RelionResult {
 	setSilent(!!userConfig.silent || (!!userConfig.profile && !!userConfig[`_${userConfig.profile}`]?.silent))
 
 	const resolvedConfig = resolveConfig(userConfig)

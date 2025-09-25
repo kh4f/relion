@@ -1,12 +1,12 @@
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import relion from './index.js'
-import type { UserConfig } from '@/types'
+import type { UserConfig, RelionResult } from '@/types'
 import { cli } from 'cleye'
 
 if (import.meta.main) await runCli()
 
-export async function runCli(inputArgs?: string | string[], config?: UserConfig) {
+export async function runCli(inputArgs?: string | string[], config?: UserConfig): Promise<({ inputConfig: UserConfig } & RelionResult) | undefined> {
 	if (typeof inputArgs === 'string') inputArgs = inputArgs.split(' ')
 	inputArgs = inputArgs && [inputArgs].flat()
 
