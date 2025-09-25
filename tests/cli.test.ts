@@ -15,10 +15,8 @@ describe('runCli', () => {
 	it(`should output latest release changelog using 'github' profile`, async () => {
 		await runCli('--changelog --profile github --latest', {
 			_github: {
-				silent: true,
 				context: { commitHyperlink: false },
 				changelog: {
-					output: 'stdout',
 					header: '',
 					partials: { header: '' },
 				},
