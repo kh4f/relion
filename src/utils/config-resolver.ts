@@ -119,7 +119,9 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 	const currentVersion = oldContext.currentVersion ?? parseVersion(config.versionSourceFile)
 	const currentTag = oldContext.currentTag ?? getVersionTags(config.prevReleaseTagPattern)[0]
 	const newVersion = oldContext.newVersion ?? determineNextVersion(config, currentVersion)
-	const newTag = oldContext.newTag ?? config.newTagFormat.replace('{{version}}', newVersion)
+	const newTag = oldContext.newTag ?? (config.newTagPrefix
+		? config.newTagPrefix + newVersion
+		: config.newTagFormat.replace('{{version}}', newVersion))
 
 	const commitRange = config.changelog ? config.changelog.commitRange : 'unreleased'
 	const parsedCommits = oldContext.commits

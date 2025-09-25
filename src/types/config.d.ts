@@ -8,6 +8,7 @@ export interface UserConfig {
 	changelog?: boolean | ChangelogOptions
 	commit?: boolean | CommitOptions
 	tag?: boolean | TagOptions
+	newTagPrefix?: string
 	newTagFormat?: string
 	versionSourceFile?: string | VersionedFile
 	releaseType?: ReleaseType
@@ -21,7 +22,7 @@ export interface UserConfig {
 	[profile: `_${string}`]: UserConfig | undefined
 }
 
-type OptionalKeys = 'releaseType' | 'context' | 'profile'
+type OptionalKeys = 'releaseType' | 'context' | 'profile' | 'newTagPrefix'
 export interface MergedConfig extends Omit<Required<UserConfig>, OptionalKeys>, Pick<UserConfig, OptionalKeys> {
 	changelog: FalseOrComplete<ChangelogOptions>
 	commit: FalseOrComplete<CommitOptions>
