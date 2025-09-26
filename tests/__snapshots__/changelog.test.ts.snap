@@ -121,3 +121,18 @@ exports[`changelog generation > should generate changelog for release 'v0.8.0' w
 
 "
 `;
+
+exports[`changelog generation > should generate changelog with scope groups for custom commits 1`] = `
+"### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- unscoped commit 2 fake_269b30b
+- unscoped commit 1 fake_b86c57f
+- **scope 2**: 
+ - scoped commit 3 fake_728ea8b
+ - scoped commit 2 fake_fdf4bef
+- **scope 1**: scoped commit 1 fake_1bf47c1
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- unscoped commit 3 fake_923cc1a
+
+"
+`;
