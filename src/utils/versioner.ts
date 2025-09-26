@@ -8,7 +8,6 @@ export const parseVersion = (versionedFile: VersionedFile): string => {
 	const version = versionedFile.versionPattern.exec(fileContent)?.[2]
 	if (!version) throw new Error(`Version not found in '${versionedFile.filePath}' with pattern '${versionedFile.versionPattern}'`)
 	if (!semver.valid(version)) throw new Error(`Invalid version format in '${versionedFile.filePath}': '${version}'`)
-	log(`Current version from '${versionedFile.filePath}': '${version}'`)
 	return version
 }
 

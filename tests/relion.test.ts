@@ -44,3 +44,13 @@ describe('tag generation', () => {
 		}).resolvedConfig.context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
 	})
 })
+
+describe('source version resolution', () => {
+	it('should use package.json as default version source', () => {
+		expect(relion({}).resolvedConfig.versionSource).toBe('versionSourceFile')
+	})
+
+	it('should use latest release tag as version source', () => {
+		expect(relion({ versionSource: 'latest-release-tag' }).resolvedConfig.versionSource).toBe('latest-release-tag')
+	})
+})

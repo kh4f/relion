@@ -10,6 +10,7 @@ export interface UserConfig {
 	tag?: boolean | TagOptions
 	newTagPrefix?: string
 	newTagFormat?: string
+	versionSource?: 'versionSourceFile' | 'latest-release-tag'
 	versionSourceFile?: string | VersionedFile
 	releaseType?: ReleaseType
 	zeroMajorBreakingIsMinor?: boolean
