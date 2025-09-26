@@ -3,7 +3,7 @@
 ## General Rules
 - Use English
 - Use backticks for file, folder, component, function, library and other code entity names, suffixes, flags, etc.
-- Wrap commit message to ```markdown code block
+- Wrap commit message to markdown code block
 
 ## Commit Message Format
 The commit message should be structured as follows:
