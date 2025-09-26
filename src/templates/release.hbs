@@ -8,6 +8,20 @@
 	{{~tag}}
 {{~/inline}}
 
+{{~#*inline "commit"~}}
+	{{{subject}}} {{" "}}
+	{{~#if @root.commitHyperlink~}}
+		[`{{hash}}`]({{@root.repo.homepage}}/commit/{{hash}})
+	{{~else~}}
+		{{hash}}
+	{{~/if~}}
+	{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
+{{~/inline}}
+
+{{~#*inline "scope"~}}
+	{{#if scope}}**{{scope}}**: {{/if}}
+{{~/inline}}
+
 {{~#>header~}}
 	## &ensp; [` 📦 {{tag}}  `]({{>compareLink}})
 
@@ -27,15 +41,23 @@
 				{{/if}}
 			{{/each}}
 		{{else}}
-			{{#each commits~}}
-				- {{#if scope}}**{{scope}}**: {{/if}}{{{subject}}} {{" "}}
-				{{~#if @root.commitHyperlink~}}
-					[`{{hash}}`]({{@root.repo.homepage}}/commit/{{hash}})
-				{{~else~}}
-					{{hash}}
-				{{~/if~}}
-				{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
-			{{/each}}
+			{{#if scopeGroups}}
+				{{#each scopeGroups~}}
+					{{~#if (or (isSingle commits) (not scope))}}
+						{{#each commits~}}
+							- {{>scope}}{{>commit}}
+						{{/each}}
+					{{else~}}
+						- {{>scope}}{{>br}}{{~#each commits}} {{" "~}}
+							- {{>commit}}
+						{{/each}}
+					{{/if}}
+				{{/each}}
+			{{else}}
+				{{#each commits~}}
+					- {{>scope}}{{>commit}}
+				{{/each}}
+			{{/if}}
 		{{/if}}
 
 	{{/each}}

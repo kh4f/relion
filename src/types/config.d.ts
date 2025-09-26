@@ -46,6 +46,7 @@ export interface ChangelogOptions {
 	sections?: TypeGroupsMap
 	header?: string
 	prevReleaseHeaderPattern?: RegExp
+	groupCommitsByScope?: boolean
 	helpers?: HelperDeclareSpec
 	partials?: Record<string, string>
 }

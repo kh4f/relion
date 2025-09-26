@@ -8,9 +8,16 @@ export interface TypeGroupDefinition {
 }
 export type TypeGroupsMap = Record<string, TypeGroupDefinition>
 
-export interface FilledTypeGroup extends Omit<TypeGroupDefinition, 'filter'> {
+export interface ScopeGroup {
+	scope: string
 	commits: ResolvedCommit[]
 }
+
+export interface FilledTypeGroup extends Omit<TypeGroupDefinition, 'filter'> {
+	commits: ResolvedCommit[]
+	scopeGroups?: ScopeGroup[]
+}
+
 export type FilledTypeGroupMap = Record<string, FilledTypeGroup>
 
 export interface ReleaseWithFlatCommits {

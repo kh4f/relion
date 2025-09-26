@@ -59,6 +59,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	sections: defaultChangelogSections,
 	header: '# Changelog\n\n\n',
 	prevReleaseHeaderPattern: /^##.*?\d+\.\d+\.\d+/m,
+	groupCommitsByScope: true,
 	helpers: {
 		eq: (a: unknown, b: unknown) => a === b,
 		repeat: (string: string, n: number) => string.repeat(n),
@@ -68,8 +69,13 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 				.filter(([, { commitType }]) => commitType !== 'breaking')
 				.some(([, group]) => group.commits.includes(commit))
 		},
+		isSingle: (arr: unknown[]) => arr.length === 1,
+		or: (...args: unknown[]) => args.slice(0, -1).some(Boolean),
+		not: (value: unknown) => !value,
 	},
-	partials: {},
+	partials: {
+		br: '\n',
+	},
 }
 
 export const defaultCommitOptions: CompleteCommitOptions = {

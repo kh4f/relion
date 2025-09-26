@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag, compilePartials } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 
 export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
@@ -133,7 +133,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 		: parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern)
 
 	const resolvedCommits = resolveCommits(parsedCommits, newTag, config.commitsParser.revertCommitBodyPattern)
-	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern) : null
+	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern, config.changelog.groupCommitsByScope) : null
 	const { commits: _, ...noCommitsOldContext } = oldContext
 
 	return {
@@ -169,7 +169,7 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 	})
 }
 
-const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, prevReleaseTagPattern: RegExp): ReleaseWithTypeGroups[] => {
+const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, prevReleaseTagPattern: RegExp, withScopeGroups?: boolean): ReleaseWithTypeGroups[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -187,11 +187,11 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 	})
 
 	return Object.values(releases)
-		.map(({ commits, ...rest }) => ({ ...rest, commitTypeGroups: groupCommitsByType(commits, sections) }))
+		.map(({ commits, ...rest }) => ({ ...rest, commitTypeGroups: groupCommitsByType(commits, sections, withScopeGroups) }))
 		.filter(release => Object.keys(release.commitTypeGroups).length)
 }
 
-const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap): FilledTypeGroupMap => {
+const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap, withScopeGroups?: boolean): FilledTypeGroupMap => {
 	const filledTypeGroupsMap: FilledTypeGroupMap = Object.fromEntries(
 		Object.entries(sections).map(([id, { filter: _, ...defWithoutFilter }]) => [id, { ...defWithoutFilter, commits: [] }]),
 	)
@@ -221,7 +221,22 @@ const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap):
 		}
 	})
 
-	return Object.fromEntries(Object.entries(filledTypeGroupsMap).filter(([_, group]) => group.commits.length))
+	const typeGroupsEntries = Object.entries(filledTypeGroupsMap).filter(([_, group]) => group.commits.length)
+	return Object.fromEntries(
+		withScopeGroups
+			? typeGroupsEntries.map(([type, group]) => [type, { ...group, scopeGroups: groupCommitsByScope(group.commits) }])
+			: typeGroupsEntries,
+	)
+}
+
+const groupCommitsByScope = (commits: ResolvedCommit[]): ScopeGroup[] => {
+	const groups: Record<string, ResolvedCommit[]> = {}
+	commits.forEach((commit) => {
+		const scope = commit.scope ?? ''
+		groups[scope] ??= []
+		groups[scope].push(commit)
+	})
+	return Object.entries(groups).map(([scope, commits]) => ({ scope, commits }))
 }
 
 const resolveTemplates = (config: ResolvedConfig): ResolvedConfig => {
