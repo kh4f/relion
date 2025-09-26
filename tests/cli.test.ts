@@ -1,7 +1,6 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { runCli } from '@/cli'
 import type { UserConfig } from '@/types'
-import { logSpy } from './setup'
 
 describe('runCli', () => {
 	it('should update config options according to CLI flags', async () => {
@@ -26,8 +25,6 @@ describe('runCli', () => {
 })
 
 describe.runIf(process.env.VITEST_VSCODE)('runCli (manual)', () => {
-	beforeAll(() => logSpy.mockRestore())
-
 	it('should output help message when `--help` is passed', async () => {
 		const exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 		await runCli('--help', {})

@@ -15,4 +15,4 @@ vi.mock('@/.', async (): Promise<RelionModule> => {
 	}
 })
 
-export const logSpy = vi.spyOn(console, 'log').mockImplementation(() => null)
+if (!process.env.VITEST_VSCODE) vi.spyOn(console, 'log').mockImplementation(() => null)

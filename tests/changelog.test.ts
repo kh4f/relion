@@ -1,6 +1,5 @@
-import { beforeAll, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import relion from '@/.'
-import { logSpy } from './setup'
 
 describe('changelog generation', () => {
 	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0', (releaseTag) => {
@@ -14,7 +13,6 @@ describe('changelog generation', () => {
 	it('should generate changelog with scope groups for custom commits', () => {
 		expect(relion({
 			changelog: {
-				groupCommitsByScope: true,
 				header: '',
 				partials: { header: '', footer: '' },
 			},
@@ -34,10 +32,8 @@ describe('changelog generation', () => {
 })
 
 describe.runIf(process.env.VITEST_VSCODE)('changelog generation (manual)', () => {
-	beforeAll(() => logSpy.mockRestore())
-
 	it('should print upcoming release changelog', () => {
-		relion({ changelog: true, bump: true })
+		relion({ changelog: true })
 	})
 
 	it('should print latest release changelog', () => {
@@ -46,38 +42,5 @@ describe.runIf(process.env.VITEST_VSCODE)('changelog generation (manual)', () =>
 
 	it('should print changelog for last 5 commits', () => {
 		relion({ changelog: { commitRange: 'HEAD~5..' } })
-	})
-
-	describe('with scope groups', () => {
-		it('should generate changelog for release v0.7.0', () => {
-			relion({
-				changelog: {
-					commitRange: { releaseTag: 'v0.7.0' },
-					groupCommitsByScope: true,
-				},
-				context: { commitHyperlink: false },
-			})
-		})
-
-		it('should generate changelog for custom commits', () => {
-			relion({
-				changelog: {
-					groupCommitsByScope: true,
-					header: '',
-					partials: { header: '', footer: '' },
-				},
-				context: {
-					commitHyperlink: false,
-					commits: [
-						{ message: 'fix: unscoped commit 3' },
-						{ message: 'feat: unscoped commit 2' },
-						{ message: 'feat(scope 2): scoped commit 3' },
-						{ message: 'feat(scope 2): scoped commit 2' },
-						{ message: 'feat(scope 1): scoped commit 1' },
-						{ message: 'feat: unscoped commit 1' },
-					],
-				},
-			})
-		})
 	})
 })
