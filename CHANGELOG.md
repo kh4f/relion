@@ -1,6 +1,36 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.16.0  `](https://github.com/kh4f/relion/compare/v0.15.0...v0.16.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `groupCommitsByScope` option is now enabled by default. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: add support for scope-based commit grouping [`898c5e3`](https://github.com/kh4f/relion/commit/898c5e3) ⚠️<sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **templates**: add extra space for correct 2nd-level list rendering [`34fcc6e`](https://github.com/kh4f/relion/commit/34fcc6e)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **tests**: update describe block naming for manual tests [`9a58332`](https://github.com/kh4f/relion/commit/9a58332)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📚 Documentation
+- **commit-naming**: correct markdown code block wrapping instruction [`0da62ab`](https://github.com/kh4f/relion/commit/0da62ab)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩 Dependencies
+- **deps**: bump node.js from v24.8.0 to v24.9.0 [`6b0b03a`](https://github.com/kh4f/relion/commit/6b0b03a)
+- **dev-deps**: 
+  - bump `globals` from 16.3.0 to 16.4.0 [`f68f9f5`](https://github.com/kh4f/relion/commit/f68f9f5)
+  - bump `eslint` from 9.34.0 to 9.36.0 [`d6cc118`](https://github.com/kh4f/relion/commit/d6cc118)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+- **setup**: conditionally mock `console.log` for non-vscode test runs [`be646da`](https://github.com/kh4f/relion/commit/be646da)
+- **changelog**: add snapshot for changelog generation with scope groups for custom commits [`c062e45`](https://github.com/kh4f/relion/commit/c062e45)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.15.0...v0.16.0) &ensp;•&ensp; _Sep 26, 2025_
+
+
 ## &ensp; [` 📦 v0.15.0  `](https://github.com/kh4f/relion/compare/v0.14.1...v0.15.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
