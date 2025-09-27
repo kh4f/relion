@@ -124,9 +124,9 @@ export type CommitRange =
 export type ReleaseType = 'major' | 'minor' | 'patch'
 
 export interface VersionedFile {
-	filePath: string
-	versionPattern: RegExp
+	file: string
+	pattern: RegExp
 }
-export interface DefaultVersionedFile extends Omit<VersionedFile, 'filePath'> {
-	filePathRegex: RegExp
+export interface DefaultVersionedFile extends Omit<VersionedFile, 'file'> {
+	file: RegExp
 }

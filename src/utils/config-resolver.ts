@@ -73,15 +73,15 @@ const mergeWithDefaults = (userConfig: UserConfig): MergedConfig => {
 }
 
 const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
-	const resolveVersionedFile = (filePath: string): VersionedFile => {
+	const resolveVersionedFile = (file: string): VersionedFile => {
 		const matchingDefaultVersionFile = defaultVersionedFiles.find(defaultFile =>
-			defaultFile.filePathRegex.test(filePath))
+			defaultFile.file.test(file))
 		if (matchingDefaultVersionFile) {
-			return { filePath, versionPattern: matchingDefaultVersionFile.versionPattern }
+			return { file: file, pattern: matchingDefaultVersionFile.pattern }
 		} else {
 			throw new Error(
-				`File ${filePath} doesn't match any default versioned files. `
-				+ 'Please provide a custom version pattern for this file.',
+				`File ${file} doesn't match any default versioned files. `
+				+ 'Please provide a custom pattern for this file.',
 			)
 		}
 	}
@@ -121,7 +121,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 			? extractVersionFromTag(getReleaseTags(config.prevReleaseTagPattern)[0], config.prevReleaseTagPattern) ?? '0.0.0'
 			: parseVersion(config.versionSourceFile)
 	)
-	log(`Current version (from ${config.versionSource === 'latest-release-tag' ? 'latest release tag' : config.versionSourceFile.filePath}): '${currentVersion}'`)
+	log(`Current version (from ${config.versionSource === 'latest-release-tag' ? 'latest release tag' : config.versionSourceFile.file}): '${currentVersion}'`)
 	const currentTag = oldContext.currentTag ?? getReleaseTags(config.prevReleaseTagPattern)[0]
 	const newVersion = oldContext.newVersion ?? determineNextVersion(config, currentVersion)
 	const newTag = oldContext.newTag ?? (config.newTagPrefix

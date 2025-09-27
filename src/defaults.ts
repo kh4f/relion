@@ -97,11 +97,11 @@ export const defaultTagOptions: CompleteTagOptions = {
 
 export const defaultVersionedFiles: DefaultVersionedFile[] = [
 	{
-		filePathRegex: /package\.json$/,
-		versionPattern: /(^.*?"version".*?")(.*?)(")/s,
+		file: /package\.json$/,
+		pattern: /(^.*?"version".*?")(.*?)(")/s,
 	},
 	{
-		filePathRegex: /package-lock\.json$/,
-		versionPattern: /(^.*?"version".*?"|"packages".*?"".*"version".*?")(.*?)(")/gs,
+		file: /package-lock\.json$/,
+		pattern: /(^.*?"version".*?"|"packages".*?"".*"version".*?")(.*?)(")/gs,
 	},
 ]

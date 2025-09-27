@@ -4,10 +4,10 @@ import type { ReleaseType, ParsedCommit, VersionedFile, TransformedConfig } from
 import { log, parseCommits } from '@/utils'
 
 export const parseVersion = (versionedFile: VersionedFile): string => {
-	const fileContent = readFileSync(versionedFile.filePath, 'utf8')
-	const version = versionedFile.versionPattern.exec(fileContent)?.[2]
-	if (!version) throw new Error(`Version not found in '${versionedFile.filePath}' with pattern '${versionedFile.versionPattern}'`)
-	if (!semver.valid(version)) throw new Error(`Invalid version format in '${versionedFile.filePath}': '${version}'`)
+	const fileContent = readFileSync(versionedFile.file, 'utf8')
+	const version = versionedFile.pattern.exec(fileContent)?.[2]
+	if (!version) throw new Error(`Version not found in '${versionedFile.file}' with pattern '${versionedFile.pattern}'`)
+	if (!semver.valid(version)) throw new Error(`Invalid version format in '${versionedFile.file}': '${version}'`)
 	return version
 }
 
