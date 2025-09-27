@@ -1,6 +1,6 @@
 import type { CompleteCommitsParser, ParsedCommit, RawCommit, RawReference, RefLabel, Reference, Contributor, CommitMessage, CommitRange } from '@/types'
 import { GpgSigLabel } from '@/enums'
-import { getRawCommits } from '@/utils'
+import { getRawCommits, warn } from '@/utils'
 import { createHash } from 'node:crypto'
 
 const parsedCommitsCache = new Map<string, ParsedCommit>()
@@ -32,7 +32,7 @@ export const parseCommit = (commit: RawCommit, parser: CompleteCommitsParser, pr
 	try {
 		parsedMessage = parseCommitMessage(message, parser)
 	} catch (error) {
-		console.warn(`Error parsing commit '${hash}':`, (error as Error).message)
+		warn(`Error parsing commit '${hash}':`, (error as Error).message)
 		return null
 	}
 	const { type, scope, subject, body, breakingChanges, footer } = parsedMessage
