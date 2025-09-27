@@ -10,6 +10,6 @@ const hbsRaw = (): Plugin => ({
 
 export default defineConfig({
 	resolve: { alias: {	'@': resolve('src') } },
-	test: { setupFiles: 'tests/setup.ts' },
+	test: { setupFiles: 'tests/setup.ts', silent: true },
 	plugins: [hbsRaw()],
 })

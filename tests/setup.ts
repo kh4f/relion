@@ -14,5 +14,3 @@ vi.mock('@/.', async (): Promise<RelionModule> => {
 		}),
 	}
 })
-
-if (!process.env.VITEST_VSCODE) vi.spyOn(console, 'log').mockImplementation(() => null)
