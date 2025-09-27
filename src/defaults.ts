@@ -11,7 +11,7 @@ export const defaultConfig: MergedConfig = {
 	prevReleaseTagPattern: /^v?(?<version>\d+\.\d+\.\d+)/,
 	zeroMajorBreakingIsMinor: true,
 	dryRun: false,
-	silent: false,
+	logLevel: 'info',
 	context: {
 		commitHyperlink: true,
 		refHyperlink: true,

@@ -19,7 +19,7 @@ export interface UserConfig {
 	prevReleaseTagPattern?: RegExp
 	dryRun?: boolean
 	profile?: string
-	silent?: boolean
+	logLevel?: 'info' | 'info-clean' | 'silent'
 	[profile: `_${string}`]: UserConfig | undefined
 }
 
@@ -111,6 +111,8 @@ export interface ResolvedContext extends Required<Context> {
 	commits: ResolvedCommit[]
 	releases: ReleaseWithTypeGroups[] | null
 }
+
+export type LogLevel = 'info' | 'info-clean' | 'silent'
 
 export type CommitRange =
 	| 'all'

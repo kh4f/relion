@@ -1,11 +1,16 @@
+import type { LogLevel } from '@/types'
 import { inspect } from 'node:util'
 
-let silent = false
+let logLevel: LogLevel = 'info'
 
-export const setSilent = (value: boolean) => silent = value
+export const setLogLevel = (value: LogLevel) => logLevel = value
 
 export const log = (...args: unknown[]) => {
-	if (!silent) console.log(...args)
+	if (logLevel !== 'silent') console.log(...args)
+}
+
+export const warn = (...args: unknown[]) => {
+	if (logLevel === 'info') console.warn(...args)
 }
 
 export const deepLog = (value: unknown, depth?: number): void => {

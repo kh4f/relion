@@ -1,9 +1,9 @@
 import { bump, commit, tag, changelog } from '@/lifecycles'
-import { resolveConfig, setSilent } from '@/utils'
+import { resolveConfig, setLogLevel } from '@/utils'
 import type { UserConfig, RelionResult } from '@/types'
 
 export default function relion(userConfig: UserConfig): RelionResult {
-	setSilent(!!userConfig.silent || (!!userConfig.profile && !!userConfig[`_${userConfig.profile}`]?.silent))
+	setLogLevel((userConfig.logLevel ?? (!!userConfig.profile && userConfig[`_${userConfig.profile}`]?.logLevel)) || 'info')
 
 	const resolvedConfig = resolveConfig(userConfig)
 
