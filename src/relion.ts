@@ -7,10 +7,10 @@ export default function relion(userConfig: UserConfig): RelionResult {
 
 	const resolvedConfig = resolveConfig(userConfig)
 
-	const bumpResults = bump(resolvedConfig)
+	bump(resolvedConfig)
 	const generatedChangelog = changelog(resolvedConfig)
 	const commitCommand = commit(resolvedConfig)
 	const tagCommand = tag(resolvedConfig)
 
-	return { resolvedConfig, generatedChangelog, commitCommand, tagCommand, bumpResults }
+	return { resolvedConfig, generatedChangelog, commitCommand, tagCommand }
 }
