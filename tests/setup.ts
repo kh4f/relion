@@ -1,16 +1,12 @@
 import { vi } from 'vitest'
 
-type RelionModule = typeof import('@/.')
+type DefaultsModule = typeof import('@/defaults')
 
-vi.mock('@/.', async (): Promise<RelionModule> => {
-	const actual = await vi.importActual<RelionModule>('@/.')
+vi.mock('@/defaults', async (): Promise<DefaultsModule> => {
+	const actual = await vi.importActual<DefaultsModule>('@/defaults')
 	return {
 		...actual,
-		default: params => actual.default({ ...params,
-			dryRun: true,
-			changelog: params.changelog === false
-				? false
-				: { ...(typeof params.changelog === 'object' ? params.changelog : {}), output: 'stdout' },
-		}),
+		defaultChangelogOptions: { ...actual.defaultChangelogOptions, output: 'stdout' },
+		defaultConfig: { ...actual.defaultConfig, dryRun: true },
 	}
 })
