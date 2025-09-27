@@ -77,7 +77,7 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 		const matchingDefaultVersionFile = defaultVersionedFiles.find(defaultFile =>
 			defaultFile.file.test(file))
 		if (matchingDefaultVersionFile) {
-			return { file: file, pattern: matchingDefaultVersionFile.pattern }
+			return { ...matchingDefaultVersionFile, file }
 		} else {
 			throw new Error(
 				`File ${file} doesn't match any default versioned files. `
