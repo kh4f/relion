@@ -29,6 +29,18 @@ describe('changelog generation', () => {
 			},
 		}).generatedChangelog).toMatchSnapshot()
 	})
+
+	it('should generate changelog with transformed partials', () => {
+		expect(relion({
+			changelog: {
+				commitRange: { releaseTag: 'v0.8.0' },
+				partials: {
+					header: fallback => `CUSTOM HEADER---${fallback}---`,
+					footer: fallback => `CUSTOM FOOTER---${fallback}---`,
+				},
+			},
+		}).generatedChangelog).toMatchSnapshot()
+	})
 })
 
 describe.runIf(process.env.VITEST_VSCODE)('changelog generation (manual)', () => {

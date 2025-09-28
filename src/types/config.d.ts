@@ -49,7 +49,7 @@ export interface ChangelogOptions {
 	prevReleaseHeaderPattern?: RegExp
 	groupCommitsByScope?: boolean
 	helpers?: HelperDeclareSpec
-	partials?: Record<string, string>
+	partials?: Record<string, string | ((fallback: string) => string)>
 }
 export type CompleteChangelogOptions = Required<ChangelogOptions>
 export interface ResolvedChangelogOptions extends Omit<CompleteChangelogOptions, 'partials'> {
