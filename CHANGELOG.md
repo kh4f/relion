@@ -1,6 +1,22 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.17.1  `](https://github.com/kh4f/relion/compare/v0.17.0...v0.17.1)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **tag**: do not apply default prefix when `newTagPrefix` is empty string [`56dd8a2`](https://github.com/kh4f/relion/commit/56dd8a2)
+- **cli**: prevent `ReferenceError` by reordering `loadConfigFile` declaration [`43b08d0`](https://github.com/kh4f/relion/commit/43b08d0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **tests**: clean up repeated tests in `relion.test.ts` [`33845b8`](https://github.com/kh4f/relion/commit/33845b8)
+- **changelog**: always print changelog to console in dry run mode [`b3fd2f3`](https://github.com/kh4f/relion/commit/b3fd2f3)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+- **changelog**: add test for transformed footer with custom changelog URL partial [`e175362`](https://github.com/kh4f/relion/commit/e175362)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.17.0...v0.17.1) &ensp;•&ensp; _Sep 28, 2025_
+
+
 ## &ensp; [` 📦 v0.17.0  `](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
