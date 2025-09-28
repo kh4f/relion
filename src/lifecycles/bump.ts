@@ -8,7 +8,7 @@ export const bump = (config: ResolvedConfig) => {
 
 	bumpFiles.forEach((versionedFile) => {
 		const fileContent = readFileSync(versionedFile.file, 'utf8')
-		const updatedContent = fileContent.replace(versionedFile.pattern, `$1${newVersion}$3`)
+		const updatedContent = fileContent.replace(versionedFile.pattern, versionedFile.replacement.replace('{{newVersion}}', newVersion))
 		if (!config.dryRun) writeFileSync(versionedFile.file, updatedContent, 'utf8')
 		log(`Updated version in '${versionedFile.file}' to '${newVersion}'`)
 	})

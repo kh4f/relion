@@ -99,9 +99,11 @@ export const defaultVersionedFiles: DefaultVersionedFile[] = [
 	{
 		file: /package\.json$/,
 		pattern: /(^.*?"version".*?")(.*?)(")/s,
+		replacement: '$1{{newVersion}}$3',
 	},
 	{
 		file: /package-lock\.json$/,
 		pattern: /(^.*?"version".*?"|"packages".*?"".*"version".*?")(.*?)(")/gs,
+		replacement: '$1{{newVersion}}$3',
 	},
 ]

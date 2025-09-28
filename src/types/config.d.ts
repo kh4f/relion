@@ -126,6 +126,7 @@ export type ReleaseType = 'major' | 'minor' | 'patch'
 export interface VersionedFile {
 	file: string
 	pattern: RegExp
+	replacement: string
 }
 export interface DefaultVersionedFile extends Omit<VersionedFile, 'file'> {
 	file: RegExp
