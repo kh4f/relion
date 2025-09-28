@@ -31,6 +31,12 @@ describe('tag generation', () => {
 			newTagFormat: 'release-{{version}}-beta',
 		}).resolvedConfig.context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
 	})
+
+	it('should not use version prefix if newTagPrefix is empty', () => {
+		expect(relion({
+			newTagPrefix: '',
+		}).resolvedConfig.context.newTag).toMatch(/^\d+\.\d+\.\d+/)
+	})
 })
 
 describe('source version resolution', () => {
