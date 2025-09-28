@@ -122,7 +122,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 			? extractVersionFromTag(getReleaseTags(config.prevReleaseTagPattern)[0], config.prevReleaseTagPattern) ?? '0.0.0'
 			: parseVersion(config.versionSourceFile)
 	)
-	log(`Current version (from ${config.versionSource === 'latest-release-tag' ? 'latest release tag' : config.versionSourceFile.file}): '${currentVersion}'`)
+	log(`Current version (from ${config.versionSource === 'latest-release-tag' ? 'latest release tag' : `'${config.versionSourceFile.file}'`}): '${currentVersion}'`)
 	const currentTag = oldContext.currentTag ?? getReleaseTags(config.prevReleaseTagPattern)[0]
 	const newVersion = oldContext.newVersion ?? determineNextVersion(config, currentVersion)
 	const newTag = oldContext.newTag ?? (config.newTagPrefix
