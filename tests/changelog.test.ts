@@ -29,6 +29,23 @@ describe('changelog generation', () => {
 			},
 		}).generatedChangelog).toMatchSnapshot()
 	})
+})
+
+describe('partials customization', () => {
+	it('should generate changelog with customized partials', () => {
+		expect(relion({
+			changelog: {
+				commitRange: { releaseTag: 'v0.8.0' },
+				header: '',
+				partials: {
+					header: '',
+					main: '',
+					changelogUrl: '{{repo.homepage}}/blob/main/CHANGELOG.md',
+					footer: '##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; [_All Release Commits_]({{>compareLink}}) &ensp;•&ensp; _{{date}}_\n\n\n---',
+				},
+			},
+		}).generatedChangelog).toMatchSnapshot()
+	})
 
 	it('should generate changelog with transformed partials', () => {
 		expect(relion({
