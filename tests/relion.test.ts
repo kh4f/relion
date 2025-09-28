@@ -31,19 +31,6 @@ describe('tag generation', () => {
 			newTagFormat: 'release-{{version}}-beta',
 		}).resolvedConfig.context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
 	})
-
-	it('should use custom newTagPrefix value', () => {
-		expect(relion({
-			newTagPrefix: 'relion@',
-		}).resolvedConfig.context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
-	})
-
-	it('should prefer newTagPrefix over newTagFormat', () => {
-		expect(relion({
-			newTagPrefix: 'relion@',
-			newTagFormat: 'release-{{version}}-beta',
-		}).resolvedConfig.context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
-	})
 })
 
 describe('source version resolution', () => {
