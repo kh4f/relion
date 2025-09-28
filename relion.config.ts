@@ -9,7 +9,7 @@ export default defineConfig({
 		bump: false,
 		commit: false,
 		tag: false,
-		silent: true,
+		logLevel: 'silent',
 		context: { commitHyperlink: false },
 		changelog: {
 			output: 'stdout',
