@@ -58,6 +58,18 @@ describe('partials customization', () => {
 			},
 		}).generatedChangelog).toMatchSnapshot()
 	})
+
+	it('should generate changelog with transformed footer and custom changelog URL partial', () => {
+		expect(relion({
+			changelog: {
+				commitRange: { releaseTag: 'v0.8.0' },
+				partials: {
+					changelogUrl: '{{repo.homepage}}/blob/main/CHANGELOG.md',
+					footer: fallback => fallback.replace('&nbsp; ', '$&[_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; '),
+				},
+			},
+		}).generatedChangelog).toMatchSnapshot()
+	})
 })
 
 describe.runIf(process.env.VITEST_VSCODE)('changelog generation (manual)', () => {
