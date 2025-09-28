@@ -4,6 +4,15 @@ import relion from './index.js'
 import type { UserConfig, RelionResult } from '@/types'
 import { cli } from 'cleye'
 
+const loadConfigFile = async (configPath: string): Promise<UserConfig> => {
+	try {
+		const configFileURL = pathToFileURL(resolve(process.cwd(), configPath)).href
+		return ((await import(configFileURL)) as { default: UserConfig }).default
+	} catch (error) {
+		throw new Error(`Error loading config: ${(error as Error).message}`)
+	}
+}
+
 if (import.meta.main) await runCli()
 
 export async function runCli(inputArgs?: string | string[], config?: UserConfig): Promise<({ inputConfig: UserConfig } & RelionResult) | undefined> {
@@ -80,13 +89,4 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 	}
 
 	return { inputConfig: config, ...relion(config) }
-}
-
-const loadConfigFile = async (configPath: string): Promise<UserConfig> => {
-	try {
-		const configFileURL = pathToFileURL(resolve(process.cwd(), configPath)).href
-		return ((await import(configFileURL)) as { default: UserConfig }).default
-	} catch (error) {
-		throw new Error(`Error loading config: ${(error as Error).message}`)
-	}
 }
