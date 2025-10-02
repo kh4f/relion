@@ -55,7 +55,7 @@ describe('version bumping', () => {
 		relion({
 			dryRun: false,
 			context: { newVersion: '1.2.3' },
-			bump: ['!versionSourceFile', {
+			bump: [{
 				file: 'tests/fixtures/manifest.json',
 				pattern: /(version": )".*"/,
 				replacement: `$1"{{newVersion}}"`,
@@ -70,7 +70,7 @@ describe('version bumping', () => {
 		relion({
 			dryRun: false,
 			context: { newVersion: '1.2.3' },
-			bump: ['!versionSourceFile', {
+			bump: [{
 				file: 'tests/fixtures/versions.json',
 				pattern: /(.*")/s,
 				replacement: `$1,\n\t"{{newVersion}}": "${/(^.*?minAppVersion": ")(.*?)(")/s.exec(readFileSync('tests/fixtures/manifest.json', 'utf8'))?.[2]}"`,

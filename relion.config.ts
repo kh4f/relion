@@ -1,7 +1,7 @@
 import { defineConfig } from '@/.'
 
 export default defineConfig({
-	bump: true,
+	bump: ['package.json'],
 	changelog: true,
 	commit: { gpgSign: true },
 	tag: { gpgSign: true },
