@@ -39,7 +39,7 @@ export interface TransformedConfig extends Omit<MergedConfig, 'changelog'> {
 export interface ResolvedConfig extends TransformedConfig {
 	context: ResolvedContext
 }
-export type BumpFiles = ('!versionSourceFile' | VersionedFile | (string & {}))[]
+export type BumpFiles = (string | VersionedFile)[]
 
 export interface ChangelogOptions {
 	output?: 'stdout' | (string & {})

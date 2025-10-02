@@ -89,13 +89,12 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 	const resolveBump = (bump: MergedConfig['bump']): false | VersionedFile[] => {
 		if (bump === false) return false
 		if (bump === true) return [versionSourceFile]
-		if (Array.isArray(bump)) {
-			const filteredBump = bump.filter(f => f !== '!versionSourceFile')
-			return [
-				...(bump.includes('!versionSourceFile') ? [] : [versionSourceFile]),
-				...(filteredBump.map(bumpFile => typeof bumpFile === 'string' ? resolveVersionedFile(bumpFile) : bumpFile)),
-			]
-		}
+		if (Array.isArray(bump)) return [
+			versionSourceFile,
+			...(bump.map(bumpFile =>
+				typeof bumpFile === 'string' ? resolveVersionedFile(bumpFile) : bumpFile,
+			)),
+		]
 		throw new Error('Invalid value for bump. It should be a boolean or an array.')
 	}
 
