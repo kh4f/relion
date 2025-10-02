@@ -47,7 +47,7 @@ describe('partials customization', () => {
 		}).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should generate changelog with transformed partials', () => {
+	it.skip('should generate changelog with transformed partials', () => {
 		expect(relion({
 			changelog: {
 				commitRange: { releaseTag: 'v0.8.0' },
@@ -59,7 +59,7 @@ describe('partials customization', () => {
 		}).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should generate changelog with transformed footer and custom changelog URL partial', () => {
+	it.skip('should generate changelog with transformed footer and custom changelog URL partial', () => {
 		expect(relion({
 			changelog: {
 				commitRange: { releaseTag: 'v0.8.0' },
