@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        # fetch full history for correct commits parsing
+        # fetch full history for correct commits parsing in tests
         with: { fetch-depth: 0 }
 
       - name: Setup pnpm
