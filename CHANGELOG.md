@@ -1,6 +1,38 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.18.0  `](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `versionSourceFile` is no longer automatically included in the `bump` array (but still is if `bump` is `true`). <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **config**: require explicit `versionSourceFile` inclusion in `bump` array [`fd5ad3c`](https://github.com/kh4f/relion/commit/fd5ad3c) ⚠️<sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚀 CI
+- **checks**: improve comment clarity for commit history fetching [`d787525`](https://github.com/kh4f/relion/commit/d787525)
+- **workflows**: update lint step to use `lint:fix` script [`1aff340`](https://github.com/kh4f/relion/commit/1aff340)
+- **release**: add linting and testing steps to release workflow [`b61b08d`](https://github.com/kh4f/relion/commit/b61b08d)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♻️ Reverts
+- **config**: allow skipping bump for `versionSourceFile` via `!versionSourceFile` in `bump` array [`0ac5ff0`](https://github.com/kh4f/relion/commit/0ac5ff0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩 Dependencies
+- **dev-deps**: bump `lint-staged` from 16.2.1 to 16.2.3 (#9) [`0ae604d`](https://github.com/kh4f/relion/commit/0ae604d)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
+- **renovate**: replace `matchCurrentAge` with `minimumReleaseAge` for patch and minor updates [`9471d0d`](https://github.com/kh4f/relion/commit/9471d0d)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+- **changelog**: 
+  - skip test for generating changelog with transformed partials [`9c064b7`](https://github.com/kh4f/relion/commit/9c064b7)
+  - update snapshot for transformed partials test [`67ed389`](https://github.com/kh4f/relion/commit/67ed389)
+  - update snapshot for changelog generation tests [`a9dc9a2`](https://github.com/kh4f/relion/commit/a9dc9a2)
+- **bump**: add test for bumping version in `manifest.json` [`f2646f3`](https://github.com/kh4f/relion/commit/f2646f3)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0) &ensp;•&ensp; _Oct 2, 2025_
+
+
 ## &ensp; [` 📦 v0.17.1  `](https://github.com/kh4f/relion/compare/v0.17.0...v0.17.1)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
