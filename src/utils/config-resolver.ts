@@ -1,6 +1,7 @@
-import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, renderTemplate, extractVersionFromTag, compilePartials, log } from '@/utils'
+import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, compilePartials, log } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
 import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
+import Handlebars from 'handlebars'
 
 export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
 	const profileMergedConfig = mergeProfileConfig(userConfig)
@@ -243,13 +244,13 @@ const resolveTemplates = (config: ResolvedConfig): ResolvedConfig => {
 	return {
 		...config,
 		commit: config.commit
-			? { ...config.commit, message: renderTemplate(config.commit.message, config.context) }
+			? { ...config.commit, message: Handlebars.compile(config.commit.message)(config.context) }
 			: config.commit,
 		tag: config.tag
 			? {
 				...config.tag,
-				name: renderTemplate(config.tag.name, config.context),
-				message: renderTemplate(config.tag.message, config.context),
+				name: Handlebars.compile(config.tag.name)(config.context),
+				message: Handlebars.compile(config.tag.message)(config.context),
 			}
 			: config.tag,
 	}

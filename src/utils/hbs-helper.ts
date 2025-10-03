@@ -1,9 +1,6 @@
 import Handlebars from 'handlebars'
 import releaseTemplate from '@/templates/release.hbs'
 
-export const renderTemplate = (template: string, context: unknown): string =>
-	Handlebars.compile(template)(context)
-
 export const compilePartials = (partials: Record<string, string | ((fallback: string) => string)>): Record<string, HandlebarsTemplateDelegate> => {
 	const resolvedPartials: Record<string, string> = Object.fromEntries(Object.entries(partials).map(([key, templateOrFunction]) => [key, typeof templateOrFunction === 'function' ? transformFallback(key, templateOrFunction) : templateOrFunction]))
 	return Object.fromEntries(Object.entries(resolvedPartials).map(([key, template]) => [key, Handlebars.compile(template)]))

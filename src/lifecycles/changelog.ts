@@ -1,4 +1,4 @@
-import { extractVersionFromTag, getReleaseTags, log, renderTemplate } from '@/utils'
+import { extractVersionFromTag, getReleaseTags, log } from '@/utils'
 import type { ReleaseContext, ReleaseWithTypeGroups, ResolvedConfig } from '@/types'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
@@ -13,8 +13,10 @@ export const changelog = (config: ResolvedConfig): string | null => {
 
 	const releaseTags = getReleaseTags(config.prevReleaseTagPattern)
 
-	Handlebars.registerPartial(options.compiledPartials)
-	Handlebars.registerHelper(options.helpers)
+	// Create a local Handlebars instance to avoid global state pollution
+	const hbs = Handlebars.create()
+	hbs.registerPartial(options.compiledPartials)
+	hbs.registerHelper(options.helpers)
 
 	let result = options.header
 	releases.forEach((release: ReleaseWithTypeGroups, index: number) => {
@@ -29,7 +31,7 @@ export const changelog = (config: ResolvedConfig): string | null => {
 			}
 		}
 		const releaseContext: ReleaseContext = { ...release, ...config.context, prevRelease }
-		const rendered = renderTemplate(releaseTemplate, releaseContext)
+		const rendered = hbs.compile(releaseTemplate)(releaseContext)
 		result += rendered
 	})
 
