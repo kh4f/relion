@@ -44,10 +44,11 @@ export interface CommitMessage {
 
 export interface Reference {
 	action: string
+	raw: string
+	number: string
 	type?: RefType
 	owner?: string
 	repo?: string
-	number: string
 }
 
 export type RefLabel = Pick<Reference, 'owner' | 'repo' | 'number'>

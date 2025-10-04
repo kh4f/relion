@@ -159,9 +159,10 @@ const parseRefs = (value: string, parser: CompleteCommitsParser): Reference[] =>
 	[...value.matchAll(parser.refPattern)].map(m => m.groups as unknown as RawReference)
 		.filter(rawRef => parser.refActionPattern.test(rawRef.action))
 		.flatMap(rawRef =>
-			[...rawRef.labels.matchAll(parser.refLabelPattern)].map(m => m.groups as unknown as RefLabel)
-				.filter(label => !!label.number)
-				.map(label => ({
+			[...rawRef.labels.matchAll(parser.refLabelPattern)].map(m => ({ label: m.groups as unknown as RefLabel, raw: m.input }))
+				.filter(({ label }) => !!label.number)
+				.map(({ label, raw }) => ({
+					raw,
 					action: rawRef.action,
 					owner: label.owner,
 					repo: label.repo,

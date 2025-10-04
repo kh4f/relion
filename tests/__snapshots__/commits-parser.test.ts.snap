@@ -36,6 +36,7 @@ exports[`commit parsing > should parse commit with body and footer 1`] = `
       "action": "Refs",
       "number": "12",
       "owner": undefined,
+      "raw": "#12",
       "repo": undefined,
     },
   ],
@@ -141,6 +142,7 @@ exports[`footer refs parsing > should parse commit with a single reference 1`] =
     "action": "Refs",
     "number": "10",
     "owner": undefined,
+    "raw": "#10",
     "repo": undefined,
   },
 ]
@@ -152,6 +154,7 @@ exports[`footer refs parsing > should parse commit with external repo reference 
     "action": "Refs",
     "number": "30",
     "owner": "kh4f",
+    "raw": "kh4f/relion#30",
     "repo": "relion",
   },
 ]
@@ -163,18 +166,21 @@ exports[`footer refs parsing > should parse commit with multiple references 1`] 
     "action": "Fixes",
     "number": "10",
     "owner": undefined,
+    "raw": "#10",
     "repo": undefined,
   },
   {
     "action": "Closes",
     "number": "20",
     "owner": undefined,
+    "raw": "#20",
     "repo": undefined,
   },
   {
     "action": "Refs",
     "number": "30",
     "owner": "kh4f",
+    "raw": "kh4f/relion#30",
     "repo": "relion",
   },
 ]
