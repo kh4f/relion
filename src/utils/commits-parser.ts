@@ -20,8 +20,8 @@ export const parseCommits = (arg1: CommitRange | RawCommit[], commitsParser?: Co
 	return parsedCommits
 }
 
-export const parseCommit = (commit: RawCommit, parser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp): ParsedCommit | null => {
-	parser ??= defaultConfig.commitsParser
+export const parseCommit = (commit: RawCommit, commitsParser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp): ParsedCommit | null => {
+	commitsParser ??= defaultConfig.commitsParser
 	prevReleaseTagPattern ??= defaultConfig.prevReleaseTagPattern
 
 	if (typeof commit === 'string') commit = { message: commit }
@@ -35,16 +35,16 @@ export const parseCommit = (commit: RawCommit, parser?: CompleteCommitsParser, p
 
 	let parsedMessage
 	try {
-		parsedMessage = parseCommitMessage(message, parser)
+		parsedMessage = parseCommitMessage(message, commitsParser)
 	} catch (error) {
 		warn(`Error parsing commit '${hash}':`, (error as Error).message)
 		return null
 	}
 	const { type, scope, subject, body, breakingChanges, footer } = parsedMessage
-	const tags = tagRefs ? [...tagRefs.matchAll(parser.tagPattern)].map(m => m.groups?.tag ?? '') : []
+	const tags = tagRefs ? [...tagRefs.matchAll(commitsParser.tagPattern)].map(m => m.groups?.tag ?? '') : []
 
 	const signers = footer
-		? [...footer.matchAll(parser.signerPattern)].map(m => m.groups as unknown as Contributor)
+		? [...footer.matchAll(commitsParser.signerPattern)].map(m => m.groups as unknown as Contributor)
 		: []
 
 	const authors: Contributor[] = []
@@ -63,12 +63,12 @@ export const parseCommit = (commit: RawCommit, parser?: CompleteCommitsParser, p
 	if (committer) addAuthor(committer)
 
 	const coAuthors = footer
-		? [...footer.matchAll(parser.coAuthorPattern)].map(m => m.groups as unknown as Contributor)
+		? [...footer.matchAll(commitsParser.coAuthorPattern)].map(m => m.groups as unknown as Contributor)
 			.map(coAuthor => getContributorDetails(coAuthor, signers))
 		: []
 	coAuthors.forEach(coAuthor => addAuthor(coAuthor))
 
-	const refs = parseRefs((footer ?? ''), parser)
+	const refs = parseRefs((footer ?? ''), commitsParser)
 
 	const gpgSig = commit.gpgSigCode
 		? {
@@ -78,8 +78,8 @@ export const parseCommit = (commit: RawCommit, parser?: CompleteCommitsParser, p
 		}
 		: undefined
 
-	let date = commit[parser.dateSource === 'committerDate' ? 'committerTs' : 'authorTs']
-	if (typeof date === 'string') date = formatDate(new Date(+date * 1000), parser.dateFormat)
+	let date = commit[commitsParser.dateSource === 'committerDate' ? 'committerTs' : 'authorTs']
+	if (typeof date === 'string') date = formatDate(new Date(+date * 1000), commitsParser.dateFormat)
 
 	const releaseTag = tags.find(tag => prevReleaseTagPattern.exec(tag))
 
