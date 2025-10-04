@@ -41,3 +41,60 @@ describe('source version resolution', () => {
 		expect(resolveConfig({ versionSource: 'latest-release-tag' }).versionSource).toBe('latest-release-tag')
 	})
 })
+
+describe('commits resolution', () => {
+	const revertCommit = {
+		hash: 'def4567',
+		type: 'revert',
+		subject: 'add new feature',
+		body: 'This reverts commit abc1234.',
+	}
+
+	const originalCommit = {
+		hash: 'abc1234',
+		type: 'feat',
+		subject: 'add new feature',
+	}
+
+	it('should filter out both reverted and revert commit if they are in the same release', () => {
+		expect(resolveConfig({
+			context: {
+				commits: [
+					{ ...revertCommit, associatedReleaseTag: 'v0.18.0' },
+					{ ...originalCommit, associatedReleaseTag: 'v0.18.0' },
+				],
+			},
+		}).context.commits).toMatchInlineSnapshot(`[]`)
+	})
+
+	it('should keep both revert and reverted commit if they are in different releases', () => {
+		expect(resolveConfig({
+			context: {
+				commits: [
+					{ ...revertCommit, associatedReleaseTag: 'v0.19.0' },
+					{ ...originalCommit, associatedReleaseTag: 'v0.18.0' },
+				],
+			},
+		}).context.commits).toMatchInlineSnapshot(`
+            [
+              {
+                "associatedReleaseTag": "v0.19.0",
+                "body": "This reverts commit abc1234.",
+                "breakingChangeIndex": undefined,
+                "hash": "def4567",
+                "isReverted": null,
+                "subject": "add new feature",
+                "type": "revert",
+              },
+              {
+                "associatedReleaseTag": "v0.18.0",
+                "breakingChangeIndex": undefined,
+                "hash": "abc1234",
+                "isReverted": "inOtherRelease",
+                "subject": "add new feature",
+                "type": "feat",
+              },
+            ]
+        `)
+	})
+})

@@ -157,17 +157,23 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 
 const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBodyPattern: RegExp): ResolvedCommit[] => {
 	let breakingChangesIndex = 0
-	return commits.map((commit) => {
+	const omittedRevertCommitsIdxs: number[] = []
+	return commits.map((commit): ResolvedCommit | undefined => {
 		let isRevertedStatus: ResolvedCommit['isReverted'] = null
-		const revertCommit = commits.find(c => c.type === 'revert' && revertCommitBodyPattern.exec(c.body ?? '')?.groups?.hash === commit.hash)
+		const revertCommitIdx = commits.findIndex(c => c.type === 'revert' && revertCommitBodyPattern.exec(c.body ?? '')?.groups?.hash === commit.hash)
+		const revertCommit = revertCommitIdx !== -1 ? commits[revertCommitIdx] : undefined
 		if (revertCommit) isRevertedStatus = revertCommit.associatedReleaseTag === commit.associatedReleaseTag ? 'inTheSameRelease' : 'inOtherRelease'
+		if (isRevertedStatus === 'inTheSameRelease') {
+			omittedRevertCommitsIdxs.push(revertCommitIdx)
+			return
+		}
 		return {
 			...commit,
 			associatedReleaseTag: commit.associatedReleaseTag ?? newTag,
 			isReverted: commit.isReverted ?? isRevertedStatus,
 			breakingChangeIndex: commit.breakingChanges ? ++breakingChangesIndex : undefined,
 		}
-	})
+	}).filter((commit, idx): commit is ResolvedCommit => !!commit && !omittedRevertCommitsIdxs.includes(idx))
 }
 
 const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, prevReleaseTagPattern: RegExp, withScopeGroups?: boolean): ReleaseWithTypeGroups[] => {
