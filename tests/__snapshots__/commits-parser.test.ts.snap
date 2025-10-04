@@ -1,0 +1,136 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`commits parser > should parse commit with body 1`] = `
+{
+  "associatedReleaseTag": undefined,
+  "authors": undefined,
+  "body": "Separated the Handlebars load hook logic into its own module to prevent errors when registering the hook due to prior \`.hbs\` imports in \`hbs-helper\`.",
+  "breakingChanges": undefined,
+  "committer": undefined,
+  "date": undefined,
+  "footer": undefined,
+  "gpgSig": undefined,
+  "hash": "fake_83e00c6",
+  "refs": undefined,
+  "releaseTag": undefined,
+  "scope": "utils",
+  "subject": "extract \`hbs-load-hook\` to separate module to avoid registration conflict",
+  "tags": undefined,
+  "type": "refactor",
+}
+`;
+
+exports[`commits parser > should parse commit with body and footer 1`] = `
+{
+  "associatedReleaseTag": undefined,
+  "authors": undefined,
+  "body": "Updated the tag pattern in the workflow to match semantic versioning format 'v[0-9]+.[0-9]+.[0-9]+*' for more precise release triggers.",
+  "breakingChanges": undefined,
+  "committer": undefined,
+  "date": undefined,
+  "footer": "Refs #12",
+  "gpgSig": undefined,
+  "hash": "fake_15df31c",
+  "refs": [
+    {
+      "action": "Refs",
+      "number": "12",
+      "owner": undefined,
+      "repo": undefined,
+    },
+  ],
+  "releaseTag": undefined,
+  "scope": "release",
+  "subject": "refine tag pattern for release triggers",
+  "tags": undefined,
+  "type": "ci",
+}
+`;
+
+exports[`commits parser > should parse commit with footer only 1`] = `
+{
+  "associatedReleaseTag": undefined,
+  "authors": undefined,
+  "body": "This reverts commit ba77ad8cf8b0c56dcd5740ab0253c0d1c38fa594.",
+  "breakingChanges": undefined,
+  "committer": undefined,
+  "date": undefined,
+  "footer": undefined,
+  "gpgSig": undefined,
+  "hash": "fake_a2cbf3c",
+  "refs": undefined,
+  "releaseTag": undefined,
+  "scope": "config",
+  "subject": "allow skipping bump for \`versionSourceFile\` via \`!versionSourceFile\` in \`bump\` array",
+  "tags": undefined,
+  "type": "revert",
+}
+`;
+
+exports[`commits parser > should parse commit with multi-line body 1`] = `
+{
+  "associatedReleaseTag": undefined,
+  "authors": undefined,
+  "body": "- Add \`tagToUrlFragment\` helper to convert tag to changelog URL fragment
+- Add \`changelogUrl\` partial to generate changelog URL
+- Update release template footer to include "Release Changelog" link
+- Update changelog tests shapshots to reflect new footer format",
+  "breakingChanges": undefined,
+  "committer": undefined,
+  "date": undefined,
+  "footer": undefined,
+  "gpgSig": undefined,
+  "hash": "fake_ebd6b0e",
+  "refs": undefined,
+  "releaseTag": undefined,
+  "scope": "changelog",
+  "subject": "add release changelog link to footer template",
+  "tags": undefined,
+  "type": "feat",
+}
+`;
+
+exports[`commits parser > should parse commit with multi-paragraph body 1`] = `
+{
+  "associatedReleaseTag": undefined,
+  "authors": undefined,
+  "body": undefined,
+  "breakingChanges": undefined,
+  "committer": undefined,
+  "date": undefined,
+  "footer": "Use local Handlebars instance via \`Handlebars.create()\` to isolate partial registration per invocation. This fixes test failures when running multiple changelog tests together due to globally registered partials leaking between tests.
+
+- Replace global \`Handlebars\` with local instance in \`changelog.ts\`
+- Remove \`renderTemplate\` utility and use \`Handlebars.compile()\` directly
+- Re-enable 2 previously skipped partial transformation tests
+- Update snapshot for transformed footer test as it was invalid due to partial leakage",
+  "gpgSig": undefined,
+  "hash": "fake_15de852",
+  "refs": undefined,
+  "releaseTag": undefined,
+  "scope": "changelog",
+  "subject": "resolve Handlebars state leakage by using local instance",
+  "tags": undefined,
+  "type": "fix",
+}
+`;
+
+exports[`commits parser > should parse commit without details 1`] = `
+{
+  "associatedReleaseTag": undefined,
+  "authors": undefined,
+  "body": undefined,
+  "breakingChanges": undefined,
+  "committer": undefined,
+  "date": undefined,
+  "footer": undefined,
+  "gpgSig": undefined,
+  "hash": "fake_f290b3d",
+  "refs": undefined,
+  "releaseTag": undefined,
+  "scope": "templates",
+  "subject": "replaces direct newlines with the \`br\` partial",
+  "tags": undefined,
+  "type": "refactor",
+}
+`;
