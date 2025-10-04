@@ -94,16 +94,16 @@ exports[`commits parser > should parse commit with multi-paragraph body 1`] = `
 {
   "associatedReleaseTag": undefined,
   "authors": undefined,
-  "body": undefined,
-  "breakingChanges": undefined,
-  "committer": undefined,
-  "date": undefined,
-  "footer": "Use local Handlebars instance via \`Handlebars.create()\` to isolate partial registration per invocation. This fixes test failures when running multiple changelog tests together due to globally registered partials leaking between tests.
+  "body": "Use local Handlebars instance via \`Handlebars.create()\` to isolate partial registration per invocation. This fixes test failures when running multiple changelog tests together due to globally registered partials leaking between tests.
 
 - Replace global \`Handlebars\` with local instance in \`changelog.ts\`
 - Remove \`renderTemplate\` utility and use \`Handlebars.compile()\` directly
 - Re-enable 2 previously skipped partial transformation tests
 - Update snapshot for transformed footer test as it was invalid due to partial leakage",
+  "breakingChanges": undefined,
+  "committer": undefined,
+  "date": undefined,
+  "footer": undefined,
   "gpgSig": undefined,
   "hash": "fake_15de852",
   "refs": undefined,

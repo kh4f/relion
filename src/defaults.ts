@@ -27,7 +27,7 @@ export const defaultConfig: MergedConfig = {
 		remoteUrlPattern: /^(https:\/\/|git@)(?<host>[^/:]+)[/:](?<owner>.+?)\/(?<name>.+?)(?:\..*)?$/,
 		refPattern: /^(?<action>.+?) (?<labels>.+)$/gm,
 		refLabelPattern: /(?:(?<owner>\S+?)\/(?<repo>\S+?))?#(?<number>\d+)/g,
-		refActionPattern: /Fixes|Closes|Refs/i,
+		refActionPattern: /^(Fixes|Closes|Refs)/i,
 		dateSource: 'authorDate',
 		dateFormat: 'US',
 		revertCommitBodyPattern: /^This reverts commit (?<hash>.{7})/m,
