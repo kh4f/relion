@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs'
 import semver from 'semver'
-import type { ReleaseType, ParsedCommit, VersionedFile, TransformedConfig } from '@/types'
+import type { ReleaseType, ParsedCommit, Bumper, TransformedConfig } from '@/types'
 import { log, parseCommits } from '@/utils'
 
-export const parseVersion = (versionedFile: VersionedFile): string => {
+export const parseVersion = (versionedFile: Bumper): string => {
 	const fileContent = readFileSync(versionedFile.file, 'utf8')
 	const version = versionedFile.pattern.exec(fileContent)?.[2]
 	if (!version) throw new Error(`Version not found in '${versionedFile.file}' with pattern '${versionedFile.pattern}'`)

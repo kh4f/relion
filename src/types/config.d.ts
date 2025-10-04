@@ -11,7 +11,7 @@ export interface UserConfig {
 	newTagPrefix?: string
 	newTagFormat?: string
 	versionSource?: 'versionSourceFile' | 'latest-release-tag'
-	versionSourceFile?: string | VersionedFile
+	versionSourceFile?: string | Bumper
 	releaseType?: ReleaseType
 	zeroMajorBreakingIsMinor?: boolean
 	context?: Context
@@ -31,15 +31,15 @@ export interface MergedConfig extends Omit<Required<UserConfig>, OptionalKeys>, 
 	commitsParser: CompleteCommitsParser
 }
 export interface TransformedConfig extends Omit<MergedConfig, 'changelog'> {
-	versionSourceFile: VersionedFile
-	bump: FalseOrComplete<VersionedFile[]>
+	versionSourceFile: Bumper
+	bump: FalseOrComplete<Bumper[]>
 	changelog: false | ResolvedChangelogOptions
 }
 
 export interface ResolvedConfig extends TransformedConfig {
 	context: ResolvedContext
 }
-export type BumpFiles = (string | VersionedFile)[]
+export type BumpFiles = (string | Bumper)[]
 
 export interface ChangelogOptions {
 	output?: 'stdout' | (string & {})
@@ -123,11 +123,11 @@ export type CommitRange =
 
 export type ReleaseType = 'major' | 'minor' | 'patch'
 
-export interface VersionedFile {
+export interface Bumper {
 	file: string
 	pattern: RegExp
 	replacement: string
 }
-export interface DefaultVersionedFile extends Omit<VersionedFile, 'file'> {
+export interface DefaultBumper extends Omit<Bumper, 'file'> {
 	file: RegExp
 }

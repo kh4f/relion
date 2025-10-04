@@ -1,12 +1,12 @@
 import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, compilePartials, log } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, VersionedFile, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
-import { defaultConfig, defaultVersionedFiles, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
+import type { UserConfig, ResolvedConfig, TransformedConfig, Bumper, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
+import { defaultConfig, defaultBumpers, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
 export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
 	const profileMergedConfig = mergeProfileConfig(userConfig)
 	const mergedConfig = mergeWithDefaults(profileMergedConfig)
-	const transformedConfig = transformVersionedFiles(mergedConfig)
+	const transformedConfig = transformConfig(mergedConfig)
 	const ResolvedConfig = resolveContext(transformedConfig)
 	const finalConfig = resolveTemplates(ResolvedConfig)
 	return finalConfig
@@ -73,9 +73,9 @@ const mergeWithDefaults = (userConfig: UserConfig): MergedConfig => {
 	}
 }
 
-const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
-	const resolveVersionedFile = (file: string): VersionedFile => {
-		const matchingDefaultVersionFile = defaultVersionedFiles.find(defaultFile =>
+const transformConfig = (config: MergedConfig): TransformedConfig => {
+	const resolveBumper = (file: string): Bumper => {
+		const matchingDefaultVersionFile = defaultBumpers.find(defaultFile =>
 			defaultFile.file.test(file))
 		if (matchingDefaultVersionFile) {
 			return { ...matchingDefaultVersionFile, file }
@@ -87,15 +87,15 @@ const transformVersionedFiles = (config: MergedConfig): TransformedConfig => {
 		}
 	}
 
-	const resolveBump = (bump: MergedConfig['bump']): false | VersionedFile[] => {
+	const resolveBump = (bump: MergedConfig['bump']): false | Bumper[] => {
 		if (bump === false) return false
 		if (bump === true) return [versionSourceFile]
-		if (Array.isArray(bump)) return bump.map(bumpFile => typeof bumpFile === 'string' ? resolveVersionedFile(bumpFile) : bumpFile)
+		if (Array.isArray(bump)) return bump.map(bumpFile => typeof bumpFile === 'string' ? resolveBumper(bumpFile) : bumpFile)
 		throw new Error('Invalid value for bump. It should be a boolean or an array.')
 	}
 
 	const versionSourceFile = typeof config.versionSourceFile === 'string'
-		? resolveVersionedFile(config.versionSourceFile)
+		? resolveBumper(config.versionSourceFile)
 		: config.versionSourceFile
 
 	return {

@@ -1,4 +1,4 @@
-import type { MergedConfig, DefaultVersionedFile, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
+import type { MergedConfig, DefaultBumper, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
 
 export const defaultConfig: MergedConfig = {
 	bump: false,
@@ -95,7 +95,7 @@ export const defaultTagOptions: CompleteTagOptions = {
 	extraArgs: null,
 }
 
-export const defaultVersionedFiles: DefaultVersionedFile[] = [
+export const defaultBumpers: DefaultBumper[] = [
 	{
 		file: /package\.json$/,
 		pattern: /(^.*?"version".*?")(.*?)(")/s,
