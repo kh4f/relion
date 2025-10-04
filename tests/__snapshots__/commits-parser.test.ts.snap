@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`commits parser > should parse commit with body 1`] = `
+exports[`commit parsing > should parse commit with body 1`] = `
 {
   "associatedReleaseTag": undefined,
   "authors": undefined,
@@ -20,7 +20,7 @@ exports[`commits parser > should parse commit with body 1`] = `
 }
 `;
 
-exports[`commits parser > should parse commit with body and footer 1`] = `
+exports[`commit parsing > should parse commit with body and footer 1`] = `
 {
   "associatedReleaseTag": undefined,
   "authors": undefined,
@@ -47,7 +47,7 @@ exports[`commits parser > should parse commit with body and footer 1`] = `
 }
 `;
 
-exports[`commits parser > should parse commit with footer only 1`] = `
+exports[`commit parsing > should parse commit with footer only 1`] = `
 {
   "associatedReleaseTag": undefined,
   "authors": undefined,
@@ -67,7 +67,7 @@ exports[`commits parser > should parse commit with footer only 1`] = `
 }
 `;
 
-exports[`commits parser > should parse commit with multi-line body 1`] = `
+exports[`commit parsing > should parse commit with multi-line body 1`] = `
 {
   "associatedReleaseTag": undefined,
   "authors": undefined,
@@ -90,7 +90,7 @@ exports[`commits parser > should parse commit with multi-line body 1`] = `
 }
 `;
 
-exports[`commits parser > should parse commit with multi-paragraph body 1`] = `
+exports[`commit parsing > should parse commit with multi-paragraph body 1`] = `
 {
   "associatedReleaseTag": undefined,
   "authors": undefined,
@@ -115,7 +115,7 @@ exports[`commits parser > should parse commit with multi-paragraph body 1`] = `
 }
 `;
 
-exports[`commits parser > should parse commit without details 1`] = `
+exports[`commit parsing > should parse commit without details 1`] = `
 {
   "associatedReleaseTag": undefined,
   "authors": undefined,
