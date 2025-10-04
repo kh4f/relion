@@ -56,85 +56,25 @@ describe('footer refs parsing', () => {
 	it('should parse commit with a single reference', () => {
 		expect(parseCommit(
 			'feat(core): add new feature\n\nRefs #10',
-		)?.refs).toMatchInlineSnapshot(`
-			[
-			  {
-			    "action": "Refs",
-			    "number": "10",
-			    "owner": undefined,
-			    "repo": undefined,
-			  },
-			]
-		`)
+		)?.refs).toMatchSnapshot()
 	})
 
 	it('should parse commit with external repo reference', () => {
 		expect(parseCommit(
 			'feat(core): add new feature\n\nRefs kh4f/relion#30',
-		)?.refs).toMatchInlineSnapshot(`
-			[
-			  {
-			    "action": "Refs",
-			    "number": "30",
-			    "owner": "kh4f",
-			    "repo": "relion",
-			  },
-			]
-		`)
+		)?.refs).toMatchSnapshot()
 	})
 
 	it('should parse commit with multiple references', () => {
 		expect(parseCommit(
 			'feat(core): add new feature\n\nFixes #10\nCloses #20\nRefs kh4f/relion#30',
-		)?.refs).toMatchInlineSnapshot(`
-			[
-			  {
-			    "action": "Fixes",
-			    "number": "10",
-			    "owner": undefined,
-			    "repo": undefined,
-			  },
-			  {
-			    "action": "Closes",
-			    "number": "20",
-			    "owner": undefined,
-			    "repo": undefined,
-			  },
-			  {
-			    "action": "Refs",
-			    "number": "30",
-			    "owner": "kh4f",
-			    "repo": "relion",
-			  },
-			]
-		`)
+		)?.refs).toMatchSnapshot()
 	})
 
 	// TODO: support multiple references on the same line
-	it.fails('should parse commit with multiple references on the same line', () => {
+	it.todo('should parse commit with multiple references on the same line', () => {
 		expect(parseCommit(
 			'feat(core): add new feature\n\nFixes #10, Closes #20, Refs kh4f/relion#30',
-		)?.refs).toMatchInlineSnapshot(`
-			[
-			  {
-			    "action": "Fixes",
-			    "number": "10",
-			    "owner": undefined,
-			    "repo": undefined,
-			  },
-			  {
-			    "action": "Closes",
-			    "number": "20",
-			    "owner": undefined,
-			    "repo": undefined,
-			  },
-			  {
-			    "action": "Refs",
-			    "number": "30",
-			    "owner": "kh4f",
-			    "repo": "relion",
-			  },
-			]
-		`)
+		)?.refs).toMatchSnapshot()
 	})
 })

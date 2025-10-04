@@ -134,3 +134,71 @@ exports[`commit parsing > should parse commit without details 1`] = `
   "type": "refactor",
 }
 `;
+
+exports[`footer refs parsing > should parse commit with a single reference 1`] = `
+[
+  {
+    "action": "Refs",
+    "number": "10",
+    "owner": undefined,
+    "repo": undefined,
+  },
+]
+`;
+
+exports[`footer refs parsing > should parse commit with external repo reference 1`] = `
+[
+  {
+    "action": "Refs",
+    "number": "30",
+    "owner": "kh4f",
+    "repo": "relion",
+  },
+]
+`;
+
+exports[`footer refs parsing > should parse commit with multiple references 1`] = `
+[
+  {
+    "action": "Fixes",
+    "number": "10",
+    "owner": undefined,
+    "repo": undefined,
+  },
+  {
+    "action": "Closes",
+    "number": "20",
+    "owner": undefined,
+    "repo": undefined,
+  },
+  {
+    "action": "Refs",
+    "number": "30",
+    "owner": "kh4f",
+    "repo": "relion",
+  },
+]
+`;
+
+exports[`footer refs parsing > should parse commit with multiple references on the same line 1`] = `
+[
+  {
+    "action": "Fixes",
+    "number": "10",
+    "owner": undefined,
+    "repo": undefined,
+  },
+  {
+    "action": "Fixes",
+    "number": "20",
+    "owner": undefined,
+    "repo": undefined,
+  },
+  {
+    "action": "Fixes",
+    "number": "30",
+    "owner": "kh4f",
+    "repo": "relion",
+  },
+]
+`;
