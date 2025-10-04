@@ -137,6 +137,78 @@ exports[`changelog generation > should generate changelog with scope groups for 
 "
 `;
 
+exports[`changelog generation with commit references > should generate changelog with commit references with hyperlinks 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.11.0  \`](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: add new feature [\`123456b\`](https://github.com/kh4f/relion/commit/123456b) ([#20](https://github.com/kh4f/relion/issues/20), [kh4f/relion#30](https://github.com/kh4f/relion/issues/30))
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **core**: fix bug [\`123456a\`](https://github.com/kh4f/relion/commit/123456a) ([#10](https://github.com/kh4f/relion/issues/10))
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0110-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0) &ensp;•&ensp; __
+
+
+"
+`;
+
+exports[`changelog generation with commit references > should generate changelog with commit references without hyperlinks 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.11.0  \`](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: add new feature 123456b (#20, kh4f/relion#30)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **core**: fix bug 123456a (#10)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0110-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0) &ensp;•&ensp; __
+
+
+"
+`;
+
+exports[`commit references rendering > should render commit references as hyperlinks 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.11.0  \`](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: add new feature [\`123456b\`](https://github.com/kh4f/relion/commit/123456b) ([#20](https://github.com/kh4f/relion/issues/20), [kh4f/relion#30](https://github.com/kh4f/relion/issues/30))
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **core**: fix bug [\`123456a\`](https://github.com/kh4f/relion/commit/123456a) ([#10](https://github.com/kh4f/relion/issues/10))
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0110-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0) &ensp;•&ensp; __
+
+
+"
+`;
+
+exports[`commit references rendering > should render commit references as plain text 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.11.0  \`](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: add new feature 123456b (#20, kh4f/relion#30)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **core**: fix bug 123456a (#10)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0110-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0) &ensp;•&ensp; __
+
+
+"
+`;
+
 exports[`partials customization > should generate changelog with customized partials 1`] = `
 "##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
 

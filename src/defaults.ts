@@ -83,7 +83,8 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 			{{~else~}}
 				{{hash}}
 			{{~/if~}}
-			{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}`,
+			{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
+			{{~#if refs}} {{>refs}}{{/if}}`,
 		compareLink: `{{repo.homepage~}}
 			{{#if prevRelease.tag~}}
 				/compare/{{prevRelease.tag}}...
@@ -91,6 +92,14 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 				/commits/
 			{{~/if}}
 			{{~tag}}`,
+		refs: `({{#each refs~}}
+				{{#if @root.refHyperlink~}}
+					[{{raw}}]({{@root.repo.homepage}}/issues/{{number}})
+				{{~else~}}
+					{{raw}}
+				{{~/if}}
+				{{~#if @last}}){{else}}, {{/if}}
+			{{~/each}}`,
 		changelogUrl: '{{repo.homepage}}/blob/main/CHANGELOG.md#{{tagToUrlFragment tag}}',
 	},
 }

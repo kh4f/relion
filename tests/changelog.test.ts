@@ -31,6 +31,36 @@ describe('changelog generation', () => {
 	})
 })
 
+describe('commit references rendering', () => {
+	const config = {
+		changelog: true,
+		context: {
+			currentVersion: '0.10.0',
+			commits: [
+				{
+					hash: '123456b',
+					message: 'feat(core): add new feature\n\nCloses #20\nRefs kh4f/relion#30',
+				},
+				{
+					hash: '123456a',
+					message: 'fix(core): fix bug\n\nFixes #10',
+				},
+			],
+		},
+	}
+
+	it('should render commit references as hyperlinks', () => {
+		expect(relion(config).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should render commit references as plain text', () => {
+		expect(relion({
+			...config,
+			context: { ...config.context, commitHyperlink: false, refHyperlink: false },
+		}).generatedChangelog).toMatchSnapshot()
+	})
+})
+
 describe('partials customization', () => {
 	it('should generate changelog with customized partials', () => {
 		expect(relion({
