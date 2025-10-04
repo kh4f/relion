@@ -76,6 +76,21 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	},
 	partials: {
 		br: '\n',
+		scope: '{{#if scope}}**{{scope}}**: {{/if}}',
+		commit: `{{{subject}}} {{" "}}
+			{{~#if @root.commitHyperlink~}}
+				[\`{{hash}}\`]({{@root.repo.homepage}}/commit/{{hash}})
+			{{~else~}}
+				{{hash}}
+			{{~/if~}}
+			{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}`,
+		compareLink: `{{repo.homepage~}}
+			{{#if prevRelease.tag~}}
+				/compare/{{prevRelease.tag}}...
+			{{~else~}}
+				/commits/
+			{{~/if}}
+			{{~tag}}`,
 		changelogUrl: '{{repo.homepage}}/blob/main/CHANGELOG.md#{{tagToUrlFragment tag}}',
 	},
 }

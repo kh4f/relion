@@ -1,27 +1,3 @@
-{{#*inline "compareLink"~}}
-	{{repo.homepage~}}
-	{{#if prevRelease.tag~}}
-		/compare/{{prevRelease.tag}}...
-	{{~else~}}
-		/commits/
-	{{~/if}}
-	{{~tag}}
-{{~/inline}}
-
-{{~#*inline "commit"~}}
-	{{{subject}}} {{" "}}
-	{{~#if @root.commitHyperlink~}}
-		[`{{hash}}`]({{@root.repo.homepage}}/commit/{{hash}})
-	{{~else~}}
-		{{hash}}
-	{{~/if~}}
-	{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
-{{~/inline}}
-
-{{~#*inline "scope"~}}
-	{{#if scope}}**{{scope}}**: {{/if}}
-{{~/inline}}
-
 {{~#>header~}}
 	## &ensp; [` 📦 {{tag}}  `]({{>compareLink}}){{>br}}
 {{/header}}
