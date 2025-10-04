@@ -72,9 +72,11 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 		isSingle: (arr: unknown[]) => arr.length === 1,
 		or: (...args: unknown[]) => args.slice(0, -1).some(Boolean),
 		not: (value: unknown) => !value,
+		tagToUrlFragment: (tag: string) => `--${tag.replace(' ', '-').replace(/\./g, '')}-`,
 	},
 	partials: {
 		br: '\n',
+		changelogUrl: '{{repo.homepage}}/blob/main/CHANGELOG.md#{{tagToUrlFragment tag}}',
 	},
 }
 
