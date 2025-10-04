@@ -99,7 +99,7 @@ export interface RepoInfo {
 	homepage?: string
 }
 export interface Context {
-	commits?: ParsedCommit[] | RawCommit[]
+	commits?: (ParsedCommit | RawCommit)[]
 	currentVersion?: string
 	currentTag?: string
 	newVersion?: string
