@@ -23,8 +23,7 @@
 {{~/inline}}
 
 {{~#>header~}}
-	## &ensp; [` 📦 {{tag}}  `]({{>compareLink}})
-
+	## &ensp; [` 📦 {{tag}}  `]({{>compareLink}}){{>br}}
 {{/header}}
 
 {{~#>main~}}
@@ -64,7 +63,5 @@
 {{/main}}
 
 {{~#>footer~}}
-	##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; [_All Release Commits_]({{>compareLink}}) &ensp;•&ensp; _{{date}}_
-
-
+	##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; [_All Release Commits_]({{>compareLink}}) &ensp;•&ensp; _{{date}}_{{>br}}{{>br}}
 {{/footer}}
