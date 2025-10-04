@@ -70,6 +70,7 @@ const mergeWithDefaults = (userConfig: UserConfig): MergedConfig => {
 		changelog: resolveOptions('changelog', userConfig.changelog, defaultChangelogOptions, 'partials', 'helpers'),
 		commit: resolveOptions('commit', userConfig.commit, defaultCommitOptions),
 		tag: resolveOptions('tag', userConfig.tag, defaultTagOptions),
+		context: { ...defaultConfig.context, ...userConfig.context },
 	}
 }
 
