@@ -2,13 +2,15 @@ import type { CompleteCommitsParser, ParsedCommit, RawCommit, RawReference, RefL
 import { GpgSigLabel } from '@/enums'
 import { getRawCommits, warn } from '@/utils'
 import { createHash } from 'node:crypto'
+import { defaultConfig } from '@/defaults'
 
 const parsedCommitsCache = new Map<string, ParsedCommit>()
 let recentReleaseTag: ParsedCommit['releaseTag']
 
-export const parseCommits = (arg1: CommitRange | RawCommit[], commitsParser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): ParsedCommit[] => {
+export const parseCommits = (arg1: CommitRange | RawCommit[], commitsParser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp): ParsedCommit[] => {
+	prevReleaseTagPattern ??= defaultConfig.prevReleaseTagPattern
 	const rawCommits = Array.isArray(arg1) ? arg1 : getRawCommits(arg1, prevReleaseTagPattern)
-	const parser = commitsParser
+	const parser = commitsParser ?? defaultConfig.commitsParser
 
 	const parsedCommits = rawCommits.map(commit => parseCommit(commit, parser, prevReleaseTagPattern))
 		.filter(commit => commit !== null)
@@ -18,7 +20,10 @@ export const parseCommits = (arg1: CommitRange | RawCommit[], commitsParser: Com
 	return parsedCommits
 }
 
-export const parseCommit = (commit: RawCommit, parser: CompleteCommitsParser, prevReleaseTagPattern: RegExp): ParsedCommit | null => {
+export const parseCommit = (commit: RawCommit, parser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp): ParsedCommit | null => {
+	parser ??= defaultConfig.commitsParser
+	prevReleaseTagPattern ??= defaultConfig.prevReleaseTagPattern
+
 	if (typeof commit === 'string') commit = { message: commit }
 
 	const { tagRefs, hash = getFakeCommitHash(commit.message) } = commit
