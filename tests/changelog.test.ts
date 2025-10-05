@@ -12,10 +12,7 @@ describe('changelog generation', () => {
 
 	it('should generate changelog with scope groups for custom commits', () => {
 		expect(relion({
-			changelog: {
-				header: '',
-				partials: { header: '', footer: '' },
-			},
+			changelog: { header: '', partials: { header: '', footer: '' } },
 			context: {
 				commitHyperlink: false,
 				commits: [
