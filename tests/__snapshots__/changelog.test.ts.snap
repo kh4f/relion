@@ -203,7 +203,7 @@ exports[`changelog line limit > should keep commits with breaking changes 1`] = 
 "# Changelog
 
 
-## &ensp; [\` 📦 v0.9.0  \`](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0)
+## &ensp; [\` 📦 v0.18.0  \`](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
 - some breaking change <sup>[1]</sup>
@@ -223,7 +223,7 @@ exports[`changelog line limit > should keep commits with breaking changes 1`] = 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
 - **core**: some chore fake_678a37e ⚠️<sup>[1]</sup>
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0) &ensp;•&ensp; __
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0) &ensp;•&ensp; __
 
 
 "
@@ -233,7 +233,7 @@ exports[`changelog line limit > should keep sections with ignoreLimit=true despi
 "# Changelog
 
 
-## &ensp; [\` 📦 v0.9.0  \`](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0)
+## &ensp; [\` 📦 v0.18.0  \`](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
 - **core**: 
@@ -267,7 +267,7 @@ exports[`changelog line limit > should keep sections with ignoreLimit=true despi
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♻️ Reverts
 - **core**: some revert fake_8bf8ff8
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0) &ensp;•&ensp; __
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0) &ensp;•&ensp; __
 
 
 "

@@ -55,7 +55,7 @@ describe('changelog line limit', () => {
 		expect(relion({
 			changelog: { maxLinesPerRelease: 25 },
 			context: {
-				currentVersion: '0.8.0',
+				newVersion: '0.18.0',
 				commitHyperlink: false,
 				commits: [
 					...Array.from({ length: 10 }, () => ({ message: 'feat(core): some feature' })),
@@ -73,7 +73,7 @@ describe('changelog line limit', () => {
 		expect(relion({
 			changelog: { maxLinesPerRelease: 3 },
 			context: {
-				currentVersion: '0.8.0',
+				newVersion: '0.18.0',
 				commitHyperlink: false,
 				commits: [
 					{ message: 'feat(core): some feature' },
