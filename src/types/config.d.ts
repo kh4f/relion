@@ -48,6 +48,7 @@ export interface ChangelogOptions {
 	header?: string
 	prevReleaseHeaderPattern?: RegExp
 	groupCommitsByScope?: boolean
+	maxLinesPerRelease?: number
 	helpers?: HelperDeclareSpec
 	partials?: Record<string, string | ((fallback: string) => string)>
 }

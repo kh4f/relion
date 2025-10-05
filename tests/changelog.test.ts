@@ -28,6 +28,15 @@ describe('changelog generation', () => {
 	})
 })
 
+describe('changelog line limit per release', () => {
+	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', (maxLines) => {
+		expect(relion({ changelog: {
+			commitRange: { releaseTag: 'v0.17.0' },
+			maxLinesPerRelease: maxLines,
+		} }).generatedChangelog).toMatchSnapshot()
+	})
+})
+
 describe('commit references rendering', () => {
 	const config = {
 		changelog: { header: '', partials: { header: '', footer: '' } },

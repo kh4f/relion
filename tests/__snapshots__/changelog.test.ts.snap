@@ -173,6 +173,74 @@ exports[`changelog generation with commit references > should generate changelog
 "
 `;
 
+exports[`changelog line limit per release > should limit changelog to 10 lines for release v0.17.0 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.17.0  \`](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The \`VersionedFile\` type now uses \`file\` and \`pattern\` properties instead of \`filePath\` and \`versionPattern\`. 
+- The \`silent\` option has been removed. Use \`logLevel\` instead to control logging verbosity. 
+- The \`bumpResults\` property is no longer returned by the main \`relion()\` function. 
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: add function support for \`partials\` to transform fallback content [\`7f070fd\`](https://github.com/kh4f/relion/commit/7f070fd)
+- **bump**: add support for custom replacement for versioned files [\`77aa591\`](https://github.com/kh4f/relion/commit/77aa591)
+- **config**: 
+  - allow skipping bump for \`versionSourceFile\` via \`!versionSourceFile\` in \`bump\` array [\`ba77ad8\`](https://github.com/kh4f/relion/commit/ba77ad8)
+  - support extracting current version from latest release tag instead of file [\`9d96a36\`](https://github.com/kh4f/relion/commit/9d96a36)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **config-resolver**: preserve all default versioned file attributes when matching custom file [\`33aa299\`](https://github.com/kh4f/relion/commit/33aa299)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0170-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0) &ensp;•&ensp; _Sep 28, 2025_
+
+
+"
+`;
+
+exports[`changelog line limit per release > should limit changelog to 20 lines for release v0.17.0 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.17.0  \`](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The \`VersionedFile\` type now uses \`file\` and \`pattern\` properties instead of \`filePath\` and \`versionPattern\`. <sup>[1]</sup>
+- The \`silent\` option has been removed. Use \`logLevel\` instead to control logging verbosity. <sup>[2]</sup>
+- The \`bumpResults\` property is no longer returned by the main \`relion()\` function. <sup>[3]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: add function support for \`partials\` to transform fallback content [\`7f070fd\`](https://github.com/kh4f/relion/commit/7f070fd)
+- **bump**: add support for custom replacement for versioned files [\`77aa591\`](https://github.com/kh4f/relion/commit/77aa591)
+- **config**: 
+  - allow skipping bump for \`versionSourceFile\` via \`!versionSourceFile\` in \`bump\` array [\`ba77ad8\`](https://github.com/kh4f/relion/commit/ba77ad8)
+  - support extracting current version from latest release tag instead of file [\`9d96a36\`](https://github.com/kh4f/relion/commit/9d96a36)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **config-resolver**: preserve all default versioned file attributes when matching custom file [\`33aa299\`](https://github.com/kh4f/relion/commit/33aa299)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **utils**: extract \`hbs-load-hook\` to separate module to avoid registration conflict [\`88c6fea\`](https://github.com/kh4f/relion/commit/88c6fea)
+- **release**: update relion config to use 'logLevel' [\`591e2c8\`](https://github.com/kh4f/relion/commit/591e2c8)
+- **config**: 
+  - rename \`filePath\` and \`versionPattern\` to \`file\` and \`pattern\` [\`88f1446\`](https://github.com/kh4f/relion/commit/88f1446) ⚠️<sup>[1]</sup>
+  - replace \`silent\` option with \`logLevel\` for improved logging control [\`9cfb8af\`](https://github.com/kh4f/relion/commit/9cfb8af) ⚠️<sup>[2]</sup>
+- **logger**: remove unused \`deepLog\` function [\`9c0b9a2\`](https://github.com/kh4f/relion/commit/9c0b9a2)
+- **commits-parser**: replace \`console.warn\` with \`warn\` utility function [\`9982505\`](https://github.com/kh4f/relion/commit/9982505)
+- **core**: remove \`bumpResults\` from \`relion()\` return values [\`0626642\`](https://github.com/kh4f/relion/commit/0626642) ⚠️<sup>[3]</sup>
+- **vitest**: use \`silent: true\` in config instead of mocking \`console.log\` [\`9cb40a7\`](https://github.com/kh4f/relion/commit/9cb40a7)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+- **config-resolver**: add quotes around \`versionSourceFile.file\` in log output [\`7f08be2\`](https://github.com/kh4f/relion/commit/7f08be2)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0170-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0) &ensp;•&ensp; _Sep 28, 2025_
+
+
+"
+`;
+
 exports[`commit references rendering > should render commit references as hyperlinks 1`] = `
 "### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
 - **core**: add new feature [\`123456b\`](https://github.com/kh4f/relion/commit/123456b) ([#20](https://github.com/kh4f/relion/issues/20), [kh4f/relion#30](https://github.com/kh4f/relion/issues/30))

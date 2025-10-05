@@ -135,7 +135,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 		: parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern)
 
 	const resolvedCommits = resolveCommits(parsedCommits, newTag, config.commitsParser.revertCommitBodyPattern)
-	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern, config.changelog.groupCommitsByScope) : null
+	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern, { withScopeGroups: config.changelog.groupCommitsByScope, maxLinesPerRelease: config.changelog.maxLinesPerRelease }) : null
 	const { commits: _, ...noCommitsOldContext } = oldContext
 
 	return {
@@ -177,7 +177,13 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 	}).filter((commit, idx): commit is ResolvedCommit => !!commit && !omittedRevertCommitsIdxs.includes(idx))
 }
 
-const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, prevReleaseTagPattern: RegExp, withScopeGroups?: boolean): ReleaseWithTypeGroups[] => {
+const groupCommitsByReleases = (
+	commits: ResolvedCommit[],
+	sections: TypeGroupsMap,
+	prevReleaseTagPattern: RegExp,
+	extraOptions?: { withScopeGroups?: boolean, maxLinesPerRelease?: number },
+): ReleaseWithTypeGroups[] => {
+	const maxLinesPerRelease = extraOptions?.maxLinesPerRelease ?? defaultChangelogOptions.maxLinesPerRelease
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -195,8 +201,21 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 	})
 
 	return Object.values(releases)
-		.map(({ commits, ...rest }) => ({ ...rest, commitTypeGroups: groupCommitsByType(commits, sections, withScopeGroups) }))
-		.filter(release => Object.keys(release.commitTypeGroups).length)
+		.map(({ commits, ...rest }) => {
+			const commitTypeGroups = groupCommitsByType(commits, sections, extraOptions?.withScopeGroups)
+			if (Object.keys(commitTypeGroups).length === 0) return
+
+			let totalCommits = 0
+			const limitedGroups: FilledTypeGroupMap = {}
+			for (const [sectionId, group] of Object.entries(commitTypeGroups)) {
+				const sectionCommitsCount = group.commits.length
+				if (totalCommits + sectionCommitsCount > maxLinesPerRelease) break
+				limitedGroups[sectionId] = group
+				totalCommits += sectionCommitsCount
+			}
+			return { ...rest, commitTypeGroups: limitedGroups }
+		})
+		.filter((release): release is ReleaseWithTypeGroups => !!release)
 }
 
 const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap, withScopeGroups?: boolean): FilledTypeGroupMap => {
