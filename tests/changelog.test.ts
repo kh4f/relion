@@ -76,8 +76,8 @@ describe('partials customization', () => {
 				partials: {
 					header: '',
 					main: '',
-					changelogUrl: '{{repo.homepage}}/blob/main/CHANGELOG.md',
-					footer: '##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; [_All Release Commits_]({{>compareLink}}) &ensp;•&ensp; _{{date}}_\n\n\n---',
+					customPartial: '**This is a custom partial**',
+					footer: 'CUSTOM FOOTER --- {{>customPartial}} ---',
 				},
 			},
 		}).generatedChangelog).toMatchSnapshot()

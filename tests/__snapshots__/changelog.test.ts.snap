@@ -261,12 +261,7 @@ exports[`commit references rendering > should render commit references as plain 
 "
 `;
 
-exports[`partials customization > should generate changelog with customized partials 1`] = `
-"##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
-
-
----"
-`;
+exports[`partials customization > should generate changelog with customized partials 1`] = `"CUSTOM FOOTER --- **This is a custom partial** ---"`;
 
 exports[`partials customization > should generate changelog with transformed footer and custom changelog URL partial 1`] = `
 "# Changelog
