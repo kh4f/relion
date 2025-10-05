@@ -9,10 +9,10 @@
 			{{#each commits}}
 				{{#if (isArray breakingChanges)}}
 					{{~#each breakingChanges~}}
-						- {{{this}}} {{#if (isBreakingCommitInOtherTypeGroup ../this)}}<sup>[{{../breakingChangeIndex}}]</sup>{{/if}}
+						- {{{this}}} {{>breakingChangesIndicator ../this}}
 					{{/each}}
 				{{else~}}
-					- {{{breakingChanges}}} {{#if (isBreakingCommitInOtherTypeGroup this)}}<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
+					- {{{breakingChanges}}} {{>breakingChangesIndicator}}
 				{{/if}}
 			{{/each}}
 		{{else}}

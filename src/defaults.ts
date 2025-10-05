@@ -1,4 +1,4 @@
-import type { MergedConfig, DefaultBumper, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap } from '@/types'
+import type { MergedConfig, DefaultBumper, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap } from '@/types'
 
 export const defaultConfig: MergedConfig = {
 	bump: false,
@@ -67,10 +67,6 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 		eq: (a: unknown, b: unknown) => a === b,
 		repeat: (string: string, n: number) => string.repeat(n),
 		isArray: (value: unknown) => Array.isArray(value),
-		isBreakingCommitInOtherTypeGroup: (commit: ResolvedCommit, options: { data: { root: { commitTypeGroups: FilledTypeGroupMap } } }) =>
-			Object.entries(options.data.root.commitTypeGroups)
-				.filter(([, { commitType }]) => commitType !== 'breaking')
-				.some(([, group]) => group.commits.includes(commit)),
 		isSingle: (arr: unknown[]) => arr.length === 1,
 		or: (...args: unknown[]) => args.slice(0, -1).some(Boolean),
 		not: (value: unknown) => !value,
@@ -103,6 +99,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 				{{~#if @last}}){{else}}, {{/if}}
 			{{~/each}}`,
 		changelogUrl: '{{repo.homepage}}/blob/main/CHANGELOG.md#{{tagToUrlFragment tag}}',
+		breakingChangesIndicator: `<sup>[{{breakingChangeIndex}}]</sup>`,
 	},
 }
 

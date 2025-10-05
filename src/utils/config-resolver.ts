@@ -206,12 +206,21 @@ const groupCommitsByReleases = (
 			if (Object.keys(commitTypeGroups).length === 0) return
 
 			let totalCommits = 0
+			let limitIsReached = false
 			const limitedGroups: FilledTypeGroupMap = {}
 			for (const [sectionId, group] of Object.entries(commitTypeGroups)) {
-				const sectionCommitsCount = group.commits.length
-				if ((totalCommits + sectionCommitsCount > maxLinesPerRelease) && !group.ignoreLimit) break
-				limitedGroups[sectionId] = group
-				totalCommits += sectionCommitsCount
+				if (totalCommits + group.commits.length > maxLinesPerRelease) limitIsReached = true
+				if (!limitIsReached || group.ignoreLimit) {
+					limitedGroups[sectionId] = group
+					totalCommits += group.commits.length
+				} else {
+					group.commits = group.commits.filter(c => !!c.breakingChanges)
+					if (group.commits.length) {
+						group.scopeGroups = groupCommitsByScope(group.commits)
+						limitedGroups[sectionId] = group
+						totalCommits += group.commits.length
+					}
+				}
 			}
 			return { ...rest, commitTypeGroups: limitedGroups }
 		})

@@ -68,6 +68,24 @@ describe('changelog line limit', () => {
 			},
 		}).generatedChangelog).toMatchSnapshot()
 	})
+
+	it('should keep commits with breaking changes', () => {
+		expect(relion({
+			changelog: { maxLinesPerRelease: 3 },
+			context: {
+				currentVersion: '0.8.0',
+				commitHyperlink: false,
+				commits: [
+					{ message: 'feat(core): some feature' },
+					{ message: 'fix(core): some bugfix' },
+					{ message: 'refactor(core): some refactor' },
+					{ message: 'perf(core): some performance improvement' },
+					{ message: 'revert(core): some revert' },
+					{ message: 'chore(core): some chore\n\nBREAKING CHANGE: some breaking change' },
+				],
+			},
+		}).generatedChangelog).toMatchSnapshot()
+	})
 })
 
 describe('commit references rendering', () => {
