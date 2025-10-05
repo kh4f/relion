@@ -29,7 +29,7 @@ exports[`changelog generation > should generate changelog for release 'v0.7.0' 1
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
 - **renovate**: add initial configuration for Renovate [\`bc296e9\`](https://github.com/kh4f/relion/commit/bc296e9)
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v070-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0) &ensp;•&ensp; _Sep 11, 2025_
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0) &ensp;•&ensp; _Sep 11, 2025_
 
 
 "
@@ -63,7 +63,7 @@ exports[`changelog generation > should generate changelog for release 'v0.7.0' w
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
 - **renovate**: add initial configuration for Renovate [\`bc296e9\`](https://github.com/kh4f/relion/commit/bc296e9)
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v070-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0) &ensp;•&ensp; _Sep 11, 2025_
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0) &ensp;•&ensp; _Sep 11, 2025_
 
 
 "
@@ -90,7 +90,7 @@ exports[`changelog generation > should generate changelog for release 'v0.8.0' 1
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
 - **defaults**: use \`satisfies ChangelogSectionsMap\` for \`defaultChangelogSections\` [\`4343e6f\`](https://github.com/kh4f/relion/commit/4343e6f)
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v080-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
 
 
 "
@@ -116,7 +116,50 @@ exports[`changelog generation > should generate changelog for release 'v0.8.0' w
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
 - **defaults**: use \`satisfies ChangelogSectionsMap\` for \`defaultChangelogSections\` [\`4343e6f\`](https://github.com/kh4f/relion/commit/4343e6f)
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v080-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
+
+
+"
+`;
+
+exports[`changelog generation > should generate changelog with release changelog URL in footer 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.9.0  \`](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: 
+  - add \`maxLinesPerRelease\` option to limit changelog length per release [\`037ebd8\`](https://github.com/kh4f/relion/commit/037ebd8)
+  - display issue/pr references next to commits [\`a59963f\`](https://github.com/kh4f/relion/commit/a59963f)
+  - filter out reverted commits and their reverts within same release [\`79274ca\`](https://github.com/kh4f/relion/commit/79274ca)
+  - add release changelog link to footer template [\`011abc0\`](https://github.com/kh4f/relion/commit/011abc0)
+- **commit**: support \`raw\` field in \`Reference\` for footer refs parsing [\`0c6cf75\`](https://github.com/kh4f/relion/commit/0c6cf75)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **config**: 
+  - merge user context with default one [\`2f17c70\`](https://github.com/kh4f/relion/commit/2f17c70)
+  - allow mixed \`ParsedCommit\` and \`RawCommit\` types in \`Context.commits\` [\`be9204c\`](https://github.com/kh4f/relion/commit/be9204c)
+- **commits-parser**: prevent body from being parsed as footer when containing ref keywords [\`3132b13\`](https://github.com/kh4f/relion/commit/3132b13)
+- **changelog**: 
+  - move inline partials to defaults to allow user overrides [\`80eeecf\`](https://github.com/kh4f/relion/commit/80eeecf)
+  - resolve Handlebars state leakage by using local instance [\`a934ed4\`](https://github.com/kh4f/relion/commit/a934ed4)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **commits-parser**: 
+  - rename \`parser\` parameter to \`commitsParser\` for consistency [\`c46e41b\`](https://github.com/kh4f/relion/commit/c46e41b)
+  - make \`commitsParser\` and \`prevReleaseTagPattern\` optional with default values [\`c1f942a\`](https://github.com/kh4f/relion/commit/c1f942a)
+- **tests**: 
+  - separate config resolution tests into \`config-resolver.test.ts\` [\`866f177\`](https://github.com/kh4f/relion/commit/866f177)
+  - extract version bump tests to \`bump.test.ts\` [\`747f953\`](https://github.com/kh4f/relion/commit/747f953)
+- **templates**: replaces direct newlines with the \`br\` partial [\`2b8c32c\`](https://github.com/kh4f/relion/commit/2b8c32c)
+- **defaults**: remove unnecessary braces and return statement in \`isBreakingCommitInOtherTypeGroup\` helper [\`8bbb9be\`](https://github.com/kh4f/relion/commit/8bbb9be)
+- **codebase**: rename \`VersionedFile\` type and related entities to \`Bumper\` [\`8ad16fd\`](https://github.com/kh4f/relion/commit/8ad16fd)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
+- **tests**: inline \`changelog\` option in custom commits changelog test [\`d2e5287\`](https://github.com/kh4f/relion/commit/d2e5287)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v090-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0) &ensp;•&ensp; _Oct 5, 2025_
 
 
 "
@@ -133,42 +176,6 @@ exports[`changelog generation > should generate changelog with scope groups for 
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
 - unscoped commit 3 fake_923cc1a
-
-"
-`;
-
-exports[`changelog generation with commit references > should generate changelog with commit references with hyperlinks 1`] = `
-"# Changelog
-
-
-## &ensp; [\` 📦 v0.11.0  \`](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0)
-
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
-- **core**: add new feature [\`123456b\`](https://github.com/kh4f/relion/commit/123456b) ([#20](https://github.com/kh4f/relion/issues/20), [kh4f/relion#30](https://github.com/kh4f/relion/issues/30))
-
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
-- **core**: fix bug [\`123456a\`](https://github.com/kh4f/relion/commit/123456a) ([#10](https://github.com/kh4f/relion/issues/10))
-
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0110-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0) &ensp;•&ensp; __
-
-
-"
-`;
-
-exports[`changelog generation with commit references > should generate changelog with commit references without hyperlinks 1`] = `
-"# Changelog
-
-
-## &ensp; [\` 📦 v0.11.0  \`](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0)
-
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
-- **core**: add new feature 123456b (#20, kh4f/relion#30)
-
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
-- **core**: fix bug 123456a (#10)
-
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0110-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.10.0...v0.11.0) &ensp;•&ensp; __
-
 
 "
 `;
@@ -194,7 +201,7 @@ exports[`changelog line limit per release > should limit changelog to 10 lines f
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
 - **config-resolver**: preserve all default versioned file attributes when matching custom file [\`33aa299\`](https://github.com/kh4f/relion/commit/33aa299)
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0170-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0) &ensp;•&ensp; _Sep 28, 2025_
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0) &ensp;•&ensp; _Sep 28, 2025_
 
 
 "
@@ -235,7 +242,7 @@ exports[`changelog line limit per release > should limit changelog to 20 lines f
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
 - **config-resolver**: add quotes around \`versionSourceFile.file\` in log output [\`7f08be2\`](https://github.com/kh4f/relion/commit/7f08be2)
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0170-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0) &ensp;•&ensp; _Sep 28, 2025_
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0) &ensp;•&ensp; _Sep 28, 2025_
 
 
 "
@@ -284,7 +291,7 @@ exports[`partials customization > should generate changelog with transformed foo
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
 - **defaults**: use \`satisfies ChangelogSectionsMap\` for \`defaultChangelogSections\` [\`4343e6f\`](https://github.com/kh4f/relion/commit/4343e6f)
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md) &ensp;•&ensp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
 
 
 "
@@ -311,7 +318,7 @@ CUSTOM HEADER---## &ensp; [\` 📦 v0.8.0  \`](https://github.com/kh4f/relion/co
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
 - **defaults**: use \`satisfies ChangelogSectionsMap\` for \`defaultChangelogSections\` [\`4343e6f\`](https://github.com/kh4f/relion/commit/4343e6f)
 
-CUSTOM FOOTER---##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v080-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
+CUSTOM FOOTER---##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.7.0...v0.8.0) &ensp;•&ensp; _Sep 12, 2025_
 
 
 ---"

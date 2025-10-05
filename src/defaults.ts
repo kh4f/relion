@@ -15,6 +15,7 @@ export const defaultConfig: MergedConfig = {
 	context: {
 		commitHyperlink: true,
 		refHyperlink: true,
+		footerChangelogUrl: false,
 	},
 	commitsParser: {
 		headerPattern: /^(?<type>\w+)(?:\((?<scope>.+)\))?(?<bang>!)?: (?<subject>.+)/s,

@@ -39,5 +39,5 @@
 {{/main}}
 
 {{~#>footer~}}
-	##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; [_All Release Commits_]({{>compareLink}}) &ensp;•&ensp; _{{date}}_{{>br}}{{>br}}
+	##### &emsp;&ensp;&nbsp;&nbsp; {{#if footerChangelogUrl}}[_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; {{/if}}[_All Release Commits_]({{>compareLink}}) &ensp;•&ensp; _{{date}}_{{>br}}{{>br}}
 {{/footer}}

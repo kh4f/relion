@@ -26,6 +26,13 @@ describe('changelog generation', () => {
 			},
 		}).generatedChangelog).toMatchSnapshot()
 	})
+
+	it('should generate changelog with release changelog URL in footer', () => {
+		expect(relion({
+			changelog: true,
+			context: { footerChangelogUrl: true, currentVersion: '0.8.0' },
+		}).generatedChangelog).toMatchSnapshot()
+	})
 })
 
 describe('changelog line limit per release', () => {
