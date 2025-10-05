@@ -40,7 +40,7 @@
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"release": "pnpm relion",
-		"release:github": "pnpm relion --profile github --latest",
+		"release:github": "pnpm relion --profile github",
 		"relion": "tsx scripts/relion-runner",
 		"prepare": "simple-git-hooks"
 	},

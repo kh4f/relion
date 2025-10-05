@@ -17,6 +17,7 @@ export default defineConfig({
 		},
 		changelog: {
 			output: 'stdout',
+			commitRange: 'latest-release',
 			header: '',
 			partials: { header: '' },
 		},
