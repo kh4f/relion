@@ -10,7 +10,11 @@ export default defineConfig({
 		commit: false,
 		tag: false,
 		logLevel: 'silent',
-		context: { commitHyperlink: false },
+		context: {
+			commitHyperlink: false,
+			refHyperlink: false,
+			footerChangelogUrl: true,
+		},
 		changelog: {
 			output: 'stdout',
 			header: '',
