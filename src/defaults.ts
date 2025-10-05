@@ -36,16 +36,16 @@ export const defaultConfig: MergedConfig = {
 }
 
 export const defaultChangelogSections = {
-	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking' },
-	feat: { title: '✨ Features', commitType: 'feat' },
-	fix: { title: '🩹 Fixes', commitType: 'fix' },
-	perf: { title: '⚡ Performance', commitType: 'perf' },
+	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking', ignoreLimit: true },
+	feat: { title: '✨ Features', commitType: 'feat', ignoreLimit: true },
+	fix: { title: '🩹 Fixes', commitType: 'fix', ignoreLimit: true },
+	perf: { title: '⚡ Performance', commitType: 'perf', ignoreLimit: true },
+	revert: { title: '♻️ Reverts', commitType: 'revert', ignoreLimit: true },
 	refactor: { title: '🚜 Refactoring', commitType: 'refactor' },
 	docs: { title: '📚 Documentation', commitType: 'docs' },
 	style: { title: `🎨 Style`, commitType: 'style' },
 	build: { title: '📦 Build', commitType: 'build' },
 	ci: { title: '🚀 CI', commitType: 'ci' },
-	revert: { title: '♻️ Reverts', commitType: 'revert' },
 	types: { title: '🏷️ Types', commitType: 'types' },
 	deps: { title: '🧩 Dependencies', commitType: 'chore',
 		filter: commit => !!commit.scope?.includes('deps') },

@@ -1,5 +1,49 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`changelog generation > should filter changelog sections by ignoreLimit when line limit is applied 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.9.0  \`](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: 
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **core**: 
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ Performance
+- **core**: some performance improvement fake_27db403
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♻️ Reverts
+- **core**: some revert fake_8bf8ff8
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0) &ensp;•&ensp; __
+
+
+"
+`;
+
 exports[`changelog generation > should generate changelog for release 'v0.7.0' 1`] = `
 "# Changelog
 
@@ -176,6 +220,50 @@ exports[`changelog generation > should generate changelog with scope groups for 
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
 - unscoped commit 3 fake_923cc1a
+
+"
+`;
+
+exports[`changelog line limit > should keep sections with ignoreLimit=true despite changelog line limit 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.9.0  \`](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: 
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+  - some feature fake_4271cd6
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **core**: 
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+  - some bugfix fake_5087d7d
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ Performance
+- **core**: some performance improvement fake_27db403
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♻️ Reverts
+- **core**: some revert fake_8bf8ff8
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.8.0...v0.9.0) &ensp;•&ensp; __
+
 
 "
 `;

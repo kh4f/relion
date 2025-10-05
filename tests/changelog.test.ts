@@ -35,12 +35,30 @@ describe('changelog generation', () => {
 	})
 })
 
-describe('changelog line limit per release', () => {
+describe('changelog line limit', () => {
 	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', (maxLines) => {
 		expect(relion({ changelog: {
 			commitRange: { releaseTag: 'v0.17.0' },
 			maxLinesPerRelease: maxLines,
 		} }).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should keep sections with ignoreLimit=true despite changelog line limit', () => {
+		expect(relion({
+			changelog: { maxLinesPerRelease: 25 },
+			context: {
+				currentVersion: '0.8.0',
+				commitHyperlink: false,
+				commits: [
+					...Array.from({ length: 10 }, () => ({ message: 'feat(core): some feature' })),
+					...Array.from({ length: 10 }, () => ({ message: 'fix(core): some bugfix' })),
+					...Array.from({ length: 10 }, () => ({ message: 'refactor(core): some refactor' })),
+					{ message: 'perf(core): some performance improvement' },
+					{ message: 'revert(core): some revert' },
+					{ message: 'chore(core): some chore' },
+				],
+			},
+		}).generatedChangelog).toMatchSnapshot()
 	})
 })
 

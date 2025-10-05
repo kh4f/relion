@@ -209,7 +209,7 @@ const groupCommitsByReleases = (
 			const limitedGroups: FilledTypeGroupMap = {}
 			for (const [sectionId, group] of Object.entries(commitTypeGroups)) {
 				const sectionCommitsCount = group.commits.length
-				if (totalCommits + sectionCommitsCount > maxLinesPerRelease) break
+				if ((totalCommits + sectionCommitsCount > maxLinesPerRelease) && !group.ignoreLimit) break
 				limitedGroups[sectionId] = group
 				totalCommits += sectionCommitsCount
 			}
