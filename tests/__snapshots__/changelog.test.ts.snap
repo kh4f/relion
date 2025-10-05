@@ -140,6 +140,13 @@ exports[`changelog generation > should generate changelog with release changelog
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
 - **ci/release**: inline \`with\` block for Node.js setup step [\`a0d7905\`](https://github.com/kh4f/relion/commit/a0d7905)
 
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+- **changelog**: 
+  - skip test for generating changelog with transformed partials [\`9c064b7\`](https://github.com/kh4f/relion/commit/9c064b7)
+  - update snapshot for transformed partials test [\`67ed389\`](https://github.com/kh4f/relion/commit/67ed389)
+  - update snapshot for changelog generation tests [\`a9dc9a2\`](https://github.com/kh4f/relion/commit/a9dc9a2)
+- **bump**: add test for bumping version in \`manifest.json\` [\`f2646f3\`](https://github.com/kh4f/relion/commit/f2646f3)
+
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚀 CI
 - **checks**: improve comment clarity for commit history fetching [\`d787525\`](https://github.com/kh4f/relion/commit/d787525)
 - **workflows**: update lint step to use \`lint:fix\` script [\`1aff340\`](https://github.com/kh4f/relion/commit/1aff340)
@@ -150,13 +157,6 @@ exports[`changelog generation > should generate changelog with release changelog
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛠️ Chores
 - **renovate**: replace \`matchCurrentAge\` with \`minimumReleaseAge\` for patch and minor updates [\`9471d0d\`](https://github.com/kh4f/relion/commit/9471d0d)
-
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
-- **changelog**: 
-  - skip test for generating changelog with transformed partials [\`9c064b7\`](https://github.com/kh4f/relion/commit/9c064b7)
-  - update snapshot for transformed partials test [\`67ed389\`](https://github.com/kh4f/relion/commit/67ed389)
-  - update snapshot for changelog generation tests [\`a9dc9a2\`](https://github.com/kh4f/relion/commit/a9dc9a2)
-- **bump**: add test for bumping version in \`manifest.json\` [\`f2646f3\`](https://github.com/kh4f/relion/commit/f2646f3)
 
 ##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--v0180-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0) &ensp;•&ensp; _Oct 2, 2025_
 
@@ -304,6 +304,11 @@ exports[`changelog line limit > should limit changelog to 20 lines for release v
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎨 Style
 - **config-resolver**: add quotes around \`versionSourceFile.file\` in log output [\`7f08be2\`](https://github.com/kh4f/relion/commit/7f08be2)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
+- **changelog**: wrap tests for partials customization in dedicated describe block [\`7272cf7\`](https://github.com/kh4f/relion/commit/7272cf7)
+- **fixtures**: add fixture files for \`manifest.json\`, \`package.json\`, and \`versions.json\` [\`dc46f7c\`](https://github.com/kh4f/relion/commit/dc46f7c)
+- **setup**: mock \`defaults\` module for configurable \`dryRun\` and \`changelog.output\` in tests [\`c7ba9dc\`](https://github.com/kh4f/relion/commit/c7ba9dc)
 
 ##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.16.0...v0.17.0) &ensp;•&ensp; _Sep 28, 2025_
 

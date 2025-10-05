@@ -38,8 +38,8 @@ export interface ReleaseContext extends ReleaseWithTypeGroups, ResolvedContext {
 
 export type DefaultChangelogSections = typeof defaultChangelogSections
 
-export interface ChangelogSectionsSelector extends DefaultChangelogSections {
+export interface SectionsSelector extends DefaultChangelogSections {
 	pick(...keys: (keyof DefaultChangelogSections)[]): Partial<DefaultChangelogSections>
-	omit(...keys: (keyof this)[]): ChangelogSectionsSelector
+	omit(...keys: (keyof this)[]): SectionsSelector
 	modify(key: keyof DefaultChangelogSections, modify: (section: TypeGroupDefinition) => TypeGroupDefinition): Partial<DefaultChangelogSections>
 }
