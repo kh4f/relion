@@ -81,7 +81,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 			{{~else~}}
 				{{hash}}
 			{{~/if~}}
-			{{~#if breakingChanges}} ⚠️<sup>[{{breakingChangeIndex}}]</sup>{{/if}}
+			{{~#if breakingChanges}} ⚠️{{>breakingChangesIndicator}}{{/if}}
 			{{~#if refs}} {{>refs}}{{/if}}`,
 		compareLink: `{{repo.homepage~}}
 			{{#if prevRelease.tag~}}
