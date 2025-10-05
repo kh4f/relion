@@ -33,7 +33,7 @@ describe('changelog generation', () => {
 
 describe('commit references rendering', () => {
 	const config = {
-		changelog: true,
+		changelog: { header: '', partials: { header: '', footer: '' } },
 		context: {
 			currentVersion: '0.10.0',
 			commits: [
