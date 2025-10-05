@@ -52,7 +52,7 @@ export const defaultChangelogSections = {
 		filter: commit => !!commit.scope?.includes('deps') },
 	chore: { title: '🛠️ Chores', commitType: 'chore' },
 	misc: { title: '⚙️ Miscellaneous', commitType: '*',
-		filter: commit => commit.type !== 'release' },
+		filter: commit => commit.type !== 'release' && commit.scope !== 'release' },
 } as const satisfies TypeGroupsMap
 
 export const defaultChangelogOptions: CompleteChangelogOptions = {
@@ -104,7 +104,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 }
 
 export const defaultCommitOptions: CompleteCommitOptions = {
-	message: 'release({{repo.name}}): {{newTag}}',
+	message: 'chore(release): {{newTag}}',
 	signOff: false,
 	gpgSign: false,
 	stageAll: true,
@@ -113,7 +113,7 @@ export const defaultCommitOptions: CompleteCommitOptions = {
 
 export const defaultTagOptions: CompleteTagOptions = {
 	name: '{{newTag}}',
-	message: 'release({{repo.name}}): {{newTag}}',
+	message: 'chore(release): {{newTag}}',
 	gpgSign: false,
 	force: false,
 	extraArgs: null,
