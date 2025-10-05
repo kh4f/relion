@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import relion from '@/.'
+import relion, { changelogSectionsSelector } from '@/.'
 
 describe('changelog generation', () => {
 	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0', (releaseTag) => {
@@ -32,6 +32,14 @@ describe('changelog generation', () => {
 			changelog: { commitRange: { releaseTag: 'v0.18.0' } },
 			context: { footerChangelogUrl: true },
 		}).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should generate changelog with selected and modified sections', () => {
+		expect(relion({ changelog: {
+			commitRange: { releaseTag: 'v0.7.0' },
+			sections: changelogSectionsSelector.omit('chore', 'docs', 'style', 'perf', 'test', 'misc', 'ci', 'deps')
+				.modify('feat', section => ({ ...section, title: '🎁 New Features' })),
+		} }).generatedChangelog).toMatchSnapshot()
 	})
 })
 

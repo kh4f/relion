@@ -179,6 +179,26 @@ exports[`changelog generation > should generate changelog with scope groups for 
 "
 `;
 
+exports[`changelog generation > should generate changelog with selected and modified sections 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 v0.7.0  \`](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎁 New Features
+- **core**: add \`defaultChangelogSections\` export [\`86da78a\`](https://github.com/kh4f/relion/commit/86da78a)
+- **changelog**: extend section definitions with optional \`id\` property [\`41c838a\`](https://github.com/kh4f/relion/commit/41c838a)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **templates**: use \`id\` property instead of \`commitType\` for breaking changes condition [\`205b9f8\`](https://github.com/kh4f/relion/commit/205b9f8)
+- **defaults**: update \`prevReleaseTagPattern\` regex to allow optional leading \`v\` [\`1c631eb\`](https://github.com/kh4f/relion/commit/1c631eb)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.6.0...v0.7.0) &ensp;•&ensp; _Sep 11, 2025_
+
+
+"
+`;
+
 exports[`changelog line limit > should keep sections with ignoreLimit=true despite changelog line limit 1`] = `
 "# Changelog
 

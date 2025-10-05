@@ -40,5 +40,6 @@ export type DefaultChangelogSections = typeof defaultChangelogSections
 
 export interface ChangelogSectionsSelector extends DefaultChangelogSections {
 	pick(...keys: (keyof DefaultChangelogSections)[]): Partial<DefaultChangelogSections>
-	omit(...keys: (keyof DefaultChangelogSections)[]): Partial<DefaultChangelogSections>
+	omit(...keys: (keyof this)[]): ChangelogSectionsSelector
+	modify(key: keyof DefaultChangelogSections, modify: (section: TypeGroupDefinition) => TypeGroupDefinition): Partial<DefaultChangelogSections>
 }
