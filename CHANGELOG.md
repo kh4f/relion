@@ -1,6 +1,39 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.19.0  `](https://github.com/kh4f/relion/compare/v0.18.0...v0.19.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `isBreakingCommitInOtherTypeGroup` helper has been removed as it is no longer necessary: commits with breaking changes are now always displayed in their respective sections regardless of line limits. <sup>[1]</sup>
+- The `changelogSectionsSelector` export has been renamed to `sectionsSelector`. <sup>[2]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: 
+  - display commits with breaking changes in all sections regardless of line limit [`0cf7ae2`](https://github.com/kh4f/relion/commit/0cf7ae2) ⚠️<sup>[1]</sup>
+  - add `ignoreLimit` flag to control section inclusion despite line limits [`c46e531`](https://github.com/kh4f/relion/commit/c46e531)
+  - add `maxLinesPerRelease` option to limit changelog length per release [`037ebd8`](https://github.com/kh4f/relion/commit/037ebd8)
+  - display issue/pr references next to commits [`a59963f`](https://github.com/kh4f/relion/commit/a59963f)
+  - filter out reverted commits and their reverts within same release [`79274ca`](https://github.com/kh4f/relion/commit/79274ca)
+  - add release changelog link to footer template [`011abc0`](https://github.com/kh4f/relion/commit/011abc0)
+- **sections-selector**: add `modify` method for modifying specific sections [`8b2b221`](https://github.com/kh4f/relion/commit/8b2b221)
+- **config**: add `footerChangelogUrl` option to `context` for changelog link control [`bf8371f`](https://github.com/kh4f/relion/commit/bf8371f)
+- **commit**: support `raw` field in `Reference` for footer refs parsing [`0c6cf75`](https://github.com/kh4f/relion/commit/0c6cf75)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **config**: 
+  - merge user context with default one [`2f17c70`](https://github.com/kh4f/relion/commit/2f17c70)
+  - allow mixed `ParsedCommit` and `RawCommit` types in `Context.commits` [`be9204c`](https://github.com/kh4f/relion/commit/be9204c)
+- **commits-parser**: prevent body from being parsed as footer when containing ref keywords [`3132b13`](https://github.com/kh4f/relion/commit/3132b13)
+- **changelog**: 
+  - move inline partials to defaults to allow user overrides [`80eeecf`](https://github.com/kh4f/relion/commit/80eeecf)
+  - resolve Handlebars state leakage by using local instance [`a934ed4`](https://github.com/kh4f/relion/commit/a934ed4)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **utils**: rename `changelogSectionsSelector` to `sectionsSelector` and update related entities [`10bfbf9`](https://github.com/kh4f/relion/commit/10bfbf9) ⚠️<sup>[2]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.18.0...v0.19.0) &ensp;•&ensp; _Oct 5, 2025_
+
+
 ## &ensp; [` 📦 v0.18.0  `](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
