@@ -29,8 +29,8 @@ describe('changelog generation', () => {
 
 	it('should generate changelog with release changelog URL in footer', () => {
 		expect(relion({
-			changelog: true,
-			context: { footerChangelogUrl: true, currentVersion: '0.8.0' },
+			changelog: { commitRange: { releaseTag: 'v0.18.0' } },
+			context: { footerChangelogUrl: true },
 		}).generatedChangelog).toMatchSnapshot()
 	})
 })
