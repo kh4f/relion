@@ -39,8 +39,8 @@
 		"lint:fix": "eslint --fix",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"release": "pnpm relion",
-		"release:github": "pnpm relion --profile github",
+		"release": "pnpm relion -p local",
+		"release:github": "pnpm relion -p github",
 		"relion": "tsx scripts/relion-runner",
 		"prepare": "simple-git-hooks"
 	},
