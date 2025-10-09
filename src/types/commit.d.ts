@@ -1,6 +1,6 @@
 import type { GpgSigLabel, RefType } from '@/enums'
 
-export type RawCommit = string | {
+export interface RawCommit {
 	hash?: string
 	message: string
 	tagRefs?: string

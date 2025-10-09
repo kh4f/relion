@@ -46,7 +46,7 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern?: 
 	range = range.replace('{{firstCommit}}', firstCommitHash)
 
 	const gitLogCommits = execSync(`git log ${range} --pretty="${commitLogFormat}"`, { encoding: 'utf8' })
-	return [...gitLogCommits.matchAll(rawCommitPattern)].map(m => m.groups as RawCommit)
+	return [...gitLogCommits.matchAll(rawCommitPattern)].map(m => m.groups as unknown as RawCommit)
 }
 
 const getFirstCommitHash = (): string => execSync('git rev-list --max-parents=0 HEAD', { encoding: 'utf8' }).trim()
