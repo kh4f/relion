@@ -2,7 +2,7 @@ import { defineConfig } from '@/.'
 
 export default defineConfig({
 	bump: ['package.json'],
-	changelog: true,
+	changelog: { review: true },
 	commit: { gpgSign: true },
 	tag: { gpgSign: true },
 	_github: {

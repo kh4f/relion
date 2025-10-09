@@ -3,9 +3,9 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import relion from '@/.'
 
 describe('version bumping', () => {
-	it('should bump version in manifest.json', () => {
+	it('should bump version in manifest.json', async () => {
 		const origManifestContent = readFileSync('tests/fixtures/manifest.json', 'utf8')
-		relion({
+		await relion({
 			dryRun: false,
 			context: { newVersion: '1.2.3' },
 			bump: [{
@@ -18,9 +18,9 @@ describe('version bumping', () => {
 		writeFileSync('tests/fixtures/manifest.json', origManifestContent, 'utf8')
 	})
 
-	it(`should append new version entry to 'versions.json'`, () => {
+	it(`should append new version entry to 'versions.json'`, async () => {
 		const origVersionsContent = readFileSync('tests/fixtures/versions.json', 'utf8')
-		relion({
+		await relion({
 			dryRun: false,
 			context: { newVersion: '1.2.3' },
 			bump: [{

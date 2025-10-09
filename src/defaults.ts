@@ -64,6 +64,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	prevReleaseHeaderPattern: /^##.*?\d+\.\d+\.\d+/m,
 	groupCommitsByScope: true,
 	maxLinesPerRelease: 20,
+	review: false,
 	helpers: {
 		eq: (a: unknown, b: unknown) => a === b,
 		repeat: (string: string, n: number) => string.repeat(n),

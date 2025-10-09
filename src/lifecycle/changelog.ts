@@ -3,8 +3,9 @@ import type { ReleaseContext, ReleaseWithTypeGroups, ResolvedConfig } from '@/ty
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
 import releaseTemplate from '@/templates/release.hbs'
+import { promptToContinue } from '@/utils/prompter'
 
-export const changelog = (config: ResolvedConfig): string | null => {
+export const changelog = async (config: ResolvedConfig): Promise<string | null> => {
 	if (!config.changelog) return null
 
 	const options = config.changelog
@@ -42,6 +43,9 @@ export const changelog = (config: ResolvedConfig): string | null => {
 		log(`Writing changelog to file '${options.output}'`)
 		writeToChangelogFile(options.output, result, options.prevReleaseHeaderPattern)
 	}
+
+	if (options.review && options.output !== 'stdout' && (config.commit || config.tag))
+		await promptToContinue('Please review the changelog and press Enter to continue...')
 
 	return result
 }

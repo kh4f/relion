@@ -1,17 +1,17 @@
 import { describe, expect, it } from 'vitest'
-import relion, { sectionsSelector } from '@/.'
+import relion, { sectionsSelector, type UserConfig } from '@/.'
 
 describe('changelog generation', () => {
-	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0', (releaseTag) => {
-		expect(relion({ changelog: { commitRange: { releaseTag } } }).generatedChangelog).toMatchSnapshot()
+	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0', async (releaseTag) => {
+		expect((await relion({ changelog: { commitRange: { releaseTag } } })).generatedChangelog).toMatchSnapshot()
 	})
 
-	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0 without scope groups', (releaseTag) => {
-		expect(relion({ changelog: { commitRange: { releaseTag }, groupCommitsByScope: false } }).generatedChangelog).toMatchSnapshot()
+	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0 without scope groups', async (releaseTag) => {
+		expect((await relion({ changelog: { commitRange: { releaseTag }, groupCommitsByScope: false } })).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should generate changelog with scope groups for custom commits', () => {
-		expect(relion({
+	it('should generate changelog with scope groups for custom commits', async () => {
+		expect((await relion({
 			changelog: { header: '', partials: { header: '', footer: '' } },
 			context: {
 				commitHyperlink: false,
@@ -24,35 +24,35 @@ describe('changelog generation', () => {
 					{ message: 'feat: unscoped commit 1' },
 				],
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should generate changelog with release changelog URL in footer', () => {
-		expect(relion({
+	it('should generate changelog with release changelog URL in footer', async () => {
+		expect((await relion({
 			changelog: { commitRange: { releaseTag: 'v0.18.0' } },
 			context: { footerChangelogUrl: true },
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should generate changelog with selected and modified sections', () => {
-		expect(relion({ changelog: {
+	it('should generate changelog with selected and modified sections', async () => {
+		expect((await relion({ changelog: {
 			commitRange: { releaseTag: 'v0.7.0' },
 			sections: sectionsSelector.omit('chore', 'docs', 'style', 'perf', 'test', 'misc', 'ci', 'deps')
 				.modify('feat', section => ({ ...section, title: '🎁 New Features' })),
-		} }).generatedChangelog).toMatchSnapshot()
+		} })).generatedChangelog).toMatchSnapshot()
 	})
 })
 
 describe('changelog sections rendering', () => {
-	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', (maxLines) => {
-		expect(relion({ changelog: {
+	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', async (maxLines) => {
+		expect((await relion({ changelog: {
 			commitRange: { releaseTag: 'v0.17.0' },
 			maxLinesPerRelease: maxLines,
-		} }).generatedChangelog).toMatchSnapshot()
+		} })).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should keep sections with show="always" despite changelog line limit', () => {
-		expect(relion({
+	it('should keep sections with show="always" despite changelog line limit', async () => {
+		expect((await relion({
 			changelog: { maxLinesPerRelease: 25 },
 			context: {
 				newVersion: '0.18.0',
@@ -66,11 +66,11 @@ describe('changelog sections rendering', () => {
 					{ message: 'chore(core): some chore' },
 				],
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should keep commits with breaking changes when maxLinesPerRelease is exceeded', () => {
-		expect(relion({
+	it('should keep commits with breaking changes when maxLinesPerRelease is exceeded', async () => {
+		expect((await relion({
 			changelog: { maxLinesPerRelease: 3 },
 			context: {
 				newVersion: '0.18.0',
@@ -84,11 +84,11 @@ describe('changelog sections rendering', () => {
 					{ message: 'chore(core): some chore\n\nBREAKING CHANGE: some breaking change' },
 				],
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should skip sections with show="never"', () => {
-		expect(relion({
+	it('should skip sections with show="never"', async () => {
+		expect((await relion({
 			changelog: {
 				sections: {
 					feat: { title: '🎁 New Features', commitType: 'feat', show: 'always' },
@@ -104,11 +104,11 @@ describe('changelog sections rendering', () => {
 					{ message: 'fix(core): some bugfix 2\n\nBREAKING CHANGE: some breaking change' },
 				],
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should only show breaking commits for sections with show="only-breaking"', () => {
-		expect(relion({
+	it('should only show breaking commits for sections with show="only-breaking"', async () => {
+		expect((await relion({
 			changelog: {
 				sections: { feat: { title: '🎁 New Features', commitType: 'feat', show: 'only-breaking' } },
 			},
@@ -120,11 +120,11 @@ describe('changelog sections rendering', () => {
 					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change' },
 				],
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should ignore changelog line limit for the first section when show defaults to "limit-or-breaking"', () => {
-		expect(relion({
+	it('should ignore changelog line limit for the first section when show defaults to "limit-or-breaking"', async () => {
+		expect((await relion({
 			changelog: {
 				maxLinesPerRelease: 1,
 				sections: { feat: { title: '🎁 New Features', commitType: 'feat' } },
@@ -138,11 +138,11 @@ describe('changelog sections rendering', () => {
 					{ message: 'feat(core): some feature 3' },
 				],
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should show only breaking commits for sections exceeding line limit when show defaults to "limit-or-breaking"', () => {
-		expect(relion({
+	it('should show only breaking commits for sections exceeding line limit when show defaults to "limit-or-breaking"', async () => {
+		expect((await relion({
 			changelog: {
 				maxLinesPerRelease: 1,
 				sections: {
@@ -161,12 +161,12 @@ describe('changelog sections rendering', () => {
 					{ message: 'fix(core): some bugfix 2\n\nBREAKING CHANGE: some breaking change 2' },
 				],
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 })
 
 describe('commit references rendering', () => {
-	const config = {
+	const config: UserConfig = {
 		changelog: { header: '', partials: { header: '', footer: '' } },
 		context: {
 			currentVersion: '0.10.0',
@@ -183,21 +183,21 @@ describe('commit references rendering', () => {
 		},
 	}
 
-	it('should render commit references as hyperlinks', () => {
-		expect(relion(config).generatedChangelog).toMatchSnapshot()
+	it('should render commit references as hyperlinks', async () => {
+		expect((await relion(config)).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should render commit references as plain text', () => {
-		expect(relion({
+	it('should render commit references as plain text', async () => {
+		expect((await relion({
 			...config,
 			context: { ...config.context, commitHyperlink: false, refHyperlink: false },
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 })
 
 describe('partials customization', () => {
-	it('should generate changelog with customized partials', () => {
-		expect(relion({
+	it('should generate changelog with customized partials', async () => {
+		expect((await relion({
 			changelog: {
 				commitRange: { releaseTag: 'v0.8.0' },
 				header: '',
@@ -208,11 +208,11 @@ describe('partials customization', () => {
 					footer: 'CUSTOM FOOTER --- {{>customPartial}} ---',
 				},
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should generate changelog with transformed partials', () => {
-		expect(relion({
+	it('should generate changelog with transformed partials', async () => {
+		expect((await relion({
 			changelog: {
 				commitRange: { releaseTag: 'v0.8.0' },
 				partials: {
@@ -220,11 +220,11 @@ describe('partials customization', () => {
 					footer: fallback => `CUSTOM FOOTER---${fallback}---`,
 				},
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should generate changelog with transformed footer and custom changelog URL partial', () => {
-		expect(relion({
+	it('should generate changelog with transformed footer and custom changelog URL partial', async () => {
+		expect((await relion({
 			changelog: {
 				commitRange: { releaseTag: 'v0.8.0' },
 				partials: {
@@ -232,20 +232,20 @@ describe('partials customization', () => {
 					footer: fallback => fallback.replace('&nbsp; ', '$&[_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; '),
 				},
 			},
-		}).generatedChangelog).toMatchSnapshot()
+		})).generatedChangelog).toMatchSnapshot()
 	})
 })
 
 describe.runIf(process.env.VITEST_VSCODE)('changelog generation (manual)', () => {
-	it('should print upcoming release changelog', () => {
-		relion({ changelog: true })
+	it('should print upcoming release changelog', async () => {
+		await relion({ changelog: true })
 	})
 
-	it('should print latest release changelog', () => {
-		relion({ changelog: { commitRange: 'latest-release' } })
+	it('should print latest release changelog', async () => {
+		await relion({ changelog: { commitRange: 'latest-release' } })
 	})
 
-	it('should print changelog for last 5 commits', () => {
-		relion({ changelog: { commitRange: 'HEAD~5..' } })
+	it('should print changelog for last 5 commits', async () => {
+		await relion({ changelog: { commitRange: 'HEAD~5..' } })
 	})
 })

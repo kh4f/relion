@@ -52,6 +52,7 @@ export interface ChangelogOptions {
 	maxLinesPerRelease?: number
 	helpers?: HelperDeclareSpec
 	partials?: Record<string, string | ((fallback: string) => string)>
+	review?: boolean
 }
 export type CompleteChangelogOptions = Required<ChangelogOptions>
 export interface ResolvedChangelogOptions extends Omit<CompleteChangelogOptions, 'partials'> {

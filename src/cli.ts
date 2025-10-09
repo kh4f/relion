@@ -88,5 +88,5 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 		config.changelog.commitRange = 'latest-release'
 	}
 
-	return { inputConfig: config, ...relion(config) }
+	return { inputConfig: config, ...await relion(config) }
 }
