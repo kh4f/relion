@@ -44,6 +44,7 @@ export type BumpFiles = (string | Bumper)[]
 export interface ChangelogOptions {
 	output?: 'stdout' | (string & {})
 	commitRange?: CommitRange
+	commitsScope?: string
 	sections?: TypeGroupsMap
 	header?: string
 	prevReleaseHeaderPattern?: RegExp

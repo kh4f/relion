@@ -18,7 +18,7 @@ export const getRepoInfo = (remoteUrlPattern: RegExp): RepoInfo => {
 	return { host, owner, name, homepage }
 }
 
-export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern?: RegExp): RawCommit[] => {
+export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern?: RegExp, commitsScope?: string): RawCommit[] => {
 	const firstCommitHash = getFirstCommitHash()
 	const releaseTags = getReleaseTags(prevReleaseTagPattern)
 
@@ -45,7 +45,7 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern?: 
 
 	range = range.replace('{{firstCommit}}', firstCommitHash)
 
-	const gitLogCommits = execSync(`git log ${range} --pretty="${commitLogFormat}"`, { encoding: 'utf8' })
+	const gitLogCommits = execSync(`git log ${range} --pretty="${commitLogFormat}" -- ${commitsScope ?? '.'}`, { encoding: 'utf8' })
 	return [...gitLogCommits.matchAll(rawCommitPattern)].map(m => m.groups as unknown as RawCommit)
 }
 

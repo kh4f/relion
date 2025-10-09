@@ -58,6 +58,7 @@ export const defaultChangelogSections = {
 export const defaultChangelogOptions: CompleteChangelogOptions = {
 	output: 'CHANGELOG.md',
 	commitRange: 'unreleased',
+	commitsScope: '.',
 	sections: defaultChangelogSections,
 	header: '# Changelog\n\n\n',
 	prevReleaseHeaderPattern: /^##.*?\d+\.\d+\.\d+/m,

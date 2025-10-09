@@ -7,9 +7,9 @@ import { defaultConfig } from '@/defaults'
 const parsedCommitsCache = new Map<string, ParsedCommit>()
 let recentReleaseTag: ParsedCommit['releaseTag']
 
-export const parseCommits = (commits: CommitRange | (RawCommit | string)[], commitsParser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp): ParsedCommit[] => {
+export const parseCommits = (commits: CommitRange | (RawCommit | string)[], commitsParser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp, commitsScope?: string): ParsedCommit[] => {
 	prevReleaseTagPattern ??= defaultConfig.prevReleaseTagPattern
-	const rawCommits = Array.isArray(commits) ? commits : getRawCommits(commits, prevReleaseTagPattern)
+	const rawCommits = Array.isArray(commits) ? commits : getRawCommits(commits, prevReleaseTagPattern, commitsScope)
 	const parser = commitsParser ?? defaultConfig.commitsParser
 
 	const parsedCommits = rawCommits.map(commit => parseCommit(commit, parser, prevReleaseTagPattern))

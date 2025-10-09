@@ -126,13 +126,14 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 		: config.newTagFormat.replace('{{version}}', newVersion))
 
 	const commitRange = config.changelog ? config.changelog.commitRange : 'unreleased'
+	const commitsScope = config.changelog ? config.changelog.commitsScope : undefined
 	const parsedCommits = oldContext.commits
 		? oldContext.commits.map((commit) => {
 			return ((typeof commit === 'object' && 'message' in commit) || typeof commit === 'string')
 				? parseCommit(commit, config.commitsParser, config.prevReleaseTagPattern)
 				: commit
 		}).filter(c => c != null)
-		: parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern)
+		: parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern, commitsScope)
 
 	const resolvedCommits = resolveCommits(parsedCommits, newTag, config.commitsParser.revertCommitBodyPattern)
 	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern, config.changelog.groupCommitsByScope, config.changelog.maxLinesPerRelease) : null
