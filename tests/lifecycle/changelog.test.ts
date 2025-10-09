@@ -43,7 +43,7 @@ describe('changelog generation', () => {
 	})
 })
 
-describe('changelog line limit', () => {
+describe('changelog sections rendering', () => {
 	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', (maxLines) => {
 		expect(relion({ changelog: {
 			commitRange: { releaseTag: 'v0.17.0' },
@@ -51,7 +51,7 @@ describe('changelog line limit', () => {
 		} }).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should keep sections with ignoreLimit=true despite changelog line limit', () => {
+	it('should keep sections with show="always" despite changelog line limit', () => {
 		expect(relion({
 			changelog: { maxLinesPerRelease: 25 },
 			context: {
@@ -69,7 +69,7 @@ describe('changelog line limit', () => {
 		}).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should keep commits with breaking changes', () => {
+	it('should keep commits with breaking changes when maxLinesPerRelease is exceeded', () => {
 		expect(relion({
 			changelog: { maxLinesPerRelease: 3 },
 			context: {
@@ -82,6 +82,83 @@ describe('changelog line limit', () => {
 					{ message: 'perf(core): some performance improvement' },
 					{ message: 'revert(core): some revert' },
 					{ message: 'chore(core): some chore\n\nBREAKING CHANGE: some breaking change' },
+				],
+			},
+		}).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should skip sections with show="never"', () => {
+		expect(relion({
+			changelog: {
+				sections: {
+					feat: { title: '🎁 New Features', commitType: 'feat', show: 'always' },
+					fix: { title: '🐛 Bug Fixes', commitType: 'fix', show: 'never' },
+				},
+			},
+			context: {
+				newVersion: '0.18.0',
+				commitHyperlink: false,
+				commits: [
+					{ message: 'feat(core): some feature' },
+					{ message: 'fix(core): some bugfix 1' },
+					{ message: 'fix(core): some bugfix 2\n\nBREAKING CHANGE: some breaking change' },
+				],
+			},
+		}).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should only show breaking commits for sections with show="only-breaking"', () => {
+		expect(relion({
+			changelog: {
+				sections: { feat: { title: '🎁 New Features', commitType: 'feat', show: 'only-breaking' } },
+			},
+			context: {
+				newVersion: '0.18.0',
+				commitHyperlink: false,
+				commits: [
+					{ message: 'feat(core): some feature 1' },
+					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change' },
+				],
+			},
+		}).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should ignore changelog line limit for the first section when show defaults to "limit-or-breaking"', () => {
+		expect(relion({
+			changelog: {
+				maxLinesPerRelease: 1,
+				sections: { feat: { title: '🎁 New Features', commitType: 'feat' } },
+			},
+			context: {
+				newVersion: '0.18.0',
+				commitHyperlink: false,
+				commits: [
+					{ message: 'feat(core): some feature 1' },
+					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change' },
+					{ message: 'feat(core): some feature 3' },
+				],
+			},
+		}).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should show only breaking commits for sections exceeding line limit when show defaults to "limit-or-breaking"', () => {
+		expect(relion({
+			changelog: {
+				maxLinesPerRelease: 1,
+				sections: {
+					feat: { title: '🎁 New Features', commitType: 'feat' },
+					fix: { title: '🐛 Bug Fixes', commitType: 'fix' },
+				},
+			},
+			context: {
+				newVersion: '0.18.0',
+				commitHyperlink: false,
+				commits: [
+					{ message: 'feat(core): some feature 1' },
+					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change 1' },
+					{ message: 'feat(core): some feature 3' },
+					{ message: 'fix(core): some bugfix 1' },
+					{ message: 'fix(core): some bugfix 2\n\nBREAKING CHANGE: some breaking change 2' },
 				],
 			},
 		}).generatedChangelog).toMatchSnapshot()

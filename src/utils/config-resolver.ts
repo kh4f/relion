@@ -205,18 +205,21 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 			let limitIsReached = false
 			const limitedGroups: FilledTypeGroupMap = {}
 			for (const [sectionId, group] of Object.entries(commitTypeGroups)) {
-				if (totalCommits + group.commits.length > maxLinesPerRelease) limitIsReached = true
-				if (!limitIsReached || group.ignoreLimit) {
-					limitedGroups[sectionId] = group
-					totalCommits += group.commits.length
-				} else {
+				group.show ??= 'limit-or-breaking'
+				if ((totalCommits + group.commits.length > maxLinesPerRelease) && Object.keys(limitedGroups).length) limitIsReached = true
+				if (group.show === 'never') continue
+				if (group.show === 'only-breaking' || (group.show === 'limit-or-breaking' && limitIsReached)) {
 					group.commits = group.commits.filter(c => !!c.breakingChanges)
 					if (group.commits.length) {
 						group.scopeGroups = groupCommitsByScope(group.commits)
 						limitedGroups[sectionId] = group
 						totalCommits += group.commits.length
 					}
+				} else if (group.show === 'always' || !limitIsReached) {
+					limitedGroups[sectionId] = group
+					totalCommits += group.commits.length
 				}
+				if (totalCommits > maxLinesPerRelease) limitIsReached = true
 			}
 			return { ...rest, commitTypeGroups: limitedGroups }
 		})

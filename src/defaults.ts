@@ -36,11 +36,11 @@ export const defaultConfig: MergedConfig = {
 }
 
 export const defaultChangelogSections = {
-	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking', ignoreLimit: true },
-	feat: { title: '✨ Features', commitType: 'feat', ignoreLimit: true },
-	fix: { title: '🩹 Fixes', commitType: 'fix', ignoreLimit: true },
-	perf: { title: '⚡ Performance', commitType: 'perf', ignoreLimit: true },
-	revert: { title: '♻️ Reverts', commitType: 'revert', ignoreLimit: true },
+	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking', show: 'always' },
+	feat: { title: '✨ Features', commitType: 'feat', show: 'always' },
+	fix: { title: '🩹 Fixes', commitType: 'fix', show: 'always' },
+	perf: { title: '⚡ Performance', commitType: 'perf', show: 'always' },
+	revert: { title: '♻️ Reverts', commitType: 'revert', show: 'always' },
 	refactor: { title: '🚜 Refactoring', commitType: 'refactor' },
 	build: { title: '📦 Build', commitType: 'build' },
 	docs: { title: '📚 Documentation', commitType: 'docs' },
