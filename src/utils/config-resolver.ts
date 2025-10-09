@@ -37,7 +37,7 @@ const mergeProfileConfig = (baseConfig: UserConfig): UserConfig => {
 		const result = mergeObjects(baseConfigProp, profileConfigProp) as PlainObject | undefined
 		if (result === undefined) return undefined
 
-		nestedPropKeys.forEach((key) => {
+		nestedPropKeys.forEach(key => {
 			result[key] = mergeObjects(baseConfigProp?.[key], profileConfigProp?.[key])
 		})
 
@@ -128,7 +128,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 	const commitRange = config.changelog ? config.changelog.commitRange : 'unreleased'
 	const commitsScope = config.changelog ? config.changelog.commitsScope : undefined
 	const parsedCommits = oldContext.commits
-		? oldContext.commits.map((commit) => {
+		? oldContext.commits.map(commit => {
 			return ((typeof commit === 'object' && 'message' in commit) || typeof commit === 'string')
 				? parseCommit(commit, config.commitsParser, config.prevReleaseTagPattern)
 				: commit
@@ -182,7 +182,7 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 	maxLinesPerRelease = maxLinesPerRelease ?? defaultChangelogOptions.maxLinesPerRelease
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
-	commits.forEach((commit) => {
+	commits.forEach(commit => {
 		const releaseTag = commit.associatedReleaseTag
 		if (releaseTag in releases) {
 			releases[releaseTag].commits.push(commit)
@@ -231,7 +231,7 @@ const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap, 
 		Object.entries(sections).map(([id, { filter: _, ...defWithoutFilter }]) => [id, { ...defWithoutFilter, commits: [] }]),
 	)
 
-	commits.forEach((commit) => {
+	commits.forEach(commit => {
 		const isBreaking = !!commit.breakingChanges
 		let isGrouped = false
 		let isBreakingGrouped = false
@@ -266,7 +266,7 @@ const groupCommitsByType = (commits: ResolvedCommit[], sections: TypeGroupsMap, 
 
 const groupCommitsByScope = (commits: ResolvedCommit[]): ScopeGroup[] => {
 	const groups: Record<string, ResolvedCommit[]> = {}
-	commits.forEach((commit) => {
+	commits.forEach(commit => {
 		const scope = commit.scope ?? ''
 		groups[scope] ??= []
 		groups[scope].push(commit)

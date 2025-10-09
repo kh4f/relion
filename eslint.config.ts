@@ -50,6 +50,7 @@ export default defineConfig([
 			'@stylistic/eol-last': ['error', 'never'],
 			'@stylistic/brace-style': ['error', '1tbs'],
 			'@stylistic/operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
+			'@stylistic/arrow-parens': ['error', 'as-needed'],
 		},
 	},
 ])

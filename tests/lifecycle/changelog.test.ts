@@ -2,11 +2,11 @@ import { describe, expect, it } from 'vitest'
 import relion, { sectionsSelector, type UserConfig } from '@/.'
 
 describe('changelog generation', () => {
-	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0', async (releaseTag) => {
+	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0', async releaseTag => {
 		expect((await relion({ changelog: { commitRange: { releaseTag } } })).generatedChangelog).toMatchSnapshot()
 	})
 
-	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0 without scope groups', async (releaseTag) => {
+	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0 without scope groups', async releaseTag => {
 		expect((await relion({ changelog: { commitRange: { releaseTag }, groupCommitsByScope: false } })).generatedChangelog).toMatchSnapshot()
 	})
 
@@ -44,7 +44,7 @@ describe('changelog generation', () => {
 })
 
 describe('changelog sections rendering', () => {
-	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', async (maxLines) => {
+	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', async maxLines => {
 		expect((await relion({ changelog: {
 			commitRange: { releaseTag: 'v0.17.0' },
 			maxLinesPerRelease: maxLines,
