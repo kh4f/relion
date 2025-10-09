@@ -1,4 +1,4 @@
-import { bump, commit, tag, changelog } from '@/lifecycles'
+import { bump, commit, tag, changelog } from '@/lifecycle'
 import { resolveConfig, setLogLevel } from '@/utils'
 import type { UserConfig, RelionResult } from '@/types'
 
