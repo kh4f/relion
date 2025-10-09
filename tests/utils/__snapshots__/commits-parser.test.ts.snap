@@ -185,26 +185,3 @@ exports[`footer refs parsing > should parse commit with multiple references 1`] 
   },
 ]
 `;
-
-exports[`footer refs parsing > should parse commit with multiple references on the same line 1`] = `
-[
-  {
-    "action": "Fixes",
-    "number": "10",
-    "owner": undefined,
-    "repo": undefined,
-  },
-  {
-    "action": "Fixes",
-    "number": "20",
-    "owner": undefined,
-    "repo": undefined,
-  },
-  {
-    "action": "Fixes",
-    "number": "30",
-    "owner": "kh4f",
-    "repo": "relion",
-  },
-]
-`;
