@@ -219,7 +219,6 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 					limitedGroups[sectionId] = group
 					totalCommits += group.commits.length
 				}
-				if (totalCommits > maxLinesPerRelease) limitIsReached = true
 			}
 			return { ...rest, commitTypeGroups: limitedGroups }
 		})
