@@ -135,7 +135,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 		: parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern)
 
 	const resolvedCommits = resolveCommits(parsedCommits, newTag, config.commitsParser.revertCommitBodyPattern)
-	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern, { withScopeGroups: config.changelog.groupCommitsByScope, maxLinesPerRelease: config.changelog.maxLinesPerRelease }) : null
+	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern, config.changelog.groupCommitsByScope, config.changelog.maxLinesPerRelease) : null
 	const { commits: _, ...noCommitsOldContext } = oldContext
 
 	return {
@@ -177,13 +177,8 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 	}).filter((commit, idx): commit is ResolvedCommit => !!commit && !omittedRevertCommitsIdxs.includes(idx))
 }
 
-const groupCommitsByReleases = (
-	commits: ResolvedCommit[],
-	sections: TypeGroupsMap,
-	prevReleaseTagPattern: RegExp,
-	extraOptions?: { withScopeGroups?: boolean, maxLinesPerRelease?: number },
-): ReleaseWithTypeGroups[] => {
-	const maxLinesPerRelease = extraOptions?.maxLinesPerRelease ?? defaultChangelogOptions.maxLinesPerRelease
+const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, prevReleaseTagPattern: RegExp, withScopeGroups?: boolean, maxLinesPerRelease?: number): ReleaseWithTypeGroups[] => {
+	maxLinesPerRelease = maxLinesPerRelease ?? defaultChangelogOptions.maxLinesPerRelease
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach((commit) => {
@@ -202,7 +197,7 @@ const groupCommitsByReleases = (
 
 	return Object.values(releases)
 		.map(({ commits, ...rest }) => {
-			const commitTypeGroups = groupCommitsByType(commits, sections, extraOptions?.withScopeGroups)
+			const commitTypeGroups = groupCommitsByType(commits, sections, withScopeGroups)
 			if (Object.keys(commitTypeGroups).length === 0) return
 
 			let totalCommits = 0
