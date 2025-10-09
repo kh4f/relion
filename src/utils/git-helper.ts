@@ -1,5 +1,6 @@
 import { execSync } from 'node:child_process'
 import type { CommitRange, RawCommit, RepoInfo } from '@/types'
+import { defaultConfig } from '@/defaults'
 
 const commitLogFormat = `##COMMIT##%n#HASH# %h%n#MSG# %B%n#REFS# %d%n#AUTHOR-NAME# %an%n#AUTHOR-EMAIL# %ae%n#AUTHOR-DATE# %at%n#COMMITTER-NAME# %cn%n#COMMITTER-EMAIL# %ce%n#COMMITTER-DATE# %ct%n#GPGSIG-CODE# %G?%n#GPGSIG-KEYID# %GK%n`
 const rawCommitPattern = /##COMMIT##\n#HASH# (?<hash>.+)?\n#MSG# (?<message>[\s\S]*?)\n#REFS#\s+(?<tagRefs>.+)?\n#AUTHOR-NAME# (?<authorName>.+)?\n#AUTHOR-EMAIL# (?<authorEmail>.+)?\n#AUTHOR-DATE# (?<authorTs>.+)?\n#COMMITTER-NAME# (?<committerName>.+)?\n#COMMITTER-EMAIL# (?<committerEmail>.+)?\n#COMMITTER-DATE# (?<committerTs>.+)?\n#GPGSIG-CODE# (?<gpgSigCode>.+)?\n#GPGSIG-KEYID# (?<gpgSigKeyId>.+)?/g
@@ -17,7 +18,7 @@ export const getRepoInfo = (remoteUrlPattern: RegExp): RepoInfo => {
 	return { host, owner, name, homepage }
 }
 
-export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: RegExp): RawCommit[] => {
+export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern?: RegExp): RawCommit[] => {
 	const firstCommitHash = getFirstCommitHash()
 	const releaseTags = getReleaseTags(prevReleaseTagPattern)
 
@@ -50,7 +51,8 @@ export const getRawCommits = (commitRange: CommitRange, prevReleaseTagPattern: R
 
 const getFirstCommitHash = (): string => execSync('git rev-list --max-parents=0 HEAD', { encoding: 'utf8' }).trim()
 
-export const getReleaseTags = (tagPattern: RegExp): string[] => {
+export const getReleaseTags = (tagPattern?: RegExp): string[] => {
+	tagPattern = tagPattern ?? defaultConfig.prevReleaseTagPattern
 	const cacheKey = tagPattern.toString()
 	if (releaseTagsCache.has(cacheKey)) return releaseTagsCache.get(cacheKey) ?? []
 
