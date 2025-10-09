@@ -79,15 +79,6 @@ The type of the change. Allowed types (with commit examples):
   - ci(release): add `--no-git-checks` flag to npm publish command  
   - ci(checks): add initial CI workflow
 
-12. **revert** (commit revert)  
-  - revert(cli): remove experimental `--main-profile` flag  
-
-	This reverts commit abc1234.
-
-  - revert(defaults): restore default settings for `verbose` option  
-
-	This reverts commit def5678.
-
 #### Scope
 The area of the codebase affected (e.g., component, module, feature). Scope is always required.
 
