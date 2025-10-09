@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { sectionsSelector } from '@/utils'
 
-describe('changelog sections selector', () => {
+describe('sectionsSelector', () => {
 	it('should pick specified sections', () => {
 		const selected = sectionsSelector.pick('feat', 'fix')
 		expect(selected).toEqual({
