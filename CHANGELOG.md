@@ -1,6 +1,32 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.20.0  `](https://github.com/kh4f/relion/compare/v0.19.0...v0.20.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `ignoreLimit` property is replaced with more flexible `show` property in changelog section definitions. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: 
+  - add `review` option for interactive changelog review before commit/tag [`0ccb51e`](https://github.com/kh4f/relion/commit/0ccb51e)
+  - add `show` property for advanced section rendering control [`144f36a`](https://github.com/kh4f/relion/commit/144f36a) ⚠️<sup>[1]</sup>
+  - add `commitsScope` option to filter commits by paths [`6caff98`](https://github.com/kh4f/relion/commit/6caff98)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **relion-config**: separate full release workflow into dedicated `local` profile [`4d417f2`](https://github.com/kh4f/relion/commit/4d417f2)
+- **tests**: mirror `src` folder structure [`060f273`](https://github.com/kh4f/relion/commit/060f273)
+- **lifecycle**: rename `lifecycles` folder to `lifecycle` [`0b608c3`](https://github.com/kh4f/relion/commit/0b608c3)
+- **defaults**: 
+  - update `message` in `defaultTagOptions` to use `defaultCommitOptions.message` [`3ff93db`](https://github.com/kh4f/relion/commit/3ff93db)
+  - use `chore(release):` format for default commit and tag messages [`7c0a2ea`](https://github.com/kh4f/relion/commit/7c0a2ea)
+  - update commit partial to use `breakingChangesIndicator` partial [`be0931a`](https://github.com/kh4f/relion/commit/be0931a)
+- **config-resolver**: simplify parameters in `groupCommitsByReleases` function [`4b85951`](https://github.com/kh4f/relion/commit/4b85951)
+- **commits-parser**: rename `arg1` to `commits` in `parseCommits` function [`769ef93`](https://github.com/kh4f/relion/commit/769ef93)
+- **git-helper**: make `prevReleaseTagPattern` optional in `getRawCommits` and `getReleaseTags` [`d4b5c8e`](https://github.com/kh4f/relion/commit/d4b5c8e)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.19.0...v0.20.0) &ensp;•&ensp; _Oct 9, 2025_
+
+
 ## &ensp; [` 📦 v0.19.0  `](https://github.com/kh4f/relion/compare/v0.18.0...v0.19.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
