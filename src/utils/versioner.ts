@@ -15,7 +15,7 @@ export const extractVersionFromTag = (tag: string, tagPattern: RegExp): string |
 	return tagPattern.exec(tag)?.groups?.version
 }
 
-export const determineNextVersion = (config: TransformedConfig, currentVersion: string): string => {
+export const determineNextVersion = (config: TransformedConfig, currentVersion: string, commitsScope?: string): string => {
 	if (config.context?.newVersion) {
 		if (!semver.valid(config.context.newVersion)) {
 			throw new Error(`Invalid release version format: '${config.context.newVersion}'`)
@@ -26,7 +26,7 @@ export const determineNextVersion = (config: TransformedConfig, currentVersion: 
 	if (config.releaseType) {
 		releaseType = config.releaseType
 	} else {
-		const unreleasedCommits = parseCommits('unreleased', config.commitsParser, config.prevReleaseTagPattern)
+		const unreleasedCommits = parseCommits('unreleased', config.commitsParser, config.prevReleaseTagPattern, commitsScope)
 		releaseType = calculateReleaseType(unreleasedCommits)
 		if (config.zeroMajorBreakingIsMinor && semver.major(currentVersion) === 0 && releaseType === 'major') releaseType = 'minor'
 	}

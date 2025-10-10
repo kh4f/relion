@@ -8,6 +8,7 @@ export const defaultConfig: MergedConfig = {
 	versionSource: 'versionSourceFile',
 	versionSourceFile: './package.json',
 	newTagFormat: 'v{{version}}',
+	commitsScope: '.',
 	prevReleaseTagPattern: /^v?(?<version>\d+\.\d+\.\d+)/,
 	zeroMajorBreakingIsMinor: true,
 	dryRun: false,
@@ -58,7 +59,6 @@ export const defaultChangelogSections = {
 export const defaultChangelogOptions: CompleteChangelogOptions = {
 	output: 'CHANGELOG.md',
 	commitRange: 'unreleased',
-	commitsScope: '.',
 	sections: defaultChangelogSections,
 	header: '# Changelog\n\n\n',
 	prevReleaseHeaderPattern: /^##.*?\d+\.\d+\.\d+/m,
