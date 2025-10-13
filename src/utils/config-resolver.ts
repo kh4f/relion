@@ -13,11 +13,12 @@ export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
 }
 
 const mergeProfileConfig = (baseConfig: UserConfig): UserConfig => {
-	const profileName = baseConfig.profile
-	if (!profileName) return baseConfig
-
+	const profileName = baseConfig.profile ?? 'default'
 	const profileConfig = baseConfig[`_${profileName}`]
-	if (!profileConfig) throw new Error(`Profile "${profileName}" not found in configuration.`)
+	if (!profileConfig) {
+		if (baseConfig.profile === undefined) return baseConfig
+		else throw new Error(`Profile "${profileName}" not found in configuration.`)
+	}
 
 	const mergeOption = <T extends keyof UserConfig>(propKey: T, ...nestedPropKeys: string[]): UserConfig[T] => {
 		type PlainObject = Record<string, unknown>

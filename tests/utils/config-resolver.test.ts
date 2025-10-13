@@ -98,3 +98,51 @@ describe('commits resolution', () => {
         `)
 	})
 })
+
+describe('config profiles resolution', () => {
+	it('should use base config when no profile is specified', () => {
+		expect(resolveConfig({
+			newTagPrefix: 'tag-prefix-1',
+			_profile1: { newTagPrefix: 'tag-prefix-2' },
+			_profile2: { newTagPrefix: 'tag-prefix-3' },
+		}).newTagPrefix).toBe('tag-prefix-1')
+	})
+
+	it('should use default profile when explicitly specified', () => {
+		expect(resolveConfig({
+			profile: 'default',
+			newTagPrefix: 'tag-prefix-1',
+			_default: { newTagPrefix: 'tag-prefix-2' },
+		}).newTagPrefix).toBe('tag-prefix-2')
+	})
+
+	it('should use default profile when present, even if not specified explicitly', () => {
+		expect(resolveConfig({
+			newTagPrefix: 'tag-prefix-1',
+			_default: { newTagPrefix: 'tag-prefix-2' },
+		}).newTagPrefix).toBe('tag-prefix-2')
+	})
+
+	it('should use specified profile instead of default one', () => {
+		expect(resolveConfig({
+			profile: 'profile2',
+			newTagPrefix: 'tag-prefix-1',
+			_default: { newTagPrefix: 'tag-prefix-2' },
+			_profile2: { newTagPrefix: 'tag-prefix-3' },
+		}).newTagPrefix).toBe('tag-prefix-3')
+	})
+
+	it('should throw error when non-existing profile is specified', () => {
+		expect(() => resolveConfig({
+			profile: 'profile1',
+			newTagPrefix: 'tag-prefix-1',
+		})).toThrow('Profile "profile1" not found in configuration.')
+	})
+
+	it(`should throw error when default profile is explicitly specified but doesn't exist`, () => {
+		expect(() => resolveConfig({
+			profile: 'default',
+			newTagPrefix: 'tag-prefix-1',
+		})).toThrow('Profile "default" not found in configuration.')
+	})
+})
