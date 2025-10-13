@@ -1,6 +1,17 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.21.0  `](https://github.com/kh4f/relion/compare/v0.20.0...v0.21.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `commitsScope` option has been moved from `changelog.commitsScope` to the top-level `commitsScope` in the configuration. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **bump**: ensure `commitsScope` filter applies when determining next version [`ec66d36`](https://github.com/kh4f/relion/commit/ec66d36) ⚠️<sup>[1]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.20.0...v0.21.0) &ensp;•&ensp; _Oct 13, 2025_
+
+
 ## &ensp; [` 📦 v0.20.0  `](https://github.com/kh4f/relion/compare/v0.19.0...v0.20.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
