@@ -76,14 +76,15 @@ const mergeWithDefaults = (userConfig: UserConfig): MergedConfig => {
 }
 
 const transformConfig = (config: MergedConfig): TransformedConfig => {
-	const resolveBumper = (file: string): Bumper => {
+	const resolveBumper = (bumper: string | Bumper): Bumper => {
+		if (typeof bumper === 'object') return bumper
 		const matchingDefaultVersionFile = defaultBumpers.find(defaultFile =>
-			defaultFile.file.test(file))
+			defaultFile.file.test(bumper))
 		if (matchingDefaultVersionFile) {
-			return { ...matchingDefaultVersionFile, file }
+			return { ...matchingDefaultVersionFile, file: bumper }
 		} else {
 			throw new Error(
-				`File ${file} doesn't match any default versioned files. `
+				`File ${bumper} doesn't match any default versioned files. `
 				+ 'Please provide a custom pattern for this file.',
 			)
 		}
@@ -92,13 +93,11 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 	const resolveBump = (bump: MergedConfig['bump']): false | Bumper[] => {
 		if (bump === false) return false
 		if (bump === true) return [versionSourceFile]
-		if (Array.isArray(bump)) return bump.map(bumpFile => typeof bumpFile === 'string' ? resolveBumper(bumpFile) : bumpFile)
+		if (Array.isArray(bump)) return bump.map(bumpFile => resolveBumper(bumpFile))
 		throw new Error('Invalid value for bump. It should be a boolean or an array.')
 	}
 
-	const versionSourceFile = typeof config.versionSourceFile === 'string'
-		? resolveBumper(config.versionSourceFile)
-		: config.versionSourceFile
+	const versionSourceFile = resolveBumper(config.versionSourceFile)
 
 	return {
 		...config,
