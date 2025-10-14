@@ -121,7 +121,7 @@ export const defaultConfig: MergedConfig = {
 	},
 	commitsParser: {
 		headerPattern: /^(?<type>\w+)(?:\((?<scope>.+)\))?(?<bang>!)?: (?<subject>.+)/s,
-		breakingChangesPattern: /BREAKING CHANGES?:\s*(?<content>.+)/s,
+		breakingChangesPattern: /^BREAKING CHANGES?:\s*(?<content>.+)/ms,
 		breakingChangeListPattern: /- (.+)/g,
 		tagPattern: /tag: (?<tag>.*?)[,)]/g,
 		coAuthorPattern: /Co-authored-by: (?<name>.+?) <(?<email>.+)>/g,
