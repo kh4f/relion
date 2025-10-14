@@ -224,7 +224,7 @@ exports[`changelog sections rendering > should keep commits with breaking change
 ## &ensp; [\` 📦 v0.18.0  \`](https://github.com/kh4f/relion/compare/v0.17.1...v0.18.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
-- some breaking change <sup>[1]</sup>
+- Some breaking change. <sup>[1]</sup>
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
 - **core**: some feature fake_4271cd6

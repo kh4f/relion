@@ -1,4 +1,5 @@
 import type { MergedConfig, DefaultBumper, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap } from '@/types'
+import type { HelperOptions } from 'handlebars'
 
 export const defaultConfig: MergedConfig = {
 	bump: false,
@@ -73,6 +74,10 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 		or: (...args: unknown[]) => args.slice(0, -1).some(Boolean),
 		not: (value: unknown) => !value,
 		tagToUrlFragment: (tag: string) => `--${tag.replace(' ', '-').replace(/\./g, '')}-`,
+		toSentenceCase: function (this: unknown, options: HelperOptions) {
+			const content = options.fn(this)
+			return `${content.charAt(0).toUpperCase()}${content.slice(1)}${content.endsWith('.') ? '' : '.'}`
+		},
 	},
 	partials: {
 		br: '\n',

@@ -9,10 +9,10 @@
 			{{#each commits}}
 				{{#if (isArray breakingChanges)}}
 					{{~#each breakingChanges~}}
-						- {{{this}}} {{>breakingChangesIndicator ../this}}
+						- {{#toSentenceCase}}{{{this}}}{{/toSentenceCase}} {{>breakingChangesIndicator ../this}}
 					{{/each}}
 				{{else~}}
-					- {{{breakingChanges}}} {{>breakingChangesIndicator}}
+					- {{#toSentenceCase}}{{{breakingChanges}}}{{/toSentenceCase}} {{>breakingChangesIndicator}}
 				{{/if}}
 			{{/each}}
 		{{else}}
