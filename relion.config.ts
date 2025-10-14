@@ -1,13 +1,15 @@
 import { defineConfig } from '@/.'
 
 export default defineConfig({
-	_local: {
+	_default: {
+		lifecycle: 'all',
 		bump: ['package.json'],
 		changelog: { review: true },
 		commit: { gpgSign: true },
 		tag: { gpgSign: true },
 	},
 	_github: {
+		lifecycle: ['changelog'],
 		logLevel: 'silent',
 		context: {
 			commitHyperlink: false,
