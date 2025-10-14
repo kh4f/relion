@@ -1,5 +1,36 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`breaking changes rendering > should render each item under "BREAKING CHANGES:" as a separate entry in the breaking changes section 1`] = `
+"### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- Some breaking change 1. <sup>[1]</sup>
+- Some breaking change 2. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: some feature fake_2497919 ⚠️<sup>[1]</sup>
+
+"
+`;
+
+exports[`breaking changes rendering > should use commit subject as breaking change description if no explicit "BREAKING CHANGE:..." is present 1`] = `
+"### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- Some feature. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: some feature fake_729d2d6 ⚠️<sup>[1]</sup>
+
+"
+`;
+
+exports[`breaking changes rendering > should use text under "BREAKING CHANGE:" as breaking change description 1`] = `
+"### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- Some breaking change. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **core**: some feature fake_a8a27f5 ⚠️<sup>[1]</sup>
+
+"
+`;
+
 exports[`changelog generation > should generate changelog for release 'v0.7.0' 1`] = `
 "# Changelog
 

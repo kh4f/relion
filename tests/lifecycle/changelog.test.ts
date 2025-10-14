@@ -236,6 +236,46 @@ describe('partials customization', () => {
 	})
 })
 
+describe('breaking changes rendering', () => {
+	const baseConfig: UserConfig = {
+		changelog: { header: '', partials: { header: '', footer: '' } },
+		context: { currentVersion: '0.21.0', commitHyperlink: false },
+	}
+
+	it('should use text under "BREAKING CHANGE:" as breaking change description', async () => {
+		expect((await relion({
+			changelog: baseConfig.changelog,
+			context: {
+				...baseConfig.context,
+				commits: [{ message: 'feat(core)!: some feature\n\nBREAKING CHANGE: some breaking change' }],
+			},
+		})).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should use commit subject as breaking change description if no explicit "BREAKING CHANGE:..." is present', async () => {
+		expect((await relion({
+			changelog: baseConfig.changelog,
+			context: {
+				...baseConfig.context,
+				commits: [{ message: 'feat(core)!: some feature' }],
+			},
+		})).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should render each item under "BREAKING CHANGES:" as a separate entry in the breaking changes section', async () => {
+		expect((await relion({
+			changelog: baseConfig.changelog,
+			context: {
+				...baseConfig.context,
+				commits: [{ message: 'feat(core)!: some feature\n\n'
+					+ 'BREAKING CHANGES:'
+					+ '\n- some breaking change 1'
+					+ '\n- some breaking change 2' }],
+			},
+		})).generatedChangelog).toMatchSnapshot()
+	})
+})
+
 describe.runIf(process.env.VITEST_VSCODE)('changelog generation (manual)', () => {
 	it('should print upcoming release changelog', async () => {
 		await relion({ changelog: true })
