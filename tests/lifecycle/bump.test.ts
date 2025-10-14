@@ -6,6 +6,7 @@ describe('version bumping', () => {
 	it('should bump version in manifest.json', async () => {
 		const origManifestContent = readFileSync('tests/fixtures/manifest.json', 'utf8')
 		await relion({
+			lifecycle: ['bump'],
 			dryRun: false,
 			context: { newVersion: '1.2.3' },
 			bump: [{
@@ -21,6 +22,7 @@ describe('version bumping', () => {
 	it(`should append new version entry to 'versions.json'`, async () => {
 		const origVersionsContent = readFileSync('tests/fixtures/versions.json', 'utf8')
 		await relion({
+			lifecycle: ['bump'],
 			dryRun: false,
 			context: { newVersion: '1.2.3' },
 			bump: [{

@@ -4,12 +4,12 @@ import { promptToContinue } from '@/utils/prompter'
 
 describe('release workflow', () => {
 	it('should simulate full release workflow', async () => {
-		await relion({ bump: true, changelog: true, commit: true, tag: true })
+		await relion({ lifecycle: 'all' })
 	})
 
 	it('should prompt user to review changelog', async () => {
 		await relion({
-			bump: true, commit: true, tag: true,
+			lifecycle: 'all',
 			changelog: { output: 'tests/fixtures/CHANGELOG.md', review: true },
 		})
 		expect(promptToContinue).toHaveBeenCalledOnce()

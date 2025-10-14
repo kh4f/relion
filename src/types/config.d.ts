@@ -1,13 +1,12 @@
 import type { ParsedCommit, RawCommit, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit } from '@/types'
 import type { HelperDeclareSpec } from 'handlebars'
 
-export type FalseOrComplete<T> = false | Required<T>
-
 export interface UserConfig {
-	bump?: boolean | (string | Bumper)[]
-	changelog?: boolean | ChangelogOptions
-	commit?: boolean | CommitOptions
-	tag?: boolean | TagOptions
+	lifecycle?: LifecycleStep[] | 'all'
+	bump?: (string | Bumper)[]
+	changelog?: ChangelogOptions
+	commit?: CommitOptions
+	tag?: TagOptions
 	newTagPrefix?: string
 	newTagFormat?: string
 	versionSource?: 'versionSourceFile' | 'latest-release-tag'
@@ -24,17 +23,18 @@ export interface UserConfig {
 	[profile: `_${string}`]: UserConfig | undefined
 }
 
-type OptionalKeys = 'releaseType' | 'context' | 'profile' | 'newTagPrefix'
+type OptionalKeys = LifecycleStep | 'releaseType' | 'context' | 'profile' | 'newTagPrefix'
 export interface MergedConfig extends Omit<Required<UserConfig>, OptionalKeys>, Pick<UserConfig, OptionalKeys> {
-	changelog: FalseOrComplete<ChangelogOptions>
-	commit: FalseOrComplete<CommitOptions>
-	tag: FalseOrComplete<TagOptions>
+	lifecycle: LifecycleStep[]
+	changelog?: CompleteChangelogOptions
+	commit?: CompleteCommitOptions
+	tag?: CompleteTagOptions
 	commitsParser: CompleteCommitsParser
 }
 export interface TransformedConfig extends Omit<MergedConfig, 'changelog'> {
 	versionSourceFile: Bumper
-	bump: FalseOrComplete<Bumper[]>
-	changelog: false | ResolvedChangelogOptions
+	bump?: Required<Bumper[]>
+	changelog?: ResolvedChangelogOptions
 }
 
 export interface ResolvedConfig extends TransformedConfig {
@@ -113,6 +113,8 @@ export interface ResolvedContext extends Required<Context> {
 	commits: ResolvedCommit[]
 	releases: ReleaseWithTypeGroups[] | null
 }
+
+export type LifecycleStep = 'bump' | 'changelog' | 'commit' | 'tag'
 
 export type LogLevel = 'info' | 'info-clean' | 'silent'
 

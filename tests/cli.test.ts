@@ -4,8 +4,8 @@ import type { UserConfig } from '@/types'
 
 describe('runCli', () => {
 	it('should update config options according to CLI flags', async () => {
-		expect((await runCli('--bump --changelog --commit --tag --dry', {}))?.inputConfig).toMatchObject({
-			bump: true, changelog: true, commit: true, tag: true, dryRun: true,
+		expect((await runCli('--lifecycle all --dry', {}))?.inputConfig).toMatchObject({
+			lifecycle: 'all', dryRun: true,
 		})
 	})
 
@@ -19,7 +19,7 @@ describe('runCli', () => {
 				},
 			},
 		}
-		const inputConfig = (await runCli('--changelog --profile github --latest', config))?.inputConfig
+		const inputConfig = (await runCli('-f l --profile github --latest', config))?.inputConfig
 		expect(inputConfig).toMatchObject({ ...config, profile: 'github', changelog: { commitRange: 'latest-release' } })
 	})
 })
@@ -32,7 +32,7 @@ describe.runIf(process.env.VITEST_VSCODE)('runCli (manual)', () => {
 	})
 
 	it('should load config from default path (relion.config.ts)', async () => {
-		await runCli('--changelog --dry')
+		await runCli('-f l --dry')
 	})
 
 	it('should load config from custom path', async () => {

@@ -6,11 +6,14 @@ export default async function relion(userConfig: UserConfig): Promise<RelionResu
 	setLogLevel((userConfig.logLevel ?? (!!userConfig.profile && userConfig[`_${userConfig.profile}`]?.logLevel)) || 'info')
 
 	const resolvedConfig = resolveConfig(userConfig)
+	let generatedChangelog, commitCommand, tagCommand
 
-	bump(resolvedConfig)
-	const generatedChangelog = await changelog(resolvedConfig)
-	const commitCommand = commit(resolvedConfig)
-	const tagCommand = tag(resolvedConfig)
+	for (const step of resolvedConfig.lifecycle) await {
+		bump: () => bump(resolvedConfig),
+		changelog: async () => generatedChangelog = await changelog(resolvedConfig),
+		commit: () => commitCommand = commit(resolvedConfig),
+		tag: () => tagCommand = tag(resolvedConfig),
+	}[step]()
 
 	return { resolvedConfig, generatedChangelog, commitCommand, tagCommand }
 }

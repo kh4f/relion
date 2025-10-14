@@ -1,42 +1,6 @@
 import type { MergedConfig, DefaultBumper, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap } from '@/types'
 import type { HelperOptions } from 'handlebars'
 
-export const defaultConfig: MergedConfig = {
-	bump: false,
-	changelog: false,
-	commit: false,
-	tag: false,
-	versionSource: 'versionSourceFile',
-	versionSourceFile: './package.json',
-	newTagFormat: 'v{{version}}',
-	commitsScope: '.',
-	prevReleaseTagPattern: /^v?(?<version>\d+\.\d+\.\d+)/,
-	zeroMajorBreakingIsMinor: true,
-	dryRun: false,
-	logLevel: 'info',
-	context: {
-		commitHyperlink: true,
-		refHyperlink: true,
-		footerChangelogUrl: false,
-	},
-	commitsParser: {
-		headerPattern: /^(?<type>\w+)(?:\((?<scope>.+)\))?(?<bang>!)?: (?<subject>.+)/s,
-		breakingChangesPattern: /BREAKING CHANGES?:\s*(?<content>.+)/s,
-		breakingChangeListPattern: /- (.+)/g,
-		tagPattern: /tag: (?<tag>.*?)[,)]/g,
-		coAuthorPattern: /Co-authored-by: (?<name>.+?) <(?<email>.+)>/g,
-		signerPattern: /Signed-off-by: (?<name>.+?) <(?<email>.+)>/g,
-		ghEmailPattern: /^(?:\d+\+)?(?<username>.+)@users\.noreply\.github\.com$/,
-		remoteUrlPattern: /^(https:\/\/|git@)(?<host>[^/:]+)[/:](?<owner>.+?)\/(?<name>.+?)(?:\..*)?$/,
-		refPattern: /^(?<action>.+?) (?<labels>.+)$/gm,
-		refLabelPattern: /(?:(?<owner>\S+?)\/(?<repo>\S+?))?#(?<number>\d+)/g,
-		refActionPattern: /^(Fixes|Closes|Refs)/i,
-		dateSource: 'authorDate',
-		dateFormat: 'US',
-		revertCommitBodyPattern: /^This reverts commit (?<hash>.{7})/m,
-	},
-}
-
 export const defaultChangelogSections = {
 	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking', show: 'always' },
 	feat: { title: '✨ Features', commitType: 'feat', show: 'always' },
@@ -138,3 +102,37 @@ export const defaultBumpers: DefaultBumper[] = [
 		replacement: '$1{{newVersion}}$3',
 	},
 ]
+
+export const defaultConfig: MergedConfig = {
+	lifecycle: ['bump', 'changelog', 'commit', 'tag'],
+	bump: ['package.json'],
+	versionSource: 'versionSourceFile',
+	versionSourceFile: './package.json',
+	newTagFormat: 'v{{version}}',
+	commitsScope: '.',
+	prevReleaseTagPattern: /^v?(?<version>\d+\.\d+\.\d+)/,
+	zeroMajorBreakingIsMinor: true,
+	dryRun: false,
+	logLevel: 'info',
+	context: {
+		commitHyperlink: true,
+		refHyperlink: true,
+		footerChangelogUrl: false,
+	},
+	commitsParser: {
+		headerPattern: /^(?<type>\w+)(?:\((?<scope>.+)\))?(?<bang>!)?: (?<subject>.+)/s,
+		breakingChangesPattern: /BREAKING CHANGES?:\s*(?<content>.+)/s,
+		breakingChangeListPattern: /- (.+)/g,
+		tagPattern: /tag: (?<tag>.*?)[,)]/g,
+		coAuthorPattern: /Co-authored-by: (?<name>.+?) <(?<email>.+)>/g,
+		signerPattern: /Signed-off-by: (?<name>.+?) <(?<email>.+)>/g,
+		ghEmailPattern: /^(?:\d+\+)?(?<username>.+)@users\.noreply\.github\.com$/,
+		remoteUrlPattern: /^(https:\/\/|git@)(?<host>[^/:]+)[/:](?<owner>.+?)\/(?<name>.+?)(?:\..*)?$/,
+		refPattern: /^(?<action>.+?) (?<labels>.+)$/gm,
+		refLabelPattern: /(?:(?<owner>\S+?)\/(?<repo>\S+?))?#(?<number>\d+)/g,
+		refActionPattern: /^(Fixes|Closes|Refs)/i,
+		dateSource: 'authorDate',
+		dateFormat: 'US',
+		revertCommitBodyPattern: /^This reverts commit (?<hash>.{7})/m,
+	},
+}

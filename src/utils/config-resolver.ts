@@ -1,5 +1,5 @@
 import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, compilePartials, log } from '@/utils'
-import type { UserConfig, ResolvedConfig, TransformedConfig, Bumper, MergedConfig, FalseOrComplete, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
+import type { UserConfig, ResolvedConfig, TransformedConfig, Bumper, MergedConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
 import { defaultConfig, defaultBumpers, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
 
@@ -55,23 +55,25 @@ const mergeProfileConfig = (baseConfig: UserConfig): UserConfig => {
 	}
 }
 
-const mergeWithDefaults = (userConfig: UserConfig): MergedConfig => {
-	const resolveOptions = <T>(optionsName: string, options: boolean | T | undefined, defaults: Required<T>, ...subObjects: (keyof T)[]): FalseOrComplete<T> => {
-		if (options == undefined || options === false) return false
-		if (options === true) return defaults
-		if (typeof options !== 'object') throw new Error(`Invalid value for ${optionsName}. It should be a boolean or an object.`)
-		const result: Required<T> = { ...defaults, ...options }
-		subObjects.forEach(subObjectKey => result[subObjectKey] = { ...defaults[subObjectKey], ...options[subObjectKey] })
-		return result
-	}
+const mergeWithDefaults = (config: UserConfig): MergedConfig => {
+	let lifecycle = config.lifecycle ?? defaultConfig.lifecycle
+	if (lifecycle === 'all') lifecycle = ['bump', 'changelog', 'commit', 'tag']
+	else lifecycle = [...new Set(lifecycle)]
 
 	return {
-		...defaultConfig, ...userConfig,
-		commitsParser: { ...defaultConfig.commitsParser, ...userConfig.commitsParser },
-		changelog: resolveOptions('changelog', userConfig.changelog, defaultChangelogOptions, 'partials', 'helpers'),
-		commit: resolveOptions('commit', userConfig.commit, defaultCommitOptions),
-		tag: resolveOptions('tag', userConfig.tag, defaultTagOptions),
-		context: { ...defaultConfig.context, ...userConfig.context },
+		...defaultConfig, ...config,
+		lifecycle,
+		commitsParser: { ...defaultConfig.commitsParser, ...config.commitsParser },
+		bump: lifecycle.includes('bump') ? (config.bump ?? defaultConfig.bump) : undefined,
+		changelog: lifecycle.includes('changelog')
+			? { ...defaultChangelogOptions, ...config.changelog,
+				partials: { ...defaultChangelogOptions.partials, ...config.changelog?.partials },
+				helpers: { ...defaultChangelogOptions.helpers, ...config.changelog?.helpers },
+			}
+			: undefined,
+		commit: lifecycle.includes('commit') ? { ...defaultCommitOptions, ...config.commit } : undefined,
+		tag: lifecycle.includes('tag') ? { ...defaultTagOptions, ...config.tag } : undefined,
+		context: { ...defaultConfig.context, ...config.context },
 	}
 }
 
@@ -90,22 +92,13 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 		}
 	}
 
-	const resolveBump = (bump: MergedConfig['bump']): false | Bumper[] => {
-		if (bump === false) return false
-		if (bump === true) return [versionSourceFile]
-		if (Array.isArray(bump)) return bump.map(bumpFile => resolveBumper(bumpFile))
-		throw new Error('Invalid value for bump. It should be a boolean or an array.')
-	}
-
 	const versionSourceFile = resolveBumper(config.versionSourceFile)
 
 	return {
 		...config,
 		versionSourceFile,
-		bump: resolveBump(config.bump),
-		changelog: config.changelog === false
-			? false
-			: { ...config.changelog, compiledPartials: compilePartials(config.changelog.partials) },
+		bump: config.lifecycle.includes('bump') ? (config.bump ? config.bump.map(resolveBumper) : [versionSourceFile]) : undefined,
+		changelog: config.changelog ? { ...config.changelog, compiledPartials: compilePartials(config.changelog.partials) } : undefined,
 	}
 }
 

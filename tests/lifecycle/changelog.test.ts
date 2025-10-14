@@ -3,15 +3,16 @@ import relion, { sectionsSelector, type UserConfig } from '@/.'
 
 describe('changelog generation', () => {
 	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0', async releaseTag => {
-		expect((await relion({ changelog: { commitRange: { releaseTag } } })).generatedChangelog).toMatchSnapshot()
+		expect((await relion({ lifecycle: ['changelog'], changelog: { commitRange: { releaseTag } } })).generatedChangelog).toMatchSnapshot()
 	})
 
 	it.for(['v0.7.0', 'v0.8.0'])('should generate changelog for release $0 without scope groups', async releaseTag => {
-		expect((await relion({ changelog: { commitRange: { releaseTag }, groupCommitsByScope: false } })).generatedChangelog).toMatchSnapshot()
+		expect((await relion({ lifecycle: ['changelog'], changelog: { commitRange: { releaseTag }, groupCommitsByScope: false } })).generatedChangelog).toMatchSnapshot()
 	})
 
 	it('should generate changelog with scope groups for custom commits', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: { header: '', partials: { header: '', footer: '' } },
 			context: {
 				commitHyperlink: false,
@@ -29,13 +30,14 @@ describe('changelog generation', () => {
 
 	it('should generate changelog with release changelog URL in footer', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: { commitRange: { releaseTag: 'v0.18.0' } },
 			context: { footerChangelogUrl: true },
 		})).generatedChangelog).toMatchSnapshot()
 	})
 
 	it('should generate changelog with selected and modified sections', async () => {
-		expect((await relion({ changelog: {
+		expect((await relion({ lifecycle: ['changelog'], changelog: {
 			commitRange: { releaseTag: 'v0.7.0' },
 			sections: sectionsSelector.omit('chore', 'docs', 'style', 'perf', 'test', 'misc', 'ci', 'deps')
 				.modify('feat', section => ({ ...section, title: '🎁 New Features' })),
@@ -45,7 +47,7 @@ describe('changelog generation', () => {
 
 describe('changelog sections rendering', () => {
 	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', async maxLines => {
-		expect((await relion({ changelog: {
+		expect((await relion({ lifecycle: ['changelog'], changelog: {
 			commitRange: { releaseTag: 'v0.17.0' },
 			maxLinesPerRelease: maxLines,
 		} })).generatedChangelog).toMatchSnapshot()
@@ -53,6 +55,7 @@ describe('changelog sections rendering', () => {
 
 	it('should keep sections with show="always" despite changelog line limit', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: { maxLinesPerRelease: 25 },
 			context: {
 				newVersion: '0.18.0',
@@ -71,6 +74,7 @@ describe('changelog sections rendering', () => {
 
 	it('should keep commits with breaking changes when maxLinesPerRelease is exceeded', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: { maxLinesPerRelease: 3 },
 			context: {
 				newVersion: '0.18.0',
@@ -89,6 +93,7 @@ describe('changelog sections rendering', () => {
 
 	it('should skip sections with show="never"', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: {
 				sections: {
 					feat: { title: '🎁 New Features', commitType: 'feat', show: 'always' },
@@ -109,6 +114,7 @@ describe('changelog sections rendering', () => {
 
 	it('should only show breaking commits for sections with show="only-breaking"', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: {
 				sections: { feat: { title: '🎁 New Features', commitType: 'feat', show: 'only-breaking' } },
 			},
@@ -125,6 +131,7 @@ describe('changelog sections rendering', () => {
 
 	it('should ignore changelog line limit for the first section when show defaults to "limit-or-breaking"', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: {
 				maxLinesPerRelease: 1,
 				sections: { feat: { title: '🎁 New Features', commitType: 'feat' } },
@@ -143,6 +150,7 @@ describe('changelog sections rendering', () => {
 
 	it('should show only breaking commits for sections exceeding line limit when show defaults to "limit-or-breaking"', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: {
 				maxLinesPerRelease: 1,
 				sections: {
@@ -167,6 +175,7 @@ describe('changelog sections rendering', () => {
 
 describe('commit references rendering', () => {
 	const config: UserConfig = {
+		lifecycle: ['changelog'],
 		changelog: { header: '', partials: { header: '', footer: '' } },
 		context: {
 			currentVersion: '0.10.0',
@@ -198,6 +207,7 @@ describe('commit references rendering', () => {
 describe('partials customization', () => {
 	it('should generate changelog with customized partials', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: {
 				commitRange: { releaseTag: 'v0.8.0' },
 				header: '',
@@ -213,6 +223,7 @@ describe('partials customization', () => {
 
 	it('should generate changelog with transformed partials', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: {
 				commitRange: { releaseTag: 'v0.8.0' },
 				partials: {
@@ -225,6 +236,7 @@ describe('partials customization', () => {
 
 	it('should generate changelog with transformed footer and custom changelog URL partial', async () => {
 		expect((await relion({
+			lifecycle: ['changelog'],
 			changelog: {
 				commitRange: { releaseTag: 'v0.8.0' },
 				partials: {
@@ -238,13 +250,14 @@ describe('partials customization', () => {
 
 describe('breaking changes rendering', () => {
 	const baseConfig: UserConfig = {
+		lifecycle: ['changelog'],
 		changelog: { header: '', partials: { header: '', footer: '' } },
 		context: { currentVersion: '0.21.0', commitHyperlink: false },
 	}
 
 	it('should use text under "BREAKING CHANGE:" as breaking change description', async () => {
 		expect((await relion({
-			changelog: baseConfig.changelog,
+			...baseConfig,
 			context: {
 				...baseConfig.context,
 				commits: [{ message: 'feat(core)!: some feature\n\nBREAKING CHANGE: some breaking change' }],
@@ -254,7 +267,7 @@ describe('breaking changes rendering', () => {
 
 	it('should use commit subject as breaking change description if no explicit "BREAKING CHANGE:..." is present', async () => {
 		expect((await relion({
-			changelog: baseConfig.changelog,
+			...baseConfig,
 			context: {
 				...baseConfig.context,
 				commits: [{ message: 'feat(core)!: some feature' }],
@@ -264,7 +277,7 @@ describe('breaking changes rendering', () => {
 
 	it('should render each item under "BREAKING CHANGES:" as a separate entry in the breaking changes section', async () => {
 		expect((await relion({
-			changelog: baseConfig.changelog,
+			...baseConfig,
 			context: {
 				...baseConfig.context,
 				commits: [{ message: 'feat(core)!: some feature\n\n'
@@ -278,14 +291,14 @@ describe('breaking changes rendering', () => {
 
 describe.runIf(process.env.VITEST_VSCODE)('changelog generation (manual)', () => {
 	it('should print upcoming release changelog', async () => {
-		await relion({ changelog: true })
+		await relion({ lifecycle: ['changelog'] })
 	})
 
 	it('should print latest release changelog', async () => {
-		await relion({ changelog: { commitRange: 'latest-release' } })
+		await relion({ lifecycle: ['changelog'], changelog: { commitRange: 'latest-release' } })
 	})
 
 	it('should print changelog for last 5 commits', async () => {
-		await relion({ changelog: { commitRange: 'HEAD~5..' } })
+		await relion({ lifecycle: ['changelog'], changelog: { commitRange: 'HEAD~5..' } })
 	})
 })

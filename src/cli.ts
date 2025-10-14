@@ -22,35 +22,17 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 	const parsedArgs = cli({
 		name: 'relion',
 		flags: {
+			lifecycle: {
+				alias: 'f',
+				type: String,
+				default: 'all',
+				description: 'Lifecycle steps to run in order ((b)ump, change(l)og, co(m)mit, (t)ag, or "all").',
+			},
 			config: {
 				alias: 'c',
 				type: String,
 				description: 'Path to the config file',
 				default: 'relion.config.ts',
-			},
-			bump: {
-				alias: 'b',
-				type: Boolean,
-				description: 'Bump the version',
-				default: false,
-			},
-			changelog: {
-				alias: 'l',
-				type: Boolean,
-				description: 'Generate a changelog',
-				default: false,
-			},
-			commit: {
-				alias: 'm',
-				type: Boolean,
-				description: 'Create a commit',
-				default: false,
-			},
-			tag: {
-				alias: 't',
-				type: Boolean,
-				description: 'Create a tag',
-				default: false,
 			},
 			profile: {
 				alias: 'p',
@@ -77,14 +59,17 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 
 	config ??= await loadConfigFile(parsedArgs.flags.config)
 
-	config.bump ||= parsedArgs.flags.bump
-	config.changelog ||= parsedArgs.flags.changelog
-	config.commit ||= parsedArgs.flags.commit
-	config.tag ||= parsedArgs.flags.tag
+	const lifecycle = parsedArgs.flags.lifecycle
+	if (lifecycle === 'all') {
+		config.lifecycle = lifecycle
+	} else {
+		const stepsMap = { b: 'bump', l: 'changelog', m: 'commit', t: 'tag' } as const
+		config.lifecycle = lifecycle.split('').map(char => stepsMap[char as keyof typeof stepsMap])
+	}
 	config.profile ??= parsedArgs.flags.profile
 	config.dryRun ??= parsedArgs.flags.dry
-	if (parsedArgs.flags.latest && config.changelog) {
-		if (config.changelog === true) config.changelog = {}
+	if (parsedArgs.flags.latest && config.lifecycle.includes('changelog')) {
+		config.changelog ??= {}
 		config.changelog.commitRange = 'latest-release'
 	}
 
