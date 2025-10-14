@@ -4,7 +4,7 @@ import type { HelperDeclareSpec } from 'handlebars'
 export type FalseOrComplete<T> = false | Required<T>
 
 export interface UserConfig {
-	bump?: boolean | BumpFiles
+	bump?: boolean | (string | Bumper)[]
 	changelog?: boolean | ChangelogOptions
 	commit?: boolean | CommitOptions
 	tag?: boolean | TagOptions
@@ -40,7 +40,6 @@ export interface TransformedConfig extends Omit<MergedConfig, 'changelog'> {
 export interface ResolvedConfig extends TransformedConfig {
 	context: ResolvedContext
 }
-export type BumpFiles = (string | Bumper)[]
 
 export interface ChangelogOptions {
 	output?: 'stdout' | (string & {})
