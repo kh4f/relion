@@ -79,7 +79,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 		})
 	}
 	if (parsedArgs.flags.dry) activeProfile.dryRun = true
-	if (parsedArgs.flags.latest && activeProfile.lifecycle.includes('changelog')) {
+	if (parsedArgs.flags.latest) {
 		activeProfile.changelog ??= {}
 		activeProfile.changelog.commitRange = 'latest-release'
 	}
