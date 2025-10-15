@@ -20,7 +20,35 @@ describe('runCli', () => {
 			},
 		}
 		const inputConfig = (await runCli('-f l --profile github --latest', config))?.inputConfig
-		expect(inputConfig).toEqual({ ...config, profile: 'github', changelog: { commitRange: 'latest-release' } })
+		console.log(config, inputConfig)
+		expect(inputConfig).toEqual({
+			...config,
+			lifecycle: ['changelog'],
+			profile: 'github',
+			changelog: { commitRange: 'latest-release' },
+		})
+	})
+})
+
+describe('lifecycle flag parsing', () => {
+	it('sets lifecycle to "all" when "-l all" is passed', async () => {
+		expect((await runCli('-l all', {}))?.inputConfig).toEqual({ lifecycle: 'all' })
+	})
+
+	it('maps "-f l" to ["changelog"]', async () => {
+		expect((await runCli('-f l', {}))?.inputConfig).toEqual({ lifecycle: ['changelog'] })
+	})
+
+	it('maps "-f bt" to ["bump","tag"]', async () => {
+		expect((await runCli('-f bt', {}))?.inputConfig).toEqual({ lifecycle: ['bump', 'tag'] })
+	})
+
+	it('parses composite alias "-f tmlb" and preserves order', async () => {
+		expect((await runCli('-f tmlb', {}))?.inputConfig).toEqual({ lifecycle: ['tag', 'commit', 'changelog', 'bump'] })
+	})
+
+	it('throws on invalid lifecycle alias', async () => {
+		await expect(() => runCli('-f tclb', {})).rejects.toThrowError(`Invalid lifecycle step alias: 'c'`)
 	})
 })
 
