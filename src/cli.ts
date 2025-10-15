@@ -58,21 +58,30 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 
 	config = config ? structuredClone(config) : await loadConfigFile(parsedArgs.flags.config)
 
+	let activeProfile: UserConfig
+	const profileName = parsedArgs.flags.profile ?? config.profile
+	if (profileName) {
+		const profile = config[`_${profileName}`]
+		if (!profile) throw new Error(`Profile '${profileName}' not found in config`)
+		activeProfile = profile
+	} else {
+		activeProfile = config._default ??= {}
+	}
+
 	const lifecycle = parsedArgs.flags.lifecycle
 	if (lifecycle === 'all') {
-		config.lifecycle = lifecycle
+		activeProfile.lifecycle = lifecycle
 	} else {
 		const stepsMap = { b: 'bump', l: 'changelog', m: 'commit', t: 'tag' } as const
-		config.lifecycle = lifecycle.split('').map(char => {
+		activeProfile.lifecycle = lifecycle.split('').map(char => {
 			if (!(char in stepsMap)) throw new Error(`Invalid lifecycle step alias: '${char}'`)
 			return stepsMap[char as keyof typeof stepsMap]
 		})
 	}
-	if (parsedArgs.flags.profile) config.profile = parsedArgs.flags.profile
-	if (parsedArgs.flags.dry) config.dryRun = true
-	if (parsedArgs.flags.latest && config.lifecycle.includes('changelog')) {
-		config.changelog ??= {}
-		config.changelog.commitRange = 'latest-release'
+	if (parsedArgs.flags.dry) activeProfile.dryRun = true
+	if (parsedArgs.flags.latest && activeProfile.lifecycle.includes('changelog')) {
+		activeProfile.changelog ??= {}
+		activeProfile.changelog.commitRange = 'latest-release'
 	}
 
 	return { inputConfig: config, ...await relion(config) }

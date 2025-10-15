@@ -1,53 +1,54 @@
 import { describe, it, expect, vi } from 'vitest'
 import { runCli } from '@/cli'
-import type { UserConfig } from '@/types'
 
-describe('runCli', () => {
-	it('should update config options according to CLI flags', async () => {
-		expect((await runCli('--lifecycle all --dry', {}))?.inputConfig).toEqual({
-			lifecycle: 'all', dryRun: true,
+describe('config transformation via CLI args', () => {
+	it('should apply CLI flags to implicit default profile', async () => {
+		expect((await runCli('-f l', {}))?.inputConfig).toEqual({
+			_default: { lifecycle: ['changelog'] },
 		})
 	})
 
-	it(`should apply 'github' profile and 'latest-release' commit range`, async () => {
-		const config: UserConfig = {
-			_github: {
-				context: { commitHyperlink: false },
-				changelog: {
-					header: '',
-					partials: { header: '' },
-				},
-			},
-		}
-		const inputConfig = (await runCli('-f l --profile github --latest', config))?.inputConfig
-		console.log(config, inputConfig)
-		expect(inputConfig).toEqual({
-			...config,
-			lifecycle: ['changelog'],
-			profile: 'github',
-			changelog: { commitRange: 'latest-release' },
+	it('should apply CLI flags to explicitly specified default profile', async () => {
+		expect((await runCli('-L', { profile: 'default', _default: {} }))?.inputConfig).toEqual({
+			profile: 'default',
+			_default: { lifecycle: 'all', changelog: { commitRange: 'latest-release' } },
 		})
+	})
+
+	it('should apply CLI flags to specified custom profile', async () => {
+		expect((await runCli('-f l -d', { profile: 'custom', _custom: { lifecycle: 'all' } }))?.inputConfig).toEqual({
+			profile: 'custom',
+			_custom: { lifecycle: ['changelog'], dryRun: true },
+		})
+	})
+
+	it('should throw error when specified profile does not exist in config', async () => {
+		await expect(() => runCli('', { profile: 'custom' })).rejects.toThrowError(`Profile 'custom' not found in config`)
+	})
+
+	it('should throw error when explicitly specified default profile is not defined', async () => {
+		await expect(() => runCli('', { profile: 'default' })).rejects.toThrowError(`Profile 'default' not found in config`)
 	})
 })
 
 describe('lifecycle flag parsing', () => {
-	it('sets lifecycle to "all" when "-f all" is passed', async () => {
-		expect((await runCli('-f all', {}))?.inputConfig).toEqual({ lifecycle: 'all' })
+	it('should set lifecycle to "all" when "-f all" is passed', async () => {
+		expect((await runCli('-f all', {}))?.inputConfig._default).toEqual({ lifecycle: 'all' })
 	})
 
-	it('maps "-f l" to ["changelog"]', async () => {
-		expect((await runCli('-f l', {}))?.inputConfig).toEqual({ lifecycle: ['changelog'] })
+	it('should map "-f l" to ["changelog"]', async () => {
+		expect((await runCli('-f l', {}))?.inputConfig._default).toEqual({ lifecycle: ['changelog'] })
 	})
 
-	it('maps "-f bt" to ["bump","tag"]', async () => {
-		expect((await runCli('-f bt', {}))?.inputConfig).toEqual({ lifecycle: ['bump', 'tag'] })
+	it('should map "-f bt" to ["bump","tag"]', async () => {
+		expect((await runCli('-f bt', {}))?.inputConfig._default).toEqual({ lifecycle: ['bump', 'tag'] })
 	})
 
-	it('parses composite alias "-f tmlb" and preserves order', async () => {
-		expect((await runCli('-f tmlb', {}))?.inputConfig).toEqual({ lifecycle: ['tag', 'commit', 'changelog', 'bump'] })
+	it('should parse composite alias "-f tmlb" and preserves order', async () => {
+		expect((await runCli('-f tmlb', {}))?.inputConfig._default).toEqual({ lifecycle: ['tag', 'commit', 'changelog', 'bump'] })
 	})
 
-	it('throws on invalid lifecycle alias', async () => {
+	it('should throw on invalid lifecycle alias', async () => {
 		await expect(() => runCli('-f tclb', {})).rejects.toThrowError(`Invalid lifecycle step alias: 'c'`)
 	})
 })
