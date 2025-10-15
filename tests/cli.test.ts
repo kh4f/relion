@@ -31,8 +31,8 @@ describe('runCli', () => {
 })
 
 describe('lifecycle flag parsing', () => {
-	it('sets lifecycle to "all" when "-l all" is passed', async () => {
-		expect((await runCli('-l all', {}))?.inputConfig).toEqual({ lifecycle: 'all' })
+	it('sets lifecycle to "all" when "-f all" is passed', async () => {
+		expect((await runCli('-f all', {}))?.inputConfig).toEqual({ lifecycle: 'all' })
 	})
 
 	it('maps "-f l" to ["changelog"]', async () => {
