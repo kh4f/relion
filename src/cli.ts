@@ -57,7 +57,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 	// argv may be undefined if --help was passed
 	if (!(parsedArgs as ReturnType<typeof cli> | undefined)) return
 
-	config ??= await loadConfigFile(parsedArgs.flags.config)
+	config = config ? structuredClone(config) : await loadConfigFile(parsedArgs.flags.config)
 
 	const lifecycle = parsedArgs.flags.lifecycle
 	if (lifecycle === 'all') {
