@@ -4,7 +4,7 @@ import type { UserConfig } from '@/types'
 
 describe('runCli', () => {
 	it('should update config options according to CLI flags', async () => {
-		expect((await runCli('--lifecycle all --dry', {}))?.inputConfig).toMatchObject({
+		expect((await runCli('--lifecycle all --dry', {}))?.inputConfig).toEqual({
 			lifecycle: 'all', dryRun: true,
 		})
 	})
@@ -20,7 +20,7 @@ describe('runCli', () => {
 			},
 		}
 		const inputConfig = (await runCli('-f l --profile github --latest', config))?.inputConfig
-		expect(inputConfig).toMatchObject({ ...config, profile: 'github', changelog: { commitRange: 'latest-release' } })
+		expect(inputConfig).toEqual({ ...config, profile: 'github', changelog: { commitRange: 'latest-release' } })
 	})
 })
 
