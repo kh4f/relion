@@ -15,7 +15,7 @@ describe('changelog generation', () => {
 			lifecycle: ['changelog'],
 			changelog: { header: '', partials: { header: '', footer: '' } },
 			context: {
-				commitHyperlink: false,
+				hyperlinks: false,
 				commits: [
 					{ message: 'fix: unscoped commit 3' },
 					{ message: 'feat: unscoped commit 2' },
@@ -59,7 +59,7 @@ describe('changelog sections rendering', () => {
 			changelog: { maxLinesPerRelease: 25 },
 			context: {
 				newVersion: '0.18.0',
-				commitHyperlink: false,
+				hyperlinks: false,
 				commits: [
 					...Array.from({ length: 10 }, () => ({ message: 'feat(core): some feature' })),
 					...Array.from({ length: 10 }, () => ({ message: 'fix(core): some bugfix' })),
@@ -78,7 +78,7 @@ describe('changelog sections rendering', () => {
 			changelog: { maxLinesPerRelease: 3 },
 			context: {
 				newVersion: '0.18.0',
-				commitHyperlink: false,
+				hyperlinks: false,
 				commits: [
 					{ message: 'feat(core): some feature' },
 					{ message: 'fix(core): some bugfix' },
@@ -102,7 +102,7 @@ describe('changelog sections rendering', () => {
 			},
 			context: {
 				newVersion: '0.18.0',
-				commitHyperlink: false,
+				hyperlinks: false,
 				commits: [
 					{ message: 'feat(core): some feature' },
 					{ message: 'fix(core): some bugfix 1' },
@@ -120,7 +120,7 @@ describe('changelog sections rendering', () => {
 			},
 			context: {
 				newVersion: '0.18.0',
-				commitHyperlink: false,
+				hyperlinks: false,
 				commits: [
 					{ message: 'feat(core): some feature 1' },
 					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change' },
@@ -138,7 +138,7 @@ describe('changelog sections rendering', () => {
 			},
 			context: {
 				newVersion: '0.18.0',
-				commitHyperlink: false,
+				hyperlinks: false,
 				commits: [
 					{ message: 'feat(core): some feature 1' },
 					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change' },
@@ -160,7 +160,7 @@ describe('changelog sections rendering', () => {
 			},
 			context: {
 				newVersion: '0.18.0',
-				commitHyperlink: false,
+				hyperlinks: false,
 				commits: [
 					{ message: 'feat(core): some feature 1' },
 					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change 1' },
@@ -199,7 +199,7 @@ describe('commit references rendering', () => {
 	it('should render commit references as plain text', async () => {
 		expect((await relion({
 			...config,
-			context: { ...config.context, commitHyperlink: false, refHyperlink: false },
+			context: { ...config.context, hyperlinks: false },
 		})).generatedChangelog).toMatchSnapshot()
 	})
 })
@@ -252,7 +252,7 @@ describe('breaking changes rendering', () => {
 	const baseConfig: UserConfig = {
 		lifecycle: ['changelog'],
 		changelog: { header: '', partials: { header: '', footer: '' } },
-		context: { currentVersion: '0.21.0', commitHyperlink: false },
+		context: { currentVersion: '0.21.0', hyperlinks: false },
 	}
 
 	it('should use text under "BREAKING CHANGE:" as breaking change description', async () => {

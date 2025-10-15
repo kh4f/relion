@@ -11,11 +11,7 @@ export default defineConfig({
 	_github: {
 		lifecycle: ['changelog'],
 		logLevel: 'silent',
-		context: {
-			commitHyperlink: false,
-			refHyperlink: false,
-			footerChangelogUrl: true,
-		},
+		context: { hyperlinks: false, footerChangelogUrl: true },
 		changelog: {
 			output: 'stdout',
 			commitRange: 'latest-release',
