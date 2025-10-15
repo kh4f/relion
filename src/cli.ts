@@ -64,7 +64,10 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 		config.lifecycle = lifecycle
 	} else {
 		const stepsMap = { b: 'bump', l: 'changelog', m: 'commit', t: 'tag' } as const
-		config.lifecycle = lifecycle.split('').map(char => stepsMap[char as keyof typeof stepsMap])
+		config.lifecycle = lifecycle.split('').map(char => {
+			if (!(char in stepsMap)) throw new Error(`Invalid lifecycle step alias: '${char}'`)
+			return stepsMap[char as keyof typeof stepsMap]
+		})
 	}
 	config.profile ??= parsedArgs.flags.profile
 	config.dryRun ??= parsedArgs.flags.dry
