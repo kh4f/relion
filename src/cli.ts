@@ -43,7 +43,6 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 				alias: 'd',
 				type: Boolean,
 				description: 'Run without making any changes',
-				default: false,
 			},
 			latest: {
 				alias: 'L',
@@ -69,8 +68,8 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 			return stepsMap[char as keyof typeof stepsMap]
 		})
 	}
-	config.profile ??= parsedArgs.flags.profile
-	config.dryRun ??= parsedArgs.flags.dry
+	if (parsedArgs.flags.profile) config.profile = parsedArgs.flags.profile
+	if (parsedArgs.flags.dry) config.dryRun = true
 	if (parsedArgs.flags.latest && config.lifecycle.includes('changelog')) {
 		config.changelog ??= {}
 		config.changelog.commitRange = 'latest-release'
