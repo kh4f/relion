@@ -1,5 +1,27 @@
 import { describe, it, expect, vi } from 'vitest'
 import { runCli } from '@/cli'
+import relionProjectConfig from '../relion.config'
+import relionTestConfig from './fixtures/relion.config.cli'
+
+describe('runCli', () => {
+	it('should output help message when `--help` is passed', async () => {
+		const exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
+		let log = ''
+		const logSpy = vi.spyOn(console, 'log').mockImplementation((msg: string) => log += msg)
+		await runCli('--help', {})
+		expect(exitSpy).toHaveBeenCalledWith(0)
+		expect(log).toMatchSnapshot()
+		logSpy.mockRestore()
+	})
+
+	it('should load config from default path (relion.config.ts)', async () => {
+		expect((await runCli('-f l'))?.inputConfig).toEqual(relionProjectConfig)
+	})
+
+	it('should load config from custom path', async () => {
+		expect((await runCli('--config tests/fixtures/relion.config.cli.ts --dry'))?.inputConfig).toEqual(relionTestConfig)
+	})
+})
 
 describe('config transformation via CLI args', () => {
 	it('should apply CLI flags to implicit default profile', async () => {
@@ -50,21 +72,5 @@ describe('lifecycle flag parsing', () => {
 
 	it('should throw on invalid lifecycle alias', async () => {
 		await expect(() => runCli('-f tclb', {})).rejects.toThrowError(`Invalid lifecycle step alias: 'c'`)
-	})
-})
-
-describe.runIf(process.env.VITEST_VSCODE)('runCli (manual)', () => {
-	it('should output help message when `--help` is passed', async () => {
-		const exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
-		await runCli('--help', {})
-		expect(exitSpy).toHaveBeenCalledWith(0)
-	})
-
-	it('should load config from default path (relion.config.ts)', async () => {
-		await runCli('-f l --dry')
-	})
-
-	it('should load config from custom path', async () => {
-		await runCli('--config tests/fixtures/relion.config.cli.ts --dry')
 	})
 })
