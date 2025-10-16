@@ -32,7 +32,9 @@ exports[`breaking changes rendering > should use text under "BREAKING CHANGE:" a
 `;
 
 exports[`changelog generation > should extract changelog for latest release from file 1`] = `
-"## &ensp; [\` 📦 v0.22.0  \`](https://github.com/kh4f/relion/compare/v0.21.0...v0.22.0)### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+"## &ensp; [\` 📦 v0.22.0  \`](https://github.com/kh4f/relion/compare/v0.21.0...v0.22.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
 - CLI flags \`--bump\`, \`--changelog\`, \`--commit\`, and \`--tag\` have been removed. Use \`--lifecycle\` with step abbreviations instead (e.g., \`--lifecycle blmt\` or \`-f all\`). <sup>[1]</sup>
 - Config options \`bump\`, \`changelog\`, \`commit\`, and \`tag\` no longer accept boolean values. Use the \`lifecycle\` array to control step execution and these options for step-specific configuration only. <sup>[1]</sup>
 - The exported \`BumpFiles\` type was removed. <sup>[2]</sup>
@@ -57,7 +59,9 @@ exports[`changelog generation > should extract changelog for latest release from
 `;
 
 exports[`changelog generation > should extract changelog for latest release from file and remove commit and ref links 1`] = `
-"## &ensp;  📦 v0.22.0  ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+"## &ensp;  📦 v0.22.0  
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
 - CLI flags \`--bump\`, \`--changelog\`, \`--commit\`, and \`--tag\` have been removed. Use \`--lifecycle\` with step abbreviations instead (e.g., \`--lifecycle blmt\` or \`-f all\`). <sup>[1]</sup>
 - Config options \`bump\`, \`changelog\`, \`commit\`, and \`tag\` no longer accept boolean values. Use the \`lifecycle\` array to control step execution and these options for step-specific configuration only. <sup>[1]</sup>
 - The exported \`BumpFiles\` type was removed. <sup>[2]</sup>
