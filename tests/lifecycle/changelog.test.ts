@@ -213,7 +213,7 @@ describe('partials customization', () => {
 				header: '',
 				partials: {
 					header: '',
-					main: '',
+					body: '',
 					customPartial: '**This is a custom partial**',
 					footer: 'CUSTOM FOOTER --- {{>customPartial}} ---',
 				},

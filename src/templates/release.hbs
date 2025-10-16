@@ -2,7 +2,7 @@
 	## &ensp; [` 📦 {{tag}}  `]({{>compareLink}}){{>br}}
 {{/header}}
 
-{{~#>main~}}
+{{~#>body~}}
 	{{#each commitTypeGroups~}}
 		### {{{repeat '&nbsp;' 5}}}{{title}}
 		{{#if (eq @key 'breaking')}}
@@ -36,7 +36,7 @@
 		{{/if}}
 
 	{{/each}}
-{{/main}}
+{{/body}}
 
 {{~#>footer~}}
 	##### &emsp;&ensp;&nbsp;&nbsp; {{#if footerChangelogUrl}}[_Release Changelog_]({{>changelogUrl}}) &ensp;•&ensp; {{/if}}[_All Release Commits_]({{>compareLink}}) &ensp;•&ensp; _{{date}}_{{>br}}{{>br}}
