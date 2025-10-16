@@ -23,7 +23,7 @@ export interface UserConfig {
 	[profile: `_${string}`]: UserConfig | undefined
 }
 
-type OptionalKeys = LifecycleStep | 'releaseType' | 'context' | 'profile' | 'newTagPrefix'
+type OptionalKeys = LifecycleStep | 'releaseType' | 'profile' | 'newTagPrefix'
 export interface MergedConfig extends Omit<Required<UserConfig>, OptionalKeys>, Pick<UserConfig, OptionalKeys> {
 	lifecycle: LifecycleStep[]
 	changelog?: CompleteChangelogOptions
@@ -47,10 +47,11 @@ export interface ChangelogOptions {
 	sections?: TypeGroupsMap
 	header?: string
 	prevReleaseHeaderPattern?: RegExp
+	latestReleasePattern?: RegExp
 	groupCommitsByScope?: boolean
 	maxLinesPerRelease?: number
 	helpers?: HelperDeclareSpec
-	partials?: Record<string, string | ((fallback: string) => string)>
+	partials?: Record<string, 'from-file' | (string & {}) | ((fallback: string) => string)>
 	review?: boolean
 }
 export type CompleteChangelogOptions = Required<ChangelogOptions>

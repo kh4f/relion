@@ -248,6 +248,39 @@ describe('partials customization', () => {
 	})
 })
 
+describe('partials extraction', () => {
+	it('should extract body partial for latest release from changelog file', async () => {
+		expect((await relion({
+			lifecycle: ['changelog'],
+			context: { newVersion: '0.22.0' },
+			changelog: {
+				output: 'tests/fixtures/CHANGELOG.md',
+				header: '',
+				partials: { body: 'from-file' },
+			},
+		})).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should extract body partial for latest release from changelog file and remove commit and reference links from body', async () => {
+		expect((await relion({
+			lifecycle: ['changelog'],
+			context: { newVersion: '0.22.0', commitRefLinks: false, footerChangelogUrl: true },
+			changelog: {
+				output: 'tests/fixtures/CHANGELOG.md',
+				header: '',
+				partials: { body: 'from-file' },
+			},
+		})).generatedChangelog).toMatchSnapshot()
+	})
+
+	it(`should throw an error when extracting partials from file with 'stdout' output`, async () => {
+		await expect(() => relion({
+			lifecycle: ['changelog'],
+			changelog: { output: 'stdout', partials: { body: 'from-file' } },
+		})).rejects.toThrowError(`Cannot extract partials from file when output is set to 'stdout'.`)
+	})
+})
+
 describe('breaking changes rendering', () => {
 	const baseConfig: UserConfig = {
 		lifecycle: ['changelog'],

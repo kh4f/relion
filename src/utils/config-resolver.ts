@@ -98,12 +98,12 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 		...config,
 		versionSourceFile,
 		bump: config.lifecycle.includes('bump') ? (config.bump ? config.bump.map(resolveBumper) : [versionSourceFile]) : undefined,
-		changelog: config.changelog ? { ...config.changelog, compiledPartials: resolvePartials(config.changelog.partials) } : undefined,
+		changelog: config.changelog ? { ...config.changelog, compiledPartials: resolvePartials(config.changelog, config.context) } : undefined,
 	}
 }
 
 const resolveContext = (config: TransformedConfig): ResolvedConfig => {
-	const oldContext = config.context ?? {}
+	const oldContext = config.context
 
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
 	const currentVersion = oldContext.currentVersion ?? (
@@ -140,10 +140,12 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 			newTag,
 			commits: resolvedCommits,
 			releases,
+			commitRefLinks: oldContext.commitRefLinks ?? true,
+			footerChangelogUrl: oldContext.footerChangelogUrl ?? false,
 			...noCommitsOldContext,
 			repo: {
 				...repoInfo,
-				...config.context?.repo,
+				...config.context.repo,
 			},
 		},
 	}
