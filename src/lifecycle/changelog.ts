@@ -41,7 +41,7 @@ export const changelog = async (config: ResolvedConfig): Promise<string | null> 
 		console.log(result)
 	} else {
 		log(`Writing changelog to file '${options.output}'`)
-		writeToFile(options.output, result, options.prevReleaseHeaderPattern)
+		writeToFile(options.output, result, options.latestReleasePattern)
 	}
 
 	if (options.review && options.output !== 'stdout' && (config.commit || config.tag))
@@ -50,10 +50,10 @@ export const changelog = async (config: ResolvedConfig): Promise<string | null> 
 	return result
 }
 
-const writeToFile = (outputFile: string, content: string, prevReleaseHeaderPattern: RegExp): void => {
+const writeToFile = (outputFile: string, content: string, latestReleasePattern: RegExp): void => {
 	const changelogContent = existsSync(outputFile) ? readFileSync(outputFile, { encoding: 'utf8' }) : ''
-	const prevReleaseStart = changelogContent.search(prevReleaseHeaderPattern)
-	const headlessChangelog = changelogContent.slice(prevReleaseStart)
+	const latestReleaseStart = changelogContent.search(latestReleasePattern)
+	const headlessChangelog = changelogContent.slice(latestReleaseStart)
 	const newChangelog = content + headlessChangelog
 	writeFileSync(outputFile, newChangelog, { encoding: 'utf8' })
 }

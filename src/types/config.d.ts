@@ -46,7 +46,6 @@ export interface ChangelogOptions {
 	commitRange?: CommitRange
 	sections?: TypeGroupsMap
 	header?: string
-	prevReleaseHeaderPattern?: RegExp
 	latestReleasePattern?: RegExp
 	groupCommitsByScope?: boolean
 	maxLinesPerRelease?: number
