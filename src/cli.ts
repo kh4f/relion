@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import relion from './index.js'
-import type { UserConfig, RelionResult } from '@/types'
+import type { UserConfig, RelionResult, LifecycleStep } from '@/types'
 import { cli } from 'cleye'
 
 const loadConfigFile = async (configPath: string): Promise<UserConfig> => {
@@ -11,6 +11,15 @@ const loadConfigFile = async (configPath: string): Promise<UserConfig> => {
 	} catch (error) {
 		throw new Error(`Error loading config: ${(error as Error).message}`)
 	}
+}
+
+const parseLifecycleFlag = (flag: string): 'all' | LifecycleStep[] => {
+	if (flag === 'all') return 'all'
+	const stepsMap = { b: 'bump', l: 'changelog', m: 'commit', t: 'tag' } as const
+	return flag.split('').map(char => {
+		if (!(char in stepsMap)) throw new Error(`Invalid lifecycle step alias: '${char}'`)
+		return stepsMap[char as keyof typeof stepsMap]
+	})
 }
 
 if (import.meta.main) await runCli()
@@ -68,16 +77,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 		activeProfile = config._default ??= {}
 	}
 
-	const lifecycle = parsedArgs.flags.lifecycle
-	if (lifecycle === 'all') {
-		activeProfile.lifecycle = lifecycle
-	} else {
-		const stepsMap = { b: 'bump', l: 'changelog', m: 'commit', t: 'tag' } as const
-		activeProfile.lifecycle = lifecycle.split('').map(char => {
-			if (!(char in stepsMap)) throw new Error(`Invalid lifecycle step alias: '${char}'`)
-			return stepsMap[char as keyof typeof stepsMap]
-		})
-	}
+	activeProfile.lifecycle ??= parseLifecycleFlag(parsedArgs.flags.lifecycle)
 	if (parsedArgs.flags.dry) activeProfile.dryRun = true
 	if (parsedArgs.flags.latest) {
 		activeProfile.changelog ??= {}
