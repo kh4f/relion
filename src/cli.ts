@@ -72,6 +72,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 	if (profileName) {
 		const profile = config[`_${profileName}`]
 		if (!profile) throw new Error(`Profile '${profileName}' not found in config`)
+		config.profile = profileName
 		activeProfile = profile
 	} else {
 		activeProfile = config._default ??= {}

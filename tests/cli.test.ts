@@ -24,6 +24,13 @@ describe('runCli', () => {
 })
 
 describe('config transformation via CLI args', () => {
+	it(`should apply 'custom' profile via CLI flag`, async () => {
+		expect((await runCli('-p custom', { _custom: { lifecycle: ['changelog'] } }))?.inputConfig).toEqual({
+			profile: 'custom',
+			_custom: { lifecycle: ['changelog'] },
+		})
+	})
+
 	it('should apply CLI flags to implicit default profile', async () => {
 		expect((await runCli('-f l', {}))?.inputConfig).toEqual({
 			_default: { lifecycle: ['changelog'] },
