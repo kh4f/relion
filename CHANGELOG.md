@@ -1,6 +1,47 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.23.0  `](https://github.com/kh4f/relion/compare/v0.22.0...v0.23.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The changelog output configuration now uses separate `file` and `output` options. To change the output file, update the `changelog.file` property. <sup>[1]</sup>
+- The `prevReleaseHeaderPattern` property has been removed from changelog config. Use `latestReleasePattern` instead. <sup>[2]</sup>
+- The context option `hyperlinks` has been renamed to `commitRefLinks`. <sup>[3]</sup>
+- The changelog partial previously named `main` has been renamed to `body`. <sup>[4]</sup>
+- The default `commitHyperlink` and `refHyperlink` context settings have been removed. Use `hyperlinks: boolean` instead. <sup>[5]</sup>
+- CLI arguments now always override corresponding options from the config, even when a profile is used. <sup>[6]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: 
+  - add `commitRefLinkPattern` option to changelog configuration [`6ea2d5a`](https://github.com/kh4f/relion/commit/6ea2d5a)
+  - support extracting full changelog for latest release from file [`f84960d`](https://github.com/kh4f/relion/commit/f84960d)
+  - support extracting latest release partials from changelog [`a7af989`](https://github.com/kh4f/relion/commit/a7af989)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **hbs-helper**: refine commit/ref link pattern in `modifyPartialWithContext` [`145cc70`](https://github.com/kh4f/relion/commit/145cc70)
+- **defaults**: update `latestReleasePattern` to include empty lines after header [`334e0a8`](https://github.com/kh4f/relion/commit/334e0a8)
+- **changelog**: correct `latestReleasePattern` to stop at next `##` header [`6db2687`](https://github.com/kh4f/relion/commit/6db2687)
+- **cli**: 
+  - prevent profile `lifecycle` option from overwriting CLI `-f` flag [`b075b8a`](https://github.com/kh4f/relion/commit/b075b8a)
+  - ensure `profile` property is set when CLI `-p` flag is provided [`d855871`](https://github.com/kh4f/relion/commit/d855871)
+  - ensure `latest` flag is applied even if `changelog` is not defined [`bd5d4f0`](https://github.com/kh4f/relion/commit/bd5d4f0)
+  - ensure `profile` and `dry` flags override config values [`f60348d`](https://github.com/kh4f/relion/commit/f60348d)
+  - clone `config` input to avoid mutating caller's object [`6c11aef`](https://github.com/kh4f/relion/commit/6c11aef)
+  - validate lifecycle step aliases [`cd693f8`](https://github.com/kh4f/relion/commit/cd693f8)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **changelog**: 
+  - split `output` option into `file` and `output` [`409438b`](https://github.com/kh4f/relion/commit/409438b) ⚠️<sup>[1]</sup>
+  - rename `main` partial to `body` in release template [`61d2ccd`](https://github.com/kh4f/relion/commit/61d2ccd) ⚠️<sup>[4]</sup>
+  - consolidate hyperlink flags into `hyperlinks` [`fa3743e`](https://github.com/kh4f/relion/commit/fa3743e) ⚠️<sup>[5]</sup>
+- **config**: 
+  - remove `changelog.prevReleaseHeaderPattern` in favor of `latestReleasePattern` [`436aa34`](https://github.com/kh4f/relion/commit/436aa34) ⚠️<sup>[2]</sup>
+  - rename `hyperlinks` to `commitRefLinks` [`6501e97`](https://github.com/kh4f/relion/commit/6501e97) ⚠️<sup>[3]</sup>
+- **cli**: prioritize CLI arguments over config profile options [`09bcd35`](https://github.com/kh4f/relion/commit/09bcd35) ⚠️<sup>[6]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.22.0...v0.23.0) &ensp;•&ensp; _Oct 16, 2025_
+
+
 ## &ensp; [` 📦 v0.22.0  `](https://github.com/kh4f/relion/compare/v0.21.0...v0.22.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
