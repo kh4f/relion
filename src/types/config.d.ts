@@ -107,6 +107,8 @@ export interface Context {
 	newVersion?: string
 	newTag?: string
 	repo?: RepoInfo
+	hyperlinks?: boolean
+	footerChangelogUrl?: boolean
 	[key: string]: unknown
 }
 export interface ResolvedContext extends Required<Context> {
