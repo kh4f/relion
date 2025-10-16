@@ -31,6 +31,56 @@ exports[`breaking changes rendering > should use text under "BREAKING CHANGE:" a
 "
 `;
 
+exports[`changelog generation > should extract changelog for latest release from file 1`] = `
+"## &ensp; [\` 📦 v0.22.0  \`](https://github.com/kh4f/relion/compare/v0.21.0...v0.22.0)### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- CLI flags \`--bump\`, \`--changelog\`, \`--commit\`, and \`--tag\` have been removed. Use \`--lifecycle\` with step abbreviations instead (e.g., \`--lifecycle blmt\` or \`-f all\`). <sup>[1]</sup>
+- Config options \`bump\`, \`changelog\`, \`commit\`, and \`tag\` no longer accept boolean values. Use the \`lifecycle\` array to control step execution and these options for step-specific configuration only. <sup>[1]</sup>
+- The exported \`BumpFiles\` type was removed. <sup>[2]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: apply sentence case formatting for breaking change descriptions [\`0e67566\`](https://github.com/kh4f/relion/commit/0e67566)
+- **config**: add implicit "default" profile support [\`0121ff1\`](https://github.com/kh4f/relion/commit/0121ff1)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **commits-parser**: restrict \`BREAKING CHANGES\` detection to line start [\`893e5af\`](https://github.com/kh4f/relion/commit/893e5af)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **config**: replace boolean lifecycle flags with unified \`lifecycle\` array [\`b0d2d33\`](https://github.com/kh4f/relion/commit/b0d2d33) ⚠️<sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **config**: remove \`BumpFiles\` type and use \`(string | Bumper)[]\` directly for \`bump\` instead [\`418b6ca\`](https://github.com/kh4f/relion/commit/418b6ca) ⚠️<sup>[2]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.21.0...v0.22.0) &ensp;•&ensp; _Oct 14, 2025_
+
+
+"
+`;
+
+exports[`changelog generation > should extract changelog for latest release from file and remove commit and ref links 1`] = `
+"## &ensp;  📦 v0.22.0  ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- CLI flags \`--bump\`, \`--changelog\`, \`--commit\`, and \`--tag\` have been removed. Use \`--lifecycle\` with step abbreviations instead (e.g., \`--lifecycle blmt\` or \`-f all\`). <sup>[1]</sup>
+- Config options \`bump\`, \`changelog\`, \`commit\`, and \`tag\` no longer accept boolean values. Use the \`lifecycle\` array to control step execution and these options for step-specific configuration only. <sup>[1]</sup>
+- The exported \`BumpFiles\` type was removed. <sup>[2]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: apply sentence case formatting for breaking change descriptions 0e67566
+- **config**: add implicit "default" profile support 0121ff1
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **commits-parser**: restrict \`BREAKING CHANGES\` detection to line start 893e5af
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **config**: replace boolean lifecycle flags with unified \`lifecycle\` array b0d2d33 ⚠️<sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **config**: remove \`BumpFiles\` type and use \`(string | Bumper)[]\` directly for \`bump\` instead 418b6ca ⚠️<sup>[2]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; _All Release Commits_ &ensp;•&ensp; _Oct 14, 2025_
+
+
+"
+`;
+
 exports[`changelog generation > should generate changelog for release 'v0.7.0' 1`] = `
 "# Changelog
 

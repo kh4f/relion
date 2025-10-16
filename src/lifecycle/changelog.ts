@@ -1,5 +1,5 @@
 import { extractVersionFromTag, getReleaseTags, log } from '@/utils'
-import type { ReleaseContext, ReleaseWithTypeGroups, ResolvedConfig } from '@/types'
+import type { ReleaseContext, ReleaseWithTypeGroups, ResolvedChangelogOptions, ResolvedConfig } from '@/types'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import Handlebars from 'handlebars'
 import releaseTemplate from '@/templates/release.hbs'
@@ -7,8 +7,14 @@ import { promptToContinue } from '@/utils/prompter'
 
 export const changelog = async (config: ResolvedConfig): Promise<string | null> => {
 	if (!config.changelog) return null
+	const result = config.changelog.extractFromFile ? config.changelog.compiledPartials as string : generateChangelog(config)
+	if (result) await handleChangelogOutput(config.changelog, config, result)
+	return result
+}
 
-	const options = config.changelog
+const generateChangelog = (config: ResolvedConfig): string | null => {
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const options = config.changelog!
 	const releases = config.context.releases
 	if (!releases) return null
 
@@ -16,7 +22,7 @@ export const changelog = async (config: ResolvedConfig): Promise<string | null> 
 
 	// Create a local Handlebars instance to avoid global state pollution
 	const hbs = Handlebars.create()
-	hbs.registerPartial(options.compiledPartials)
+	hbs.registerPartial(options.compiledPartials as Record<string, HandlebarsTemplateDelegate>)
 	hbs.registerHelper(options.helpers)
 
 	let result = options.header
@@ -36,6 +42,10 @@ export const changelog = async (config: ResolvedConfig): Promise<string | null> 
 		result += rendered
 	})
 
+	return result
+}
+
+const handleChangelogOutput = async (options: ResolvedChangelogOptions, config: ResolvedConfig, result: string): Promise<void> => {
 	if (options.output === 'stdout' || config.dryRun) {
 		log(`Generated changelog:`)
 		console.log(result)
@@ -46,8 +56,6 @@ export const changelog = async (config: ResolvedConfig): Promise<string | null> 
 
 	if (options.review && options.output === 'file' && (config.commit || config.tag))
 		await promptToContinue('Please review the changelog and press Enter to continue...')
-
-	return result
 }
 
 const writeToFile = (outputFile: string, content: string, latestReleasePattern: RegExp): void => {

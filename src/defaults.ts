@@ -25,6 +25,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	file: 'CHANGELOG.md',
 	output: 'file',
 	commitRange: 'unreleased',
+	extractFromFile: false,
 	sections: defaultChangelogSections,
 	header: '# Changelog\n\n\n',
 	latestReleasePattern: /(?<header>##.*?)\n\n(?<body>.*?)(?<footer>####.*?)##/s,

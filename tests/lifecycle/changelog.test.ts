@@ -43,6 +43,21 @@ describe('changelog generation', () => {
 				.modify('feat', section => ({ ...section, title: '🎁 New Features' })),
 		} })).generatedChangelog).toMatchSnapshot()
 	})
+
+	it('should extract changelog for latest release from file', async () => {
+		expect((await relion({
+			lifecycle: ['changelog'],
+			changelog: { file: 'tests/fixtures/CHANGELOG.md', extractFromFile: true },
+		})).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should extract changelog for latest release from file and remove commit and ref links', async () => {
+		expect((await relion({
+			lifecycle: ['changelog'],
+			context: { commitRefLinks: false, footerChangelogUrl: true },
+			changelog: { file: 'tests/fixtures/CHANGELOG.md', extractFromFile: true },
+		})).generatedChangelog).toMatchSnapshot()
+	})
 })
 
 describe('changelog sections rendering', () => {

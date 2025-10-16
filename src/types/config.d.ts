@@ -45,6 +45,7 @@ export interface ChangelogOptions {
 	file?: string
 	output?: 'file' | 'stdout'
 	commitRange?: CommitRange
+	extractFromFile?: boolean
 	sections?: TypeGroupsMap
 	header?: string
 	latestReleasePattern?: RegExp
@@ -56,7 +57,7 @@ export interface ChangelogOptions {
 }
 export type CompleteChangelogOptions = Required<ChangelogOptions>
 export interface ResolvedChangelogOptions extends Omit<CompleteChangelogOptions, 'partials'> {
-	compiledPartials: Record<string, HandlebarsTemplateDelegate>
+	compiledPartials: Record<string, HandlebarsTemplateDelegate> | string
 }
 
 export interface CommitOptions {
