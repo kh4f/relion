@@ -9,7 +9,7 @@ export const resolvePartials = (options: CompleteChangelogOptions, context: Cont
 	if (options.extractFromFile || isPartialExtractionUsed) {
 		changelogContent = readFileSync(options.file, 'utf-8')
 		extractedPartials = options.latestReleasePattern.exec(changelogContent)?.groups ?? {}
-		if (options.extractFromFile) return modifyPartialWithContext(Object.values(extractedPartials).join(''), context)
+		if (options.extractFromFile) return modifyPartialWithContext(Object.values(extractedPartials).join(''), context, options.commitRefLinkPattern)
 	}
 
 	const resolvedPartials: Record<string, string> = Object.fromEntries(Object.entries(options.partials).map(([key, rawPartial]) => {
@@ -19,7 +19,7 @@ export const resolvePartials = (options: CompleteChangelogOptions, context: Cont
 		} else if (rawPartial === 'from-file') {
 			partial = extractedPartials?.[key] ?? ''
 			if (!partial) throw new Error(`Partial '${key}' not found in the latest release changelog.`)
-			partial = modifyPartialWithContext(partial, context)
+			partial = modifyPartialWithContext(partial, context, options.commitRefLinkPattern)
 		} else {
 			partial = rawPartial
 		}
@@ -28,8 +28,8 @@ export const resolvePartials = (options: CompleteChangelogOptions, context: Cont
 	return Object.fromEntries(Object.entries(resolvedPartials).map(([key, template]) => [key, Handlebars.compile(template)]))
 }
 
-const modifyPartialWithContext = (partial: string, context: Context): string => {
-	if (context.commitRefLinks === false) partial = partial.replace(/\[`?(#?\w+?)`?\]\(.+?\)/g, '$1')
+const modifyPartialWithContext = (partial: string, context: Context, commitRefLinkPattern: RegExp): string => {
+	if (context.commitRefLinks === false) partial = partial.replace(commitRefLinkPattern, '$1')
 	return partial
 }
 
