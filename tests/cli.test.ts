@@ -40,7 +40,7 @@ describe('config transformation via CLI args', () => {
 	it('should apply CLI flags to explicitly specified default profile', async () => {
 		expect((await runCli('-L', { profile: 'default', _default: {} }))?.inputConfig).toEqual({
 			profile: 'default',
-			_default: { lifecycle: 'all', changelog: { commitRange: 'latest-release' } },
+			_default: { changelog: { commitRange: 'latest-release' } },
 		})
 	})
 

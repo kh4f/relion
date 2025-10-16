@@ -26,7 +26,7 @@ if (import.meta.main) await runCli()
 
 export async function runCli(inputArgs?: string | string[], config?: UserConfig): Promise<({ inputConfig: UserConfig } & RelionResult) | undefined> {
 	if (typeof inputArgs === 'string') inputArgs = inputArgs.split(' ')
-	inputArgs = inputArgs && [inputArgs].flat()
+	inputArgs = inputArgs ? [inputArgs].flat() : process.argv.slice(2)
 
 	const parsedArgs = cli({
 		name: 'relion',
@@ -34,7 +34,6 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 			lifecycle: {
 				alias: 'f',
 				type: String,
-				default: 'all',
 				description: 'Lifecycle steps to run in order ((b)ump, change(l)og, co(m)mit, (t)ag, or "all").',
 			},
 			config: {
@@ -60,7 +59,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 				default: false,
 			},
 		},
-	}, undefined, inputArgs ? [...inputArgs] : process.argv.slice(2))
+	}, undefined, [...inputArgs])
 
 	// argv may be undefined if --help was passed
 	if (!(parsedArgs as ReturnType<typeof cli> | undefined)) return
@@ -78,7 +77,7 @@ export async function runCli(inputArgs?: string | string[], config?: UserConfig)
 		activeProfile = config._default ??= {}
 	}
 
-	activeProfile.lifecycle ??= parseLifecycleFlag(parsedArgs.flags.lifecycle)
+	if (parsedArgs.flags.lifecycle) activeProfile.lifecycle = parseLifecycleFlag(parsedArgs.flags.lifecycle)
 	if (parsedArgs.flags.dry) activeProfile.dryRun = true
 	if (parsedArgs.flags.latest) {
 		activeProfile.changelog ??= {}
