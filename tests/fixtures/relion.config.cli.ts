@@ -6,6 +6,6 @@ export default defineConfig({
 		header: '',
 	},
 	context: {
-		hyperlinks: false,
+		commitRefLinks: false,
 	},
 })

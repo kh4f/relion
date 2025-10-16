@@ -47,7 +47,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 		br: '\n',
 		scope: '{{#if scope}}**{{scope}}**: {{/if}}',
 		commit: `{{{subject}}} {{" "}}
-			{{~#if @root.hyperlinks~}}
+			{{~#if @root.commitRefLinks~}}
 				[\`{{hash}}\`]({{@root.repo.homepage}}/commit/{{hash}})
 			{{~else~}}
 				{{hash}}
@@ -62,7 +62,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 			{{~/if}}
 			{{~tag}}`,
 		refs: `({{#each refs~}}
-				{{#if @root.hyperlinks~}}
+				{{#if @root.commitRefLinks~}}
 					[{{raw}}]({{@root.repo.homepage}}/issues/{{number}})
 				{{~else~}}
 					{{raw}}
@@ -114,7 +114,7 @@ export const defaultConfig: MergedConfig = {
 	zeroMajorBreakingIsMinor: true,
 	dryRun: false,
 	logLevel: 'info',
-	context: { hyperlinks: true },
+	context: { commitRefLinks: true },
 	commitsParser: {
 		headerPattern: /^(?<type>\w+)(?:\((?<scope>.+)\))?(?<bang>!)?: (?<subject>.+)/s,
 		breakingChangesPattern: /^BREAKING CHANGES?:\s*(?<content>.+)/ms,
