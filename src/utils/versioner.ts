@@ -16,7 +16,7 @@ export const extractVersionFromTag = (tag: string, tagPattern: RegExp): string |
 }
 
 export const determineNextVersion = (config: TransformedConfig, currentVersion: string, commitsScope?: string): string => {
-	if (config.context?.newVersion) {
+	if (config.context.newVersion) {
 		if (!semver.valid(config.context.newVersion)) {
 			throw new Error(`Invalid release version format: '${config.context.newVersion}'`)
 		}
