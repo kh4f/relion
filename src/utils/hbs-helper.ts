@@ -29,7 +29,7 @@ export const resolvePartials = (options: CompleteChangelogOptions, context: Cont
 }
 
 const modifyPartialWithContext = (partial: string, context: Context): string => {
-	if (context.commitRefLinks === false) partial = partial.replace(/\[`?([^\]]+?)`?\]\(.+?\)/g, '$1')
+	if (context.commitRefLinks === false) partial = partial.replace(/\[`?(#?\w+?)`?\]\(.+?\)/g, '$1')
 	return partial
 }
 
