@@ -2,7 +2,7 @@ import Handlebars from 'handlebars'
 import releaseTemplate from '@/templates/release.hbs'
 import type { CompleteChangelogOptions } from '@/types'
 
-export const compilePartials = (partials: CompleteChangelogOptions['partials']): Record<string, HandlebarsTemplateDelegate> => {
+export const resolvePartials = (partials: CompleteChangelogOptions['partials']): Record<string, HandlebarsTemplateDelegate> => {
 	const resolvedPartials: Record<string, string> = Object.fromEntries(Object.entries(partials).map(([key, templateOrFunction]) =>
 		[key, typeof templateOrFunction === 'function' ? transformFallback(key, templateOrFunction) : templateOrFunction],
 	))

@@ -1,4 +1,4 @@
-import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, compilePartials, log } from '@/utils'
+import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, resolvePartials, log } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, Bumper, MergedConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
 import { defaultConfig, defaultBumpers, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
@@ -98,7 +98,7 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 		...config,
 		versionSourceFile,
 		bump: config.lifecycle.includes('bump') ? (config.bump ? config.bump.map(resolveBumper) : [versionSourceFile]) : undefined,
-		changelog: config.changelog ? { ...config.changelog, compiledPartials: compilePartials(config.changelog.partials) } : undefined,
+		changelog: config.changelog ? { ...config.changelog, compiledPartials: resolvePartials(config.changelog.partials) } : undefined,
 	}
 }
 
