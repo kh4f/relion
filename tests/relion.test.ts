@@ -10,7 +10,7 @@ describe('release workflow', () => {
 	it('should prompt user to review changelog', async () => {
 		await relion({
 			lifecycle: 'all',
-			changelog: { output: 'tests/fixtures/CHANGELOG.md', review: true },
+			changelog: { file: 'tests/fixtures/CHANGELOG.md', output: 'file', review: true },
 		})
 		expect(promptToContinue).toHaveBeenCalledOnce()
 	})

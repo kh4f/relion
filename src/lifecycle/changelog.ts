@@ -40,11 +40,11 @@ export const changelog = async (config: ResolvedConfig): Promise<string | null> 
 		log(`Generated changelog:`)
 		console.log(result)
 	} else {
-		log(`Writing changelog to file '${options.output}'`)
-		writeToFile(options.output, result, options.latestReleasePattern)
+		log(`Writing changelog to file '${options.file}'`)
+		writeToFile(options.file, result, options.latestReleasePattern)
 	}
 
-	if (options.review && options.output !== 'stdout' && (config.commit || config.tag))
+	if (options.review && options.output === 'file' && (config.commit || config.tag))
 		await promptToContinue('Please review the changelog and press Enter to continue...')
 
 	return result

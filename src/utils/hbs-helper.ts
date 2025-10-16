@@ -6,8 +6,7 @@ import type { CompleteChangelogOptions, Context } from '@/types'
 export const resolvePartials = (options: CompleteChangelogOptions, context: Context): Record<string, HandlebarsTemplateDelegate> => {
 	let changelogContent, extractedPartials: Record<string, string> | undefined
 	if (Object.keys(options.partials).find(key => options.partials[key] === 'from-file')) {
-		if (options.output === 'stdout') throw new Error(`Cannot extract partials from file when output is set to 'stdout'.`)
-		changelogContent = readFileSync(options.output, 'utf-8')
+		changelogContent = readFileSync(options.file, 'utf-8')
 		extractedPartials = options.latestReleasePattern.exec(changelogContent)?.groups
 	}
 

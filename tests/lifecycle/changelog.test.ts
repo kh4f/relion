@@ -254,7 +254,7 @@ describe('partials extraction', () => {
 			lifecycle: ['changelog'],
 			context: { newVersion: '0.22.0' },
 			changelog: {
-				output: 'tests/fixtures/CHANGELOG.md',
+				file: 'tests/fixtures/CHANGELOG.md',
 				header: '',
 				partials: { body: 'from-file' },
 			},
@@ -266,18 +266,11 @@ describe('partials extraction', () => {
 			lifecycle: ['changelog'],
 			context: { newVersion: '0.22.0', commitRefLinks: false, footerChangelogUrl: true },
 			changelog: {
-				output: 'tests/fixtures/CHANGELOG.md',
+				file: 'tests/fixtures/CHANGELOG.md',
 				header: '',
 				partials: { body: 'from-file' },
 			},
 		})).generatedChangelog).toMatchSnapshot()
-	})
-
-	it(`should throw an error when extracting partials from file with 'stdout' output`, async () => {
-		await expect(() => relion({
-			lifecycle: ['changelog'],
-			changelog: { output: 'stdout', partials: { body: 'from-file' } },
-		})).rejects.toThrowError(`Cannot extract partials from file when output is set to 'stdout'.`)
 	})
 })
 

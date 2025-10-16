@@ -22,7 +22,8 @@ export const defaultChangelogSections = {
 } as const satisfies TypeGroupsMap
 
 export const defaultChangelogOptions: CompleteChangelogOptions = {
-	output: 'CHANGELOG.md',
+	file: 'CHANGELOG.md',
+	output: 'file',
 	commitRange: 'unreleased',
 	sections: defaultChangelogSections,
 	header: '# Changelog\n\n\n',

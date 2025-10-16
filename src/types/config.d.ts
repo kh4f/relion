@@ -42,7 +42,8 @@ export interface ResolvedConfig extends TransformedConfig {
 }
 
 export interface ChangelogOptions {
-	output?: 'stdout' | (string & {})
+	file?: string
+	output?: 'file' | 'stdout'
 	commitRange?: CommitRange
 	sections?: TypeGroupsMap
 	header?: string
