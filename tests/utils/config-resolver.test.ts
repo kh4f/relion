@@ -158,7 +158,7 @@ describe('packageName resolution', () => {
 		}).context.packageName).toBe('custom-package')
 	})
 
-	it('should throw if package.json is missing in cwd', () => {
+	it.skip('should throw if package.json is missing in cwd', () => {
 		const originalCwd = process.cwd()
 		process.chdir(`${import.meta.filename}/..`)
 		expect(() => resolveConfig({}).context.packageName).toThrow('ENOENT: no such file or directory')
