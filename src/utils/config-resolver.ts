@@ -2,6 +2,7 @@ import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseC
 import type { UserConfig, ResolvedConfig, TransformedConfig, Bumper, MergedConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
 import { defaultConfig, defaultBumpers, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 import Handlebars from 'handlebars'
+import { readFileSync } from 'node:fs'
 
 export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
 	const profileMergedConfig = mergeProfileConfig(userConfig)
@@ -111,6 +112,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 	const oldContext = config.context
 
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
+	const packageName = /"name": "(.*?)"/.exec(readFileSync('package.json', 'utf-8'))?.[1]
 	const currentVersion = oldContext.currentVersion ?? (
 		config.versionSource === 'latest-release-tag'
 			? extractVersionFromTag(getReleaseTags(config.prevReleaseTagPattern)[0], config.prevReleaseTagPattern) ?? '0.0.0'
@@ -147,6 +149,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 			releases,
 			commitRefLinks: oldContext.commitRefLinks ?? true,
 			footerChangelogUrl: oldContext.footerChangelogUrl ?? false,
+			packageName: oldContext.packageName ?? packageName ?? '<unknown>',
 			...noCommitsOldContext,
 			repo: {
 				...repoInfo,

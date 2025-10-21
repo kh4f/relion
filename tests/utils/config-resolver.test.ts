@@ -146,3 +146,22 @@ describe('config profiles resolution', () => {
 		})).toThrow('Profile "default" not found in configuration.')
 	})
 })
+
+describe('packageName resolution', () => {
+	it('should resolve packageName from package.json', () => {
+		expect(resolveConfig({}).context.packageName).toBe('relion')
+	})
+
+	it('should use packageName from context if provided', () => {
+		expect(resolveConfig({
+			context: { packageName: 'custom-package' },
+		}).context.packageName).toBe('custom-package')
+	})
+
+	it('should throw if package.json is missing in cwd', () => {
+		const originalCwd = process.cwd()
+		process.chdir(`${import.meta.filename}/..`)
+		expect(() => resolveConfig({}).context.packageName).toThrow('ENOENT: no such file or directory')
+		process.chdir(originalCwd)
+	})
+})

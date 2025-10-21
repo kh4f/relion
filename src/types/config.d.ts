@@ -113,6 +113,7 @@ export interface Context {
 	repo?: RepoInfo
 	commitRefLinks?: boolean
 	footerChangelogUrl?: boolean
+	packageName?: string
 	[key: string]: unknown
 }
 export interface ResolvedContext extends Required<Context> {
