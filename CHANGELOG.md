@@ -1,6 +1,22 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.24.0  `](https://github.com/kh4f/relion/compare/v0.23.0...v0.24.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The option `latestReleasePattern` was renamed to `releasePattern`. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: 
+  - add `packageName` to changelog context [`da99b16`](https://github.com/kh4f/relion/commit/da99b16)
+  - support extracting specified release from changelog file [`bf4ee61`](https://github.com/kh4f/relion/commit/bf4ee61) ⚠️<sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **changelog**: update default `latestReleasePattern` to include all notes between header and body [`7cae532`](https://github.com/kh4f/relion/commit/7cae532)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.23.0...v0.24.0) &ensp;•&ensp; _Oct 21, 2025_
+
+
 ## &ensp; [` 📦 v0.23.0  `](https://github.com/kh4f/relion/compare/v0.22.0...v0.23.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
