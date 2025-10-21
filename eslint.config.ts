@@ -51,6 +51,7 @@ export default defineConfig([
 			'@stylistic/brace-style': ['error', '1tbs'],
 			'@stylistic/operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
 			'@stylistic/arrow-parens': ['error', 'as-needed'],
+			'@stylistic/multiline-ternary': 'off',
 		},
 	},
 ])
