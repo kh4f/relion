@@ -8,7 +8,9 @@ export const resolvePartials = (options: CompleteChangelogOptions, context: Cont
 	const isPartialExtractionUsed = Object.keys(options.partials).find(key => options.partials[key] === 'from-file')
 	if (options.extractFromFile || isPartialExtractionUsed) {
 		changelogContent = readFileSync(options.file, 'utf-8')
-		extractedPartials = options.latestReleasePattern.exec(changelogContent)?.groups ?? {}
+		const targetReleaseVersion = (typeof options.extractFromFile === 'boolean' || options.extractFromFile === 'latest-release') ? '' : options.extractFromFile
+		const releasePattern = new RegExp(options.releasePattern.source.replace('{{version}}', targetReleaseVersion), options.releasePattern.flags)
+		extractedPartials = releasePattern.exec(changelogContent)?.groups ?? {}
 		if (options.extractFromFile) return modifyPartialWithContext(Object.values(extractedPartials).join(''), context, options.commitRefLinkPattern)
 	}
 

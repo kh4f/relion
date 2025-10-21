@@ -93,12 +93,17 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 	}
 
 	const versionSourceFile = resolveBumper(config.versionSourceFile)
+	const releasePattern = config.changelog?.releasePattern
 
 	return {
 		...config,
 		versionSourceFile,
 		bump: config.lifecycle.includes('bump') ? (config.bump ? config.bump.map(resolveBumper) : [versionSourceFile]) : undefined,
-		changelog: config.changelog ? { ...config.changelog, compiledPartials: resolvePartials(config.changelog, config.context) } : undefined,
+		changelog: config.changelog ? {
+			...config.changelog, compiledPartials: resolvePartials(config.changelog, config.context),
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			latestReleasePattern: new RegExp(releasePattern!.source.replace('{{version}}', ''), releasePattern!.flags),
+		} : undefined,
 	}
 }
 

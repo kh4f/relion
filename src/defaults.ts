@@ -28,7 +28,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	extractFromFile: false,
 	sections: defaultChangelogSections,
 	header: '# Changelog\n\n\n',
-	latestReleasePattern: /(?<header>##.*?\n\n)(?<body>.*?)(?<footer>####.*?\n\n\n)/s,
+	releasePattern: /(?<header>##[^\n]*?\[[^\n]*?{{version}}[^\n]*?\].*?\n\n)(?<body>.*?)(?<footer>####.*?\n\n\n)/s,
 	commitRefLinkPattern: /\[`?(#?\w+?)`?\]\(.+?\)/g,
 	groupCommitsByScope: true,
 	maxLinesPerRelease: 20,

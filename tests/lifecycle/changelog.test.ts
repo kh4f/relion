@@ -286,7 +286,15 @@ describe('partials extraction', () => {
 		expect((await relion({
 			lifecycle: ['changelog'],
 			context: { commitRefLinks: false },
-			changelog: { commitRange: { releaseTag: 'v0.22.0' }, file: 'tests/fixtures/CHANGELOG.md', extractFromFile: true },
+			changelog: { commitRange: { releaseTag: 'v0.22.0' }, file: 'tests/fixtures/CHANGELOG.md', extractFromFile: 'latest-release' },
+		})).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should extract changelog for specified release from file', async () => {
+		expect((await relion({
+			lifecycle: ['changelog'],
+			context: { commitRefLinks: false },
+			changelog: { commitRange: { releaseTag: 'v0.23.0' }, file: 'tests/fixtures/CHANGELOG.md', extractFromFile: 'v0.20.0' },
 		})).generatedChangelog).toMatchSnapshot()
 	})
 })
