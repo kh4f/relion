@@ -5,8 +5,8 @@ import Handlebars from 'handlebars'
 import { readFileSync } from 'node:fs'
 
 export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
-	const profileMergedConfig = mergeProfileConfig(userConfig)
-	const mergedConfig = mergeWithDefaults(profileMergedConfig)
+	const profiledConfig = mergeProfileConfig(userConfig)
+	const mergedConfig = mergeWithDefaults(profiledConfig)
 	const transformedConfig = transformConfig(mergedConfig)
 	const resolvedConfig = resolveContext(transformedConfig)
 	return resolveTemplates(resolvedConfig)
