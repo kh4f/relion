@@ -3,6 +3,7 @@ import { pathToFileURL } from 'node:url'
 import relion from './index.js'
 import type { UserConfig, RelionResult, LifecycleStep } from '@/types'
 import { cli } from 'cleye'
+import 'tsx'
 
 const loadConfigFile = async (configPath: string): Promise<UserConfig> => {
 	try {
