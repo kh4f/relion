@@ -1,6 +1,23 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.25.0  `](https://github.com/kh4f/relion/compare/v0.24.0...v0.25.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- Config property `versionSourceFile` was renamed to `manifestFile`. <sup>[1]</sup>
+- `versionSource` default value previously using `versionSourceFile` is now `manifestFile`. <sup>[1]</sup>
+- `context.packageName` has been removed in favor of the `context.package` object. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **config-file**: support extensionless imports in user config files via `tsx` [`23e0e5a`](https://github.com/kh4f/relion/commit/23e0e5a)
+- **tag**: support dynamic `{{commitMessage}}` in `tag.message` [`aa3ac62`](https://github.com/kh4f/relion/commit/aa3ac62)
+- **config**: 
+  - extend `RepoInfo` to support custom fields [`34a848e`](https://github.com/kh4f/relion/commit/34a848e)
+  - unify package info under `context.package` [`97262b9`](https://github.com/kh4f/relion/commit/97262b9) ⚠️<sup>[1]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.24.0...v0.25.0) &ensp;•&ensp; _Oct 22, 2025_
+
+
 ## &ensp; [` 📦 v0.24.0  `](https://github.com/kh4f/relion/compare/v0.23.0...v0.24.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
