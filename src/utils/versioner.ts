@@ -5,7 +5,7 @@ import { log, parseCommits } from '@/utils'
 
 export const parseVersion = (bumper: Bumper): string => {
 	const fileContent = readFileSync(bumper.file, 'utf8')
-	const version = bumper.pattern.exec(fileContent)?.[2]
+	const version = bumper.pattern.exec(fileContent)?.groups?.version
 	if (!version) throw new Error(`Version not found in '${bumper.file}' with pattern '${bumper.pattern}'`)
 	if (!semver.valid(version)) throw new Error(`Invalid version format in '${bumper.file}': '${version}'`)
 	return version

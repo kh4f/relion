@@ -93,13 +93,13 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 		}
 	}
 
-	const versionSourceFile = resolveBumper(config.versionSourceFile)
+	const manifestFile = resolveBumper(config.manifestFile)
 	const releasePattern = config.changelog?.releasePattern
 
 	return {
 		...config,
-		versionSourceFile,
-		bump: config.lifecycle.includes('bump') ? (config.bump ? config.bump.map(resolveBumper) : [versionSourceFile]) : undefined,
+		manifestFile,
+		bump: config.lifecycle.includes('bump') ? (config.bump ? config.bump.map(resolveBumper) : [manifestFile]) : undefined,
 		changelog: config.changelog ? {
 			...config.changelog, compiledPartials: resolvePartials(config.changelog, config.context),
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -112,13 +112,13 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 	const oldContext = config.context
 
 	const repoInfo = getRepoInfo(config.commitsParser.remoteUrlPattern)
-	const packageName = /"name": "(.*?)"/.exec(readFileSync('package.json', 'utf-8'))?.[1]
+	const packageInfo = config.manifestFile.pattern.exec(readFileSync(config.manifestFile.file, 'utf-8'))?.groups
 	const currentVersion = oldContext.currentVersion ?? (
 		config.versionSource === 'latest-release-tag'
 			? extractVersionFromTag(getReleaseTags(config.prevReleaseTagPattern)[0], config.prevReleaseTagPattern) ?? '0.0.0'
-			: parseVersion(config.versionSourceFile)
+			: parseVersion(config.manifestFile)
 	)
-	log(`Current version (from ${config.versionSource === 'latest-release-tag' ? 'latest release tag' : `'${config.versionSourceFile.file}'`}): '${currentVersion}'`)
+	log(`Current version (from ${config.versionSource === 'latest-release-tag' ? 'latest release tag' : `'${config.manifestFile.file}'`}): '${currentVersion}'`)
 	const currentTag = oldContext.currentTag ?? getReleaseTags(config.prevReleaseTagPattern)[0]
 	const newVersion = oldContext.newVersion ?? determineNextVersion(config, currentVersion, config.commitsScope)
 	const newTag = oldContext.newTag ?? (config.newTagPrefix !== undefined
@@ -149,11 +149,14 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 			releases,
 			commitRefLinks: oldContext.commitRefLinks ?? true,
 			footerChangelogUrl: oldContext.footerChangelogUrl ?? false,
-			packageName: oldContext.packageName ?? packageName ?? '<unknown>',
 			...noCommitsOldContext,
 			repo: {
 				...repoInfo,
 				...config.context.repo,
+			},
+			package: {
+				...packageInfo,
+				...config.context.package,
 			},
 		},
 	}

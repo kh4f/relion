@@ -93,12 +93,16 @@ export const defaultTagOptions: CompleteTagOptions = {
 	extraArgs: null,
 }
 
-export const defaultBumpers: DefaultBumper[] = [
+export const defaultManifestFiles: DefaultBumper[] = [
 	{
 		file: /package\.json$/,
-		pattern: /(^.*?"version": ")(.*?)(")/s,
-		replacement: '$1{{newVersion}}$3',
+		pattern: /(^.*?"name": "(?<name>.*?)".*"version": ")(?<version>.*?)(")/s,
+		replacement: '$1{{newVersion}}$4',
 	},
+]
+
+export const defaultBumpers: DefaultBumper[] = [
+	...defaultManifestFiles,
 	{
 		file: /package-lock\.json$/,
 		pattern: /(^.*?"version": "|"packages".*?"".*"version": ")(.*?)(")/gs,
@@ -109,8 +113,8 @@ export const defaultBumpers: DefaultBumper[] = [
 export const defaultConfig: MergedConfig = {
 	lifecycle: ['bump', 'changelog', 'commit', 'tag'],
 	bump: ['package.json'],
-	versionSource: 'versionSourceFile',
-	versionSourceFile: './package.json',
+	versionSource: 'manifestFile',
+	manifestFile: './package.json',
 	newTagFormat: 'v{{version}}',
 	commitsScope: '.',
 	prevReleaseTagPattern: /^v?(?<version>\d+\.\d+\.\d+)/,

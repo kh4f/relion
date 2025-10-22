@@ -9,8 +9,8 @@ export interface UserConfig {
 	tag?: TagOptions
 	newTagPrefix?: string
 	newTagFormat?: string
-	versionSource?: 'versionSourceFile' | 'latest-release-tag'
-	versionSourceFile?: string | Bumper
+	versionSource?: 'manifestFile' | 'latest-release-tag'
+	manifestFile?: string | Bumper
 	commitsScope?: string
 	releaseType?: ReleaseType
 	zeroMajorBreakingIsMinor?: boolean
@@ -32,7 +32,7 @@ export interface MergedConfig extends Omit<Required<UserConfig>, OptionalKeys>, 
 	commitsParser: CompleteCommitsParser
 }
 export interface TransformedConfig extends Omit<MergedConfig, 'changelog'> {
-	versionSourceFile: Bumper
+	manifestFile: Bumper
 	bump?: Required<Bumper[]>
 	changelog?: ResolvedChangelogOptions
 }
@@ -104,6 +104,11 @@ export interface RepoInfo {
 	name?: string
 	homepage?: string
 }
+export interface PackageInfo {
+	name?: string
+	version?: string
+	[key: string]: unknown
+}
 export interface Context {
 	commits?: (ParsedCommit | RawCommit | string)[]
 	currentVersion?: string
@@ -111,9 +116,9 @@ export interface Context {
 	newVersion?: string
 	newTag?: string
 	repo?: RepoInfo
+	package?: PackageInfo
 	commitRefLinks?: boolean
 	footerChangelogUrl?: boolean
-	packageName?: string
 	[key: string]: unknown
 }
 export interface ResolvedContext extends Required<Context> {

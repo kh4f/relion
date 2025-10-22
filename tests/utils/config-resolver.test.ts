@@ -33,8 +33,8 @@ describe('new tag format resolution', () => {
 })
 
 describe('source version resolution', () => {
-	it('should use package.json as default version source', () => {
-		expect(resolveConfig({}).versionSource).toBe('versionSourceFile')
+	it('should use manifest file as default version source', () => {
+		expect(resolveConfig({}).versionSource).toBe('manifestFile')
 	})
 
 	it('should use latest release tag as version source', () => {
@@ -147,21 +147,32 @@ describe('config profiles resolution', () => {
 	})
 })
 
-describe('packageName resolution', () => {
-	it('should resolve packageName from package.json', () => {
-		expect(resolveConfig({}).context.packageName).toBe('relion')
-	})
-
-	it('should use packageName from context if provided', () => {
+describe('package info resolution', () => {
+	it('should extract package info from manifest file', () => {
 		expect(resolveConfig({
-			context: { packageName: 'custom-package' },
-		}).context.packageName).toBe('custom-package')
+			manifestFile: 'tests/fixtures/package.json',
+		}).context.package).toEqual({ name: 'relion', version: '0.17.0' })
 	})
 
-	it.skip('should throw if package.json is missing in cwd', () => {
-		const originalCwd = process.cwd()
-		process.chdir(`${import.meta.filename}/..`)
-		expect(() => resolveConfig({}).context.packageName).toThrow('ENOENT: no such file or directory')
-		process.chdir(originalCwd)
+	it('should extract package info from manifest file using custom pattern', () => {
+		expect(resolveConfig({
+			manifestFile: {
+				file: 'tests/fixtures/package.json',
+				pattern: /(^.*?"name": "(?<name>.*?)".*"version": ")(?<version>.*?)(")/s,
+				replacement: '$1{{newVersion}}$4',
+			},
+		}).context.package).toEqual({ name: 'relion', version: '0.17.0' })
+	})
+
+	it('should use package info from context if provided', () => {
+		expect(resolveConfig({
+			context: { package: { name: 'custom-package', version: '1.2.3', extraInfo: 'some-info' } },
+		}).context.package).toEqual({ name: 'custom-package', version: '1.2.3', extraInfo: 'some-info' })
+	})
+
+	it('should throw if manifest file is missing', () => {
+		expect(() => resolveConfig({
+			manifestFile: 'foo/package.json',
+		})).toThrow('ENOENT: no such file or directory')
 	})
 })
