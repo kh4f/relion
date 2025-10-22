@@ -6,10 +6,10 @@ export const bump = (config: ResolvedConfig) => {
 	if (!config.bump) return null
 	const bumpFiles = config.bump, newVersion = config.context.newVersion
 
-	bumpFiles.forEach(versionedFile => {
-		const fileContent = readFileSync(versionedFile.file, 'utf8')
-		const updatedContent = fileContent.replace(versionedFile.pattern, versionedFile.replacement.replace('{{newVersion}}', newVersion))
-		if (!config.dryRun) writeFileSync(versionedFile.file, updatedContent, 'utf8')
-		log(`Updated version in '${versionedFile.file}' to '${newVersion}'`)
+	bumpFiles.forEach(bumper => {
+		const fileContent = readFileSync(bumper.file, 'utf8')
+		const updatedContent = fileContent.replace(bumper.pattern, bumper.replacement.replace('{{newVersion}}', newVersion))
+		if (!config.dryRun) writeFileSync(bumper.file, updatedContent, 'utf8')
+		log(`Updated version in '${bumper.file}' to '${newVersion}'`)
 	})
 }

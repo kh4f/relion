@@ -3,11 +3,11 @@ import semver from 'semver'
 import type { ReleaseType, ParsedCommit, Bumper, TransformedConfig } from '@/types'
 import { log, parseCommits } from '@/utils'
 
-export const parseVersion = (versionedFile: Bumper): string => {
-	const fileContent = readFileSync(versionedFile.file, 'utf8')
-	const version = versionedFile.pattern.exec(fileContent)?.[2]
-	if (!version) throw new Error(`Version not found in '${versionedFile.file}' with pattern '${versionedFile.pattern}'`)
-	if (!semver.valid(version)) throw new Error(`Invalid version format in '${versionedFile.file}': '${version}'`)
+export const parseVersion = (bumper: Bumper): string => {
+	const fileContent = readFileSync(bumper.file, 'utf8')
+	const version = bumper.pattern.exec(fileContent)?.[2]
+	if (!version) throw new Error(`Version not found in '${bumper.file}' with pattern '${bumper.pattern}'`)
+	if (!semver.valid(version)) throw new Error(`Invalid version format in '${bumper.file}': '${version}'`)
 	return version
 }
 
