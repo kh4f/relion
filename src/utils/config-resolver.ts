@@ -9,8 +9,7 @@ export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
 	const mergedConfig = mergeWithDefaults(profileMergedConfig)
 	const transformedConfig = transformConfig(mergedConfig)
 	const resolvedConfig = resolveContext(transformedConfig)
-	const finalConfig = resolveTemplates(resolvedConfig)
-	return finalConfig
+	return resolveTemplates(resolvedConfig)
 }
 
 const mergeProfileConfig = (baseConfig: UserConfig): UserConfig => {
