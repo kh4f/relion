@@ -125,12 +125,7 @@ export type LifecycleStep = 'bump' | 'changelog' | 'commit' | 'tag'
 
 export type LogLevel = 'info' | 'info-clean' | 'silent'
 
-export type CommitRange =
-	| 'all'
-	| 'unreleased'
-	| 'latest-release'
-	| { releaseTag: string }
-	| (string & {})
+export type CommitRange = 'all' | 'unreleased' | 'latest-release' | { releaseTag: string } | (string & {})
 
 export type ReleaseType = 'major' | 'minor' | 'patch'
 
