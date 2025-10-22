@@ -87,7 +87,7 @@ export const defaultCommitOptions: CompleteCommitOptions = {
 
 export const defaultTagOptions: CompleteTagOptions = {
 	name: '{{newTag}}',
-	message: defaultCommitOptions.message,
+	message: '{{commitMessage}}',
 	gpgSign: false,
 	force: false,
 	extraArgs: null,

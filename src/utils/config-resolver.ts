@@ -95,6 +95,7 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 
 	const manifestFile = resolveBumper(config.manifestFile)
 	const releasePattern = config.changelog?.releasePattern
+	const tagMessage = config.tag?.message
 
 	return {
 		...config,
@@ -104,6 +105,11 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 			...config.changelog, compiledPartials: resolvePartials(config.changelog, config.context),
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			latestReleasePattern: new RegExp(releasePattern!.source.replace('{{version}}', ''), releasePattern!.flags),
+		} : undefined,
+		tag: config.tag ? {
+			...config.tag,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			message: tagMessage === '{{commitMessage}}' ? (config.commit?.message ?? tagMessage) : tagMessage!,
 		} : undefined,
 	}
 }

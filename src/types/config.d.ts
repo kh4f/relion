@@ -73,7 +73,7 @@ export type CompleteCommitOptions = Required<CommitOptions>
 
 export interface TagOptions {
 	name?: string
-	message?: string
+	message?: '{{commitMessage}}' | (string & {})
 	gpgSign?: boolean
 	force?: boolean
 	extraArgs?: string | null
