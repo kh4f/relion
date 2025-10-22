@@ -103,6 +103,7 @@ export interface RepoInfo {
 	owner?: string
 	name?: string
 	homepage?: string
+	[key: string]: unknown
 }
 export interface PackageInfo {
 	name?: string
