@@ -96,12 +96,12 @@ export const defaultTagOptions: CompleteTagOptions = {
 export const defaultBumpers: DefaultBumper[] = [
 	{
 		file: /package\.json$/,
-		pattern: /(^.*?"version".*?")(.*?)(")/s,
+		pattern: /(^.*?"version": ")(.*?)(")/s,
 		replacement: '$1{{newVersion}}$3',
 	},
 	{
 		file: /package-lock\.json$/,
-		pattern: /(^.*?"version".*?"|"packages".*?"".*"version".*?")(.*?)(")/gs,
+		pattern: /(^.*?"version": "|"packages".*?"".*"version": ")(.*?)(")/gs,
 		replacement: '$1{{newVersion}}$3',
 	},
 ]
