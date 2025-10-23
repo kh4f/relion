@@ -1,6 +1,17 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.26.0  `](https://github.com/kh4f/relion/compare/v0.25.1...v0.26.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- `newTagPrefix` and `newTagFormat` config options are now `tagPrefix` and `tagFormat`. <sup>[1]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **config**: remove `new` prefix from new tag format config properties [`44e6b5b`](https://github.com/kh4f/relion/commit/44e6b5b) ⚠️<sup>[1]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.25.1...v0.26.0) &ensp;•&ensp; _Oct 23, 2025_
+
+
 ## &ensp; [` 📦 v0.25.1  `](https://github.com/kh4f/relion/compare/v0.25.0...v0.25.1)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
