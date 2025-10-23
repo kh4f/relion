@@ -1,6 +1,17 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.25.1  `](https://github.com/kh4f/relion/compare/v0.25.0...v0.25.1)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **cli**: replace `tsx` loader with custom import resolver [`20df5bf`](https://github.com/kh4f/relion/commit/20df5bf)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩 Dependencies
+- **deps**: move `tsx` back to `devDependencies` after switching to a custom loader [`e69a5b5`](https://github.com/kh4f/relion/commit/e69a5b5)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.25.0...v0.25.1) &ensp;•&ensp; _Oct 23, 2025_
+
+
 ## &ensp; [` 📦 v0.25.0  `](https://github.com/kh4f/relion/compare/v0.24.0...v0.25.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
