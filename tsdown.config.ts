@@ -15,7 +15,10 @@ export default defineConfig([
 	},
 	{
 		...baseConfig,
-		entry: 'src/cli.ts',
+		entry: {
+			cli: 'src/cli.ts',
+			resolver: 'src/utils/import-resolver.ts',
+		},
 		dts: false,
 		external: /.*/,
 	},

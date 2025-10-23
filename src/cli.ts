@@ -3,7 +3,7 @@ import { pathToFileURL } from 'node:url'
 import relion from './index.js'
 import type { UserConfig, RelionResult, LifecycleStep } from '@/types'
 import { cli } from 'cleye'
-import 'tsx'
+import { register } from 'module'
 
 const loadConfigFile = async (configPath: string): Promise<UserConfig> => {
 	try {
@@ -23,7 +23,10 @@ const parseLifecycleFlag = (flag: string): 'all' | LifecycleStep[] => {
 	})
 }
 
-if (import.meta.main) await runCli()
+if (import.meta.main) {
+	register('./resolver.js', import.meta.url)
+	await runCli()
+}
 
 export async function runCli(inputArgs?: string | string[], config?: UserConfig): Promise<({ inputConfig: UserConfig } & RelionResult) | undefined> {
 	if (typeof inputArgs === 'string') inputArgs = inputArgs.split(' ')
