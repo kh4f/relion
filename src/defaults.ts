@@ -115,7 +115,7 @@ export const defaultConfig: MergedConfig = {
 	bump: ['package.json'],
 	versionSource: 'manifestFile',
 	manifestFile: './package.json',
-	newTagFormat: 'v{{version}}',
+	tagFormat: 'v{{version}}',
 	commitsScope: '.',
 	prevReleaseTagPattern: /^v?(?<version>\d+\.\d+\.\d+)/,
 	zeroMajorBreakingIsMinor: true,

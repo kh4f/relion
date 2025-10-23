@@ -2,32 +2,32 @@ import { describe, expect, it } from 'vitest'
 import { resolveConfig } from '@/utils'
 
 describe('new tag format resolution', () => {
-	it('should use default newTagFormat value', () => {
+	it('should use default tagFormat value', () => {
 		expect(resolveConfig({ }).context.newTag).toMatch(/^v\d+\.\d+\.\d+/)
 	})
 
-	it('should use custom newTagFormat value', () => {
+	it('should use custom tagFormat value', () => {
 		expect(resolveConfig({
-			newTagFormat: 'release-{{version}}-beta',
+			tagFormat: 'release-{{version}}-beta',
 		}).context.newTag).toMatch(/^release-\d+\.\d+\.\d+-beta/)
 	})
 
-	it('should use custom newTagPrefix value', () => {
+	it('should use custom tagPrefix value', () => {
 		expect(resolveConfig({
-			newTagPrefix: 'relion@',
+			tagPrefix: 'relion@',
 		}).context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
 	})
 
-	it('should prefer newTagPrefix over newTagFormat', () => {
+	it('should prefer tagPrefix over tagFormat', () => {
 		expect(resolveConfig({
-			newTagPrefix: 'relion@',
-			newTagFormat: 'release-{{version}}-beta',
+			tagPrefix: 'relion@',
+			tagFormat: 'release-{{version}}-beta',
 		}).context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
 	})
 
-	it('should not use version prefix if newTagPrefix is empty', () => {
+	it('should not use version prefix if tagPrefix is empty', () => {
 		expect(resolveConfig({
-			newTagPrefix: '',
+			tagPrefix: '',
 		}).context.newTag).toMatch(/^\d+\.\d+\.\d+/)
 	})
 })
@@ -102,47 +102,47 @@ describe('commits resolution', () => {
 describe('config profiles resolution', () => {
 	it('should use base config when no profile is specified', () => {
 		expect(resolveConfig({
-			newTagPrefix: 'tag-prefix-1',
-			_profile1: { newTagPrefix: 'tag-prefix-2' },
-			_profile2: { newTagPrefix: 'tag-prefix-3' },
-		}).newTagPrefix).toBe('tag-prefix-1')
+			tagPrefix: 'tag-prefix-1',
+			_profile1: { tagPrefix: 'tag-prefix-2' },
+			_profile2: { tagPrefix: 'tag-prefix-3' },
+		}).tagPrefix).toBe('tag-prefix-1')
 	})
 
 	it('should use default profile when explicitly specified', () => {
 		expect(resolveConfig({
 			profile: 'default',
-			newTagPrefix: 'tag-prefix-1',
-			_default: { newTagPrefix: 'tag-prefix-2' },
-		}).newTagPrefix).toBe('tag-prefix-2')
+			tagPrefix: 'tag-prefix-1',
+			_default: { tagPrefix: 'tag-prefix-2' },
+		}).tagPrefix).toBe('tag-prefix-2')
 	})
 
 	it('should use default profile when present, even if not specified explicitly', () => {
 		expect(resolveConfig({
-			newTagPrefix: 'tag-prefix-1',
-			_default: { newTagPrefix: 'tag-prefix-2' },
-		}).newTagPrefix).toBe('tag-prefix-2')
+			tagPrefix: 'tag-prefix-1',
+			_default: { tagPrefix: 'tag-prefix-2' },
+		}).tagPrefix).toBe('tag-prefix-2')
 	})
 
 	it('should use specified profile instead of default one', () => {
 		expect(resolveConfig({
 			profile: 'profile2',
-			newTagPrefix: 'tag-prefix-1',
-			_default: { newTagPrefix: 'tag-prefix-2' },
-			_profile2: { newTagPrefix: 'tag-prefix-3' },
-		}).newTagPrefix).toBe('tag-prefix-3')
+			tagPrefix: 'tag-prefix-1',
+			_default: { tagPrefix: 'tag-prefix-2' },
+			_profile2: { tagPrefix: 'tag-prefix-3' },
+		}).tagPrefix).toBe('tag-prefix-3')
 	})
 
 	it('should throw error when non-existing profile is specified', () => {
 		expect(() => resolveConfig({
 			profile: 'profile1',
-			newTagPrefix: 'tag-prefix-1',
+			tagPrefix: 'tag-prefix-1',
 		})).toThrow('Profile "profile1" not found in configuration.')
 	})
 
 	it(`should throw error when default profile is explicitly specified but doesn't exist`, () => {
 		expect(() => resolveConfig({
 			profile: 'default',
-			newTagPrefix: 'tag-prefix-1',
+			tagPrefix: 'tag-prefix-1',
 		})).toThrow('Profile "default" not found in configuration.')
 	})
 })

@@ -7,8 +7,8 @@ export interface UserConfig {
 	changelog?: ChangelogOptions
 	commit?: CommitOptions
 	tag?: TagOptions
-	newTagPrefix?: string
-	newTagFormat?: string
+	tagPrefix?: string
+	tagFormat?: string
 	versionSource?: 'manifestFile' | 'latest-release-tag'
 	manifestFile?: string | Bumper
 	commitsScope?: string
@@ -23,7 +23,7 @@ export interface UserConfig {
 	[profile: `_${string}`]: UserConfig | undefined
 }
 
-type OptionalKeys = LifecycleStep | 'releaseType' | 'profile' | 'newTagPrefix'
+type OptionalKeys = LifecycleStep | 'releaseType' | 'profile' | 'tagPrefix'
 export interface MergedConfig extends Omit<Required<UserConfig>, OptionalKeys>, Pick<UserConfig, OptionalKeys> {
 	lifecycle: LifecycleStep[]
 	changelog?: CompleteChangelogOptions
