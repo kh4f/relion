@@ -37,7 +37,7 @@ importers:
         specifier: ^16.4.0
         version: 16.4.0
       lint-staged:
-        specifier: ^16.2.5
+        specifier: ^16.2.6
         version: 16.2.6
       simple-git-hooks:
         specifier: ^2.13.1
