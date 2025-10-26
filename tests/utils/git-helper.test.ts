@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getRawCommits } from '@/utils/git-helper'
+import { getRawCommits } from '@/utils/git-helpers'
 
 describe('getRawCommits with commitsScope', () => {
 	it('should use cwd as default scope when not provided', () => {
