@@ -27,22 +27,23 @@ export const determineNextVersion = (config: TransformedConfig, currentVersion: 
 		releaseType = config.releaseType
 	} else {
 		const unreleasedCommits = parseCommits('unreleased', config.commitsParser, config.prevReleaseTagPattern, commitsScope)
-		releaseType = calculateReleaseType(unreleasedCommits)
-		if (config.zeroMajorBreakingIsMinor && semver.major(currentVersion) === 0 && releaseType === 'major') releaseType = 'minor'
+		releaseType = calculateReleaseType(unreleasedCommits, currentVersion, config.zeroMajorBreakingIsMinor)
 	}
 	const newVersion = increaseVersion(currentVersion, releaseType)
 	log(`Determined new version: '${newVersion}' (release type: '${releaseType}')`)
 	return newVersion
 }
 
-const calculateReleaseType = (commits: ParsedCommit[]): ReleaseType => {
+const calculateReleaseType = (commits: ParsedCommit[], currentVersion?: string, zeroMajorBreakingIsMinor?: boolean): ReleaseType => {
+	let releaseType: ReleaseType = 'patch'
+
 	const hasBreakingChange = commits.some(commit => commit.breakingChanges)
-	if (hasBreakingChange) return 'major'
+	if (hasBreakingChange) releaseType = 'major'
 
 	const hasFeature = commits.some(commit => commit.type === 'feat')
-	if (hasFeature) return 'minor'
+	if (hasFeature) releaseType = 'minor'
 
-	return 'patch'
+	return (releaseType === 'major' && semver.major(currentVersion ?? '1.0.0') === 0 && zeroMajorBreakingIsMinor) ? 'minor' : releaseType
 }
 
 const increaseVersion = (currentVersion: string, releaseType: ReleaseType): string =>
