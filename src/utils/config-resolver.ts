@@ -95,6 +95,11 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 	const manifestFile = resolveBumper(config.manifestFile)
 	const releasePattern = config.changelog?.releasePattern
 	const tagMessage = config.tag?.message
+	const prevReleaseTagPattern = config.prevReleaseTagPattern === '{{newTagFormat}}'
+		? config.tagPrefix !== undefined
+			? new RegExp(`${config.tagPrefix}(?<version>\\d+\\.\\d+\\.\\d+)`)
+			: new RegExp(config.tagFormat.replace('{{version}}', '(?<version>\\d+\\.\\d+\\.\\d+)'))
+		: config.prevReleaseTagPattern
 
 	return {
 		...config,
@@ -110,6 +115,7 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			message: tagMessage === '{{commitMessage}}' ? (config.commit?.message ?? tagMessage) : tagMessage!,
 		} : undefined,
+		prevReleaseTagPattern,
 	}
 }
 

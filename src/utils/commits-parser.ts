@@ -8,7 +8,7 @@ const parsedCommitsCache = new Map<string, ParsedCommit>()
 let recentReleaseTag: ParsedCommit['releaseTag']
 
 export const parseCommits = (commits: CommitRange | (RawCommit | string)[], commitsParser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp, commitsScope?: string): ParsedCommit[] => {
-	prevReleaseTagPattern ??= defaultConfig.prevReleaseTagPattern
+	prevReleaseTagPattern ??= /^v?(?<version>\d+\.\d+\.\d+)/
 	const rawCommits = Array.isArray(commits) ? commits : getRawCommits(commits, prevReleaseTagPattern, commitsScope)
 	const parser = commitsParser ?? defaultConfig.commitsParser
 
@@ -22,7 +22,7 @@ export const parseCommits = (commits: CommitRange | (RawCommit | string)[], comm
 
 export const parseCommit = (commit: RawCommit | string, commitsParser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp): ParsedCommit | null => {
 	commitsParser ??= defaultConfig.commitsParser
-	prevReleaseTagPattern ??= defaultConfig.prevReleaseTagPattern
+	prevReleaseTagPattern ??= /^v?(?<version>\d+\.\d+\.\d+)/
 
 	if (typeof commit === 'string') commit = { message: commit }
 

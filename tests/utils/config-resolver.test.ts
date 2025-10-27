@@ -176,3 +176,30 @@ describe('package info resolution', () => {
 		})).toThrow('ENOENT: no such file or directory')
 	})
 })
+
+describe('prevReleaseTagPattern resolution', () => {
+	it('should use tagFormat as default prevReleaseTagPattern when not explicitly set', () => {
+		expect(resolveConfig({}).prevReleaseTagPattern).toEqual(/v(?<version>\d+\.\d+\.\d+)/)
+	})
+
+	it('should use explicitly provided prevReleaseTagPattern', () => {
+		expect(resolveConfig({
+			prevReleaseTagPattern: /prevTag@(?<version>\d+\.\d+\.\d+)/,
+			context: { newVersion: '0.27.0', commits: [] },
+		}).prevReleaseTagPattern).toEqual(/prevTag@(?<version>\d+\.\d+\.\d+)/)
+	})
+
+	it('should resolve prevReleaseTagPattern from tagFormat', () => {
+		expect(resolveConfig({
+			tagFormat: 'package@{{version}}',
+			context: { newVersion: '0.27.0', commits: [] },
+		}).prevReleaseTagPattern).toEqual(/package@(?<version>\d+\.\d+\.\d+)/)
+	})
+
+	it('should resolve prevReleaseTagPattern from tagPrefix', () => {
+		expect(resolveConfig({
+			tagPrefix: 'package@',
+			context: { newVersion: '0.27.0', commits: [] },
+		}).prevReleaseTagPattern).toEqual(/package@(?<version>\d+\.\d+\.\d+)/)
+	})
+})

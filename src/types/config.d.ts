@@ -16,7 +16,7 @@ export interface UserConfig {
 	zeroMajorBreakingIsMinor?: boolean
 	context?: Context
 	commitsParser?: CommitsParser
-	prevReleaseTagPattern?: RegExp
+	prevReleaseTagPattern?: '{{newTagFormat}}' | RegExp
 	dryRun?: boolean
 	profile?: string
 	logLevel?: 'info' | 'info-clean' | 'silent'
@@ -35,6 +35,7 @@ export interface TransformedConfig extends Omit<MergedConfig, 'changelog'> {
 	manifestFile: Bumper
 	bump?: Required<Bumper[]>
 	changelog?: ResolvedChangelogOptions
+	prevReleaseTagPattern: RegExp
 }
 
 export interface ResolvedConfig extends TransformedConfig {

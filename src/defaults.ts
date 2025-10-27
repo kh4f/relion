@@ -117,7 +117,7 @@ export const defaultConfig: MergedConfig = {
 	manifestFile: './package.json',
 	tagFormat: 'v{{version}}',
 	commitsScope: '.',
-	prevReleaseTagPattern: /^v?(?<version>\d+\.\d+\.\d+)/,
+	prevReleaseTagPattern: '{{newTagFormat}}',
 	zeroMajorBreakingIsMinor: true,
 	dryRun: false,
 	logLevel: 'info',
