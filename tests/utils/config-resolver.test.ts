@@ -9,12 +9,14 @@ describe('new tag format resolution', () => {
 	it('should use custom tagFormat value', () => {
 		expect(resolveConfig({
 			tagFormat: 'release-{{version}}-beta',
+			context: { newVersion: '0.27.0', commits: [] },
 		}).context.newTag).toMatch(/^release-\d+\.\d+\.\d+-beta/)
 	})
 
 	it('should use custom tagPrefix value', () => {
 		expect(resolveConfig({
 			tagPrefix: 'relion@',
+			context: { newVersion: '0.27.0', commits: [] },
 		}).context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
 	})
 
@@ -22,12 +24,14 @@ describe('new tag format resolution', () => {
 		expect(resolveConfig({
 			tagPrefix: 'relion@',
 			tagFormat: 'release-{{version}}-beta',
+			context: { newVersion: '0.27.0', commits: [] },
 		}).context.newTag).toMatch(/^relion@\d+\.\d+\.\d+/)
 	})
 
 	it('should not use version prefix if tagPrefix is empty', () => {
 		expect(resolveConfig({
 			tagPrefix: '',
+			context: { newVersion: '0.27.0', commits: [] },
 		}).context.newTag).toMatch(/^\d+\.\d+\.\d+/)
 	})
 })
@@ -103,6 +107,7 @@ describe('config profiles resolution', () => {
 	it('should use base config when no profile is specified', () => {
 		expect(resolveConfig({
 			tagPrefix: 'tag-prefix-1',
+			context: { newVersion: '0.27.0', commits: [] },
 			_profile1: { tagPrefix: 'tag-prefix-2' },
 			_profile2: { tagPrefix: 'tag-prefix-3' },
 		}).tagPrefix).toBe('tag-prefix-1')
@@ -112,6 +117,7 @@ describe('config profiles resolution', () => {
 		expect(resolveConfig({
 			profile: 'default',
 			tagPrefix: 'tag-prefix-1',
+			context: { newVersion: '0.27.0', commits: [] },
 			_default: { tagPrefix: 'tag-prefix-2' },
 		}).tagPrefix).toBe('tag-prefix-2')
 	})
@@ -119,6 +125,7 @@ describe('config profiles resolution', () => {
 	it('should use default profile when present, even if not specified explicitly', () => {
 		expect(resolveConfig({
 			tagPrefix: 'tag-prefix-1',
+			context: { newVersion: '0.27.0', commits: [] },
 			_default: { tagPrefix: 'tag-prefix-2' },
 		}).tagPrefix).toBe('tag-prefix-2')
 	})
@@ -127,6 +134,7 @@ describe('config profiles resolution', () => {
 		expect(resolveConfig({
 			profile: 'profile2',
 			tagPrefix: 'tag-prefix-1',
+			context: { newVersion: '0.27.0', commits: [] },
 			_default: { tagPrefix: 'tag-prefix-2' },
 			_profile2: { tagPrefix: 'tag-prefix-3' },
 		}).tagPrefix).toBe('tag-prefix-3')
@@ -136,6 +144,7 @@ describe('config profiles resolution', () => {
 		expect(() => resolveConfig({
 			profile: 'profile1',
 			tagPrefix: 'tag-prefix-1',
+			context: { newVersion: '0.27.0', commits: [] },
 		})).toThrow('Profile "profile1" not found in configuration.')
 	})
 
@@ -143,6 +152,7 @@ describe('config profiles resolution', () => {
 		expect(() => resolveConfig({
 			profile: 'default',
 			tagPrefix: 'tag-prefix-1',
+			context: { newVersion: '0.27.0', commits: [] },
 		})).toThrow('Profile "default" not found in configuration.')
 	})
 })
