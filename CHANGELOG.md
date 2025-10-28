@@ -1,6 +1,30 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.27.0  `](https://github.com/kh4f/relion/compare/v0.26.0...v0.27.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
+- The `maxLinesPerRelease` option has been removed from changelog configuration. <sup>[1]</sup>
+- The values `'limit-or-breaking'` and `'always'` for changelog sections have been removed; `'always'` is now the implicit default. <sup>[1]</sup>
+- The `from-file` value for partial extraction has been replaced with the `{{fromFile}}` template variable. <sup>[2]</sup>
+- The default for `prevReleaseTagPattern` is now derived from `tagFormat` or `tagPrefix` instead of a fixed regex. <sup>[3]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: support `{{fromFile}}` template variable for customizing extracted partials [`3e8ef5d`](https://github.com/kh4f/relion/commit/3e8ef5d) ⚠️<sup>[2]</sup>
+- **config**: use `tagFormat`/`tagPrefix` as default for `prevReleaseTagPattern` [`7046d63`](https://github.com/kh4f/relion/commit/7046d63) ⚠️<sup>[3]</sup>
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **defaults**: update `DEFAULT_RELEASE_TAG_PATTERN` to match version suffixes [`91656bd`](https://github.com/kh4f/relion/commit/91656bd)
+- **changelog**: 
+  - avoid appending blank lines to empty changelog file [`0ec4cc5`](https://github.com/kh4f/relion/commit/0ec4cc5)
+  - adjust `releasePattern` to match footers at EOF [`469969a`](https://github.com/kh4f/relion/commit/469969a)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **changelog**: remove `maxLinesPerRelease` option and related logic [`880611e`](https://github.com/kh4f/relion/commit/880611e) ⚠️<sup>[1]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.26.0...v0.27.0) &ensp;•&ensp; _Oct 28, 2025_
+
+
 ## &ensp; [` 📦 v0.26.0  `](https://github.com/kh4f/relion/compare/v0.25.1...v0.26.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
