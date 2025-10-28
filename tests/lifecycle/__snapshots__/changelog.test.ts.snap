@@ -665,31 +665,77 @@ exports[`partials extraction > should extract changelog for latest release from 
 "
 `;
 
-exports[`partials extraction > should extract changelog for specified release from file 1`] = `
-"## &ensp; [\` 📦 v0.20.0  \`](https://github.com/kh4f/relion/compare/v0.19.0...v0.20.0)
+exports[`partials extraction > should extract changelog for specified release (v0.1.1) from file 1`] = `
+"## [v0.1.1](https://github.com/Kh4f/relion/commits/v0.1.1) (2025-06-20)
+
+> [!NOTE]
+> This release is version \`0.1.1\` instead of \`0.1.0\` due to an npm restriction: [previously unpublished versions can never be republished](https://docs.npmjs.com/cli/v11/commands/npm-unpublish).
+
+### ⚠ BREAKING CHANGES
+* The project and related references have been renamed to 'relion'.
+* \`config\` Changed alias for 'prerelease' option to 'P' to reserve 'p' for the new '--profile' option.
+* \`config\` The 'skip' object has been removed from the config. Now, 'bump', 'changelog', 'commit', and 'tag' are explicit boolean flags. By default, they are false and must be set to true in the user config to enable the corresponding steps.
+* \`config\` The 'firstRelease' property has been removed.
+* \`config\` The config structure has changed. All preset options must now be placed under a 'preset' key in the config file (or cli args). This will be smart-merged with the default preset.
+
+### ✨ Features
+* \`changelog\` repeat last release changelog when no new commits (bdcb9bc)
+* \`config\` add support for \`_<profileName>\` profiles with CLI \`--profile\` flag (a940100)
+* \`config\` add \`.mjs\` and \`.ts\` config support (0efe117)
+* \`cli\` add context.fullChangelogLink flag (949f09e)
+* \`templates\` add full changelog link to footer (e1ed82b)
+* \`templates\` add link to current tag commits in header if it is the only tag (f8a8d73)
+* \`cli\` add 'context.linkReferences' option (bc048b4)
+* \`preset\` re-export handlebars templates as strings (1dc5952)
+* \`config\` add 'all' option to run all lifecycle events (d2a6fd3)
+* \`config\` allow defining custom context (93d6f91)
+* \`config\` add \`writerOpts.commitsSort\` to defaults (dec6006)
+* \`config\` replace skip object with explicit bump, changelog, commit, and tag flags (6f9f4e0)
+* \`config\` require config preset options to be nested under 'preset' key (01fc1f1)
+* \`changelog\` support version prefixes in release headers (00e5410)
+
+### 🩹 Bug Fixes
+* \`changelog\` prevent empty changelog generation when last commit has a version tag (080c007)
+* \`writer\` correct \`previousTag\` detection for \`releaseCount\` > 1 (464cdfa)
+* \`cli\` use \`defaults.preset\` for default preset options (c824820)
+* \`config\` avoid setting \`preMajor\` to false by default (a22bd20)
+* \`config\` resolve script import path with pathToFileURL (3f6f930)
+* \`package\` update release script to use node for execution (bd194d4)
+* \`core\` move \`args.all\` handling after \`args\` initialization (e97b046)
+* \`cli\` change aliases for commit-all and tag-prefix to avoid conflicts (8adfdf7)
+* \`commit\` add tag prefix to version in release commit message (0b955a4)
+* \`bump\` always resolve new version even if skip.bump is set (6b560c9)
+* \`bump\` add \`await\` before calling \`resolveUpdaterObjectFromArgument\` (a7026fa)
+
+### 🧹 Adjustments
+* rename project to 'relion' (faaa473)
+* \`config\` remove unnecessary? \`firstRelease\` property (67266a8)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/commits/v0.1.1) &ensp;•&ensp; _Jun 20, 2025_"
+`;
+
+exports[`partials extraction > should extract changelog for specified release (v0.22.0) from file 1`] = `
+"## &ensp; [\` 📦 v0.22.0  \`](https://github.com/kh4f/relion/compare/v0.21.0...v0.22.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
-- The \`ignoreLimit\` property is replaced with more flexible \`show\` property in changelog section definitions. <sup>[1]</sup>
+- CLI flags \`--bump\`, \`--changelog\`, \`--commit\`, and \`--tag\` have been removed. Use \`--lifecycle\` with step abbreviations instead (e.g., \`--lifecycle blmt\` or \`-f all\`). <sup>[1]</sup>
+- Config options \`bump\`, \`changelog\`, \`commit\`, and \`tag\` no longer accept boolean values. Use the \`lifecycle\` array to control step execution and these options for step-specific configuration only. <sup>[1]</sup>
+- The exported \`BumpFiles\` type was removed. <sup>[2]</sup>
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
-- **changelog**: 
-  - add \`review\` option for interactive changelog review before commit/tag 0ccb51e
-  - add \`show\` property for advanced section rendering control 144f36a ⚠️<sup>[1]</sup>
-  - add \`commitsScope\` option to filter commits by paths 6caff98
+- **changelog**: apply sentence case formatting for breaking change descriptions 0e67566
+- **config**: add implicit "default" profile support 0121ff1
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **commits-parser**: restrict \`BREAKING CHANGES\` detection to line start 893e5af
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
-- **relion-config**: separate full release workflow into dedicated \`local\` profile 4d417f2
-- **tests**: mirror \`src\` folder structure 060f273
-- **lifecycle**: rename \`lifecycles\` folder to \`lifecycle\` 0b608c3
-- **defaults**: 
-  - update \`message\` in \`defaultTagOptions\` to use \`defaultCommitOptions.message\` 3ff93db
-  - use \`chore(release):\` format for default commit and tag messages 7c0a2ea
-  - update commit partial to use \`breakingChangesIndicator\` partial be0931a
-- **config-resolver**: simplify parameters in \`groupCommitsByReleases\` function 4b85951
-- **commits-parser**: rename \`arg1\` to \`commits\` in \`parseCommits\` function 769ef93
-- **git-helper**: make \`prevReleaseTagPattern\` optional in \`getRawCommits\` and \`getReleaseTags\` d4b5c8e
+- **config**: replace boolean lifecycle flags with unified \`lifecycle\` array b0d2d33 ⚠️<sup>[1]</sup>
 
-##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.19.0...v0.20.0) &ensp;•&ensp; _Oct 9, 2025_
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏷️ Types
+- **config**: remove \`BumpFiles\` type and use \`(string | Bumper)[]\` directly for \`bump\` instead 418b6ca ⚠️<sup>[2]</sup>
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.21.0...v0.22.0) &ensp;•&ensp; _Oct 14, 2025_
 
 
 "

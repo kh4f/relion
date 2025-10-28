@@ -303,11 +303,11 @@ describe('partials extraction', () => {
 		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should extract changelog for specified release from file', async () => {
+	it.for(['v0.22.0', 'v0.1.1'])('should extract changelog for specified release (%s) from file', async releaseTag => {
 		expect((await relion({
 			lifecycle: ['changelog'],
 			context: { commitRefLinks: false },
-			changelog: { commitRange: { releaseTag: 'v0.23.0' }, file: 'tests/fixtures/CHANGELOG.md', extractFromFile: 'v0.20.0' },
+			changelog: { commitRange: { releaseTag }, file: 'tests/fixtures/CHANGELOG.md', extractFromFile: releaseTag },
 		})).generatedChangelog).toMatchSnapshot()
 	})
 })
