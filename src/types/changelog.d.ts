@@ -5,7 +5,7 @@ export interface TypeGroupDefinition {
 	title: string
 	commitType: 'breaking' | '*' | (string & {}) | string[]
 	filter?: (commit: ResolvedCommit) => boolean
-	show?: 'always' | 'limit-or-breaking' | 'only-breaking' | 'never'
+	show?: 'only-breaking' | 'never'
 }
 export type TypeGroupsMap = Record<string, TypeGroupDefinition>
 

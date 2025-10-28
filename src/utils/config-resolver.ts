@@ -146,7 +146,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 		: parseCommits(commitRange, config.commitsParser, config.prevReleaseTagPattern, config.commitsScope)
 
 	const resolvedCommits = resolveCommits(parsedCommits, newTag, config.commitsParser.revertCommitBodyPattern)
-	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern, config.changelog.groupCommitsByScope, config.changelog.maxLinesPerRelease) : null
+	const releases = config.changelog ? groupCommitsByReleases(resolvedCommits, config.changelog.sections, config.prevReleaseTagPattern, config.changelog.groupCommitsByScope) : null
 	const { commits: _, ...noCommitsOldContext } = oldContext
 
 	return {
@@ -194,8 +194,7 @@ const resolveCommits = (commits: ParsedCommit[], newTag: string, revertCommitBod
 	}).filter((commit, idx): commit is ResolvedCommit => !!commit && !omittedRevertCommitsIdxs.includes(idx))
 }
 
-const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, prevReleaseTagPattern: RegExp, withScopeGroups?: boolean, maxLinesPerRelease?: number): ReleaseWithTypeGroups[] => {
-	maxLinesPerRelease = maxLinesPerRelease ?? defaultChangelogOptions.maxLinesPerRelease
+const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsMap, prevReleaseTagPattern: RegExp, withScopeGroups?: boolean): ReleaseWithTypeGroups[] => {
 	const releases: Record<string, ReleaseWithFlatCommits> = {}
 
 	commits.forEach(commit => {
@@ -217,23 +216,17 @@ const groupCommitsByReleases = (commits: ResolvedCommit[], sections: TypeGroupsM
 			const commitTypeGroups = groupCommitsByType(commits, sections, withScopeGroups)
 			if (Object.keys(commitTypeGroups).length === 0) return
 
-			let totalCommits = 0
-			let limitIsReached = false
 			const limitedGroups: FilledTypeGroupMap = {}
 			for (const [sectionId, group] of Object.entries(commitTypeGroups)) {
-				group.show ??= 'limit-or-breaking'
-				if ((totalCommits + group.commits.length > maxLinesPerRelease) && Object.keys(limitedGroups).length) limitIsReached = true
 				if (group.show === 'never') continue
-				if (group.show === 'only-breaking' || (group.show === 'limit-or-breaking' && limitIsReached)) {
+				else if (group.show === 'only-breaking') {
 					group.commits = group.commits.filter(c => !!c.breakingChanges)
 					if (group.commits.length) {
 						group.scopeGroups = groupCommitsByScope(group.commits)
 						limitedGroups[sectionId] = group
-						totalCommits += group.commits.length
 					}
-				} else if (group.show === 'always' || !limitIsReached) {
+				} else {
 					limitedGroups[sectionId] = group
-					totalCommits += group.commits.length
 				}
 			}
 			return { ...rest, commitTypeGroups: limitedGroups }

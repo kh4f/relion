@@ -2,11 +2,11 @@ import type { MergedConfig, DefaultBumper, CompleteChangelogOptions, CompleteCom
 import type { HelperOptions } from 'handlebars'
 
 export const defaultChangelogSections = {
-	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking', show: 'always' },
-	feat: { title: '✨ Features', commitType: 'feat', show: 'always' },
-	fix: { title: '🩹 Fixes', commitType: 'fix', show: 'always' },
-	perf: { title: '⚡ Performance', commitType: 'perf', show: 'always' },
-	revert: { title: '♻️ Reverts', commitType: 'revert', show: 'always' },
+	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking' },
+	feat: { title: '✨ Features', commitType: 'feat' },
+	fix: { title: '🩹 Fixes', commitType: 'fix' },
+	perf: { title: '⚡ Performance', commitType: 'perf' },
+	revert: { title: '♻️ Reverts', commitType: 'revert' },
 	refactor: { title: '🚜 Refactoring', commitType: 'refactor' },
 	build: { title: '📦 Build', commitType: 'build' },
 	docs: { title: '📚 Documentation', commitType: 'docs' },
@@ -31,7 +31,6 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	releasePattern: /(?<header>## [^\n]*?\[[^\n]*?{{version}}[^\n]*?\].*?\n+)(?<body>.*?)(?<footer>##### .*?(?:\n+|$))/s,
 	commitRefLinkPattern: /\[`?(#?\w+?)`?\]\(.+?\)/g,
 	groupCommitsByScope: true,
-	maxLinesPerRelease: 20,
 	review: false,
 	helpers: {
 		eq: (a: unknown, b: unknown) => a === b,

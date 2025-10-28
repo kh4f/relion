@@ -46,57 +46,12 @@ describe('changelog generation', () => {
 })
 
 describe('changelog sections rendering', () => {
-	it.for([10, 20])('should limit changelog to $0 lines for release v0.17.0', async maxLines => {
-		expect((await relion({ lifecycle: ['changelog'], changelog: {
-			commitRange: { releaseTag: 'v0.17.0' },
-			maxLinesPerRelease: maxLines,
-		} })).generatedChangelog).toMatchSnapshot()
-	})
-
-	it('should keep sections with show="always" despite changelog line limit', async () => {
-		expect((await relion({
-			lifecycle: ['changelog'],
-			changelog: { maxLinesPerRelease: 25 },
-			context: {
-				newVersion: '0.18.0',
-				commitRefLinks: false,
-				commits: [
-					...Array.from({ length: 10 }, () => ({ message: 'feat(core): some feature' })),
-					...Array.from({ length: 10 }, () => ({ message: 'fix(core): some bugfix' })),
-					...Array.from({ length: 10 }, () => ({ message: 'refactor(core): some refactor' })),
-					{ message: 'perf(core): some performance improvement' },
-					{ message: 'revert(core): some revert' },
-					{ message: 'chore(core): some chore' },
-				],
-			},
-		})).generatedChangelog).toMatchSnapshot()
-	})
-
-	it('should keep commits with breaking changes when maxLinesPerRelease is exceeded', async () => {
-		expect((await relion({
-			lifecycle: ['changelog'],
-			changelog: { maxLinesPerRelease: 3 },
-			context: {
-				newVersion: '0.18.0',
-				commitRefLinks: false,
-				commits: [
-					{ message: 'feat(core): some feature' },
-					{ message: 'fix(core): some bugfix' },
-					{ message: 'refactor(core): some refactor' },
-					{ message: 'perf(core): some performance improvement' },
-					{ message: 'revert(core): some revert' },
-					{ message: 'chore(core): some chore\n\nBREAKING CHANGE: some breaking change' },
-				],
-			},
-		})).generatedChangelog).toMatchSnapshot()
-	})
-
 	it('should skip sections with show="never"', async () => {
 		expect((await relion({
 			lifecycle: ['changelog'],
 			changelog: {
 				sections: {
-					feat: { title: '🎁 New Features', commitType: 'feat', show: 'always' },
+					feat: { title: '🎁 New Features', commitType: 'feat' },
 					fix: { title: '🐛 Bug Fixes', commitType: 'fix', show: 'never' },
 				},
 			},
@@ -124,49 +79,6 @@ describe('changelog sections rendering', () => {
 				commits: [
 					{ message: 'feat(core): some feature 1' },
 					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change' },
-				],
-			},
-		})).generatedChangelog).toMatchSnapshot()
-	})
-
-	it('should ignore changelog line limit for the first section when show defaults to "limit-or-breaking"', async () => {
-		expect((await relion({
-			lifecycle: ['changelog'],
-			changelog: {
-				maxLinesPerRelease: 1,
-				sections: { feat: { title: '🎁 New Features', commitType: 'feat' } },
-			},
-			context: {
-				newVersion: '0.18.0',
-				commitRefLinks: false,
-				commits: [
-					{ message: 'feat(core): some feature 1' },
-					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change' },
-					{ message: 'feat(core): some feature 3' },
-				],
-			},
-		})).generatedChangelog).toMatchSnapshot()
-	})
-
-	it('should show only breaking commits for sections exceeding line limit when show defaults to "limit-or-breaking"', async () => {
-		expect((await relion({
-			lifecycle: ['changelog'],
-			changelog: {
-				maxLinesPerRelease: 1,
-				sections: {
-					feat: { title: '🎁 New Features', commitType: 'feat' },
-					fix: { title: '🐛 Bug Fixes', commitType: 'fix' },
-				},
-			},
-			context: {
-				newVersion: '0.18.0',
-				commitRefLinks: false,
-				commits: [
-					{ message: 'feat(core): some feature 1' },
-					{ message: 'feat(core): some feature 2\n\nBREAKING CHANGE: some breaking change 1' },
-					{ message: 'feat(core): some feature 3' },
-					{ message: 'fix(core): some bugfix 1' },
-					{ message: 'fix(core): some bugfix 2\n\nBREAKING CHANGE: some breaking change 2' },
 				],
 			},
 		})).generatedChangelog).toMatchSnapshot()

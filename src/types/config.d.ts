@@ -52,7 +52,6 @@ export interface ChangelogOptions {
 	releasePattern?: RegExp
 	commitRefLinkPattern?: RegExp
 	groupCommitsByScope?: boolean
-	maxLinesPerRelease?: number
 	helpers?: HelperDeclareSpec
 	partials?: Record<string, string | ((fallback: string) => string)>
 	review?: boolean
