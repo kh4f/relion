@@ -257,7 +257,7 @@ describe('partials extraction', () => {
 				commitRange: { releaseTag: 'v0.22.0' },
 				file: 'tests/fixtures/CHANGELOG.md',
 				header: '',
-				partials: { body: 'from-file' },
+				partials: { body: '{{fromFile}}' },
 			},
 		})).generatedChangelog).toMatchSnapshot()
 	})
@@ -270,7 +270,20 @@ describe('partials extraction', () => {
 				commitRange: { releaseTag: 'v0.22.0' },
 				file: 'tests/fixtures/CHANGELOG.md',
 				header: '',
-				partials: { body: 'from-file' },
+				partials: { body: '{{fromFile}}' },
+			},
+		})).generatedChangelog).toMatchSnapshot()
+	})
+
+	it('should extract body partial and wrap it with custom markers', async () => {
+		expect((await relion({
+			lifecycle: ['changelog'],
+			context: { newVersion: '0.22.0' },
+			changelog: {
+				commitRange: { releaseTag: 'v0.22.0' },
+				file: 'tests/fixtures/CHANGELOG.md',
+				header: '',
+				partials: { body: '--BODY-START--\n{{fromFile}}\n--BODY-END--' },
 			},
 		})).generatedChangelog).toMatchSnapshot()
 	})

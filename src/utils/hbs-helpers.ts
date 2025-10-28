@@ -5,7 +5,7 @@ import type { CompleteChangelogOptions, Context, ResolvedChangelogOptions } from
 
 export const resolvePartials = (options: CompleteChangelogOptions, context: Context): ResolvedChangelogOptions['compiledPartials'] => {
 	let changelogContent, extractedPartials: Record<string, string> | undefined
-	const isPartialExtractionUsed = Object.keys(options.partials).find(key => options.partials[key] === 'from-file')
+	const isPartialExtractionUsed = Object.keys(options.partials).find(key => typeof options.partials[key] === 'string' && options.partials[key].includes('{{fromFile}}'))
 	if (options.extractFromFile || isPartialExtractionUsed) {
 		changelogContent = readFileSync(options.file, 'utf-8')
 		const targetReleaseVersion = (typeof options.extractFromFile === 'boolean' || options.extractFromFile === 'latest-release') ? '' : options.extractFromFile
@@ -18,9 +18,10 @@ export const resolvePartials = (options: CompleteChangelogOptions, context: Cont
 		let partial: string
 		if (typeof rawPartial === 'function') {
 			partial = transformFallback(key, rawPartial)
-		} else if (rawPartial === 'from-file') {
-			partial = extractedPartials?.[key] ?? ''
-			if (!partial) throw new Error(`Partial '${key}' not found in the changelog file for the specified release.`)
+		} else if (rawPartial.includes('{{fromFile}}')) {
+			const extractedPartial = extractedPartials?.[key] ?? ''
+			if (!extractedPartial) throw new Error(`Partial '${key}' not found in the changelog file for the specified release.`)
+			partial = rawPartial.replace('{{fromFile}}', extractedPartial)
 			partial = modifyPartialWithContext(partial, context, options.commitRefLinkPattern)
 		} else {
 			partial = rawPartial

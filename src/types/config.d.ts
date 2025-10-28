@@ -54,7 +54,7 @@ export interface ChangelogOptions {
 	groupCommitsByScope?: boolean
 	maxLinesPerRelease?: number
 	helpers?: HelperDeclareSpec
-	partials?: Record<string, 'from-file' | (string & {}) | ((fallback: string) => string)>
+	partials?: Record<string, string | ((fallback: string) => string)>
 	review?: boolean
 }
 export type CompleteChangelogOptions = Required<ChangelogOptions>
