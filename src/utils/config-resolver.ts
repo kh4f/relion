@@ -1,6 +1,6 @@
 import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, resolvePartials, log } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, Bumper, MergedConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
-import { defaultConfig, defaultBumpers, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
+import { defaultConfig, defaultBumpers, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions, DEFAULT_RELEASE_TAG_PATTERN } from '@/defaults'
 import Handlebars from 'handlebars'
 import { readFileSync } from 'node:fs'
 
@@ -97,8 +97,8 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 	const tagMessage = config.tag?.message
 	const prevReleaseTagPattern = config.prevReleaseTagPattern === '{{newTagFormat}}'
 		? config.tagPrefix !== undefined
-			? new RegExp(`${config.tagPrefix}(?<version>\\d+\\.\\d+\\.\\d+)`)
-			: new RegExp(config.tagFormat.replace('{{version}}', '(?<version>\\d+\\.\\d+\\.\\d+)'))
+			? new RegExp(`${config.tagPrefix}${DEFAULT_RELEASE_TAG_PATTERN.source}`)
+			: new RegExp(config.tagFormat.replace('{{version}}', DEFAULT_RELEASE_TAG_PATTERN.source))
 		: config.prevReleaseTagPattern
 
 	return {

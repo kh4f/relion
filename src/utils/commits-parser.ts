@@ -2,13 +2,13 @@ import type { CompleteCommitsParser, ParsedCommit, RawCommit, RawReference, RefL
 import { GpgSigLabel } from '@/enums'
 import { getRawCommits, warn } from '@/utils'
 import { createHash } from 'node:crypto'
-import { defaultConfig } from '@/defaults'
+import { defaultConfig, DEFAULT_RELEASE_TAG_PATTERN } from '@/defaults'
 
 const parsedCommitsCache = new Map<string, ParsedCommit>()
 let recentReleaseTag: ParsedCommit['releaseTag']
 
 export const parseCommits = (commits: CommitRange | (RawCommit | string)[], commitsParser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp, commitsScope?: string): ParsedCommit[] => {
-	prevReleaseTagPattern ??= /^v?(?<version>\d+\.\d+\.\d+)/
+	prevReleaseTagPattern ??= DEFAULT_RELEASE_TAG_PATTERN
 	const rawCommits = Array.isArray(commits) ? commits : getRawCommits(commits, prevReleaseTagPattern, commitsScope)
 	const parser = commitsParser ?? defaultConfig.commitsParser
 
@@ -22,7 +22,7 @@ export const parseCommits = (commits: CommitRange | (RawCommit | string)[], comm
 
 export const parseCommit = (commit: RawCommit | string, commitsParser?: CompleteCommitsParser, prevReleaseTagPattern?: RegExp): ParsedCommit | null => {
 	commitsParser ??= defaultConfig.commitsParser
-	prevReleaseTagPattern ??= /^v?(?<version>\d+\.\d+\.\d+)/
+	prevReleaseTagPattern ??= DEFAULT_RELEASE_TAG_PATTERN
 
 	if (typeof commit === 'string') commit = { message: commit }
 

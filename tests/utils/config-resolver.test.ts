@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { resolveConfig } from '@/utils'
+import { DEFAULT_RELEASE_TAG_PATTERN } from '@/defaults'
 
 describe('new tag format resolution', () => {
 	it('should use default tagFormat value', () => {
@@ -189,7 +190,8 @@ describe('package info resolution', () => {
 
 describe('prevReleaseTagPattern resolution', () => {
 	it('should use tagFormat as default prevReleaseTagPattern when not explicitly set', () => {
-		expect(resolveConfig({}).prevReleaseTagPattern).toEqual(/v(?<version>\d+\.\d+\.\d+)/)
+		const resolvedConfig = resolveConfig({})
+		expect(resolvedConfig.prevReleaseTagPattern).toEqual(new RegExp(resolvedConfig.tagFormat.replace('{{version}}', DEFAULT_RELEASE_TAG_PATTERN.source)))
 	})
 
 	it('should use explicitly provided prevReleaseTagPattern', () => {
@@ -203,13 +205,13 @@ describe('prevReleaseTagPattern resolution', () => {
 		expect(resolveConfig({
 			tagFormat: 'package@{{version}}',
 			context: { newVersion: '0.27.0', commits: [] },
-		}).prevReleaseTagPattern).toEqual(/package@(?<version>\d+\.\d+\.\d+)/)
+		}).prevReleaseTagPattern).toEqual(new RegExp('package@' + DEFAULT_RELEASE_TAG_PATTERN.source))
 	})
 
 	it('should resolve prevReleaseTagPattern from tagPrefix', () => {
 		expect(resolveConfig({
 			tagPrefix: 'package@',
 			context: { newVersion: '0.27.0', commits: [] },
-		}).prevReleaseTagPattern).toEqual(/package@(?<version>\d+\.\d+\.\d+)/)
+		}).prevReleaseTagPattern).toEqual(new RegExp('package@' + DEFAULT_RELEASE_TAG_PATTERN.source))
 	})
 })
