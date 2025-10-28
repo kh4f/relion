@@ -61,7 +61,8 @@ const handleChangelogOutput = async (options: ResolvedChangelogOptions, config: 
 const writeToFile = (outputFile: string, content: string, latestReleasePattern: RegExp): void => {
 	const changelogContent = existsSync(outputFile) ? readFileSync(outputFile, { encoding: 'utf8' }) : ''
 	const latestReleaseStart = changelogContent.search(latestReleasePattern)
-	const headlessChangelog = changelogContent.slice(latestReleaseStart)
+	const headlessChangelog = changelogContent.slice(latestReleaseStart).trim()
+	if (!headlessChangelog) content = content.trim()
 	const newChangelog = content + headlessChangelog
 	writeFileSync(outputFile, newChangelog, { encoding: 'utf8' })
 }
