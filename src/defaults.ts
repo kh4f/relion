@@ -1,7 +1,7 @@
 import type { MergedConfig, DefaultBumper, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap } from '@/types'
 import type { HelperOptions } from 'handlebars'
 
-export const DEFAULT_RELEASE_TAG_PATTERN = /(?<version>\d+\.\d+\.\d+)/
+export const DEFAULT_RELEASE_TAG_PATTERN = /(?<version>\d+\.\d+\.\d+.*)/
 
 export const defaultChangelogSections = {
 	breaking: { title: '⚠️ BREAKING CHANGES', commitType: 'breaking' },
