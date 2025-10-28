@@ -20,7 +20,7 @@ export const resolvePartials = (options: CompleteChangelogOptions, context: Cont
 			partial = transformFallback(key, rawPartial)
 		} else if (rawPartial === 'from-file') {
 			partial = extractedPartials?.[key] ?? ''
-			if (!partial) throw new Error(`Partial '${key}' not found in the latest release changelog.`)
+			if (!partial) throw new Error(`Partial '${key}' not found in the changelog file for the specified release.`)
 			partial = modifyPartialWithContext(partial, context, options.commitRefLinkPattern)
 		} else {
 			partial = rawPartial
