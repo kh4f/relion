@@ -97,7 +97,7 @@ export const defaultTagOptions: CompleteTagOptions = {
 export const defaultManifestFiles: DefaultBumper[] = [
 	{
 		file: /package\.json$/,
-		pattern: /(^.*?"name": "(?<name>.*?)".*"version": ")(?<version>.*?)(")/s,
+		pattern: /(^.*?"name": "(?<name>.*?)".*"version": ")(?<version>.*?)(".*?"homepage": "(?<homepage>.*?)")/s,
 		replacement: '$1{{newVersion}}$4',
 	},
 ]

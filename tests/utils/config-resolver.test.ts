@@ -162,7 +162,7 @@ describe('package info resolution', () => {
 	it('should extract package info from manifest file', () => {
 		expect(resolveConfig({
 			manifestFile: 'tests/fixtures/package.json',
-		}).context.package).toEqual({ name: 'relion', version: '0.17.0' })
+		}).context.package).toEqual({ name: 'relion', version: '0.17.0', homepage: 'https://github.com/kh4f/relion#readme' })
 	})
 
 	it('should extract package info from manifest file using custom pattern', () => {
@@ -177,8 +177,8 @@ describe('package info resolution', () => {
 
 	it('should use package info from context if provided', () => {
 		expect(resolveConfig({
-			context: { package: { name: 'custom-package', version: '1.2.3', extraInfo: 'some-info' } },
-		}).context.package).toEqual({ name: 'custom-package', version: '1.2.3', extraInfo: 'some-info' })
+			context: { package: { name: 'custom-package', version: '1.2.3', extraInfo: 'some-info', homepage: 'https://custom-package.com' } },
+		}).context.package).toEqual({ name: 'custom-package', version: '1.2.3', extraInfo: 'some-info', homepage: 'https://custom-package.com' })
 	})
 
 	it('should throw if manifest file is missing', () => {

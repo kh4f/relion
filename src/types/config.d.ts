@@ -108,6 +108,7 @@ export interface RepoInfo {
 export interface PackageInfo {
 	name?: string
 	version?: string
+	homepage?: string
 	[key: string]: unknown
 }
 export interface Context {
