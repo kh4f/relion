@@ -42,6 +42,11 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 		or: (...args: unknown[]) => args.slice(0, -1).some(Boolean),
 		not: (value: unknown) => !value,
 		tagToUrlFragment: (tag: string) => `--${tag.replace(' ', '-').replace(/(\.|@)/g, '')}-`,
+		getChangelogUrl: (homepage: string) => {
+			let url = homepage.replace(/#.*/, '')
+			if (!url.includes('/blob/main')) url += '/blob/main'
+			return `${url}/CHANGELOG.md`
+		},
 		toSentenceCase: function (this: unknown, options: HelperOptions) {
 			const content = options.fn(this)
 			return `${content.charAt(0).toUpperCase()}${content.slice(1)}${content.endsWith('.') ? '' : '.'}`
@@ -73,7 +78,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 				{{~/if}}
 				{{~#if @last}}){{else}}, {{/if}}
 			{{~/each}}`,
-		changelogUrl: '{{repo.homepage}}/blob/main/CHANGELOG.md#{{tagToUrlFragment tag}}',
+		changelogUrl: '{{getChangelogUrl package.homepage}}#{{tagToUrlFragment tag}}',
 		breakingChangesIndicator: `<sup>[{{breakingChangeIndex}}]</sup>`,
 	},
 }

@@ -230,6 +230,16 @@ exports[`changelog generation > should generate changelog with selected and modi
 "
 `;
 
+exports[`changelog generation > should generate correct changelogUrl in footer for monorepo package 1`] = `
+"# Changelog
+
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/syncroid/blob/main/packages/vite-plugin-syncroid/CHANGELOG.md#--vite-plugin-syncroid010-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.26.0...vite-plugin-syncroid@0.1.0) &ensp;•&ensp; _Oct 28, 2025_
+
+
+"
+`;
+
 exports[`changelog generation > should remove dots and "@" from tag when generating changelog URL in footer 1`] = `
 "# Changelog
 
