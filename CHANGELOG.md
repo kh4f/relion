@@ -1,6 +1,19 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.28.0  `](https://github.com/kh4f/relion/compare/v0.27.0...v0.28.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **config**: add `homepage` support to `PackageInfo` in `context` [`c628749`](https://github.com/kh4f/relion/commit/c628749)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **changelog**: correct changelog URL generation for monorepo packages [`155d3f5`](https://github.com/kh4f/relion/commit/155d3f5)
+- **defaults**: trim `@` characters in `tagToUrlFragment` helper [`ed586d1`](https://github.com/kh4f/relion/commit/ed586d1)
+- **hbs-helpers**: escape handlebars brackets in extracted partials [`5ea89bc`](https://github.com/kh4f/relion/commit/5ea89bc)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.27.0...v0.28.0) &ensp;•&ensp; _Oct 29, 2025_
+
+
 ## &ensp; [` 📦 v0.27.0  `](https://github.com/kh4f/relion/compare/v0.26.0...v0.27.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚠️ BREAKING CHANGES
