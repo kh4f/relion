@@ -43,6 +43,20 @@ describe('changelog generation', () => {
 				.modify('feat', section => ({ ...section, title: '🎁 New Features' })),
 		} })).generatedChangelog).toMatchSnapshot()
 	})
+
+	it('should remove dots and "@" from tag when generating changelog URL in footer', async () => {
+		expect((await relion({
+			lifecycle: ['changelog'],
+			changelog: {
+				commitRange: { releaseTag: 'v0.27.0' },
+				partials: { body: '' },
+			},
+			context: {
+				tag: 'relion@0.28.0',
+				footerChangelogUrl: true,
+			},
+		})).generatedChangelog).toMatchSnapshot()
+	})
 })
 
 describe('changelog sections rendering', () => {

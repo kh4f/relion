@@ -230,6 +230,18 @@ exports[`changelog generation > should generate changelog with selected and modi
 "
 `;
 
+exports[`changelog generation > should remove dots and "@" from tag when generating changelog URL in footer 1`] = `
+"# Changelog
+
+
+## &ensp; [\` 📦 relion@0.28.0  \`](https://github.com/kh4f/relion/compare/v0.26.0...relion@0.28.0)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_Release Changelog_](https://github.com/kh4f/relion/blob/main/CHANGELOG.md#--relion0280-) &ensp;•&ensp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.26.0...relion@0.28.0) &ensp;•&ensp; _Oct 28, 2025_
+
+
+"
+`;
+
 exports[`changelog sections rendering > should ignore changelog line limit for the first section when show defaults to "limit-or-breaking" 1`] = `
 "# Changelog
 
