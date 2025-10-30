@@ -138,6 +138,7 @@ const resolveContext = (config: TransformedConfig): ResolvedConfig => {
 			releases,
 			commitRefLinks: oldContext.commitRefLinks ?? true,
 			footerChangelogUrl: oldContext.footerChangelogUrl ?? false,
+			isMonorepo: oldContext.isMonorepo ?? false,
 			...noCommitsOldContext,
 			repo: {
 				...repoInfo,

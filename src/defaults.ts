@@ -128,7 +128,7 @@ export const defaultConfig: MergedConfig = {
 	zeroMajorBreakingIsMinor: true,
 	dryRun: false,
 	logLevel: 'info',
-	context: { commitRefLinks: true, footerChangelogUrl: false },
+	context: { commitRefLinks: true, footerChangelogUrl: false, isMonorepo: false },
 	commitsParser: {
 		headerPattern: /^(?<type>\w+)(?:\((?<scope>.+)\))?(?<bang>!)?: (?<subject>.+)/s,
 		breakingChangesPattern: /^BREAKING CHANGES?:\s*(?<content>.+)/ms,

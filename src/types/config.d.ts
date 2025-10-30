@@ -121,6 +121,7 @@ export interface Context {
 	package?: PackageInfo
 	commitRefLinks?: boolean
 	footerChangelogUrl?: boolean
+	isMonorepo?: boolean
 	[key: string]: unknown
 }
 export interface ResolvedContext extends Required<Context> {
