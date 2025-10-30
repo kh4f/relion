@@ -1,6 +1,17 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.29.0  `](https://github.com/kh4f/relion/compare/v0.28.0...v0.29.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **config-merger**: add `mergeConfigs` implementation and export [`e105d51`](https://github.com/kh4f/relion/commit/e105d51)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
+- **changelog**: split changelog URL partial into `changelogUrl` and `releaseChangelogUrl` [`4f91bd6`](https://github.com/kh4f/relion/commit/4f91bd6)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.28.0...v0.29.0) &ensp;•&ensp; _Oct 30, 2025_
+
+
 ## &ensp; [` 📦 v0.28.0  `](https://github.com/kh4f/relion/compare/v0.27.0...v0.28.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
