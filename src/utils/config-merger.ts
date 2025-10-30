@@ -1,7 +1,7 @@
 import type { MergedConfig, UserConfig } from '@/types'
 import { defaultConfig, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions } from '@/defaults'
 
-export const mergeWithDefaults = (config: UserConfig): MergedConfig => {
+export const mergeConfigWithDefaults = (config: UserConfig): MergedConfig => {
 	let lifecycle = config.lifecycle ?? defaultConfig.lifecycle
 	if (lifecycle === 'all') lifecycle = ['bump', 'changelog', 'commit', 'tag']
 	else lifecycle = [...new Set(lifecycle)]

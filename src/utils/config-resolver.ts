@@ -1,4 +1,4 @@
-import { mergeWithDefaults, parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, resolvePartials, log } from '@/utils'
+import { mergeConfigWithDefaults, parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, resolvePartials, log } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, Bumper, MergedConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
 import { defaultBumpers, DEFAULT_RELEASE_TAG_PATTERN } from '@/defaults'
 import Handlebars from 'handlebars'
@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs'
 
 export const resolveConfig = (userConfig: UserConfig): ResolvedConfig => {
 	const profiledConfig = mergeProfileConfig(userConfig)
-	const mergedConfig = mergeWithDefaults(profiledConfig)
+	const mergedConfig = mergeConfigWithDefaults(profiledConfig)
 	const transformedConfig = transformConfig(mergedConfig)
 	const resolvedConfig = resolveContext(transformedConfig)
 	return resolveTemplates(resolvedConfig)
