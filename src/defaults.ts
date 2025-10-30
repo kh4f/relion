@@ -78,7 +78,8 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 				{{~/if}}
 				{{~#if @last}}){{else}}, {{/if}}
 			{{~/each}}`,
-		changelogUrl: '{{getChangelogUrl package.homepage}}#{{tagToUrlFragment tag}}',
+		changelogUrl: '{{getChangelogUrl package.homepage}}',
+		releaseChangelogUrl: '{{>changelogUrl}}#{{tagToUrlFragment tag}}',
 		breakingChangesIndicator: `<sup>[{{breakingChangeIndex}}]</sup>`,
 	},
 }
