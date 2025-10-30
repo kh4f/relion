@@ -1,6 +1,6 @@
-import { parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, resolvePartials, log } from '@/utils'
+import { mergeWithDefaults, parseVersion, determineNextVersion, getReleaseTags, getRepoInfo, parseCommits, parseCommit, extractVersionFromTag, resolvePartials, log } from '@/utils'
 import type { UserConfig, ResolvedConfig, TransformedConfig, Bumper, MergedConfig, ParsedCommit, ReleaseWithFlatCommits, ReleaseWithTypeGroups, TypeGroupsMap, ResolvedCommit, FilledTypeGroupMap, ScopeGroup } from '@/types'
-import { defaultConfig, defaultBumpers, defaultChangelogOptions, defaultCommitOptions, defaultTagOptions, DEFAULT_RELEASE_TAG_PATTERN } from '@/defaults'
+import { defaultBumpers, DEFAULT_RELEASE_TAG_PATTERN } from '@/defaults'
 import Handlebars from 'handlebars'
 import { readFileSync } from 'node:fs'
 
@@ -52,28 +52,6 @@ const mergeProfileConfig = (baseConfig: UserConfig): UserConfig => {
 		commit: mergeOption('commit'),
 		tag: mergeOption('tag'),
 		context: mergeOption('context'),
-	}
-}
-
-const mergeWithDefaults = (config: UserConfig): MergedConfig => {
-	let lifecycle = config.lifecycle ?? defaultConfig.lifecycle
-	if (lifecycle === 'all') lifecycle = ['bump', 'changelog', 'commit', 'tag']
-	else lifecycle = [...new Set(lifecycle)]
-
-	return {
-		...defaultConfig, ...config,
-		lifecycle,
-		commitsParser: { ...defaultConfig.commitsParser, ...config.commitsParser },
-		bump: lifecycle.includes('bump') ? (config.bump ?? defaultConfig.bump) : undefined,
-		changelog: lifecycle.includes('changelog')
-			? { ...defaultChangelogOptions, ...config.changelog,
-				partials: { ...defaultChangelogOptions.partials, ...config.changelog?.partials },
-				helpers: { ...defaultChangelogOptions.helpers, ...config.changelog?.helpers },
-			}
-			: undefined,
-		commit: lifecycle.includes('commit') ? { ...defaultCommitOptions, ...config.commit } : undefined,
-		tag: lifecycle.includes('tag') ? { ...defaultTagOptions, ...config.tag } : undefined,
-		context: { ...defaultConfig.context, ...config.context },
 	}
 }
 
