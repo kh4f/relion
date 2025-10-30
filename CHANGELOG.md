@@ -1,6 +1,15 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.30.0  `](https://github.com/kh4f/relion/compare/v0.29.0...v0.30.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: update `changelogUrl` partial to support monorepo detection [`35992e2`](https://github.com/kh4f/relion/commit/35992e2)
+- **config**: add `isMonorepo` context flag [`ab3ae61`](https://github.com/kh4f/relion/commit/ab3ae61)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.29.0...v0.30.0) &ensp;•&ensp; _Oct 30, 2025_
+
+
 ## &ensp; [` 📦 v0.29.0  `](https://github.com/kh4f/relion/compare/v0.28.0...v0.29.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
