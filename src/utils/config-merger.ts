@@ -22,3 +22,29 @@ export const mergeConfigWithDefaults = (config: UserConfig): MergedConfig => {
 		context: { ...defaultConfig.context, ...config.context },
 	}
 }
+
+const mergeConfigsWithoutProfiles = (baseConfig: UserConfig, overrideConfig: UserConfig): UserConfig => ({
+	...baseConfig,
+	...overrideConfig,
+	commitsParser: { ...baseConfig.commitsParser, ...overrideConfig.commitsParser },
+	changelog: {
+		...baseConfig.changelog,
+		...overrideConfig.changelog,
+		partials: { ...baseConfig.changelog?.partials, ...overrideConfig.changelog?.partials },
+		helpers: { ...baseConfig.changelog?.helpers, ...overrideConfig.changelog?.helpers },
+	},
+	commit: { ...baseConfig.commit, ...overrideConfig.commit },
+	tag: { ...baseConfig.tag, ...overrideConfig.tag },
+	context: { ...baseConfig.context, ...overrideConfig.context },
+})
+
+export const mergeConfigs = (baseConfig: UserConfig, overrideConfig: UserConfig): UserConfig => {
+	const result = mergeConfigsWithoutProfiles(baseConfig, overrideConfig)
+	for (const key of Object.keys(baseConfig)) {
+		if (key.startsWith('_')) {
+			const profileKey = key as `_${string}`
+			result[profileKey] = mergeConfigsWithoutProfiles(baseConfig[profileKey] ?? {}, overrideConfig[profileKey] ?? {})
+		}
+	}
+	return result
+}
