@@ -58,14 +58,15 @@ describe('changelog generation', () => {
 		})).generatedChangelog).toMatchSnapshot()
 	})
 
-	it('should generate correct changelogUrl in footer for monorepo package', async () => {
+	it('should generate correct release changelog URL in footer for monorepo package', async () => {
 		expect((await relion({
 			lifecycle: ['changelog'],
 			changelog: { partials: { header: '', body: '' }, commitRange: { releaseTag: 'v0.27.0' } },
 			context: {
 				tag: 'vite-plugin-syncroid@0.1.0',
 				footerChangelogUrl: true,
-				package: { homepage: 'https://github.com/kh4f/syncroid/blob/main/packages/vite-plugin-syncroid#readme' },
+				isMonorepo: true,
+				package: { name: 'vite-plugin-syncroid' },
 			},
 		})).generatedChangelog).toMatchSnapshot()
 	})

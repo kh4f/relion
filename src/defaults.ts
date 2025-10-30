@@ -78,7 +78,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 				{{~/if}}
 				{{~#if @last}}){{else}}, {{/if}}
 			{{~/each}}`,
-		changelogUrl: '{{getChangelogUrl package.homepage}}',
+		changelogUrl: '{{repo.homepage}}/blob/main/{{#if isMonorepo}}packages/{{package.name}}/{{/if}}CHANGELOG.md',
 		releaseChangelogUrl: '{{>changelogUrl}}#{{tagToUrlFragment tag}}',
 		breakingChangesIndicator: `<sup>[{{breakingChangeIndex}}]</sup>`,
 	},
