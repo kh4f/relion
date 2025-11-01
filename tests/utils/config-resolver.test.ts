@@ -191,7 +191,7 @@ describe('package info resolution', () => {
 describe('prevReleaseTagPattern resolution', () => {
 	it('should use tagFormat as default prevReleaseTagPattern when not explicitly set', () => {
 		const resolvedConfig = resolveConfig({})
-		expect(resolvedConfig.prevReleaseTagPattern).toEqual(new RegExp(resolvedConfig.tagFormat.replace('{{version}}', DEFAULT_RELEASE_TAG_PATTERN.source)))
+		expect(resolvedConfig.prevReleaseTagPattern).toEqual(new RegExp('^' + resolvedConfig.tagFormat.replace('{{version}}', DEFAULT_RELEASE_TAG_PATTERN.source)))
 	})
 
 	it('should use explicitly provided prevReleaseTagPattern', () => {
@@ -205,13 +205,13 @@ describe('prevReleaseTagPattern resolution', () => {
 		expect(resolveConfig({
 			tagFormat: 'package@{{version}}',
 			context: { newVersion: '0.27.0', commits: [] },
-		}).prevReleaseTagPattern).toEqual(new RegExp('package@' + DEFAULT_RELEASE_TAG_PATTERN.source))
+		}).prevReleaseTagPattern).toEqual(new RegExp('^package@' + DEFAULT_RELEASE_TAG_PATTERN.source))
 	})
 
 	it('should resolve prevReleaseTagPattern from tagPrefix', () => {
 		expect(resolveConfig({
 			tagPrefix: 'package@',
 			context: { newVersion: '0.27.0', commits: [] },
-		}).prevReleaseTagPattern).toEqual(new RegExp('package@' + DEFAULT_RELEASE_TAG_PATTERN.source))
+		}).prevReleaseTagPattern).toEqual(new RegExp('^package@' + DEFAULT_RELEASE_TAG_PATTERN.source))
 	})
 })

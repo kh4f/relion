@@ -75,8 +75,8 @@ const transformConfig = (config: MergedConfig): TransformedConfig => {
 	const tagMessage = config.tag?.message
 	const prevReleaseTagPattern = config.prevReleaseTagPattern === '{{newTagFormat}}'
 		? config.tagPrefix !== undefined
-			? new RegExp(`${config.tagPrefix}${DEFAULT_RELEASE_TAG_PATTERN.source}`)
-			: new RegExp(config.tagFormat.replace('{{version}}', DEFAULT_RELEASE_TAG_PATTERN.source))
+			? new RegExp(`^${config.tagPrefix}${DEFAULT_RELEASE_TAG_PATTERN.source}`)
+			: new RegExp(`^${config.tagFormat.replace('{{version}}', DEFAULT_RELEASE_TAG_PATTERN.source)}`)
 		: config.prevReleaseTagPattern
 
 	return {
