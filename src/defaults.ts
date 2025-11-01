@@ -55,6 +55,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	},
 	partials: {
 		br: '\n',
+		releaseTitle: '{{tag}}',
 		scope: '{{#if scope}}**{{scope}}**: {{/if}}',
 		commit: `{{{subject}}} {{" "}}
 			{{~#if @root.commitRefLinks~}}
