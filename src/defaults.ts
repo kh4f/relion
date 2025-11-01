@@ -37,6 +37,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 	helpers: {
 		eq: (a: unknown, b: unknown) => a === b,
 		repeat: (string: string, n: number) => string.repeat(n),
+		replace: (search: string, replace: string, value: string) => value.replace(new RegExp(search), replace),
 		isArray: (value: unknown) => Array.isArray(value),
 		isSingle: (arr: unknown[]) => arr.length === 1,
 		or: (...args: unknown[]) => args.slice(0, -1).some(Boolean),
