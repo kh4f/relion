@@ -42,6 +42,11 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 		isSingle: (arr: unknown[]) => arr.length === 1,
 		or: (...args: unknown[]) => args.slice(0, -1).some(Boolean),
 		not: (value: unknown) => !value,
+		partial: function (this: unknown, name: string, options: HelperOptions) {
+			const data = options.data as Record<string, unknown>
+			const hbs = data._handlebars as typeof Handlebars
+			return (hbs.partials[name] as Handlebars.TemplateDelegate)(this)
+		},
 		tagToUrlFragment: (tag: string) => `--${tag.replace(' ', '-').replace(/(\.|@)/g, '')}-`,
 		getChangelogUrl: (homepage: string) => {
 			let url = homepage.replace(/#.*/, '')

@@ -38,7 +38,7 @@ const generateChangelog = (config: ResolvedConfig): string | null => {
 			}
 		}
 		const releaseContext: ReleaseContext = { ...release, ...config.context, prevRelease }
-		const rendered = hbs.compile(releaseTemplate)(releaseContext)
+		const rendered = hbs.compile(releaseTemplate)(releaseContext, { data: { _handlebars: hbs } })
 		result += rendered
 	})
 
