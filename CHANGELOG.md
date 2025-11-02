@@ -1,6 +1,18 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.32.0  `](https://github.com/kh4f/relion/compare/v0.31.0...v0.32.0)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
+- **changelog**: add `partial` helper to enable dynamic partial rendering [`93d8440`](https://github.com/kh4f/relion/commit/93d8440)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **changelog**: respect custom `releaseTitle` in release changelog URL fragment [`5ee56e0`](https://github.com/kh4f/relion/commit/5ee56e0)
+- **config**: anchor `prevReleaseTagPattern` to start of string when derived from `tagPrefix`/`tagFormat` [`a54ceb4`](https://github.com/kh4f/relion/commit/a54ceb4)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.31.0...v0.32.0) &ensp;•&ensp; _Nov 2, 2025_
+
+
 ## &ensp; [` 📦 v0.31.0  `](https://github.com/kh4f/relion/compare/v0.30.0...v0.31.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
