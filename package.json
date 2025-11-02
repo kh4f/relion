@@ -5,7 +5,7 @@
 	"author": "Kh4f <kh4f.dev@gmail.com>",
 	"license": "MIT",
 	"engines": {
-		"node": "^24.11.0"
+		"node": "^25.1.0"
 	},
 	"packageManager": "pnpm@10.20.0",
 	"repository": "https://github.com/kh4f/relion",
