@@ -1,4 +1,5 @@
 import type { MergedConfig, DefaultBumper, CompleteChangelogOptions, CompleteCommitOptions, CompleteTagOptions, TypeGroupsMap } from '@/types'
+import type Handlebars from 'handlebars'
 import type { HelperOptions } from 'handlebars'
 
 export const DEFAULT_RELEASE_TAG_PATTERN = /(?<version>\d+\.\d+\.\d+.*)/
@@ -86,7 +87,7 @@ export const defaultChangelogOptions: CompleteChangelogOptions = {
 				{{~#if @last}}){{else}}, {{/if}}
 			{{~/each}}`,
 		changelogUrl: '{{repo.homepage}}/blob/main/{{#if isMonorepo}}packages/{{package.name}}/{{/if}}CHANGELOG.md',
-		releaseChangelogUrl: '{{>changelogUrl}}#{{tagToUrlFragment tag}}',
+		releaseChangelogUrl: `{{>changelogUrl}}#{{tagToUrlFragment (partial 'releaseTitle')}}`,
 		breakingChangesIndicator: `<sup>[{{breakingChangeIndex}}]</sup>`,
 	},
 }
