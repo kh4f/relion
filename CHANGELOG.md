@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.32.1  `](https://github.com/kh4f/relion/compare/v0.32.0...v0.32.1)
+
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
+- **versioner**: ensure breaking changes take priority over features in release type calculation [`8f29acf`](https://github.com/kh4f/relion/commit/8f29acf)
+
+##### &emsp;&ensp;&nbsp;&nbsp; [_All Release Commits_](https://github.com/kh4f/relion/compare/v0.32.0...v0.32.1) &ensp;•&ensp; _Nov 6, 2025_
+
+
 ## &ensp; [` 📦 v0.32.0  `](https://github.com/kh4f/relion/compare/v0.31.0...v0.32.0)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
