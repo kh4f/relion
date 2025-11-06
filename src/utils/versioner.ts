@@ -37,11 +37,11 @@ export const determineNextVersion = (config: TransformedConfig, currentVersion: 
 const calculateReleaseType = (commits: ParsedCommit[], currentVersion?: string, zeroMajorBreakingIsMinor?: boolean): ReleaseType => {
 	let releaseType: ReleaseType = 'patch'
 
-	const hasBreakingChange = commits.some(commit => commit.breakingChanges)
-	if (hasBreakingChange) releaseType = 'major'
-
 	const hasFeature = commits.some(commit => commit.type === 'feat')
 	if (hasFeature) releaseType = 'minor'
+
+	const hasBreakingChange = commits.some(commit => commit.breakingChanges)
+	if (hasBreakingChange) releaseType = 'major'
 
 	return (releaseType === 'major' && semver.major(currentVersion ?? '1.0.0') === 0 && zeroMajorBreakingIsMinor) ? 'minor' : releaseType
 }
