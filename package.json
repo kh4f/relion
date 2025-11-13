@@ -7,7 +7,7 @@
 	"engines": {
 		"node": "^25.1.0"
 	},
-	"packageManager": "pnpm@10.20.0",
+	"packageManager": "pnpm@10.21.0",
 	"repository": "https://github.com/kh4f/relion",
 	"bugs": "https://github.com/kh4f/relion/issues",
 	"homepage": "https://github.com/kh4f/relion#readme",
