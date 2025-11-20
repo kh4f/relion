@@ -13,7 +13,7 @@ jobs:
       TAG: ${{ github.ref_name }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: main # attach HEAD to 'main' to avoid pnpm publish error ERR_PNPM_GIT_UNKNOWN_BRANCH
           fetch-depth: 0 # fetch full history for correct commits parsing
