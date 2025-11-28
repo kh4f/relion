@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       cleye:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
       handlebars:
         specifier: ^4.7.8
         version: 4.7.8
@@ -728,8 +728,8 @@ packages:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
     engines: {node: '>= 14.16.0'}
 
-  cleye@2.0.0:
-    resolution: {integrity: sha512-O4pienLd7x3kzjdhzz0nIEmPuX84I1C1UjLPdMe+0TebP2aTuPoXx15zvLMgSUIn+ZAJJzH9cH4aEVA1bDdmsA==}
+  cleye@2.0.1:
+    resolution: {integrity: sha512-c7dha4cG1fF3TZOkzhRyhEvFxHbdVL5AuQ2+xEBB7dR0Y/mhgmuzIdG60+wRUIPyRCPhF17CDbwP+LZ/83PnOg==}
 
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
@@ -2012,7 +2012,7 @@ snapshots:
     dependencies:
       readdirp: 4.1.2
 
-  cleye@2.0.0:
+  cleye@2.0.1:
     dependencies:
       terminal-columns: 2.0.0
       type-flag: 4.0.2
