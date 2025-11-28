@@ -62,7 +62,7 @@
 		"typescript": "^5.9.3",
 		"tsx": "^4.20.6",
 		"typescript-eslint": "^8.48.0",
-		"vitest": "^4.0.13"
+		"vitest": "^4.0.14"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm lint-staged"
