@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       cleye:
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: ^2.1.1
+        version: 2.1.1
       handlebars:
         specifier: ^4.7.8
         version: 4.7.8
@@ -870,8 +870,8 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  cleye@2.1.0:
-    resolution: {integrity: sha512-7vRhxrOSMTTuKEwD0R14DU81zPT4v0USNuv0S4NkghzEvZtcmpUZK4S+MgX+CLUsV2ke6d2X2k/10AnKVls/Iw==}
+  cleye@2.1.1:
+    resolution: {integrity: sha512-EZq1aMSBzKLyKiisOOCFqhcbS6fn2ENvrAQZD8vpZqAjK8kXZ77iJO68BUdWitNoOiRTSI+AnA7LsYV/PviS8A==}
 
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
@@ -2214,7 +2214,7 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  cleye@2.1.0:
+  cleye@2.1.1:
     dependencies:
       terminal-columns: 2.0.0
       type-flag: 4.0.3
