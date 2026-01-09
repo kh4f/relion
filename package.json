@@ -4,10 +4,6 @@
 	"description": "Release workflow helper.",
 	"author": "Kh4f <kh4f.dev@gmail.com>",
 	"license": "MIT",
-	"engines": {
-		"node": "^25.2.1"
-	},
-	"packageManager": "pnpm@10.27.0",
 	"repository": "https://github.com/kh4f/relion",
 	"bugs": "https://github.com/kh4f/relion/issues",
 	"homepage": "https://github.com/kh4f/relion#readme",
