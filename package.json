@@ -7,22 +7,8 @@
 	"repository": "https://github.com/kh4f/relion",
 	"bugs": "https://github.com/kh4f/relion/issues",
 	"homepage": "https://github.com/kh4f/relion#readme",
-	"keywords": [
-		"relion",
-		"release",
-		"release-workflow",
-		"release-helper",
-		"semantic-release",
-		"conventional-changelog",
-		"standard-version",
-		"commit-and-tag-version"
-	],
-	"files": [
-		"dist",
-		"package.json",
-		"LICENSE",
-		"README.md"
-	],
+	"keywords": ["relion", "release", "release-workflow", "release-helper", "semantic-release", "conventional-changelog", "standard-version", "commit-and-tag-version"],
+	"files": ["dist", "package.json", "LICENSE", "README.md"],
 	"type": "module",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -60,10 +46,6 @@
 		"typescript-eslint": "^8.52.0",
 		"vitest": "^4.0.16"
 	},
-	"simple-git-hooks": {
-		"pre-commit": "pnpm lint-staged"
-	},
-	"lint-staged": {
-		"*.ts": "pnpm lint:fix"
-	}
+	"simple-git-hooks": { "pre-commit": "pnpm lint-staged" },
+	"lint-staged": { "*.ts": "pnpm lint:fix" }
 }
