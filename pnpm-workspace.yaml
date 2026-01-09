@@ -1,3 +1,1 @@
-onlyBuiltDependencies:
-  - esbuild
-  - simple-git-hooks
+onlyBuiltDependencies: [esbuild, simple-git-hooks]
