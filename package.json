@@ -2,7 +2,7 @@
 	"name": "relion",
 	"version": "0.32.1",
 	"description": "Release Workflow Helper",
-	"author": "Kh4f <kh4f.dev@gmail.com>",
+	"author": "kh4f <kh4f.dev@gmail.com>",
 	"license": "MIT",
 	"repository": "https://github.com/kh4f/relion",
 	"bugs": "https://github.com/kh4f/relion/issues",
