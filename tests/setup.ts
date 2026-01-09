@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import * as promptModule from '@/utils/prompter'
+import * as promptModule from '@/utils'
 
 type DefaultsModule = typeof import('@/defaults')
 
