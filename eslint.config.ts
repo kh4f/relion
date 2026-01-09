@@ -4,13 +4,8 @@ import tseslint from 'typescript-eslint'
 import stylistic from '@stylistic/eslint-plugin'
 import globals from 'globals'
 
-const isExtensionMode = !!process.env.VSCODE_CWD
-
 export default defineConfig([
-	globalIgnores([
-		'dist',
-		(isExtensionMode ? '' : 'temp/'),
-	].filter(Boolean), 'Global Ignores'),
+	globalIgnores(['dist'], 'Global Ignores'),
 	{
 		name: 'Base Rules',
 		files: ['**/*.ts'],
