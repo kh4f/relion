@@ -4,8 +4,7 @@ import { resolve } from 'node:path'
 const hbsRaw = (): Plugin => ({
 	name: 'hbs-raw',
 	enforce: 'pre',
-	resolveId: source =>
-		source.endsWith('.hbs') ? `${source}?raw` : null,
+	resolveId: source => source.endsWith('.hbs') ? `${source}?raw` : null,
 })
 
 export default defineConfig({
