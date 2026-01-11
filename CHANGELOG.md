@@ -1,6 +1,18 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.34.0  `](https://github.com/kh4f/relion/compare/v0.33.0...v0.34.0)
+
+### &emsp; 🧨 BREAKING CHANGES
+- **CLI configuration changes**: CLI no longer supports `contextFile`, `commitMessage`, and `tagPrefix` options. These must now be set in `package.json` or via API. [🡥](https://github.com/kh4f/relion/commit/cb3dc98)
+- **Removed GPG signing option**: The `gpgSign` configuration option has been removed in favor of using Git's native setting for signing commits and tags. [🡥](https://github.com/kh4f/relion/commit/044fcdc)
+
+### &emsp; 🎁 Features
+- **Configuration via package.json**: allow configuration via the `relion` field in `package.json`. CLI options still take precedence. [🡥](https://github.com/kh4f/relion/commit/cb3dc98)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.33.0...v0.34.0) &ensp;•&ensp; _Jan 11, 2026_
+
+
 ## &ensp; [` 📦 v0.33.0  `](https://github.com/kh4f/relion/compare/v0.32.1...v0.33.0)
 
 ### &emsp; 🧨 BREAKING CHANGES
