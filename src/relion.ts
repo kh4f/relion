@@ -6,11 +6,12 @@ import { calculateNextVersion, parseCommits } from '@/utils'
 import type { Config } from '@/types'
 
 export default function relion(userCfg?: Config) {
-	const cfg = { ...defaultCfg, ...userCfg }
+	const pkgJson = JSON.parse(readFileSync('package.json', 'utf8')) as
+		{ relion?: Partial<Config>, version: string, repository: string }
+	const cfg = { ...defaultCfg, ...pkgJson.relion, ...userCfg }
 
 	console.log('-'.repeat(30))
 
-	const pkgJson = JSON.parse(readFileSync('package.json', 'utf8')) as { version: string, repository: string }
 	const curVersion = pkgJson.version
 	console.log(`Current version: ${curVersion}`)
 

@@ -5,9 +5,9 @@ const HELP = `Usage: relion [options]
 
 Options:
   -b            Run bump step
-  -f [file]     Run context step (default file: 'RELEASE.md')
-  -c [message]  Run commit step (default message: 'chore(release): {{tag}}')
-  -t [prefix]   Run tag step (default prefix: 'v')
+  -f            Run context step
+  -c            Run commit step
+  -t            Run tag step
   -v <version>  Specify new version
   -d            Dry run
 `
@@ -20,9 +20,6 @@ if (!args) {
 }
 
 const newVersion = /-v (\S+)/.exec(args)?.[1]
-const contextFile = /-f (\S+)/.exec(args)?.[1]
-const commitMessage = /-c "(.+?)"/.exec(args)?.[1]
-const tagPrefix = /-t (\S+)/.exec(args)?.[1]
 const dryRun = /-\w*d/.test(args)
 
 relion({
@@ -33,8 +30,5 @@ relion({
 		/-\w*t/.test(args) && 'tag',
 	].filter(Boolean) as Step[],
 	...(newVersion && { newVersion }),
-	...(contextFile && { contextFile }),
-	...(commitMessage && { commitMessage }),
-	...(tagPrefix && { tagPrefix }),
 	...(dryRun && { dryRun }),
 })
