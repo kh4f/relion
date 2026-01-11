@@ -21,8 +21,7 @@
 		"lint:fix": "eslint --fix",
 		"release": "pnpm relion",
 		"release:github": "pnpm relion -p github",
-		"relion": "tsx scripts/relion-runner",
-		"prepare": "simple-git-hooks"
+		"relion": "tsx scripts/relion-runner"
 	},
 	"dependencies": {
 		"handlebars": "^4.7.8",
@@ -36,13 +35,9 @@
 		"@types/semver": "^7.7.1",
 		"eslint": "^9.39.2",
 		"globals": "^17.0.0",
-		"lint-staged": "^16.2.7",
-		"simple-git-hooks": "^2.13.1",
 		"tsdown": "^0.18.4",
 		"typescript": "^5.9.3",
 		"tsx": "^4.21.0",
 		"typescript-eslint": "^8.52.0"
-	},
-	"simple-git-hooks": { "pre-commit": "pnpm lint-staged" },
-	"lint-staged": { "*.ts": "pnpm lint:fix" }
+	}
 }
