@@ -2,7 +2,7 @@
 
 ## Style
 - Use American English
-- Use backticks for code entities, libs, flags, etc.
+- Use backticks for code entities, paths, libraries, flags, etc.
 
 ## Format
 The commit message should be structured as follows:
@@ -92,14 +92,14 @@ A brief summary of the change. Use present tense, imperative mood, and lowercase
 ### Details
 
 #### Body
-Add a \<body> if the \<subject> needs more context or a clearer explanation of the reason for the change.
-Using the present tense and imperative mood is preferable.
+Add a \<body> if the \<subject> needs more context or a clearer explanation of the reason for the change. Using the present tense and imperative mood is preferable.
 
 If the \<subject> is too broad and covers multiple changes, add a \<body> as a bullet list of changes.
 
 #### Breaking Changes
 If the commit introduces breaking changes, add a \<breaking changes> section starting with the 'BREAKING CHANGE:' token. Also, add a '!' before the colon in the commit header.
-For multiple changes, list them as bullet points.
+
+For multiple breaking changes, list them as bullet points.
 
 #### Footer
 If the commit references an Issue/PR (I’ll let you know), include a \<footer>.
