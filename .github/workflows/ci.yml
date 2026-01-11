@@ -1,6 +1,6 @@
 name: CI
 
-on: { push: { branches: '**' } }
+on: { push: { branches: 'main' } }
 
 jobs:
   ci:
@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        # fetch full history for correct commits parsing in tests
-        with: { fetch-depth: 0 }
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -27,4 +25,4 @@ jobs:
         run: pnpm build:prod
 
       - name: Lint
-        run: pnpm lint:fix
+        run: pnpm lint

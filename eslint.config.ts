@@ -22,9 +22,6 @@ export default defineConfig([
 		rules: {
 			'@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
 			'@typescript-eslint/restrict-template-expressions': 'off',
-			'@typescript-eslint/no-dynamic-delete': 'off',
-			'@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
-			'@typescript-eslint/prefer-nullish-coalescing': ['error', { ignorePrimitives: { boolean: true } }],
 		},
 		languageOptions: {
 			parserOptions: {
@@ -41,12 +38,8 @@ export default defineConfig([
 			'@stylistic/indent': ['error', 'tab'],
 			'@stylistic/indent-binary-ops': ['error', 'tab'],
 			'@stylistic/no-tabs': 'off',
-			'@stylistic/linebreak-style': ['error', 'unix'],
 			'@stylistic/eol-last': ['error', 'never'],
-			'@stylistic/brace-style': ['error', '1tbs'],
-			'@stylistic/operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
 			'@stylistic/arrow-parens': ['error', 'as-needed'],
-			'@stylistic/multiline-ternary': 'off',
 		},
 	},
 ])

@@ -14,9 +14,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          ref: main # attach HEAD to 'main' to avoid pnpm publish error ERR_PNPM_GIT_UNKNOWN_BRANCH
-          fetch-depth: 0 # fetch full history for correct commits parsing
+        with: { ref: 'main' } # attach HEAD to 'main'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -33,7 +31,7 @@ jobs:
         run: pnpm build:prod
 
       - name: Lint
-        run: pnpm lint:fix
+        run: pnpm lint
 
       - name: Create release archive
         run: |
@@ -44,12 +42,7 @@ jobs:
       - name: Create GitHub release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create $TAG \
-            --title $TAG \
-            --notes "$(pnpm --silent release:github)" \
-            --draft \
-            $ARCHIVE_NAME
+        run: gh release create $TAG --title $TAG --draft $ARCHIVE_NAME
 
       - name: Publish to npm
         env:

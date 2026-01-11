@@ -1,6 +1,4 @@
-import type { UserConfig } from '@/types'
+import type { Config } from '@/types'
 
 export { default } from '@/relion'
-export { sectionsSelector, mergeConfigs } from '@/utils'
-export type * from '@/types'
-export const defineConfig = (config: UserConfig): UserConfig => config
+export const defineConfig = (config: Config) => config
