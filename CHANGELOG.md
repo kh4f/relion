@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.33.0  `](https://github.com/kh4f/relion/compare/v0.32.1...v0.33.0)
+
+### &emsp; 🧨 BREAKING CHANGES
+- **Major redesign**: Relion has been rebuilt from scratch to focus on generating release context for GitHub Copilot in changelog generation; all previous APIs are incompatible. [🡥](https://github.com/kh4f/relion/commit/9104471)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.32.1...v0.33.0) &ensp;•&ensp; _Jan 11, 2026_
+
+
 ## &ensp; [` 📦 v0.32.1  `](https://github.com/kh4f/relion/compare/v0.32.0...v0.32.1)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
