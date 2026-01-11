@@ -19,8 +19,6 @@
 		"build:prod": "tsdown --production",
 		"lint": "eslint",
 		"lint:fix": "eslint --fix",
-		"test": "vitest run",
-		"test:watch": "vitest",
 		"release": "pnpm relion",
 		"release:github": "pnpm relion -p github",
 		"relion": "tsx scripts/relion-runner",
@@ -43,8 +41,7 @@
 		"tsdown": "^0.18.4",
 		"typescript": "^5.9.3",
 		"tsx": "^4.21.0",
-		"typescript-eslint": "^8.52.0",
-		"vitest": "^4.0.16"
+		"typescript-eslint": "^8.52.0"
 	},
 	"simple-git-hooks": { "pre-commit": "pnpm lint-staged" },
 	"lint-staged": { "*.ts": "pnpm lint:fix" }

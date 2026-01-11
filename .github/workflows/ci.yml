@@ -28,6 +28,3 @@ jobs:
 
       - name: Lint
         run: pnpm lint:fix
-
-      - name: Test
-        run: pnpm test

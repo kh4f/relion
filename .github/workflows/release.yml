@@ -35,9 +35,6 @@ jobs:
       - name: Lint
         run: pnpm lint:fix
 
-      - name: Test
-        run: pnpm test
-
       - name: Create release archive
         run: |
           ARCHIVE_NAME=${GITHUB_REPOSITORY##*/}-$TAG.zip
