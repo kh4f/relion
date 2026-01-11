@@ -4,12 +4,12 @@ import type { Step } from '@/types'
 const HELP = `Usage: relion [options]
 
 Options:
-  -b            Run bump step
-  -f            Run context step
-  -c            Run commit step
-  -t            Run tag step
-  -v <version>  Specify new version
-  -d            Dry run
+  -b            Bump the version
+  -f            Prepare release context
+  -c            Create a release commit
+  -t            Create a release tag
+  -v <version>  Set the new version explicitly
+  -d            Run in dry run mode 
 `
 
 const args = process.argv.slice(2).join(' ')
