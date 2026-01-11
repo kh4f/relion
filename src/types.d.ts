@@ -5,7 +5,6 @@ export interface Config {
 	contextFile?: string
 	commitMessage?: string
 	tagPrefix?: string
-	gpgSign?: boolean
 	commitFilters?: ((commit: Commit) => boolean)[]
 	dryRun?: boolean
 }

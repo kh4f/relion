@@ -9,7 +9,6 @@ Options:
   -c [message]  Run commit step (default message: 'chore(release): {{tag}}')
   -t [prefix]   Run tag step (default prefix: 'v')
   -v <version>  Specify new version
-  --gpg         Sign commit and tag with GPG
   -d            Dry run
 `
 
@@ -24,7 +23,6 @@ const newVersion = /-v (\S+)/.exec(args)?.[1]
 const contextFile = /-f (\S+)/.exec(args)?.[1]
 const commitMessage = /-c "(.+?)"/.exec(args)?.[1]
 const tagPrefix = /-t (\S+)/.exec(args)?.[1]
-const gpgSign = args.includes('--gpg')
 const dryRun = /-\w*d/.test(args)
 
 relion({
@@ -38,6 +36,5 @@ relion({
 	...(contextFile && { contextFile }),
 	...(commitMessage && { commitMessage }),
 	...(tagPrefix && { tagPrefix }),
-	...(gpgSign && { gpgSign }),
 	...(dryRun && { dryRun }),
 })

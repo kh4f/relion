@@ -37,14 +37,14 @@ export const context = (cfg: Required<Config>, commits: Commit[], curTag: string
 }
 
 export const commit = (cfg: Required<Config>): void => {
-	const cmd = `git add -A && git reset ${cfg.contextFile} && git commit -m "${cfg.commitMessage}"${cfg.gpgSign ? ' -S' : ''}`
+	const cmd = `git add -A && git reset ${cfg.contextFile} && git commit -m "${cfg.commitMessage}"`
 	console.log(`Committing changes: '${cmd}'`)
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
 }
 
 export const tag = (cfg: Required<Config>, newTag: string) => {
-	const cmd = `git tag ${newTag} -m "${cfg.commitMessage}"${cfg.gpgSign ? ' -s' : ''}`
+	const cmd = `git tag ${newTag} -m "${cfg.commitMessage}"`
 	console.log(`Creating a tag: '${cmd}'`)
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
