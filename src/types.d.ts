@@ -21,13 +21,13 @@ export interface Config {
 	bumpFiles?: (Bumper | string)[]
 
 	/**
-	 * Path to the release context file
+	 * Path to the release context output file
 	 * @default 'RELEASE.md'
 	 */
 	contextFile?: string
 
 	/**
-	 * Release commit message
+	 * Release commit message template
 	 * @default 'chore(release): {{tag}}'
 	 */
 	commitMessage?: string
@@ -39,7 +39,7 @@ export interface Config {
 	tagPrefix?: string
 
 	/**
-	 * Filters to select which commits to output in the release context
+	 * Filters for selecting commits in the release context
      * @default [
      *   c => /^feat|^fix|^perf|^style|^docs/.test(c.message),
      *   c => c.message.includes('BREAKING CHANGE')
