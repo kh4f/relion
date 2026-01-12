@@ -11,7 +11,7 @@ export const defaultBumpers: Bumper[] = [
 export const defaultCfg: Required<Config> = {
 	flow: [],
 	newVersion: '',
-	bumpFiles: defaultBumpers,
+	bumpFiles: ['package.json'],
 	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',
