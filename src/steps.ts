@@ -32,7 +32,7 @@ export const context = (cfg: Required<Config>, commits: Commit[], curTag: string
 		+ '\n---\n'
 	output += frontMatter + '\n'
 	const commitsString = commits.map(c => `[${c.hash}] ${c.message}`).join(`\n${'-'.repeat(30)}\n`)
-	output += `## Git Log\n\n\`\`\`\n${commitsString}\n\`\`\``
+	output += `## Commit Log\n\n\`\`\`\n${commitsString}\n\`\`\``
 	writeFileSync(cfg.contextFile, output, 'utf8')
 }
 
