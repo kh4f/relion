@@ -1,6 +1,19 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.34.1  `](https://github.com/kh4f/relion/compare/v0.34.0...v0.34.1)
+
+### &emsp; 📚 Documentation
+- **Detailed README instructions**: added comprehensive documentation including installation, CLI and API usage, workflow steps, and changelog generation. [🡥](https://github.com/kh4f/relion/commit/4b8eaa5)
+- **Enhanced CLI help**:
+    - Added usage examples to the CLI help output. [🡥](https://github.com/kh4f/relion/commit/e4ba87e)
+    - Improved descriptions for CLI options. [🡥](https://github.com/kh4f/relion/commit/470888e)
+- **Type definitions**: added JSDoc comments and default values for `Config`, `Bumper`, and `Commit` interfaces. [🡥](https://github.com/kh4f/relion/commit/327d0b0)
+- **Updated context header**: renamed the 'Git Log' section to 'Commit Log' in the output file for accuracy. [🡥](https://github.com/kh4f/relion/commit/ae1c616)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.34.0...v0.34.1) &ensp;•&ensp; _Jan 12, 2026_
+
+
 ## &ensp; [` 📦 v0.34.0  `](https://github.com/kh4f/relion/compare/v0.33.0...v0.34.0)
 
 ### &emsp; 🧨 BREAKING CHANGES
