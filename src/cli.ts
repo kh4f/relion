@@ -9,7 +9,11 @@ Options:
   -c            Create a release commit
   -t            Create a release tag
   -v <version>  Set the new version explicitly
-  -d            Run in dry run mode 
+  -d            Run in dry run mode
+
+Examples:
+- \`pnpm relion -bct\` — bump version, create release commit and tag
+- \`pnpm relion -f\` — generate release context
 `
 
 const args = process.argv.slice(2).join(' ')
