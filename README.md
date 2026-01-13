@@ -82,9 +82,9 @@ Relion can also be configured via `relion` field in `package.json`:
 {
   // ...
   "relion": {
-	"commitMessage": "release(relion): {{tag}}",
-	"tagPrefix": ""
-	// ...
+    "commitMessage": "release(relion): {{tag}}",
+    "tagPrefix": ""
+    // ...
   }
 }
 ```
