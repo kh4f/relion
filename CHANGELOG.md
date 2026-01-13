@@ -1,6 +1,15 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.34.2  `](https://github.com/kh4f/relion/compare/v0.34.1...v0.34.2)
+
+### &emsp; 📚 Documentation
+- **Configuration via `package.json`**: documented how to configure Relion via the `relion` field in `package.json`. [🡥](https://github.com/kh4f/relion/commit/81c6b4b)
+- **Clarified CLI example**: updated the example command in the help text to specify that the `-f` option generates a release context file. [🡥](https://github.com/kh4f/relion/commit/9076f7a)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.34.1...v0.34.2) &ensp;•&ensp; _Jan 13, 2026_
+
+
 ## &ensp; [` 📦 v0.34.1  `](https://github.com/kh4f/relion/compare/v0.34.0...v0.34.1)
 
 ### &emsp; 📚 Documentation
