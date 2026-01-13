@@ -44,7 +44,7 @@ Options:
 
 Examples:
 - `pnpm relion -bct` — bump version, create release commit and tag
-- `pnpm relion -f` — generate release context
+- `pnpm relion -f` — generate release context file
 ```
 
 ## 🧩 API Usage
