@@ -74,6 +74,24 @@ relion({
 - `commitFilters`: filters for selecting commits in release context (default: commits with types `feat`, `fix`, `perf`, `style`, `docs` or with `BREAKING CHANGE`)
 - `dryRun`: run in dry mode (no modifications)
 
+### Configuration via `package.json`
+
+Relion can also be configured via `relion` field in `package.json`:
+
+```jsonc
+{
+  // ...
+  "relion": {
+	"commitMessage": "release(relion): {{tag}}",
+	"tagPrefix": ""
+	// ...
+  }
+}
+```
+
+> [!NOTE]
+> CLI flags override `package.json` configuration.
+
 ## ♻️ Workflow Steps
 
 - **Bump**: updates version in specified files
