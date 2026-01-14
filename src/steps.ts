@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
+import { execSync } from 'node:child_process'
 import { defaultBumpers } from '@/defaults'
 import type { Config, Commit } from '@/types'
-import { execSync } from 'node:child_process'
 
 export const bump = (cfg: Required<Config>) => {
 	cfg.bumpFiles.forEach(bumpFile => {
