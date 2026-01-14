@@ -15,20 +15,12 @@ export default defineConfig([
 	{
 		name: 'Type-Aware Rules',
 		files: ['**/*.ts'],
-		extends: [
-			tseslint.configs.strictTypeChecked,
-			tseslint.configs.stylisticTypeChecked,
-		],
+		extends: [tseslint.configs.strictTypeChecked, tseslint.configs.stylisticTypeChecked],
 		rules: {
 			'@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
 			'@typescript-eslint/restrict-template-expressions': 'off',
 		},
-		languageOptions: {
-			parserOptions: {
-				projectService: true,
-				tsconfigRootDir: import.meta.dirname,
-			},
-		},
+		languageOptions: { parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname } },
 	},
 	{
 		name: 'Stylistic Rules',
