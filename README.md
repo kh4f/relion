@@ -135,7 +135,7 @@ Previously, if commits contained both features and breaking changes, features wo
 
 ## 📚 Changelog Generation
 
-Relion does not format changelog itself — it generates a release context that can be used to generate a user‑friendly changelog using AI.
+Relion doesn’t format the changelog itself — it produces a release context that can be turned into a user‑friendly changelog with AI.
 
 Recommended workflow:
 
