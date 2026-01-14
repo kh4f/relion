@@ -39,13 +39,10 @@ export interface Config {
 	tagPrefix?: string
 
 	/**
-	 * Filters for selecting commits in the release context
-     * @default [
-     *   c => /^feat|^fix|^perf|^style|^docs/.test(c.message),
-     *   c => c.message.includes('BREAKING CHANGE')
-     * ]
+	 * Commit log filters (substrings or regexes)
+	 * @default [/^feat|^fix|^perf|^style|^docs/, 'BREAKING CHANGE']
 	 */
-	commitFilters?: ((commit: Commit) => boolean)[]
+	commitFilters?: (string | RegExp)[]
 
 	/**
 	 * Run in dry mode without making any changes

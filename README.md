@@ -59,6 +59,7 @@ relion({
 	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',
+	commitFilters: [/^feat|^fix/, 'BREAKING CHANGE'],
 	dryRun: false,
 });
 ```
@@ -71,7 +72,7 @@ relion({
 - `contextFile`: path to release context output file (default: `'RELEASE.md'`)
 - `commitMessage`: release commit message template (default: `'chore(release): {{tag}}'`)
 - `tagPrefix`: release tag prefix (default: `'v'`)
-- `commitFilters`: filters for selecting commits in release context (default: commits with types `feat`, `fix`, `perf`, `style`, `docs` or with `BREAKING CHANGE`)
+- `commitFilters`: commit log filters (substring or RegExp; default: [`/^feat|^fix|^perf|^style|^docs/`, `'BREAKING CHANGE'`])
 - `dryRun`: run in dry mode (no modifications)
 
 ### Configuration via `package.json`

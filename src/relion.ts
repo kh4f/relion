@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
 import { defaultCfg } from '@/defaults'
-import { calculateNextVersion, parseCommits } from '@/utils'
+import { calculateNextVersion, parseCommits, filterCommits } from '@/utils'
 import type { Config } from '@/types'
 
 export default function relion(userCfg?: Config) {
@@ -19,7 +19,7 @@ export default function relion(userCfg?: Config) {
 	console.log(`Current tag: ${curTag}`)
 
 	const parsedCommits = parseCommits(curTag)
-	const filteredCommits = parsedCommits.filter(c => cfg.commitFilters.some(f => f(c)))
+	const filteredCommits = filterCommits(parsedCommits, cfg.commitFilters)
 	console.log(`Filtered commits: ${filteredCommits.length}`)
 
 	cfg.newVersion ||= calculateNextVersion(filteredCommits, curVersion)
