@@ -3,7 +3,7 @@ import semver from 'semver'
 import type { Commit } from '@/types'
 
 export const parseCommits = (curTag: string): Commit[] => (
-	execSync(`git log ${curTag}.. --format="%h %B---"`, { encoding: 'utf8' }).trim()
+	execSync(`git log ${curTag}.. --format="%h %B---" .`, { encoding: 'utf8' }).trim()
 		.split('---').filter(Boolean)
 		.map(c => /^(.+?) (.+)/s.exec(c.trim()))
 		.map(m => ({ hash: m?.[1] ?? '', message: m?.[2].trim() ?? '' }))
