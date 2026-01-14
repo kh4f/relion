@@ -1,6 +1,20 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.35.0  `](https://github.com/kh4f/relion/compare/v0.34.2...v0.35.0)
+
+### &emsp; 🧨 BREAKING CHANGES
+- **Pattern-based commit filters**: the `commitFilters` option now accepts `string` or `RegExp` patterns instead of functions, enabling configuration via `package.json`. [🡥](https://github.com/kh4f/relion/commit/b3b14c9)
+
+### &emsp; 🎁 Features
+- **Monorepo support**: changes are now scoped to the current working directory, enabling correct versioning and changelogs for individual packages. [🡥](https://github.com/kh4f/relion/commit/cba1748)
+
+### &emsp; 📚 Documentation
+- **Custom bumper example**: clarified the `bumpFiles` option with an example for using custom bumper objects. [🡥](https://github.com/kh4f/relion/commit/d6c1946)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.34.2...v0.35.0) &ensp;•&ensp; _Jan 14, 2026_
+
+
 ## &ensp; [` 📦 v0.34.2  `](https://github.com/kh4f/relion/compare/v0.34.1...v0.34.2)
 
 ### &emsp; 📚 Documentation
