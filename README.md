@@ -55,7 +55,15 @@ import relion from 'relion';
 relion({
 	flow: ['bump', 'context', 'commit', 'tag'],
 	newVersion: '1.2.3',
-	bumpFiles: ['package.json'],
+	bumpFiles: [
+		'package.json', // uses default bumper
+		// custom bumper
+		{
+			file: 'manifest.json', 
+			pattern: /("version": )".*"/, 
+			replacement: '$1"{{newVersion}}"' 
+		} 
+	],
 	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',
@@ -68,7 +76,7 @@ relion({
 
 - `flow`: release workflow steps (`'bump' | 'context' | 'commit' | 'tag'`) (default: `[]`)
 - `newVersion`: set the new version explicitly
-- `bumpFiles`: files or bumpers for version update (default: `['package.json']`)
+- `bumpFiles`: files or custom bumpers for version update (default: `['package.json']`)
 - `contextFile`: path to release context output file (default: `'RELEASE.md'`)
 - `commitMessage`: release commit message template (default: `'chore(release): {{tag}}'`)
 - `tagPrefix`: release tag prefix (default: `'v'`)
