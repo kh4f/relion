@@ -13,7 +13,7 @@ export interface Config {
 
 	/**
 	 * Files or bumpers for version update. Each item is either:
-	 * - a bumper object specifying `file`, `pattern`, and `replacement`
+	 * - a Bumper object specifying `file`, `pattern`, and `replacement`
 	 * - a file name for which a default bumper exists (currently only 'package.json')
 	 *
 	 * @default ['package.json']
