@@ -1,3 +1,3 @@
 # Project Overview
 
-Relion is an npm library for automating release workflows, including release commit and tag creation, changelog generation, and version bumping.
+Relion is a minimal npm library for automating release workflow: version bumping, release commit & tag creation, and AI‑assisted changelog generation.
