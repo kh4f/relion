@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 0.36.1  `](https://github.com/kh4f/relion/compare/v0.36.0...v0.36.1)
+
+### &emsp; 🩹 Fixes
+- **Default bumper file application**: string entries in `bumpFiles` are now correctly bumped in their intended file instead of always in `package.json`. [🡥](https://github.com/kh4f/relion/commit/5e349dc)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.36.0...v0.36.1) &ensp;•&ensp; _Jan 15, 2026_
+
+
 ## &ensp; [` 📦 v0.36.0  `](https://github.com/kh4f/relion/compare/v0.35.0...v0.36.0)
 
 ### &emsp; 🎁 Features
