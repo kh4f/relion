@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
+import { strToRegex } from '@/utils'
 import { defaultBumpers } from '@/defaults'
 import type { Config, Commit } from '@/types'
 
@@ -10,6 +11,7 @@ export const bump = (cfg: Required<Config>) => {
 				throw new Error(`No default bumper found for file '${bumpFile}'`)
 			})()
 			: bumpFile
+		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern)
 
 		const fileContent = readFileSync(bumper.file, 'utf8')
 		const updatedContent = fileContent.replace(bumper.pattern, bumper.replacement.replace('{{newVersion}}', cfg.newVersion))

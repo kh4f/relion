@@ -57,8 +57,8 @@ export interface Bumper {
 	/** Path to the file to bump version in */
 	file: string
 
-	/** Regex to find the version string in the file */
-	pattern: RegExp
+	/** Pattern to locate the version string (RegExp or a stringified RegExp) */
+	pattern: RegExp | string
 
 	/** Replacement string for the version (use `{{newVersion}}` as a placeholder) */
 	replacement: string

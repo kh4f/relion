@@ -92,7 +92,14 @@ Relion can also be configured via `relion` field in `package.json`:
   // ...
   "relion": {
     "commitMessage": "release(relion): {{tag}}",
-    "tagPrefix": ""
+    "tagPrefix": "",
+    "bumpFiles": ["package.json",
+	  {
+	    "file": "manifest.json",
+	    "pattern": "/(\"version\": )\".*\"/",
+	    "replacement": "$1\"{{newVersion}}\""
+	  }
+	],
     // ...
   }
 }

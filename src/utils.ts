@@ -28,7 +28,7 @@ export const calculateNextVersion = (commits: Commit[], curVersion: string): str
 	})()
 }
 
-const strToRegex = (str: string): RegExp => {
+export const strToRegex = (str: string): RegExp => {
 	const match = /^\/(.+)\/(\w*)$/.exec(str)
 	return match ? new RegExp(match[1], match[2]) : new RegExp(str)
 }
