@@ -57,7 +57,7 @@ relion({
 	newVersion: '1.2.3',
 	bumpFiles: [
 		'package.json', // uses default bumper
-		// custom bumper
+		// custom bumper (equivalent to the default bumper implementation)
 		{
 			file: 'manifest.json',
 			pattern: /("version": )".*"/,
