@@ -15,7 +15,7 @@ export default function relion(userCfg?: Config) {
 	const curVersion = pkgJson.version
 	console.log(`Current version: ${curVersion}`)
 
-	const curTag = execSync(`git describe --match "${cfg.tagPrefix}*" --abbrev=0`, { encoding: 'utf8' }).trim()
+	const curTag = execSync(`git describe --match "${cfg.tagPrefix}[0-9]*.[0-9]*.[0-9]*" --abbrev=0`, { encoding: 'utf8' }).trim()
 	console.log(`Current tag: ${curTag}`)
 
 	const parsedCommits = parseCommits(curTag)
