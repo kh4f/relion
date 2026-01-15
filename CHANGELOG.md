@@ -1,6 +1,24 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.36.0  `](https://github.com/kh4f/relion/compare/v0.35.0...v0.36.0)
+
+### &emsp; 🎁 Features
+- **Default string bumpers**: extend the default bumper logic so that any file specified as a string in the `bumpFiles` array receives the default bumper. [🡥](https://github.com/kh4f/relion/commit/1882406)
+- **Multi-file custom bumpers**: allow specifying an array of file paths in `Bumper.file` to update multiple files with a single bumper configuration. [🡥](https://github.com/kh4f/relion/commit/28d1221)
+- **Stringified regex patterns**: allow specifying stringified regexes for `Bumper.pattern`, enabling users to define custom bumpers directly in `package.json`. [🡥](https://github.com/kh4f/relion/commit/e0e7110)
+
+### &emsp; 🩹 Fixes
+- **Missing context file**: check for the existence of `cfg.contextFile` before running `git reset` to avoid errors when the file does not exist. [🡥](https://github.com/kh4f/relion/commit/b0c4e8e)
+- **Fresh repo support**: switch to `spawnSync` for `git describe` and update `git log` to prevent failures in repositories without version tags. [🡥](https://github.com/kh4f/relion/commit/09b5589)
+- **Strict semver matching**: update `git describe` to use a stricter pattern that only matches semantic version tags with the configured prefix. [🡥](https://github.com/kh4f/relion/commit/93b4bf5)
+
+### &emsp; 📚 Documentation
+- **Custom bumper example**: update the API usage example to clarify that the custom bumper example implements the default bumper logic. [🡥](https://github.com/kh4f/relion/commit/bab4b67)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.35.0...v0.36.0) &ensp;•&ensp; _Jan 15, 2026_
+
+
 ## &ensp; [` 📦 v0.35.0  `](https://github.com/kh4f/relion/compare/v0.34.2...v0.35.0)
 
 ### &emsp; 🧨 BREAKING CHANGES
