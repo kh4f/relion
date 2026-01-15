@@ -59,10 +59,10 @@ relion({
 		'package.json', // uses default bumper
 		// custom bumper
 		{
-			file: 'manifest.json', 
-			pattern: /("version": )".*"/, 
-			replacement: '$1"{{newVersion}}"' 
-		} 
+			file: 'manifest.json',
+			pattern: /("version": )".*"/,
+			replacement: '$1"{{newVersion}}"'
+		}
 	],
 	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
