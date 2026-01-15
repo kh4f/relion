@@ -6,7 +6,7 @@ import type { Config, Commit } from '@/types'
 
 export const bump = (cfg: Required<Config>) => {
 	cfg.bumpFiles.forEach(bumpFile => {
-		const bumper = typeof bumpFile == 'string' ? defaultBumper : bumpFile
+		const bumper = typeof bumpFile == 'string' ? { ...defaultBumper, file: bumpFile } : bumpFile
 		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern);
 		[bumper.file].flat().forEach(file => {
 			const fileContent = readFileSync(file, 'utf8')
