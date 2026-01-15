@@ -76,7 +76,7 @@ relion({
 
 - `flow`: release workflow steps (`'bump' | 'context' | 'commit' | 'tag'`) (default: `[]`)
 - `newVersion`: set the new version explicitly
-- `bumpFiles`: files or custom bumpers for version update (default: `['package.json']`)
+- `bumpFiles`: files or custom bumpers for version update (default: [`'package.json'`])
 - `contextFile`: path to release context output file (default: `'RELEASE.md'`)
 - `commitMessage`: release commit message template (default: `'chore(release): {{tag}}'`)
 - `tagPrefix`: release tag prefix (default: `'v'`)
