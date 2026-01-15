@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import { execSync } from 'node:child_process'
+import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
 import { defaultCfg } from '@/defaults'
 import { calculateNextVersion, parseCommits, filterCommits } from '@/utils'
@@ -15,7 +15,9 @@ export default function relion(userCfg?: Config) {
 	const curVersion = pkgJson.version
 	console.log(`Current version: ${curVersion}`)
 
-	const curTag = execSync(`git describe --match "${cfg.tagPrefix}[0-9]*.[0-9]*.[0-9]*" --abbrev=0`, { encoding: 'utf8' }).trim()
+	const curTag = spawnSync('git', [
+		'describe', '--match', `${cfg.tagPrefix}[0-9]*.[0-9]*.[0-9]*`, '--abbrev=0',
+	], { encoding: 'utf8' }).stdout.trim()
 	console.log(`Current tag: ${curTag}`)
 
 	const parsedCommits = parseCommits(curTag)
