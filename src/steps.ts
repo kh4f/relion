@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { strToRegex } from '@/utils'
 import { defaultBumper } from '@/defaults'
@@ -36,7 +36,9 @@ export const context = (cfg: Required<Config>, commits: Commit[], curTag: string
 }
 
 export const commit = (cfg: Required<Config>): void => {
-	const cmd = `git add -A && git reset ${cfg.contextFile} && git commit -m "${cfg.commitMessage}"`
+	const cmd = 'git add -A'
+		+ (existsSync(cfg.contextFile) ? ` && git reset ${cfg.contextFile}` : '')
+		+ ` && git commit -m "${cfg.commitMessage}"`
 	console.log(`Committing changes: '${cmd}'`)
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
