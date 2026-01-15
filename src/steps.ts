@@ -1,16 +1,12 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { strToRegex } from '@/utils'
-import { defaultBumpers } from '@/defaults'
+import { defaultBumper } from '@/defaults'
 import type { Config, Commit } from '@/types'
 
 export const bump = (cfg: Required<Config>) => {
 	cfg.bumpFiles.forEach(bumpFile => {
-		const bumper = typeof bumpFile == 'string'
-			? defaultBumpers.find(b => b.file === bumpFile) ?? (() => {
-				throw new Error(`No default bumper found for file '${bumpFile}'`)
-			})()
-			: bumpFile
+		const bumper = typeof bumpFile == 'string' ? defaultBumper : bumpFile
 		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern);
 		[bumper.file].flat().forEach(file => {
 			const fileContent = readFileSync(file, 'utf8')
