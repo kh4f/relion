@@ -11,13 +11,14 @@ export const bump = (cfg: Required<Config>) => {
 				throw new Error(`No default bumper found for file '${bumpFile}'`)
 			})()
 			: bumpFile
-		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern)
-
-		const fileContent = readFileSync(bumper.file, 'utf8')
-		const updatedContent = fileContent.replace(bumper.pattern, bumper.replacement.replace('{{newVersion}}', cfg.newVersion))
-		console.log(`Updating version in '${bumper.file}'`)
-		if (cfg.dryRun) return
-		writeFileSync(bumper.file, updatedContent, 'utf8')
+		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern);
+		[bumper.file].flat().forEach(file => {
+			const fileContent = readFileSync(file, 'utf8')
+			const updatedContent = fileContent.replace(bumper.pattern, bumper.replacement.replace('{{newVersion}}', cfg.newVersion))
+			console.log(`Updating version in '${file}'`)
+			if (cfg.dryRun) return
+			writeFileSync(file, updatedContent, 'utf8')
+		})
 	})
 }
 

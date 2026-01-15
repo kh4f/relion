@@ -54,8 +54,8 @@ export interface Config {
 export type Step = 'bump' | 'context' | 'commit' | 'tag'
 
 export interface Bumper {
-	/** Path to the file to bump version in */
-	file: string
+	/** Path or array of paths to the file(s) to bump version in */
+	file: string | string[]
 
 	/** Pattern to locate the version string (RegExp or a stringified RegExp) */
 	pattern: RegExp | string
