@@ -37,16 +37,18 @@ $ pnpm relion
 Usage: relion [options]
 
 Options:
-  -b            Bump the version
   -f            Prepare release context
+  -b            Bump the version
   -c            Create a release commit
   -t            Create a release tag
   -v <version>  Set the new version explicitly
   -d            Run in dry run mode
+  -h            Show the help message
 
 Examples:
 - `pnpm relion -bct` — bump version, create release commit and tag
 - `pnpm relion -f` — generate release context file
+- `pnpm relion` — run all release steps
 ```
 
 ## 🧩 API Usage
@@ -55,7 +57,7 @@ Examples:
 import relion from 'relion';
 
 relion({
-	flow: ['bump', 'context', 'commit', 'tag'],
+	flow: ['context', 'bump', 'commit', 'tag'],
 	newVersion: '1.2.3',
 	bumpFiles: [
 		'package.json', // uses default bumper
@@ -76,7 +78,7 @@ relion({
 
 ### Options
 
-- `flow`: release workflow steps (`'bump' | 'context' | 'commit' | 'tag'`) (default: `[]`)
+- `flow`: release workflow steps (`'context' | 'bump' | 'commit' | 'tag'`) (default: `[]`)
 - `newVersion`: set the new version explicitly
 - `bumpFiles`: files or custom bumpers for version update (default: [`'package.json'`])
 - `contextFile`: path to release context output file (default: `'RELEASE.md'`)
@@ -112,8 +114,8 @@ Relion can also be configured via `relion` field in `package.json`:
 
 ## ♻️ Workflow Steps
 
-- **Bump**: updates version in specified files
 - **Context**: generates a file with upcoming release metadata and commit log
+- **Bump**: updates version in specified files
 - **Commit**: creates a release commit (release context file is not committed)
 - **Tag**: creates an annotated release tag
 
