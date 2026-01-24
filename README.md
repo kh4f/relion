@@ -28,7 +28,7 @@
 pnpm add -D relion
 ```
 
-## 🚀 CLI Usage
+## 🕹️ CLI Usage
 Running the CLI without arguments prints help
 
 ```bash
