@@ -13,7 +13,7 @@
 	<p>
 		<b>
 			<a href="#-installation">Installation</a>&nbsp; •&nbsp; 
-			<a href="#-cli-usage">CLI</a>&nbsp; •&nbsp; 
+			<a href="#%EF%B8%8F-cli-usage">CLI</a>&nbsp; •&nbsp; 
 			<a href="#-api-usage">API</a>&nbsp; •&nbsp; 
 			<a href="#%EF%B8%8F-workflow-steps">Workflow Steps</a>&nbsp; •&nbsp; 
 			<a href="#-changelog-generation">Changelog Generation</a>
