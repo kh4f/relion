@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
-import { defaultCfg } from '@/defaults'
+import { defaultCfg, STEP_ORDER } from '@/defaults'
 import { calculateNextVersion, parseCommits, filterCommits } from '@/utils'
 import type { Config } from '@/types'
 
@@ -38,9 +38,9 @@ export default function relion(userCfg?: Config) {
 
 	console.log('-'.repeat(30))
 
-	for (const step of cfg.flow) ({
-		bump: () => bump(cfg),
+	for (const step of STEP_ORDER.filter(s => cfg.flow.includes(s))) ({
 		context: () => context(cfg, filteredCommits, curTag, newTag, repoURL),
+		bump: () => bump(cfg),
 		commit: () => commit(cfg),
 		tag: () => tag(cfg, newTag),
 	})[step]()

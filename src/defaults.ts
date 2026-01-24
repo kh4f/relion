@@ -1,4 +1,6 @@
-import type { Config, Bumper } from '@/types'
+import type { Config, Bumper, Step } from '@/types'
+
+export const STEP_ORDER: Step[] = ['context', 'bump', 'commit', 'tag']
 
 export const defaultBumper: Bumper = {
 	file: 'package.json',
