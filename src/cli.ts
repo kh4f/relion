@@ -34,7 +34,7 @@ const flow: Step[] = !args ? ['context', 'bump', 'commit', 'tag'] : [
 const newVersion = /-v (\S+)/.exec(args)?.[1]
 const dryRun = /-\w*d/.test(args)
 
-await relion({
+void relion({
 	flow: flow,
 	...(newVersion && { newVersion }),
 	...(dryRun && { dryRun }),
