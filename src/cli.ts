@@ -25,12 +25,14 @@ if (args.includes('-h')) {
 	process.exit(0)
 }
 
-const flow: Step[] = !args ? ['context', 'bump', 'commit', 'tag'] : [
+let flow: Step[] = [
 	/-\w*f/.test(args) && 'context',
 	/-\w*b/.test(args) && 'bump',
 	/-\w*c/.test(args) && 'commit',
 	/-\w*t/.test(args) && 'tag',
 ].filter(Boolean) as Step[]
+if (!flow.length) flow = ['context', 'bump', 'commit', 'tag']
+
 const newVersion = /-v (\S+)/.exec(args)?.[1]
 const dryRun = /-\w*d/.test(args)
 
