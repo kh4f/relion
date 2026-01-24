@@ -29,10 +29,9 @@ pnpm add -D relion
 ```
 
 ## 🕹️ CLI Usage
-Running the CLI without arguments prints help
 
 ```bash
-$ pnpm relion
+$ pnpm relion -h
 
 Usage: relion [options]
 
