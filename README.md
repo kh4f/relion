@@ -50,6 +50,33 @@ Examples:
 - `pnpm relion` — run all release steps
 ```
 
+<details><summary>Example output of running <code>pnpm relion</code>:</summary>
+
+```txt
+------------------------------
+Current version: 0.36.1
+Current tag: v0.36.1
+Filtered commits: 16
+New version: 0.37.0
+New tag: v0.37.0
+Commit message: 'chore(release): v0.37.0'
+Repo URL: https://github.com/kh4f/relion
+------------------------------
+
+About to write context to 'RELEASE.md'
+Press Enter to continue ('s' to skip):
+
+About to bump versions in files: package.json
+Press Enter to continue ('s' to skip):
+
+About to commit changes: 'git commit -m "chore(release): v0.37.0"'
+Press Enter to continue ('s' to skip):
+
+About to create a tag: 'git tag v0.37.0 -m "chore(release): v0.37.0"'
+Press Enter to continue ('s' to skip):
+```
+</details>
+
 ## 🧩 API Usage
 
 ```ts
