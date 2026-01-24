@@ -1,11 +1,12 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { execSync } from 'node:child_process'
-import { strToRegex } from '@/utils'
+import { promptToContinue, strToRegex } from '@/utils'
 import { defaultBumper } from '@/defaults'
 import type { Config, Commit } from '@/types'
 
-export const context = (cfg: Required<Config>, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
-	console.log(`Outputting release context to '${cfg.contextFile}'`)
+export const context = async (cfg: Required<Config>, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
+	console.log(`About to write context to '${cfg.contextFile}'`)
+	await promptToContinue()
 	if (cfg.dryRun) return
 	let output = ''
 	const frontMatter = '---'
@@ -21,32 +22,37 @@ export const context = (cfg: Required<Config>, commits: Commit[], curTag: string
 	writeFileSync(cfg.contextFile, output, 'utf8')
 }
 
-export const bump = (cfg: Required<Config>) => {
-	cfg.bumpFiles.forEach(bumpFile => {
-		const bumper = typeof bumpFile == 'string' ? { ...defaultBumper, file: bumpFile } : bumpFile
+export const bump = async (cfg: Required<Config>) => {
+	const bumpers = cfg.bumpFiles.map(bumpFile => (
+		typeof bumpFile == 'string' ? { ...defaultBumper, file: bumpFile } : bumpFile
+	))
+	console.log(`About to bump versions in files: ${bumpers.map(b => [b.file].flat()).flat().join(', ')}`)
+	await promptToContinue()
+	bumpers.forEach(bumper => {
 		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern);
 		[bumper.file].flat().forEach(file => {
 			const fileContent = readFileSync(file, 'utf8')
 			const updatedContent = fileContent.replace(bumper.pattern, bumper.replacement.replace('{{newVersion}}', cfg.newVersion))
-			console.log(`Updating version in '${file}'`)
 			if (cfg.dryRun) return
 			writeFileSync(file, updatedContent, 'utf8')
 		})
 	})
 }
 
-export const commit = (cfg: Required<Config>): void => {
+export const commit = async (cfg: Required<Config>) => {
 	const cmd = 'git add -A'
 		+ (existsSync(cfg.contextFile) ? ` && git reset ${cfg.contextFile}` : '')
 		+ ` && git commit -m "${cfg.commitMessage}"`
-	console.log(`Committing changes: '${cmd}'`)
+	console.log(`About to commit changes: '${cmd}'`)
+	await promptToContinue()
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
 }
 
-export const tag = (cfg: Required<Config>, newTag: string) => {
+export const tag = async (cfg: Required<Config>, newTag: string) => {
 	const cmd = `git tag ${newTag} -m "${cfg.commitMessage}"`
-	console.log(`Creating a tag: '${cmd}'`)
+	console.log(`About to create a tag: '${cmd}'`)
+	await promptToContinue()
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
 }

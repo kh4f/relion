@@ -1,4 +1,5 @@
 import { execSync } from 'node:child_process'
+import { createInterface } from 'node:readline'
 import semver from 'semver'
 import type { Commit, Config } from '@/types'
 
@@ -26,6 +27,16 @@ export const calculateNextVersion = (commits: Commit[], curVersion: string): str
 	return semver.inc(curVersion, releaseType) ?? (() => {
 		throw new Error(`Failed to increment version '${curVersion}' with release type '${releaseType}'`)
 	})()
+}
+
+export const promptToContinue = async (): Promise<void> => {
+	const rl = createInterface({ input: process.stdin, output: process.stdout })
+	await new Promise<void>(resolve => {
+		rl.question('Press Enter to continue...', () => {
+			rl.close()
+			resolve()
+		})
+	})
 }
 
 export const strToRegex = (str: string): RegExp => {
