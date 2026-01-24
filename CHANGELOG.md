@@ -1,6 +1,30 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.37.0  `](https://github.com/kh4f/relion/compare/v0.36.1...v0.37.0)
+
+### &emsp; 🧨 BREAKING CHANGES
+- **Removed auto-staging in commit step**: the commit step no longer runs `git add -A` automatically, giving users full control over staged files. [🡥](https://github.com/kh4f/relion/commit/4678291)
+- **Enforced step execution order**: steps in `cfg.flow` now always execute in the fixed order: context, bump, commit, tag. [🡥](https://github.com/kh4f/relion/commit/fbf016d)
+- **CLI runs all steps by default**: running the CLI without arguments now executes all release steps; use `-h` for help. [🡥](https://github.com/kh4f/relion/commit/6309512)
+
+### &emsp; 🎁 Features
+- **Interactive step confirmation**: added prompts before each release step for safer, interactive releases. [🡥](https://github.com/kh4f/relion/commit/891a590)
+- **Skip release step with 's'**: users can now skip a release step by entering 's' at the prompt. [🡥](https://github.com/kh4f/relion/commit/067fcd3)
+- **Reuse latest tag if possible**: the tag step now reuses the latest tag if the latest commit is a release commit. [🡥](https://github.com/kh4f/relion/commit/78862c1)
+
+### &emsp; 🩹 Fixes
+- **Correct flow step handling**: made sure default steps are used when CLI is called with only non-step flags. [🡥](https://github.com/kh4f/relion/commit/c04af15)
+- **Suppress Node.js unsettled await warning**: main function is now called with `void` to prevent Node.js warnings on interruption. [🡥](https://github.com/kh4f/relion/commit/f5e4b90)
+
+### &emsp; 📚 Documentation
+- **CLI output example**: included a detailed example output for the `pnpm relion` command. [🡥](https://github.com/kh4f/relion/commit/39b617c)
+- **Updated CLI usage and help**: improved CLI usage examples and removed outdated notes. [🡥](https://github.com/kh4f/relion/commit/adae192)
+- **Updated size badge**: replaced bundlephobia badge with a runtime size badge using unpkg. [🡥](https://github.com/kh4f/relion/commit/4abf189)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.36.1...v0.37.0) &ensp;•&ensp; _Jan 24, 2026_
+
+
 ## &ensp; [` 📦 0.36.1  `](https://github.com/kh4f/relion/compare/v0.36.0...v0.36.1)
 
 ### &emsp; 🩹 Fixes
