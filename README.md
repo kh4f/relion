@@ -176,14 +176,14 @@ Relion doesn’t format the changelog itself — it produces a release context t
 
 Recommended workflow:
 
-1. Set up GitHub Copilot instructions and prompt:
+1. Set up GitHub Copilot instruction and prompt:
    - [.github/instructions/changelog-format.instructions.md](.github/instructions/changelog-format.instructions.md)
    - [.github/prompts/generate-changelog.prompt.md](.github/prompts/generate-changelog.prompt.md)
 2. Run the context step to generate RELEASE.md: `pnpm relion -f`
 3. Run the prompt in VSCode Copilot chat: `/generate-changelog`
 4. Copilot produces a polished changelog entry based on the release context
 
-<details><summary>Generated changelog example (from the (*) release context using the instructions and prompt above; Gemini 3 Pro)</summary>
+<details><summary>Generated changelog example (from the (*) release context using the instruction and prompt above; Gemini 3 Pro)</summary>
 
 ```md
 ## &ensp; [` 📦 v0.33.0  `](https://github.com/kh4f/relion/compare/v0.32.1...v0.33.0)
