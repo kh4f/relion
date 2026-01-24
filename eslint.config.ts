@@ -31,6 +31,7 @@ export default defineConfig([
 			'@stylistic/eol-last': ['error', 'never'],
 			'@stylistic/brace-style': ['error', '1tbs'],
 			'@stylistic/arrow-parens': ['error', 'as-needed'],
+			'@stylistic/multiline-ternary': 'off',
 		},
 	},
 ])
