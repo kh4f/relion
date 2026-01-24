@@ -2,7 +2,6 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import stylistic from '@stylistic/eslint-plugin'
-import globals from 'globals'
 
 export default defineConfig([
 	globalIgnores(['dist'], 'Global Ignores'),
@@ -10,7 +9,6 @@ export default defineConfig([
 		name: 'Base Rules',
 		files: ['**/*.ts'],
 		extends: [eslint.configs.recommended],
-		languageOptions: { globals: { ...globals.node } },
 	},
 	{
 		name: 'Type-Aware Rules',
