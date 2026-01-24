@@ -4,20 +4,6 @@ import { strToRegex } from '@/utils'
 import { defaultBumper } from '@/defaults'
 import type { Config, Commit } from '@/types'
 
-export const bump = (cfg: Required<Config>) => {
-	cfg.bumpFiles.forEach(bumpFile => {
-		const bumper = typeof bumpFile == 'string' ? { ...defaultBumper, file: bumpFile } : bumpFile
-		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern);
-		[bumper.file].flat().forEach(file => {
-			const fileContent = readFileSync(file, 'utf8')
-			const updatedContent = fileContent.replace(bumper.pattern, bumper.replacement.replace('{{newVersion}}', cfg.newVersion))
-			console.log(`Updating version in '${file}'`)
-			if (cfg.dryRun) return
-			writeFileSync(file, updatedContent, 'utf8')
-		})
-	})
-}
-
 export const context = (cfg: Required<Config>, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
 	console.log(`Outputting release context to '${cfg.contextFile}'`)
 	if (cfg.dryRun) return
@@ -33,6 +19,20 @@ export const context = (cfg: Required<Config>, commits: Commit[], curTag: string
 	const commitsString = commits.map(c => `[${c.hash}] ${c.message}`).join(`\n${'-'.repeat(30)}\n`)
 	output += `## Commit Log\n\n\`\`\`\n${commitsString}\n\`\`\``
 	writeFileSync(cfg.contextFile, output, 'utf8')
+}
+
+export const bump = (cfg: Required<Config>) => {
+	cfg.bumpFiles.forEach(bumpFile => {
+		const bumper = typeof bumpFile == 'string' ? { ...defaultBumper, file: bumpFile } : bumpFile
+		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern);
+		[bumper.file].flat().forEach(file => {
+			const fileContent = readFileSync(file, 'utf8')
+			const updatedContent = fileContent.replace(bumper.pattern, bumper.replacement.replace('{{newVersion}}', cfg.newVersion))
+			console.log(`Updating version in '${file}'`)
+			if (cfg.dryRun) return
+			writeFileSync(file, updatedContent, 'utf8')
+		})
+	})
 }
 
 export const commit = (cfg: Required<Config>): void => {
