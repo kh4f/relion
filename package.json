@@ -19,9 +19,7 @@
 		"build:watch": "tsdown --watch",
 		"build:prod": "tsdown --prod",
 		"lint": "eslint",
-		"release:context": "pnpm relion -f",
-		"release": "pnpm relion -bct",
-		"relion": "tsx src/cli"
+		"release": "tsx src/cli"
 	},
 	"dependencies": { "semver": "^7.7.3" },
 	"devDependencies": {
