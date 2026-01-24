@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { promptToContinue, strToRegex } from '@/utils'
 import { defaultBumper } from '@/defaults'
@@ -40,9 +40,7 @@ export const bump = async (cfg: Required<Config>) => {
 }
 
 export const commit = async (cfg: Required<Config>) => {
-	const cmd = 'git add -A'
-		+ (existsSync(cfg.contextFile) ? ` && git reset ${cfg.contextFile}` : '')
-		+ ` && git commit -m "${cfg.commitMessage}"`
+	const cmd = `git commit -m "${cfg.commitMessage}"`
 	console.log(`About to commit changes: '${cmd}'`)
 	await promptToContinue()
 	if (cfg.dryRun) return
