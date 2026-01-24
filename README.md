@@ -116,7 +116,7 @@ Relion can also be configured via `relion` field in `package.json`:
 
 - **Context**: generates a file with upcoming release metadata and commit log
 - **Bump**: updates version in specified files
-- **Commit**: creates a release commit (release context file is not committed)
+- **Commit**: creates a release commit
 - **Tag**: creates an annotated release tag
 
 <details><summary>Generated release context example (*):</summary>
