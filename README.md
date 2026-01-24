@@ -1,14 +1,12 @@
 <div align="center">
 	<img src=".github/logo.png" alt="logo"/>
 	<br><br>
-	<p>
-		<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=c8c9f1&labelColor=363a4f" alt="npm version"/></a>&nbsp;
-		<a href="https://www.npmjs.com/package/relion"><img src="https://img.badgesize.io/https:/unpkg.com/relion/dist/index.js?label=Size&logo=hackthebox&logoColor=c97026&style=flat-square&color=c8c9f1&labelColor=363a4f" alt="runtime size"/></a>&nbsp;
-		<a href="https://github.com/kh4f/relion/blob/master/LICENSE"><img src="https://img.shields.io/github/license/kh4f/relion?style=flat-square&label=%F0%9F%9B%A1%EF%B8%8F%20License&color=c8c9f1&labelColor=363a4f" alt="license"></a>&nbsp;
-		<a href="https://github.com/kh4f/relion/issues?q=is%3Aissue+is%3Aopen+label%3Abug"><img src="https://img.shields.io/github/issues/kh4f/relion/bug?label=%F0%9F%90%9E%20Bugs&style=flat-square&color=c8c9f1&labelColor=363a4f" alt="open bugs"></a>
-	</p>
-	<br>
-	<b>A minimal npm library for automating release workflow:</b><br>version bumping, release commit & tag creation, and AI‑assisted changelog generation.
+	<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=c8c9f1&labelColor=363a4f" alt="npm version"/></a>&nbsp;
+	<a href="https://www.npmjs.com/package/relion"><img src="https://img.badgesize.io/https:/unpkg.com/relion/dist/index.js?label=Size&logo=hackthebox&logoColor=c97026&style=flat-square&color=c8c9f1&labelColor=363a4f" alt="runtime size"/></a>&nbsp;
+	<a href="https://github.com/kh4f/relion/blob/master/LICENSE"><img src="https://img.shields.io/github/license/kh4f/relion?style=flat-square&label=%F0%9F%9B%A1%EF%B8%8F%20License&color=c8c9f1&labelColor=363a4f" alt="license"></a>&nbsp;
+	<a href="https://github.com/kh4f/relion/issues?q=is%3Aissue+is%3Aopen+label%3Abug"><img src="https://img.shields.io/github/issues/kh4f/relion/bug?label=%F0%9F%90%9E%20Bugs&style=flat-square&color=c8c9f1&labelColor=363a4f" alt="open bugs"></a>
+	<br><br>
+	<b>A minimal npm library for automating release workflow:</b> version bumping,<br>release commit & tag creation, and AI‑assisted changelog generation.
 	<br><br>
 	<p>
 		<b>
