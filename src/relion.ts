@@ -42,6 +42,6 @@ export default async (userCfg?: Config) => {
 		context: () => context(cfg, filteredCommits, curTag, newTag, repoURL),
 		bump: () => bump(cfg),
 		commit: () => commit(cfg),
-		tag: () => tag(cfg, newTag),
+		tag: () => tag(cfg, curTag, newTag),
 	})[step]()
 }
