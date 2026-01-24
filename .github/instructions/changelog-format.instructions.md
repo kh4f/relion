@@ -18,10 +18,10 @@
 ```
 
 ### Brief
-A brief title of the change in 2-4 words.
+A brief title of the change in 2–4 words as either a noun phrase (e.g., "Auto‑scrolling during drag") or a past‑participle phrase (e.g., "Updated drag handle icon").
 
 ### Description
-A concise description of the change for end-users in sentence format.
+A concise, end-user-focused sentence describing the outcome of the change, using result-oriented language like "... now ...", "... no longer ...", "added...", "improved ...", "fixed ...", etc.
 
 ### Allowed Sections
 - 🧨 BREAKING CHANGES
