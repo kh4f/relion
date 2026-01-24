@@ -5,8 +5,8 @@ import { defaultBumper } from '@/defaults'
 import type { Config, Commit } from '@/types'
 
 export const context = async (cfg: Required<Config>, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
-	console.log(`About to write context to '${cfg.contextFile}'`)
-	await promptToContinue()
+	console.log(`\nAbout to write context to '${cfg.contextFile}'`)
+	if (!await promptToContinue()) return
 	if (cfg.dryRun) return
 	let output = ''
 	const frontMatter = '---'
@@ -26,8 +26,8 @@ export const bump = async (cfg: Required<Config>) => {
 	const bumpers = cfg.bumpFiles.map(bumpFile => (
 		typeof bumpFile == 'string' ? { ...defaultBumper, file: bumpFile } : bumpFile
 	))
-	console.log(`About to bump versions in files: ${bumpers.map(b => [b.file].flat()).flat().join(', ')}`)
-	await promptToContinue()
+	console.log(`\nAbout to bump versions in files: ${bumpers.map(b => [b.file].flat()).flat().join(', ')}`)
+	if (!await promptToContinue()) return
 	bumpers.forEach(bumper => {
 		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern);
 		[bumper.file].flat().forEach(file => {
@@ -41,8 +41,8 @@ export const bump = async (cfg: Required<Config>) => {
 
 export const commit = async (cfg: Required<Config>) => {
 	const cmd = `git commit -m "${cfg.commitMessage}"`
-	console.log(`About to commit changes: '${cmd}'`)
-	await promptToContinue()
+	console.log(`\nAbout to commit changes: '${cmd}'`)
+	if (!await promptToContinue()) return
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
 }
@@ -55,8 +55,8 @@ export const tag = async (cfg: Required<Config>, curTag: string, newTag: string)
 		console.log('Latest commit is a release commit. Reusing the latest tag.')
 		cmd = `git tag ${curTag} -m "${latestCommit}" -f`
 	}
-	console.log(`About to create a tag: '${cmd}'`)
-	await promptToContinue()
+	console.log(`\nAbout to create a tag: '${cmd}'`)
+	if (!await promptToContinue()) return
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
 }
