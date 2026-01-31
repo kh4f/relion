@@ -25,7 +25,7 @@
 	"devDependencies": {
 		"@eslint/js": "^9.39.2",
 		"@stylistic/eslint-plugin": "^5.7.1",
-		"@types/node": "^25.0.10",
+		"@types/node": "^25.1.0",
 		"@types/semver": "^7.7.1",
 		"eslint": "^9.39.2",
 		"jiti": "^2.6.1",
