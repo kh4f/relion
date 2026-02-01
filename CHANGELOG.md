@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.38.0  `](https://github.com/kh4f/relion/compare/v0.37.0...v0.38.0)
+
+### &emsp; 🎁 Features
+- **Quote-agnostic version bump**: the default bumper regex now matches version fields regardless of quote style, enabling version updates in non-JSON manifests. [🡥](https://github.com/kh4f/relion/commit/ee6c1c1)
+
+##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.37.0...v0.38.0) &ensp;•&ensp; _Feb 2, 2026_
+
+
 ## &ensp; [` 📦 v0.37.0  `](https://github.com/kh4f/relion/compare/v0.36.1...v0.37.0)
 
 ### &emsp; 🧨 BREAKING CHANGES
