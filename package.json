@@ -21,7 +21,7 @@
 		"lint": "eslint",
 		"release": "tsx src/cli"
 	},
-	"dependencies": { "semver": "^7.7.3" },
+	"dependencies": { "semver": "^7.7.4" },
 	"devDependencies": {
 		"@eslint/js": "^9.39.2",
 		"@stylistic/eslint-plugin": "^5.7.1",
