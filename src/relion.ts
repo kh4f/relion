@@ -7,8 +7,9 @@ import type { Config } from '@/types'
 
 export default async (userCfg?: Config) => {
 	const pkgJson = JSON.parse(readFileSync('package.json', 'utf8')) as
-		{ relion?: Partial<Config>, version: string, repository: string }
-	const cfg = { ...defaultCfg, ...pkgJson.relion, ...userCfg }
+		{ name: string, version: string, repository: string, relion?: Partial<Config> }
+	userCfg = { ...pkgJson.relion, ...userCfg }
+	const cfg = { ...defaultCfg, ...userCfg }
 
 	console.log('-'.repeat(30))
 
@@ -27,6 +28,7 @@ export default async (userCfg?: Config) => {
 	cfg.newVersion ||= calculateNextVersion(filteredCommits, curVersion)
 	console.log(`New version: ${cfg.newVersion}`)
 
+	if (!userCfg.tagPrefix && pkgJson.name.startsWith('@')) cfg.tagPrefix = `${pkgJson.name}@`
 	const newTag = `${cfg.tagPrefix}${cfg.newVersion}`
 	console.log(`New tag: ${newTag}`)
 
