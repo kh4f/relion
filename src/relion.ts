@@ -13,6 +13,8 @@ export default async (userCfg?: Config) => {
 
 	console.log('-'.repeat(30))
 
+	if (!userCfg.tagPrefix && pkgJson.name.startsWith('@')) cfg.tagPrefix = `${pkgJson.name}@`
+
 	const curVersion = pkgJson.version
 	console.log(`Current version: ${curVersion}`)
 
@@ -28,7 +30,6 @@ export default async (userCfg?: Config) => {
 	cfg.newVersion ||= calculateNextVersion(filteredCommits, curVersion)
 	console.log(`New version: ${cfg.newVersion}`)
 
-	if (!userCfg.tagPrefix && pkgJson.name.startsWith('@')) cfg.tagPrefix = `${pkgJson.name}@`
 	const newTag = `${cfg.tagPrefix}${cfg.newVersion}`
 	console.log(`New tag: ${newTag}`)
 
