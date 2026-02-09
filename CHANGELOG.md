@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.39.1  `](https://github.com/kh4f/relion/compare/v0.39.0...v0.39.1)
+
+### &emsp; 🩹 Fixes
+- **Corrected tag prefix inference**: the default tag prefix for monorepo packages is now set before retrieving the latest tag, ensuring only commits since the last tag are parsed. [🡥](https://github.com/kh4f/relion/commit/cfc6946)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.39.0...v0.39.1) &ensp;•&ensp; Feb 9, 2026
+
+
 ## &ensp; [` 📦 v0.39.0  `](https://github.com/kh4f/relion/compare/v0.38.0...v0.39.0)
 
 ### &emsp; 🎁 Features
