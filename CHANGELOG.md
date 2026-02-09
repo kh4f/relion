@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.39.0  `](https://github.com/kh4f/relion/compare/v0.38.0...v0.39.0)
+
+### &emsp; 🎁 Features
+- **Monorepo tag prefix inference**: the default tag prefix is now automatically set to `<name>@` for monorepo packages (name starts with `@`), instead of using `v`. [🡥](https://github.com/kh4f/relion/commit/9b5df38)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.38.0...v0.39.0) &ensp;•&ensp; Feb 9, 2026
+
+
 ## &ensp; [` 📦 v0.38.0  `](https://github.com/kh4f/relion/compare/v0.37.0...v0.38.0)
 
 ### &emsp; 🎁 Features
