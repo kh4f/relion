@@ -24,25 +24,25 @@ jobs:
         uses: actions/setup-node@v6
         with: { node-version: latest, cache: pnpm, registry-url: https://registry.npmjs.org }
 
+      - name: Set env variables
+        run: echo -e ZIP=${GITHUB_REPOSITORY#*/}-$TAG.zip >> $GITHUB_ENV
+
       - name: Install deps
         run: pnpm install
-
-      - name: Build
-        run: pnpm build:prod
 
       - name: Lint
         run: pnpm lint
 
+      - name: Build
+        run: pnpm build:prod
+
       - name: Create release archive
-        run: |
-          ARCHIVE_NAME=${GITHUB_REPOSITORY##*/}-$TAG.zip
-          echo ARCHIVE_NAME=$ARCHIVE_NAME >> $GITHUB_ENV
-          zip -r $ARCHIVE_NAME dist package.json LICENSE README.md
+        run: zip -r $ZIP package.json LICENSE README.md dist
 
       - name: Create GitHub release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create $TAG --title $TAG --draft $ARCHIVE_NAME
+        run: gh release create $TAG --title $TAG --draft $ZIP
 
       - name: Publish to npm
         env:
