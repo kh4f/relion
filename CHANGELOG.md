@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.39.2  `](https://github.com/kh4f/relion/compare/v0.39.1...v0.39.2)
+
+### &emsp; 🩹 Fixes
+- **Version pattern accuracy**: the default version bumper now uses word boundaries to match only the `version` field, preventing false matches against `manifest_version` and similar fields. [🡥](https://github.com/kh4f/relion/commit/b7f1c22)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.39.1...v0.39.2) &ensp;•&ensp; Feb 22, 2026
+
+
 ## &ensp; [` 📦 v0.39.1  `](https://github.com/kh4f/relion/compare/v0.39.0...v0.39.1)
 
 ### &emsp; 🩹 Fixes
