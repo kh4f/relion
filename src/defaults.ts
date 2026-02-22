@@ -4,7 +4,7 @@ export const STEP_ORDER: Step[] = ['context', 'bump', 'commit', 'tag']
 
 export const defaultBumper: Bumper = {
 	file: 'package.json',
-	pattern: /(version.*?)\d[\w.+-]*/,
+	pattern: /(\bversion\b.*?)\d[\w.+-]*/,
 	replacement: '$1{{newVersion}}',
 }
 
