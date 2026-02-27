@@ -23,7 +23,7 @@ export const context = async (cfg: Required<Config>, commits: Commit[], curTag: 
 }
 
 export const bump = async (cfg: Required<Config>) => {
-	const bumpers = cfg.bumpFiles.map(bumpFile => (
+	const bumpers = cfg.bump.map(bumpFile => (
 		typeof bumpFile == 'string' ? { ...defaultBumper, file: bumpFile } : bumpFile
 	))
 	console.log(`\nAbout to bump versions in files: ${bumpers.map(b => [b.file].flat()).flat().join(', ')}`)

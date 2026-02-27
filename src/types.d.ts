@@ -18,7 +18,7 @@ export interface Config {
 	 *
 	 * @default ['package.json']
 	 */
-	bumpFiles?: (Bumper | string)[]
+	bump?: (Bumper | string)[]
 
 	/**
 	 * Path to the release context output file
