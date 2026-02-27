@@ -10,10 +10,10 @@
 	<br><br>
 	<p>
 		<b>
-			<a href="#-installation">Installation</a>&nbsp; •&nbsp; 
-			<a href="#%EF%B8%8F-cli-usage">CLI</a>&nbsp; •&nbsp; 
-			<a href="#-api-usage">API</a>&nbsp; •&nbsp; 
-			<a href="#%EF%B8%8F-workflow-steps">Workflow Steps</a>&nbsp; •&nbsp; 
+			<a href="#-installation">Installation</a>&nbsp; •&nbsp;
+			<a href="#%EF%B8%8F-cli-usage">CLI</a>&nbsp; •&nbsp;
+			<a href="#-api-usage">API</a>&nbsp; •&nbsp;
+			<a href="#%EF%B8%8F-workflow-steps">Workflow Steps</a>&nbsp; •&nbsp;
 			<a href="#-changelog-generation">Changelog Generation</a>
 		</b>
 	</p>
@@ -83,7 +83,7 @@ import relion from 'relion';
 relion({
 	flow: ['context', 'bump', 'commit', 'tag'],
 	newVersion: '1.2.3',
-	bumpFiles: [
+	bump: [
 		'package.json', // uses default bumper
 		// custom bumper (equivalent to the default bumper implementation)
 		{
@@ -104,7 +104,7 @@ relion({
 
 - `flow`: release workflow steps (`'context' | 'bump' | 'commit' | 'tag'`) (default: `[]`)
 - `newVersion`: set the new version explicitly
-- `bumpFiles`: files or custom bumpers for version update (default: [`'package.json'`])
+- `bump`: files or custom bumpers for version update (default: [`'package.json'`])
 - `contextFile`: path to release context output file (default: `'RELEASE.md'`)
 - `commitMessage`: release commit message template (default: `'chore(release): {{tag}}'`)
 - `tagPrefix`: release tag prefix (default: `'v'`)
@@ -121,7 +121,7 @@ Relion can also be configured via `relion` field in `package.json`:
   "relion": {
     "commitMessage": "release(relion): {{tag}}",
     "tagPrefix": "",
-    "bumpFiles": ["package.json",
+    "bump": ["package.json",
 	  {
 	    "file": "manifest.json",
 	    "pattern": "/(\"version\": )\".*\"/",
