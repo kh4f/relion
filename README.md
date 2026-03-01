@@ -177,8 +177,9 @@ Recommended workflow:
    - [.github/instructions/changelog-format.instructions.md](.github/instructions/changelog-format.instructions.md)
    - [.github/prompts/generate-changelog.prompt.md](.github/prompts/generate-changelog.prompt.md)
 2. Run the context step to generate RELEASE.md: `pnpm relion -f`
-3. Run the prompt in VSCode Copilot chat: `/generate-changelog`
-4. Copilot produces a polished changelog entry based on the release context
+3. Review the release context, adjust as needed
+4. Run the prompt in VSCode Copilot chat: `/generate-changelog`
+5. Copilot produces a polished changelog entry based on the release context
 
 <details><summary>Generated changelog example (from the (*) release context using the instruction and prompt above; Gemini 3 Pro)</summary>
 
