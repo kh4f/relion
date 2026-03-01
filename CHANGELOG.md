@@ -1,6 +1,18 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.40.0  `](https://github.com/kh4f/relion/compare/v0.39.2...v0.40.0)
+
+### &emsp; 🧨 BREAKING CHANGES
+- **Renamed config option**: the `bumpFiles` configuration option has been renamed to `bump` for improved clarity and reduced verbosity. [🡥](https://github.com/kh4f/relion/commit/cc247f7)
+- **Removed automatic commit filtering**: the `commitFilters` config option and automatic filtering have been removed. Users now filter commits manually in the release context before generating the changelog. [🡥](https://github.com/kh4f/relion/commit/f5a8924)
+
+### &emsp; 🎨 Style
+- **Updated branding**: introduced a new theme-aware logo. [🡥](https://github.com/kh4f/relion/commit/0f44128)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.39.2...v0.40.0) &ensp;•&ensp; Mar 1, 2026
+
+
 ## &ensp; [` 📦 v0.39.2  `](https://github.com/kh4f/relion/compare/v0.39.1...v0.39.2)
 
 ### &emsp; 🩹 Fixes
@@ -217,7 +229,7 @@
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
 - **defaults**: update `DEFAULT_RELEASE_TAG_PATTERN` to match version suffixes [`91656bd`](https://github.com/kh4f/relion/commit/91656bd)
-- **changelog**: 
+- **changelog**:
   - avoid appending blank lines to empty changelog file [`0ec4cc5`](https://github.com/kh4f/relion/commit/0ec4cc5)
   - adjust `releasePattern` to match footers at EOF [`469969a`](https://github.com/kh4f/relion/commit/469969a)
 
@@ -259,7 +271,7 @@
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
 - **config-file**: support extensionless imports in user config files via `tsx` [`23e0e5a`](https://github.com/kh4f/relion/commit/23e0e5a)
 - **tag**: support dynamic `{{commitMessage}}` in `tag.message` [`aa3ac62`](https://github.com/kh4f/relion/commit/aa3ac62)
-- **config**: 
+- **config**:
   - extend `RepoInfo` to support custom fields [`34a848e`](https://github.com/kh4f/relion/commit/34a848e)
   - unify package info under `context.package` [`97262b9`](https://github.com/kh4f/relion/commit/97262b9) ⚠️<sup>[1]</sup>
 
@@ -272,7 +284,7 @@
 - The option `latestReleasePattern` was renamed to `releasePattern`. <sup>[1]</sup>
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
-- **changelog**: 
+- **changelog**:
   - add `packageName` to changelog context [`da99b16`](https://github.com/kh4f/relion/commit/da99b16)
   - support extracting specified release from changelog file [`bf4ee61`](https://github.com/kh4f/relion/commit/bf4ee61) ⚠️<sup>[1]</sup>
 
@@ -293,7 +305,7 @@
 - CLI arguments now always override corresponding options from the config, even when a profile is used. <sup>[6]</sup>
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
-- **changelog**: 
+- **changelog**:
   - add `commitRefLinkPattern` option to changelog configuration [`6ea2d5a`](https://github.com/kh4f/relion/commit/6ea2d5a)
   - support extracting full changelog for latest release from file [`f84960d`](https://github.com/kh4f/relion/commit/f84960d)
   - support extracting latest release partials from changelog [`a7af989`](https://github.com/kh4f/relion/commit/a7af989)
@@ -302,7 +314,7 @@
 - **hbs-helper**: refine commit/ref link pattern in `modifyPartialWithContext` [`145cc70`](https://github.com/kh4f/relion/commit/145cc70)
 - **defaults**: update `latestReleasePattern` to include empty lines after header [`334e0a8`](https://github.com/kh4f/relion/commit/334e0a8)
 - **changelog**: correct `latestReleasePattern` to stop at next `##` header [`6db2687`](https://github.com/kh4f/relion/commit/6db2687)
-- **cli**: 
+- **cli**:
   - prevent profile `lifecycle` option from overwriting CLI `-f` flag [`b075b8a`](https://github.com/kh4f/relion/commit/b075b8a)
   - ensure `profile` property is set when CLI `-p` flag is provided [`d855871`](https://github.com/kh4f/relion/commit/d855871)
   - ensure `latest` flag is applied even if `changelog` is not defined [`bd5d4f0`](https://github.com/kh4f/relion/commit/bd5d4f0)
@@ -311,11 +323,11 @@
   - validate lifecycle step aliases [`cd693f8`](https://github.com/kh4f/relion/commit/cd693f8)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
-- **changelog**: 
+- **changelog**:
   - split `output` option into `file` and `output` [`409438b`](https://github.com/kh4f/relion/commit/409438b) ⚠️<sup>[1]</sup>
   - rename `main` partial to `body` in release template [`61d2ccd`](https://github.com/kh4f/relion/commit/61d2ccd) ⚠️<sup>[4]</sup>
   - consolidate hyperlink flags into `hyperlinks` [`fa3743e`](https://github.com/kh4f/relion/commit/fa3743e) ⚠️<sup>[5]</sup>
-- **config**: 
+- **config**:
   - remove `changelog.prevReleaseHeaderPattern` in favor of `latestReleasePattern` [`436aa34`](https://github.com/kh4f/relion/commit/436aa34) ⚠️<sup>[2]</sup>
   - rename `hyperlinks` to `commitRefLinks` [`6501e97`](https://github.com/kh4f/relion/commit/6501e97) ⚠️<sup>[3]</sup>
 - **cli**: prioritize CLI arguments over config profile options [`09bcd35`](https://github.com/kh4f/relion/commit/09bcd35) ⚠️<sup>[6]</sup>
@@ -363,7 +375,7 @@
 - The `ignoreLimit` property is replaced with more flexible `show` property in changelog section definitions. <sup>[1]</sup>
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
-- **changelog**: 
+- **changelog**:
   - add `review` option for interactive changelog review before commit/tag [`0ccb51e`](https://github.com/kh4f/relion/commit/0ccb51e)
   - add `show` property for advanced section rendering control [`144f36a`](https://github.com/kh4f/relion/commit/144f36a) ⚠️<sup>[1]</sup>
   - add `commitsScope` option to filter commits by paths [`6caff98`](https://github.com/kh4f/relion/commit/6caff98)
@@ -372,7 +384,7 @@
 - **relion-config**: separate full release workflow into dedicated `local` profile [`4d417f2`](https://github.com/kh4f/relion/commit/4d417f2)
 - **tests**: mirror `src` folder structure [`060f273`](https://github.com/kh4f/relion/commit/060f273)
 - **lifecycle**: rename `lifecycles` folder to `lifecycle` [`0b608c3`](https://github.com/kh4f/relion/commit/0b608c3)
-- **defaults**: 
+- **defaults**:
   - update `message` in `defaultTagOptions` to use `defaultCommitOptions.message` [`3ff93db`](https://github.com/kh4f/relion/commit/3ff93db)
   - use `chore(release):` format for default commit and tag messages [`7c0a2ea`](https://github.com/kh4f/relion/commit/7c0a2ea)
   - update commit partial to use `breakingChangesIndicator` partial [`be0931a`](https://github.com/kh4f/relion/commit/be0931a)
@@ -390,7 +402,7 @@
 - The `changelogSectionsSelector` export has been renamed to `sectionsSelector`. <sup>[2]</sup>
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
-- **changelog**: 
+- **changelog**:
   - display commits with breaking changes in all sections regardless of line limit [`0cf7ae2`](https://github.com/kh4f/relion/commit/0cf7ae2) ⚠️<sup>[1]</sup>
   - add `ignoreLimit` flag to control section inclusion despite line limits [`c46e531`](https://github.com/kh4f/relion/commit/c46e531)
   - add `maxLinesPerRelease` option to limit changelog length per release [`037ebd8`](https://github.com/kh4f/relion/commit/037ebd8)
@@ -402,11 +414,11 @@
 - **commit**: support `raw` field in `Reference` for footer refs parsing [`0c6cf75`](https://github.com/kh4f/relion/commit/0c6cf75)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🩹 Fixes
-- **config**: 
+- **config**:
   - merge user context with default one [`2f17c70`](https://github.com/kh4f/relion/commit/2f17c70)
   - allow mixed `ParsedCommit` and `RawCommit` types in `Context.commits` [`be9204c`](https://github.com/kh4f/relion/commit/be9204c)
 - **commits-parser**: prevent body from being parsed as footer when containing ref keywords [`3132b13`](https://github.com/kh4f/relion/commit/3132b13)
-- **changelog**: 
+- **changelog**:
   - move inline partials to defaults to allow user overrides [`80eeecf`](https://github.com/kh4f/relion/commit/80eeecf)
   - resolve Handlebars state leakage by using local instance [`a934ed4`](https://github.com/kh4f/relion/commit/a934ed4)
 
@@ -439,7 +451,7 @@
 - **renovate**: replace `matchCurrentAge` with `minimumReleaseAge` for patch and minor updates [`9471d0d`](https://github.com/kh4f/relion/commit/9471d0d)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧪 Tests
-- **changelog**: 
+- **changelog**:
   - skip test for generating changelog with transformed partials [`9c064b7`](https://github.com/kh4f/relion/commit/9c064b7)
   - update snapshot for transformed partials test [`67ed389`](https://github.com/kh4f/relion/commit/67ed389)
   - update snapshot for changelog generation tests [`a9dc9a2`](https://github.com/kh4f/relion/commit/a9dc9a2)
@@ -474,7 +486,7 @@
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨ Features
 - **changelog**: add function support for `partials` to transform fallback content [`7f070fd`](https://github.com/kh4f/relion/commit/7f070fd)
 - **bump**: add support for custom replacement for versioned files [`77aa591`](https://github.com/kh4f/relion/commit/77aa591)
-- **config**: 
+- **config**:
   - allow skipping bump for `versionSourceFile` via `!versionSourceFile` in `bump` array [`ba77ad8`](https://github.com/kh4f/relion/commit/ba77ad8)
   - support extracting current version from latest release tag instead of file [`9d96a36`](https://github.com/kh4f/relion/commit/9d96a36)
 
@@ -484,7 +496,7 @@
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🚜 Refactoring
 - **utils**: extract `hbs-load-hook` to separate module to avoid registration conflict [`88c6fea`](https://github.com/kh4f/relion/commit/88c6fea)
 - **release**: update relion config to use 'logLevel' [`591e2c8`](https://github.com/kh4f/relion/commit/591e2c8)
-- **config**: 
+- **config**:
   - rename `filePath` and `versionPattern` to `file` and `pattern` [`88f1446`](https://github.com/kh4f/relion/commit/88f1446) ⚠️<sup>[1]</sup>
   - replace `silent` option with `logLevel` for improved logging control [`9cfb8af`](https://github.com/kh4f/relion/commit/9cfb8af) ⚠️<sup>[2]</sup>
 - **logger**: remove unused `deepLog` function [`9c0b9a2`](https://github.com/kh4f/relion/commit/9c0b9a2)
@@ -496,7 +508,7 @@
 - **config-resolver**: add quotes around `versionSourceFile.file` in log output [`7f08be2`](https://github.com/kh4f/relion/commit/7f08be2)
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩 Dependencies
-- **dev-deps**: 
+- **dev-deps**:
   - bump `tsdown` from 0.15.4 to 0.15.5 [`99bf48b`](https://github.com/kh4f/relion/commit/99bf48b)
   - bump `typescript-eslint` from 8.42.0 to 8.44.1 (#7) [`c3f350d`](https://github.com/kh4f/relion/commit/c3f350d)
   - bump `lint-staged` from 16.1.6 to 16.2.1 [`ac40d36`](https://github.com/kh4f/relion/commit/ac40d36)
@@ -529,7 +541,7 @@
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩 Dependencies
 - **deps**: bump node.js from v24.8.0 to v24.9.0 [`6b0b03a`](https://github.com/kh4f/relion/commit/6b0b03a)
-- **dev-deps**: 
+- **dev-deps**:
   - bump `globals` from 16.3.0 to 16.4.0 [`f68f9f5`](https://github.com/kh4f/relion/commit/f68f9f5)
   - bump `eslint` from 9.34.0 to 9.36.0 [`d6cc118`](https://github.com/kh4f/relion/commit/d6cc118)
 
