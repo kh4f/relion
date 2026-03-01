@@ -1,5 +1,8 @@
 <div align="center">
-	<img src=".github/logo.png" alt="logo"/>
+	<picture>
+		<source media="(prefers-color-scheme: dark)" srcset=".github/logo-light.png">
+		<img alt="logo" src=".github/logo-dark.png">
+	</picture>
 	<br><br>
 	<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=c8c9f1&labelColor=363a4f" alt="npm version"/></a>&nbsp;
 	<a href="https://www.npmjs.com/package/relion"><img src="https://img.badgesize.io/https:/unpkg.com/relion/dist/index.js?label=Size&logo=hackthebox&logoColor=c97026&style=flat-square&color=c8c9f1&labelColor=363a4f" alt="runtime size"/></a>&nbsp;
