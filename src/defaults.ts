@@ -15,6 +15,5 @@ export const defaultCfg: Required<Config> = {
 	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',
-	commitFilters: [/^feat|^fix|^perf|^style|^docs/, 'BREAKING CHANGE'],
 	dryRun: false,
 }

@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
 import { defaultCfg, STEP_ORDER } from '@/defaults'
-import { calculateNextVersion, parseCommits, filterCommits } from '@/utils'
+import { calculateNextVersion, parseCommits } from '@/utils'
 import type { Config } from '@/types'
 
 export default async (userCfg?: Config) => {
@@ -24,10 +24,9 @@ export default async (userCfg?: Config) => {
 	console.log(`Current tag: ${curTag}`)
 
 	const parsedCommits = parseCommits(curTag)
-	const filteredCommits = filterCommits(parsedCommits, cfg.commitFilters)
-	console.log(`Filtered commits: ${filteredCommits.length}`)
+	console.log(`Parsed commits: ${parsedCommits.length}`)
 
-	cfg.newVersion ||= calculateNextVersion(filteredCommits, curVersion)
+	cfg.newVersion ||= calculateNextVersion(parsedCommits, curVersion)
 	console.log(`New version: ${cfg.newVersion}`)
 
 	const newTag = `${cfg.tagPrefix}${cfg.newVersion}`
@@ -42,7 +41,7 @@ export default async (userCfg?: Config) => {
 	console.log('-'.repeat(30))
 
 	for (const step of STEP_ORDER.filter(s => cfg.flow.includes(s))) await ({
-		context: () => context(cfg, filteredCommits, curTag, newTag, repoURL),
+		context: () => context(cfg, parsedCommits, curTag, newTag, repoURL),
 		bump: () => bump(cfg),
 		commit: () => commit(cfg),
 		tag: () => tag(cfg, curTag, newTag),

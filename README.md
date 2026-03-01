@@ -55,7 +55,7 @@ Examples:
 ------------------------------
 Current version: 0.36.1
 Current tag: v0.36.1
-Filtered commits: 16
+Parsed commits: 16
 New version: 0.37.0
 New tag: v0.37.0
 Commit message: 'chore(release): v0.37.0'
@@ -96,7 +96,6 @@ relion({
 	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',
-	commitFilters: [/^feat|^fix/, 'BREAKING CHANGE'],
 	dryRun: false,
 });
 ```
@@ -109,7 +108,6 @@ relion({
 - `contextFile`: path to release context output file (default: `'RELEASE.md'`)
 - `commitMessage`: release commit message template (default: `'chore(release): {{tag}}'`)
 - `tagPrefix`: release tag prefix (default: `'v'`)
-- `commitFilters`: commit log filters (substring or RegExp; default: [`/^feat|^fix|^perf|^style|^docs/`, `'BREAKING CHANGE'`])
 - `dryRun`: run in dry mode (no modifications)
 
 ### Configuration via `package.json`

@@ -39,12 +39,6 @@ export interface Config {
 	tagPrefix?: string
 
 	/**
-	 * Commit log filters (substrings or regexes)
-	 * @default [/^feat|^fix|^perf|^style|^docs/, 'BREAKING CHANGE']
-	 */
-	commitFilters?: (string | RegExp)[]
-
-	/**
 	 * Run in dry mode without making any changes
 	 * @default false
 	 */

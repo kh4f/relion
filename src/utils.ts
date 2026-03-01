@@ -1,22 +1,13 @@
 import { execSync } from 'node:child_process'
 import { createInterface } from 'node:readline'
 import semver from 'semver'
-import type { Commit, Config } from '@/types'
+import type { Commit } from '@/types'
 
 export const parseCommits = (curTag: string): Commit[] => (
 	execSync(`git log ${curTag ? `${curTag}..` : ''} --format="%h %B---" .`, { encoding: 'utf8' }).trim()
 		.split('---').filter(Boolean)
 		.map(c => /^(.+?) (.+)/s.exec(c.trim()))
 		.map(m => ({ hash: m?.[1] ?? '', message: m?.[2].trim() ?? '' }))
-)
-
-export const filterCommits = (commits: Commit[], filters: Config['commitFilters'] = []): Commit[] => (
-	commits.filter(c => (
-		filters.some(filter => filter instanceof RegExp
-			? filter.test(c.message)
-			: strToRegex(filter).test(c.message),
-		)
-	))
 )
 
 export const calculateNextVersion = (commits: Commit[], curVersion: string): string => {
