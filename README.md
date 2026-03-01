@@ -192,7 +192,7 @@ Recommended workflow:
 ### &emsp; 🩹 Fixes
 - **Correct release type calculation**: breaking changes now correctly take priority over features when determining the release type, preventing incorrect minor bumps. [🡥](https://github.com/kh4f/relion/commit/8f29acf)
 
-##### &emsp;&emsp; [_Full Changelog_](https://github.com/kh4f/relion/compare/v0.32.1...v0.33.0) &ensp;•&ensp; _Jan 10, 2026_
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.32.1...v0.33.0) &ensp;•&ensp; Jan 10, 2026
 ```
 </details>
 
