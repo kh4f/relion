@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import relion from './index.js'
 import type { Step } from '@/types'
 
