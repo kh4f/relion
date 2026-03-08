@@ -10,12 +10,14 @@ Options:
   -c            Create a release commit
   -t            Create a release tag
   -v <version>  Set the new version explicitly
+  -m <file>     Specify manifest file
   -d            Run in dry run mode
   -h            Show the help message
 
 Examples:
 - \`pnpm relion -bct\` — bump version, create release commit and tag
 - \`pnpm relion -f\` — generate release context file
+- \`pnpm relion -m Cargo.toml\` — use Cargo.toml as manifest
 - \`pnpm relion\` — run all release steps
 `
 
@@ -35,6 +37,12 @@ let flow: Step[] = [
 if (!flow.length) flow = ['context', 'bump', 'commit', 'tag']
 
 const newVersion = /-v (\S+)/.exec(args)?.[1]
+const manifest = /-m (\S+)/.exec(args)?.[1]
 const dryRun = /-\w*d/.test(args)
 
-void relion({ flow: flow, ...(newVersion && { newVersion }), ...(dryRun && { dryRun }) })
+void relion({
+	flow: flow,
+	...(newVersion && { newVersion }),
+	...(manifest && { manifest }),
+	...(dryRun && { dryRun }),
+})

@@ -1,21 +1,26 @@
-import { readFileSync } from 'node:fs'
+import { existsSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
-import { defaultCfg, STEP_ORDER } from '@/defaults'
-import { calculateNextVersion, parseCommits } from '@/utils'
+import { defaultCfg, STEP_ORDER, defaultManifestFiles } from '@/defaults'
+import { calculateNextVersion, parseCommits, parseManifest } from '@/utils'
 import type { Config } from '@/types'
 
-export default async (userCfg?: Config) => {
-	const pkgJson = JSON.parse(readFileSync('package.json', 'utf8')) as
-		{ name: string, version: string, repository: string, relion?: Partial<Config> }
-	userCfg = { ...pkgJson.relion, ...userCfg }
-	const cfg = { ...defaultCfg, ...userCfg }
+export default async function relion(userCfg?: Config) {
+	if (userCfg?.manifest && !existsSync(userCfg.manifest))
+		throw new Error(`Specified manifest file '${userCfg.manifest}' does not exist`)
+	const manifestFile = userCfg?.manifest ?? defaultManifestFiles.find(existsSync)
+	if (!manifestFile) throw new Error('No manifest file found, please specify one')
 
 	console.log('-'.repeat(30))
+	console.log(`Manifest file: ${manifestFile}`)
 
-	if (!userCfg.tagPrefix && pkgJson.name.startsWith('@')) cfg.tagPrefix = `${pkgJson.name}@`
+	const manifest = parseManifest(manifestFile)
+	userCfg = { ...manifest.relion, ...userCfg }
+	const cfg = { ...defaultCfg, ...userCfg }
 
-	const curVersion = pkgJson.version
+	if (!userCfg.tagPrefix && manifest.name.startsWith('@')) cfg.tagPrefix = `${manifest.name}@`
+
+	const curVersion = manifest.version
 	console.log(`Current version: ${curVersion}`)
 
 	const curTag = spawnSync('git', [
@@ -35,7 +40,7 @@ export default async (userCfg?: Config) => {
 	cfg.commitMessage = cfg.commitMessage.replace('{{tag}}', newTag)
 	console.log(`Commit message: '${cfg.commitMessage}'`)
 
-	const repoURL = pkgJson.repository
+	const repoURL = manifest.repository
 	console.log(`Repo URL: ${repoURL}`)
 
 	console.log('-'.repeat(30))

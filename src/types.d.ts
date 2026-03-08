@@ -1,4 +1,7 @@
 export interface Config {
+	/** Manifest file path. Auto-detects `package.json` or `Cargo.toml` if omitted. */
+	manifest?: string
+
 	/**
 	 * Release workflow steps to execute (e.g. bump, context, commit, tag)
 	 * @default []
@@ -14,9 +17,11 @@ export interface Config {
 	/**
 	 * Files or bumpers for version update. Each item is either:
 	 * - a Bumper object specifying `file`, `pattern`, and `replacement`
-	 * - a file name for which a default bumper exists (currently only 'package.json')
+	 * - a file name for which a default bumper exists (currently only 'package.json', 'Cargo.toml')
 	 *
-	 * @default ['package.json']
+	 * If a file doesn't exist, it will be skipped silently.
+	 *
+	 * @default ['package.json', 'Cargo.toml']
 	 */
 	bump?: (Bumper | string)[]
 
@@ -45,6 +50,8 @@ export interface Config {
 	dryRun?: boolean
 }
 
+export type ResolvedConfig = Required<Omit<Config, 'manifest'>>
+
 export type Step = 'bump' | 'context' | 'commit' | 'tag'
 
 export interface Bumper {
@@ -64,4 +71,11 @@ export interface Commit {
 
 	/** Full commit  message */
 	message: string
+}
+
+export interface Manifest {
+	name: string
+	version: string
+	repository: string
+	relion?: Partial<Config>
 }

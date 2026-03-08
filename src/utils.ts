@@ -1,7 +1,26 @@
+import { readFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { createInterface } from 'node:readline'
 import semver from 'semver'
-import type { Commit } from '@/types'
+import type { Commit, Config, Manifest } from '@/types'
+
+export const parseManifest = (manifestFile: string): Manifest => {
+	const content = readFileSync(manifestFile, 'utf8')
+
+	const name = /name.*"(.*?)"/.exec(content)?.[1]
+	if (!name) throw new Error(`Manifest is missing 'name' field`)
+
+	const version = /version.*"(.*?)"/.exec(content)?.[1]
+	if (!version) throw new Error(`Manifest is missing 'version' field`)
+
+	const repository = /repository.*"(.*?)"/.exec(content)?.[1]
+	if (!repository) throw new Error(`Manifest is missing 'repository' field`)
+
+	const relionRaw = manifestFile.endsWith('.json') ? /relion.*({.*?})/s.exec(content)?.[1] : undefined
+	const relion = relionRaw ? (JSON.parse(relionRaw) as Config) : undefined
+
+	return { name, version, repository, relion }
+}
 
 export const parseCommits = (curTag: string): Commit[] => (
 	execSync(`git log ${curTag ? `${curTag}..` : ''} --format="%h %B---" .`, { encoding: 'utf8' }).trim()

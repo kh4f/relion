@@ -40,12 +40,14 @@ Options:
   -c            Create a release commit
   -t            Create a release tag
   -v <version>  Set the new version explicitly
+  -m <file>     Specify manifest file
   -d            Run in dry run mode
   -h            Show the help message
 
 Examples:
 - `pnpm relion -bct` — bump version, create release commit and tag
 - `pnpm relion -f` — generate release context file
+- `pnpm relion -m Cargo.toml` — use Cargo.toml as manifest
 - `pnpm relion` — run all release steps
 ```
 
@@ -102,9 +104,10 @@ relion({
 
 ### Options
 
+- `manifest`: manifest file (default: auto-detects `package.json` or `Cargo.toml`)
 - `flow`: release workflow steps (`'context' | 'bump' | 'commit' | 'tag'`) (default: `[]`)
 - `newVersion`: set the new version explicitly
-- `bump`: files or custom bumpers for version update (default: [`'package.json'`])
+- `bump`: files or custom bumpers for version update (default: [`'package.json', 'Cargo.toml'`])
 - `contextFile`: path to release context output file (default: `'RELEASE.md'`)
 - `commitMessage`: release commit message template (default: `'chore(release): {{tag}}'`)
 - `tagPrefix`: release tag prefix (default: `'v'`)

@@ -1,10 +1,10 @@
-import { readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { promptToContinue, strToRegex } from '@/utils'
 import { defaultBumper } from '@/defaults'
-import type { Config, Commit } from '@/types'
+import type { ResolvedConfig, Commit } from '@/types'
 
-export const context = async (cfg: Required<Config>, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
+export const context = async (cfg: ResolvedConfig, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
 	console.log(`\nAbout to write context to '${cfg.contextFile}'`)
 	if (!await promptToContinue()) return
 	if (cfg.dryRun) return
@@ -22,12 +22,14 @@ export const context = async (cfg: Required<Config>, commits: Commit[], curTag: 
 	writeFileSync(cfg.contextFile, output, 'utf8')
 }
 
-export const bump = async (cfg: Required<Config>) => {
+export const bump = async (cfg: ResolvedConfig) => {
 	const bumpers = cfg.bump.map(bumper => (
 		typeof bumper == 'string' ? { ...defaultBumper, file: bumper } : bumper
-	))
+	)).filter(b => [b.file].flat().every(f => existsSync(f)))
+
 	console.log(`\nAbout to bump versions in files: ${bumpers.map(b => [b.file].flat()).flat().join(', ')}`)
 	if (!await promptToContinue()) return
+
 	bumpers.forEach(bumper => {
 		if (typeof bumper.pattern === 'string') bumper.pattern = strToRegex(bumper.pattern);
 		[bumper.file].flat().forEach(file => {
@@ -39,7 +41,7 @@ export const bump = async (cfg: Required<Config>) => {
 	})
 }
 
-export const commit = async (cfg: Required<Config>) => {
+export const commit = async (cfg: ResolvedConfig) => {
 	const cmd = `git commit -m "${cfg.commitMessage}"`
 	console.log(`\nAbout to commit changes: '${cmd}'`)
 	if (!await promptToContinue()) return
@@ -47,7 +49,7 @@ export const commit = async (cfg: Required<Config>) => {
 	execSync(cmd, { stdio: 'inherit' })
 }
 
-export const tag = async (cfg: Required<Config>, curTag: string, newTag: string) => {
+export const tag = async (cfg: ResolvedConfig, curTag: string, newTag: string) => {
 	let cmd = `git tag ${newTag} -m "${cfg.commitMessage}"`
 	const prevReleaseCommitPattern = new RegExp(`^${cfg.commitMessage.replace(newTag, curTag).replace(/[()]/g, '\\$&')}$`)
 	const latestCommit = execSync('git log -1 --format=%s', { encoding: 'utf8' }).trim()
