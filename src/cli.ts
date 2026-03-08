@@ -45,4 +45,7 @@ void relion({
 	...(newVersion && { newVersion }),
 	...(manifest && { manifest }),
 	...(dryRun && { dryRun }),
+}).catch((err: unknown) => {
+	console.error(err)
+	process.exit(1)
 })
