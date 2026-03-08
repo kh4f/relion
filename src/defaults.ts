@@ -11,7 +11,7 @@ export const defaultBumper: Bumper = {
 export const defaultManifestFiles = ['package.json', 'Cargo.toml']
 
 export const defaultCfg: ResolvedConfig = {
-	flow: [],
+	flow: STEP_ORDER,
 	newVersion: '',
 	bump: defaultManifestFiles,
 	contextFile: 'RELEASE.md',

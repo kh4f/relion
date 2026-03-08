@@ -105,7 +105,7 @@ relion({
 ### Options
 
 - `manifest`: manifest file (default: auto-detects `package.json` or `Cargo.toml`)
-- `flow`: release workflow steps (`'context' | 'bump' | 'commit' | 'tag'`) (default: `[]`)
+- `flow`: release workflow steps (`'context' | 'bump' | 'commit' | 'tag'`) (default: all steps)
 - `newVersion`: set the new version explicitly
 - `bump`: files or custom bumpers for version update (default: [`'package.json', 'Cargo.toml'`])
 - `contextFile`: path to release context output file (default: `'RELEASE.md'`)
