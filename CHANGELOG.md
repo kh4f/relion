@@ -6,14 +6,14 @@
 ### &emsp; 🧨 BREAKING CHANGES
 - **All steps execute by default**: the `flow` option now defaults to executing all release steps in the API, providing a more intuitive out-of-the-box experience. [🡥](https://github.com/kh4f/relion/commit/43f69a4)
 
-### &empt; 🎁 Features
+### &emsp; 🎁 Features
 - **Custom manifest files**: you can now specify custom manifest files using the `-m` CLI flag or the `manifest` config option. [🡥](https://github.com/kh4f/relion/commit/ed77a4c)
 - **Multi-format manifest parsing**: manifest files now support both JSON and TOML-like formats, with built-in support for `Cargo.toml` alongside `package.json`. [🡥](https://github.com/kh4f/relion/commit/ed77a4c)
 
-### &empt; 🩹 Fixes
+### &emsp; 🩹 Fixes
 - **Fixed npx execution**: `npx relion` now properly executes your release workflow instead of opening the CLI script in an editor. [🡥](https://github.com/kh4f/relion/commit/5cab935)
 
-##### &empt;&empt; [Full Changelog](https://github.com/kh4f/relion/compare/v0.40.0...v0.41.0) &ensp;•&ensp; Mar 8, 2026
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.40.0...v0.41.0) &ensp;•&ensp; Mar 8, 2026
 
 
 ## &ensp; [` 📦 v0.40.0  `](https://github.com/kh4f/relion/compare/v0.39.2...v0.40.0)
