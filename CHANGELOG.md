@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.41.1  `](https://github.com/kh4f/relion/compare/v0.41.0...v0.41.1)
+
+### &emsp; 🩹 Fixes
+- **Error output handling**: error messages now display cleanly with only the message and stack trace, instead of dumping the entire minified bundle. [🡥](https://github.com/kh4f/relion/commit/dfe94a1)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.41.0...v0.41.1) &ensp;•&ensp; Mar 8, 2026
+
+
 ## &ensp; [` 📦 v0.41.0  `](https://github.com/kh4f/relion/compare/v0.40.0...v0.41.0)
 
 ### &emsp; 🧨 BREAKING CHANGES
