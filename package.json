@@ -8,7 +8,6 @@
 	"bugs": "https://github.com/kh4f/relion/issues",
 	"homepage": "https://github.com/kh4f/relion#readme",
 	"keywords": ["relion", "release", "release-automation", "release-workflow", "release-helper", "release-workflow-helper"],
-	"pnpm": { "onlyBuiltDependencies": ["esbuild"] },
 	"files": ["dist"],
 	"type": "module",
 	"main": "dist/index.js",
@@ -19,7 +18,7 @@
 		"build:watch": "tsdown --watch",
 		"build:prod": "tsdown --prod",
 		"lint": "eslint",
-		"release": "tsx src/cli"
+		"release": "bun src/cli"
 	},
 	"dependencies": { "semver": "^7.7.4" },
 	"devDependencies": {
@@ -30,7 +29,6 @@
 		"eslint": "^10.0.2",
 		"jiti": "^2.6.1",
 		"tsdown": "^0.20.3",
-		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.56.1"
 	}
