@@ -113,6 +113,8 @@ relion({
 - `tagPrefix`: release tag prefix (default: `'v'`)
 - `dryRun`: run in dry mode (no modifications)
 
+> For detailed option descriptions, see [src/types.d.ts](src/types.d.ts).
+
 ### Configuration via `package.json`
 
 Relion can also be configured via `relion` field in `package.json`:
