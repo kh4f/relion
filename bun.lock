@@ -10,7 +10,7 @@
       "devDependencies": {
         "@eslint/js": "^10.0.1",
         "@stylistic/eslint-plugin": "^5.9.0",
-        "@types/node": "^25.3.3",
+        "@types/node": "^25.3.5",
         "@types/semver": "^7.7.1",
         "eslint": "^10.0.2",
         "jiti": "^2.6.1",
