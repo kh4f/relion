@@ -54,14 +54,14 @@ Examples:
 <details><summary>Example output of running <code>pnpm relion</code>:</summary>
 
 ```txt
-------------------------------
+Project: relion
+Repo: github.com/kh4f/relion
 Current tag: v0.36.1
 Current version: 0.36.1
 Parsed commits: 16
 New version: 0.37.0
 New tag: v0.37.0
 Commit message: 'chore(release): v0.37.0'
-Repo URL: https://github.com/kh4f/relion
 ------------------------------
 
 About to write context to 'RELEASE.md'
