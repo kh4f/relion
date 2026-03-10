@@ -1,6 +1,19 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.42.0  `](https://github.com/kh4f/relion/compare/v0.41.1...v0.42.0)
+
+### &emsp; 🧨 BREAKING CHANGES
+- **Removed release commit/tag reuse logic**: tag creation now always generates a new tag, regardless of the latest commit. Users can delete the previous tag to trigger a new one without needing to revert the manifest version. [🡥](https://github.com/kh4f/relion/commit/44cfcb9)
+- **Derive version from git tag**: the current version is now extracted from the latest git tag rather than the manifest file, preventing version mismatch issues when relion is run before the first release. [🡥](https://github.com/kh4f/relion/commit/e75871e)
+- **Removed version from release metadata**: the `version` field is no longer included in the `RELEASE.md` frontMatter, as it duplicates information available in the `tag` field. [🡥](https://github.com/kh4f/relion/commit/73556b9)
+
+### &emsp; 🎁 Features
+- **Git-based fallback for manifest**: relion can now work without a project manifest file by automatically extracting repository name and URL from git remote configuration. [🡥](https://github.com/kh4f/relion/commit/03bd873)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.41.1...v0.42.0) &ensp;•&ensp; Mar 10, 2026
+
+
 ## &ensp; [` 📦 v0.41.1  `](https://github.com/kh4f/relion/compare/v0.41.0...v0.41.1)
 
 ### &emsp; 🩹 Fixes
