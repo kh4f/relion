@@ -1,6 +1,16 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.42.1  `](https://github.com/kh4f/relion/compare/v0.42.0...v0.42.1)
+
+### &emsp; 📚 Documentation
+- **Clarified setup instructions**: installation section now explicitly specifies dev dependency installation and direct CLI usage with `bunx relion`. [🡥](https://github.com/kh4f/relion/commit/fdf9260)
+- **Updated `bun` command examples**: replaced `pnpm` with `bun` throughout installation and CLI usage sections for consistency. [🡥](https://github.com/kh4f/relion/commit/d7ce96f)
+- **Refreshed example output**: updated README example to reflect the latest relion workflow and output format for version v0.42. [🡥](https://github.com/kh4f/relion/commit/affc3af)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.42.0...v0.42.1) &ensp;•&ensp; Mar 10, 2026
+
+
 ## &ensp; [` 📦 v0.42.0  `](https://github.com/kh4f/relion/compare/v0.41.1...v0.42.0)
 
 ### &emsp; 🧨 BREAKING CHANGES
