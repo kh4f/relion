@@ -49,16 +49,8 @@ export const commit = async (cfg: ResolvedConfig) => {
 }
 
 export const tag = async (cfg: ResolvedConfig, curTag: string, newTag: string) => {
-	let cmd = `git tag ${newTag} -m "${cfg.commitMessage}"`
-	const prevReleaseCommitPattern = new RegExp(`^${cfg.commitMessage.replace(newTag, curTag).replace(/[()]/g, '\\$&')}$`)
-	const latestCommit = execSync('git log -1 --format=%s', { encoding: 'utf8' }).trim()
-	let log = ''
-	if (prevReleaseCommitPattern.test(latestCommit)) {
-		log += '\nLatest commit is a release commit. Reusing the latest tag.'
-		cmd = `git tag ${curTag} -m "${latestCommit}" -f`
-	}
-	log += `\nAbout to create a tag: '${cmd}'`
-	console.log(log)
+	const cmd = `git tag ${newTag} -m "${cfg.commitMessage}"`
+	console.log(`\nAbout to create a tag: '${cmd}'`)
 	if (!await promptToContinue()) return
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
