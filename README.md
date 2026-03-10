@@ -24,13 +24,13 @@
 ## 📥 Installation
 
 ```bash
-pnpm add -D relion
+bun add -D relion
 ```
 
 ## 🕹️ CLI Usage
 
 ```bash
-$ pnpm relion -h
+$ bun relion -h
 
 Usage: relion [options]
 
@@ -45,13 +45,13 @@ Options:
   -h            Show the help message
 
 Examples:
-- `pnpm relion -bct` — bump version, create release commit and tag
-- `pnpm relion -f` — generate release context file
-- `pnpm relion -m Cargo.toml` — use Cargo.toml as manifest
-- `pnpm relion` — run all release steps
+- `bun relion -bct` — bump version, create release commit and tag
+- `bun relion -f` — generate release context file
+- `bun relion -m Cargo.toml` — use Cargo.toml as manifest
+- `bun relion` — run all release steps
 ```
 
-<details><summary>Example output of running <code>pnpm relion</code>:</summary>
+<details><summary>Example output of running <code>bun relion</code>:</summary>
 
 ```txt
 Project: relion
@@ -180,7 +180,7 @@ Recommended workflow:
 1. Set up GitHub Copilot instruction and prompt:
    - [.github/instructions/changelog-format.instructions.md](.github/instructions/changelog-format.instructions.md)
    - [.github/prompts/generate-changelog.prompt.md](.github/prompts/generate-changelog.prompt.md)
-2. Run the context step to generate RELEASE.md: `pnpm relion -f`
+2. Run the context step to generate RELEASE.md: `bun relion -f`
 3. Review the release context, adjust as needed
 4. Run the prompt in VSCode Copilot chat: `/generate-changelog`
 5. Copilot produces a polished changelog entry based on the release context
