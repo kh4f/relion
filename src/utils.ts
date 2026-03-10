@@ -4,6 +4,13 @@ import { createInterface } from 'node:readline'
 import semver from 'semver'
 import type { Commit, Config, Manifest } from '@/types'
 
+export const getRepoInfo = (): Manifest => {
+	const remote = execSync('git config --get remote.origin.url', { encoding: 'utf8' }).trim()
+	const url = /(github\.com.*?)(\.git)?$/.exec(remote)?.[1] ?? ''
+	const name = url.split('/').at(-1) ?? ''
+	return { url, name }
+}
+
 export const parseManifest = (manifestFile: string): Manifest => {
 	const content = readFileSync(manifestFile, 'utf8')
 

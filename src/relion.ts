@@ -2,19 +2,25 @@ import { existsSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
 import { defaultCfg, STEP_ORDER, defaultManifestFiles } from '@/defaults'
-import { calculateNextVersion, parseCommits, parseManifest } from '@/utils'
-import type { Config } from '@/types'
+import { calculateNextVersion, getRepoInfo, parseCommits, parseManifest } from '@/utils'
+import type { Config, Manifest } from '@/types'
 
 export default async function relion(userCfg?: Config) {
+	let manifest: Manifest
 	if (userCfg?.manifest && !existsSync(userCfg.manifest))
 		throw new Error(`Specified manifest file '${userCfg.manifest}' does not exist`)
 	const manifestFile = userCfg?.manifest ?? defaultManifestFiles.find(existsSync)
-	if (!manifestFile) throw new Error('No manifest file found, please specify one')
+	if (manifestFile) {
+		console.log(`Manifest file: ${manifestFile}`)
+		manifest = parseManifest(manifestFile)
+	} else {
+		console.log(`No manifest file found, using repository info`)
+		manifest = getRepoInfo()
+	}
 
-	console.log('-'.repeat(30))
-	console.log(`Manifest file: ${manifestFile}`)
+	console.log(`Project: ${manifest.name}`)
+	console.log(`Repo: ${manifest.url}`)
 
-	const manifest = parseManifest(manifestFile)
 	userCfg = { ...manifest.relion, ...userCfg }
 	const cfg = { ...defaultCfg, ...userCfg }
 
@@ -40,13 +46,10 @@ export default async function relion(userCfg?: Config) {
 	cfg.commitMessage = cfg.commitMessage.replace('{{tag}}', newTag)
 	console.log(`Commit message: '${cfg.commitMessage}'`)
 
-	const repoURL = manifest.url
-	console.log(`Repo URL: ${repoURL}`)
-
 	console.log('-'.repeat(30))
 
 	for (const step of STEP_ORDER.filter(s => cfg.flow.includes(s))) await ({
-		context: () => context(cfg, parsedCommits, curTag, newTag, repoURL),
+		context: () => context(cfg, parsedCommits, curTag, newTag, manifest.url),
 		bump: () => bump(cfg),
 		commit: () => commit(cfg),
 		tag: () => tag(cfg, curTag, newTag),
