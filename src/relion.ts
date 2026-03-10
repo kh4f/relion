@@ -40,7 +40,7 @@ export default async function relion(userCfg?: Config) {
 	cfg.commitMessage = cfg.commitMessage.replace('{{tag}}', newTag)
 	console.log(`Commit message: '${cfg.commitMessage}'`)
 
-	const repoURL = manifest.repository
+	const repoURL = manifest.url
 	console.log(`Repo URL: ${repoURL}`)
 
 	console.log('-'.repeat(30))

@@ -73,8 +73,11 @@ export interface Commit {
 	message: string
 }
 
-export interface Manifest {
+export interface RepoInfo {
 	name: string
-	repository: string
+	url: string
+}
+
+export interface Manifest extends RepoInfo {
 	relion?: Partial<Config>
 }
