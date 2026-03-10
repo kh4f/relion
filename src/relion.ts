@@ -31,7 +31,7 @@ export default async function relion(userCfg?: Config) {
 	], { encoding: 'utf8' }).stdout.trim()
 	console.log(`Current tag: ${curTag}`)
 
-	const curVersion = /\d\.\d\.\d.*/.exec(curTag)?.[0] ?? '0.0.0'
+	const curVersion = /\d+\.\d+\.\d+.*/.exec(curTag)?.[0] ?? '0.0.0'
 	console.log(`Current version: ${curVersion}`)
 
 	const parsedCommits = parseCommits(curTag)
