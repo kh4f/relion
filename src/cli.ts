@@ -15,10 +15,10 @@ Options:
   -h            Show the help message
 
 Examples:
-- \`pnpm relion -bct\` — bump version, create release commit and tag
-- \`pnpm relion -f\` — generate release context file
-- \`pnpm relion -m Cargo.toml\` — use Cargo.toml as manifest
-- \`pnpm relion\` — run all release steps
+- \`bun relion -bct\` — bump version, create release commit and tag
+- \`bun relion -f\` — generate release context file
+- \`bun relion -m Cargo.toml\` — use Cargo.toml as manifest
+- \`bun relion\` — run all release steps
 `
 
 const args = process.argv.slice(2).join(' ')
