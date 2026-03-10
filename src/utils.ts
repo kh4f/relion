@@ -10,16 +10,13 @@ export const parseManifest = (manifestFile: string): Manifest => {
 	const name = /name.*"(.*?)"/.exec(content)?.[1]
 	if (!name) throw new Error(`Manifest is missing 'name' field`)
 
-	const version = /version.*"(.*?)"/.exec(content)?.[1]
-	if (!version) throw new Error(`Manifest is missing 'version' field`)
-
 	const repository = /repository.*"(.*?)"/.exec(content)?.[1]
 	if (!repository) throw new Error(`Manifest is missing 'repository' field`)
 
 	const relionRaw = manifestFile.endsWith('.json') ? /relion.*({.*?})/s.exec(content)?.[1] : undefined
 	const relion = relionRaw ? (JSON.parse(relionRaw) as Config) : undefined
 
-	return { name, version, repository, relion }
+	return { name, repository, relion }
 }
 
 export const parseCommits = (curTag: string): Commit[] => (

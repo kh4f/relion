@@ -55,8 +55,8 @@ Examples:
 
 ```txt
 ------------------------------
-Current version: 0.36.1
 Current tag: v0.36.1
+Current version: 0.36.1
 Parsed commits: 16
 New version: 0.37.0
 New tag: v0.37.0

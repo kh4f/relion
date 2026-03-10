@@ -20,13 +20,13 @@ export default async function relion(userCfg?: Config) {
 
 	if (!userCfg.tagPrefix && manifest.name.startsWith('@')) cfg.tagPrefix = `${manifest.name}@`
 
-	const curVersion = manifest.version
-	console.log(`Current version: ${curVersion}`)
-
 	const curTag = spawnSync('git', [
 		'describe', '--match', `${cfg.tagPrefix}[0-9]*.[0-9]*.[0-9]*`, '--abbrev=0',
 	], { encoding: 'utf8' }).stdout.trim()
 	console.log(`Current tag: ${curTag}`)
+
+	const curVersion = /\d\.\d\.\d.*/.exec(curTag)?.[0] ?? '0.0.0'
+	console.log(`Current version: ${curVersion}`)
 
 	const parsedCommits = parseCommits(curTag)
 	console.log(`Parsed commits: ${parsedCommits.length}`)
