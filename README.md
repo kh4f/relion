@@ -21,10 +21,11 @@
 	<br>
 </div>
 
-## 📥 Installation
+## ⚙️ Setup
 
 ```bash
-bun add -D relion
+bun add -D relion # install as dev dependency
+bunx relion # or run directly
 ```
 
 ## 🕹️ CLI Usage
