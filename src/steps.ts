@@ -10,10 +10,9 @@ export const context = async (cfg: ResolvedConfig, commits: Commit[], curTag: st
 	if (cfg.dryRun) return
 	let output = ''
 	const frontMatter = '---'
-		+ `\nversion: ${cfg.newVersion}`
 		+ `\ntag: ${newTag}`
-		+ `\ndate: ${new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`
 		+ `\nprevTag: ${curTag}`
+		+ `\ndate: ${new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`
 		+ `\nrepoURL: ${repoURL}`
 		+ '\n---\n'
 	output += frontMatter + '\n'

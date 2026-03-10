@@ -151,10 +151,9 @@ Relion can also be configured via `relion` field in `package.json`:
 
 ```md
 ---
-version: 0.33.0
 tag: v0.33.0
-date: Jan 10, 2026
 prevTag: v0.32.1
+date: Jan 10, 2026
 repoURL: https://github.com/kh4f/relion
 ---
 
