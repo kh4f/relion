@@ -1,22 +1,11 @@
-import { existsSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
 import { defCfg } from '@/defaults'
-import { calculateNextVersion, getRepoInfo, parseCommits, parseManifest } from '@/utils'
-import type { Cfg, RepoInfo, ResolvedCfg } from '@/types'
+import { calculateNextVersion, getRepoInfo, parseCommits } from '@/utils'
+import type { Cfg, ResolvedCfg } from '@/types'
 
 export const relion = async (userCfg: Cfg) => {
-	let repoInfo: RepoInfo
-	if (userCfg.manifest && !existsSync(userCfg.manifest))
-		throw new Error(`Specified manifest file '${userCfg.manifest}' does not exist`)
-	const manifestFile = userCfg.manifest ?? [defCfg.manifest].find(existsSync)
-	if (manifestFile) {
-		console.log(`Using manifest file: ${manifestFile}`)
-		repoInfo = parseManifest(manifestFile)
-	} else {
-		console.log('No manifest file found, using repository info')
-		repoInfo = getRepoInfo()
-	}
+	const repoInfo = getRepoInfo()
 
 	console.log(`Project: ${repoInfo.name}`)
 	console.log(`Repo: ${repoInfo.url}`)
@@ -24,11 +13,7 @@ export const relion = async (userCfg: Cfg) => {
 	const cfg: ResolvedCfg = {
 		...defCfg,
 		...userCfg,
-		manifest: manifestFile!,
-		bump: [manifestFile!, ...(userCfg.bump ?? [])],
-		tagPrefix: userCfg.tagPrefix ?? (repoInfo.name.startsWith('@')
-			? `${repoInfo.name}@`
-			: defCfg.tagPrefix),
+		bump: [...defCfg.bump, ...(userCfg.bump ?? [])],
 	}
 
 	const curTag = spawnSync('git', [
@@ -54,7 +39,6 @@ export const relion = async (userCfg: Cfg) => {
 	console.log('-'.repeat(30))
 
 	console.log(`\n('' to continue / 's' to skip)`)
-
 	await context(cfg, commits, curTag, newTag, repoInfo.url)
 	await bump(cfg)
 	await commit(cfg)

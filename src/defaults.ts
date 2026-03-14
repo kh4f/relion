@@ -1,8 +1,7 @@
 import type { ResolvedCfg } from '@/types'
 
 export const defCfg: ResolvedCfg = {
-	manifest: 'package.json',
-	bump: [],
+	bump: ['package.json'],
 	newVersion: '',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',

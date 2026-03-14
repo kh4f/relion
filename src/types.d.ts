@@ -1,11 +1,6 @@
 export interface Cfg {
-	/** Manifest file path (used to detect the package name and repo URL)
-	 * @default Autodetects 'package.json' or uses git info
-	 */
-	manifest?: string
-
-	/** Files to bump version in (manifest is always included if exists)
-	 * @default [<manifest>]
+	/** Files to bump version in (`package.json` is always included if exists)
+	 * @default ['package.json']
 	 */
 	bump?: string[]
 

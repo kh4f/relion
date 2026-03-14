@@ -6,13 +6,12 @@ const HELP = `Usage: relion [options]
 Options:
   -b <files>    Files to bump version in
   -v <version>  Set the new version explicitly
-  -m <file>     Specify manifest file
   -d            Run in dry run mode
   -h            Show the help message
 
 Examples:
-- \`bun relion -m Cargo.toml\` — use \`Cargo.toml\` as manifest
-- \`bun relion -b src/manifest.json\` — also bump version in specified files
+- \`bun relion -b src/manifest.json\`
+- \`bun relion -d -v 1.2.3\`
 `
 
 const args = process.argv.slice(2).join(' ')
@@ -22,13 +21,11 @@ if (args.includes('-h')) {
 	process.exit(0)
 }
 
-const manifest = /-m (\S+)/.exec(args)?.[1]
 const bump = /-b (.+?)( -|$)/.exec(args)?.[1].split(' ')
 const newVersion = /-v (\S+)/.exec(args)?.[1]
 const dryRun = /-\w*d/.test(args)
 
 void relion({
-	...(manifest && { manifest }),
 	...(bump && { bump }),
 	...(newVersion && { newVersion }),
 	...(dryRun && { dryRun }),
