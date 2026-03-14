@@ -11,7 +11,8 @@ Options:
   -h            Show the help message
 
 Examples:
-- \`bun relion -m Cargo.toml\` — use Cargo.toml as manifest
+- \`bun relion -m Cargo.toml\` — use \`Cargo.toml\` as manifest
+- \`bun relion -b src/manifest.json\` — also bump version in specified files
 `
 
 const args = process.argv.slice(2).join(' ')
