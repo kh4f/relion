@@ -53,6 +53,8 @@ export const relion = async (userCfg: Cfg) => {
 
 	console.log('-'.repeat(30))
 
+	console.log('\n(enter to continue / \'s\' to skip)')
+
 	for (const step of STEP_ORDER.filter(s => cfg.flow.includes(s))) await ({
 		context: () => context(cfg, commits, curTag, newTag, repoInfo.url),
 		bump: () => bump(cfg),

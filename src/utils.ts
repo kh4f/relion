@@ -43,10 +43,10 @@ export const calculateNextVersion = (commits: Commit[], curVersion: string): str
 	})()
 }
 
-export const promptToContinue = async (): Promise<boolean> => {
+export const promptToContinue = async (msg: string): Promise<boolean> => {
 	const rl = createInterface({ input: process.stdin, output: process.stdout })
 	return await new Promise<boolean>(resolve => {
-		rl.question('Press Enter to continue (\'s\' to skip): ', answer => {
+		rl.question(msg, answer => {
 			rl.close()
 			resolve(answer.trim() !== 's')
 		})

@@ -4,8 +4,7 @@ import { promptToContinue } from '@/utils'
 import type { ResolvedCfg, Commit } from '@/types'
 
 export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
-	console.log(`\nAbout to write context to '${cfg.contextFile}'`)
-	if (!await promptToContinue()) return
+	if (!await promptToContinue(`About to write context to '${cfg.contextFile}'`)) return
 	if (cfg.dryRun) return
 	let output = ''
 	const frontMatter = '---'
@@ -23,8 +22,7 @@ export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: strin
 export const bump = async (cfg: ResolvedCfg) => {
 	const files = cfg.bump.filter(existsSync)
 
-	console.log(`\nAbout to bump version in files: ${files.join(', ')}`)
-	if (!await promptToContinue()) return
+	if (!await promptToContinue(`About to bump version in files: ${files.join(', ')}`)) return
 
 	files.forEach(file => {
 		const content = readFileSync(file, 'utf8')
@@ -36,16 +34,18 @@ export const bump = async (cfg: ResolvedCfg) => {
 
 export const commit = async (cfg: ResolvedCfg) => {
 	const cmd = `git commit -m "${cfg.commitMessage}"`
-	console.log(`\nAbout to commit changes: '${cmd}'`)
-	if (!await promptToContinue()) return
+
+	if (!await promptToContinue(`About to commit changes: '${cmd}'`)) return
+
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
 }
 
 export const tag = async (cfg: ResolvedCfg, curTag: string, newTag: string) => {
 	const cmd = `git tag ${newTag} -m "${cfg.commitMessage}"`
-	console.log(`\nAbout to create a tag: '${cmd}'`)
-	if (!await promptToContinue()) return
+
+	if (!await promptToContinue(`About to create a tag: '${cmd}'`)) return
+
 	if (cfg.dryRun) return
 	execSync(cmd, { stdio: 'inherit' })
 }
