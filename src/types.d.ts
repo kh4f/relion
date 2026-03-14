@@ -1,22 +1,16 @@
 export interface Cfg {
-	/** Files to bump version in (`package.json` is always included if exists)
+	/** Files to bump version in (package.json is always included if exists)
 	 * @default ['package.json']
 	 */
 	bump?: string[]
 
-	/** New version for the release
-	 * @default Auto-determined from conventional commits
-	 */
+	/** @default Calculated from conventional commits */
 	newVersion?: string
 
-	/** Release tag prefix
-	 * @default 'v'
-	 */
+	/** @default 'v' */
 	tagPrefix?: string
 
-	/** Dry run mode
-	 * @default false
-	 */
+	/** @default false */
 	dryRun?: boolean
 }
 

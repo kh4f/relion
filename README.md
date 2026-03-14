@@ -12,136 +12,55 @@
 	<b>A minimal npm library for automating release workflow:<br></b> version bumping, release commit & tag creation, and AI‑assisted changelog generation
 	<br><br>
 	<p><b>
-		<a href="#-installation">Installation</a>&nbsp; •&nbsp;
-		<a href="#%EF%B8%8F-cli-usage">CLI</a>&nbsp; •&nbsp;
-		<a href="#-api-usage">API</a>&nbsp; •&nbsp;
+		<a href="#-setup">Setup</a>&nbsp; •&nbsp;
+		<a href="#%EF%B8%8F-usage">Usage</a>&nbsp; •&nbsp;
 		<a href="#%EF%B8%8F-workflow-steps">Workflow Steps</a>&nbsp; •&nbsp;
 		<a href="#-changelog-generation">Changelog Generation</a>
 	</b></p>
 	<br>
 </div>
 
-## ⚙️ Setup
+## 🕹️ Usage
 
 ```bash
-bun add -D relion # install as dev dependency
-bunx relion # or run directly
-```
-
-## 🕹️ CLI Usage
-
-```bash
-$ bun relion -h
+$ bunx relion -h
 
 Usage: relion [options]
 
 Options:
-  -f            Prepare release context
-  -b            Bump the version
-  -c            Create a release commit
-  -t            Create a release tag
-  -v <version>  Set the new version explicitly
-  -m <file>     Specify manifest file
-  -d            Run in dry run mode
-  -h            Show the help message
+  -b <files>    Files to bump version in (def: ['package.json']; package.json is always included if exists)
+  -v <version>  Release version (def: calculated from commits)
+  -t <prefix>   Tag prefix (def: 'v')
+  -d            Dry run (def: false)
 
 Examples:
-- `bun relion -bct` — bump version, create release commit and tag
-- `bun relion -f` — generate release context file
-- `bun relion -m Cargo.toml` — use Cargo.toml as manifest
-- `bun relion` — run all release steps
+- `bunx relion -b src/manifest.json`
+- `bunx relion -d -v 1.2.3`
 ```
 
-<details><summary>Example output of running <code>bun relion</code>:</summary>
+<details><summary>Example output of running <code>bunx relion</code>:</summary>
 
-```txt
+```
 Project: relion
 Repo: github.com/kh4f/relion
-Current tag: v0.36.1
-Current version: 0.36.1
-Parsed commits: 16
-New version: 0.37.0
-New tag: v0.37.0
-Commit message: 'chore(release): v0.37.0'
+Current tag: v0.42.1
+Current version: 0.42.1
+Parsed commits: 26
+New version: 0.43.0
+New tag: v0.43.0
 ------------------------------
 
+('' to continue / 's' to skip)
 About to write context to 'RELEASE.md'
-Press Enter to continue ('s' to skip):
-
-About to bump versions in files: package.json
-Press Enter to continue ('s' to skip):
-
-About to commit changes: 'git commit -m "chore(release): v0.37.0"'
-Press Enter to continue ('s' to skip):
-
-About to create a tag: 'git tag v0.37.0 -m "chore(release): v0.37.0"'
-Press Enter to continue ('s' to skip):
+About to bump version in files: package.json
+About to commit changes: 'git commit -m "chore(release): v0.43.0"'
+About to create a tag: 'git tag v0.43.0 -m "chore(release): v0.43.0"'
 ```
 </details>
 
-## 🧩 API Usage
-
-```ts
-import relion from 'relion';
-
-relion({
-	flow: ['context', 'bump', 'commit', 'tag'],
-	newVersion: '1.2.3',
-	bump: [
-		'package.json', // uses default bumper
-		// custom bumper (equivalent to the default bumper implementation)
-		{
-			file: 'manifest.json',
-			pattern: /("version": )".*"/,
-			replacement: '$1"{{newVersion}}"'
-		}
-	],
-	commitMessage: 'chore(release): {{tag}}',
-	tagPrefix: 'v',
-	dryRun: false,
-});
-```
-
-### Options
-
-- `manifest`: manifest file (default: auto-detects `package.json` or `Cargo.toml`)
-- `flow`: release workflow steps (`'context' | 'bump' | 'commit' | 'tag'`) (default: all steps)
-- `newVersion`: set the new version explicitly
-- `bump`: files or custom bumpers for version update (default: [`'package.json', 'Cargo.toml'`])
-- `commitMessage`: release commit message template (default: `'chore(release): {{tag}}'`)
-- `tagPrefix`: release tag prefix (default: `'v'`)
-- `dryRun`: run in dry mode (no modifications)
-
-> For detailed option descriptions, see [src/types.d.ts](src/types.d.ts).
-
-### Configuration via `package.json`
-
-Relion can also be configured via `relion` field in `package.json`:
-
-```jsonc
-{
-  // ...
-  "relion": {
-    "commitMessage": "release(relion): {{tag}}",
-    "tagPrefix": "",
-    "bump": ["package.json",
-	  {
-	    "file": "manifest.json",
-	    "pattern": "/(\"version\": )\".*\"/",
-	    "replacement": "$1\"{{newVersion}}\""
-	  }
-	],
-    // ...
-  }
-}
-```
-
-> [!NOTE]
-> CLI flags override `package.json` configuration.
-
 ## ♻️ Workflow Steps
 
-- **Context**: generates a file with upcoming release metadata and commit log
+- **Context**: generates a `RELEASE.md` file with upcoming release metadata and commit log
 - **Bump**: updates version in specified files
 - **Commit**: creates a release commit
 - **Tag**: creates an annotated release tag
@@ -153,7 +72,7 @@ Relion can also be configured via `relion` field in `package.json`:
 tag: v0.33.0
 prevTag: v0.32.1
 date: Jan 10, 2026
-repoURL: https://github.com/kh4f/relion
+repoURL: github.com/kh4f/relion
 ---
 
 ## Commit Log
@@ -166,7 +85,6 @@ Previously, if commits contained both features and breaking changes, features wo
 
 - Implement `mergeConfigs` to support merging config profiles in `config-merger.ts`
 - Export `mergeConfigs` from `src/index.ts`
-------------------------------
 ```
 </details>
 
@@ -179,7 +97,7 @@ Recommended workflow:
 1. Set up GitHub Copilot instruction and prompt:
    - [.github/instructions/changelog-format.instructions.md](.github/instructions/changelog-format.instructions.md)
    - [.github/prompts/generate-changelog.prompt.md](.github/prompts/generate-changelog.prompt.md)
-2. Run the context step to generate RELEASE.md: `bun relion -f`
+2. Run Relion to generate `RELEASE.md` with the release context
 3. Review the release context, adjust as needed
 4. Run the prompt in VSCode Copilot chat: `/generate-changelog`
 5. Copilot produces a polished changelog entry based on the release context
