@@ -27,7 +27,7 @@ jobs:
         run: echo -e ZIP=${GITHUB_REPOSITORY#*/}-$TAG.zip >> $GITHUB_ENV
 
       - name: Install deps
-        run: bun install
+        run: bun i
 
       - name: Lint
         run: bun lint
