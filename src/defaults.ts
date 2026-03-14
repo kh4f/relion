@@ -2,8 +2,6 @@ import type { Step, ResolvedCfg } from '@/types'
 
 export const STEP_ORDER: Step[] = ['context', 'bump', 'commit', 'tag']
 
-export const defManifestFiles = ['package.json', 'Cargo.toml']
-
 export const defCfg: ResolvedCfg = {
 	manifest: 'package.json',
 	flow: STEP_ORDER,

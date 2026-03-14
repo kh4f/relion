@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
-import { defCfg, STEP_ORDER, defManifestFiles } from '@/defaults'
+import { defCfg, STEP_ORDER } from '@/defaults'
 import { calculateNextVersion, getRepoInfo, parseCommits, parseManifest } from '@/utils'
 import type { Cfg, RepoInfo, ResolvedCfg } from '@/types'
 
@@ -9,7 +9,7 @@ export const relion = async (userCfg: Cfg) => {
 	let repoInfo: RepoInfo
 	if (userCfg.manifest && !existsSync(userCfg.manifest))
 		throw new Error(`Specified manifest file '${userCfg.manifest}' does not exist`)
-	const manifestFile = userCfg.manifest ?? defManifestFiles.find(existsSync)
+	const manifestFile = userCfg.manifest ?? [defCfg.manifest].find(existsSync)
 	if (manifestFile) {
 		console.log(`Using manifest file: ${manifestFile}`)
 		repoInfo = parseManifest(manifestFile)

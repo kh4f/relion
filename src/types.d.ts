@@ -1,5 +1,5 @@
 export interface Cfg {
-	/** Manifest file path. Auto-detects `package.json` or `Cargo.toml` if omitted. */
+	/** Manifest file path. Auto-detects `package.json` if omitted. */
 	manifest?: string
 
 	/**
