@@ -12,7 +12,6 @@
 	<b>A minimal npm library for automating release workflow:<br></b> version bumping, release commit & tag creation, and AI‑assisted changelog generation
 	<br><br>
 	<p><b>
-		<a href="#-setup">Setup</a>&nbsp; •&nbsp;
 		<a href="#%EF%B8%8F-usage">Usage</a>&nbsp; •&nbsp;
 		<a href="#%EF%B8%8F-workflow-steps">Workflow Steps</a>&nbsp; •&nbsp;
 		<a href="#-changelog-generation">Changelog Generation</a>
