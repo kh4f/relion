@@ -17,12 +17,6 @@ export interface Cfg {
 	newVersion?: string
 
 	/**
-	 * Path to the release context output file
-	 * @default 'RELEASE.md'
-	 */
-	contextFile?: string
-
-	/**
 	 * Release commit message template
 	 * @default 'chore(release): {{tag}}'
 	 */

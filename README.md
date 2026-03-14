@@ -96,7 +96,6 @@ relion({
 			replacement: '$1"{{newVersion}}"'
 		}
 	],
-	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',
 	dryRun: false,
@@ -109,7 +108,6 @@ relion({
 - `flow`: release workflow steps (`'context' | 'bump' | 'commit' | 'tag'`) (default: all steps)
 - `newVersion`: set the new version explicitly
 - `bump`: files or custom bumpers for version update (default: [`'package.json', 'Cargo.toml'`])
-- `contextFile`: path to release context output file (default: `'RELEASE.md'`)
 - `commitMessage`: release commit message template (default: `'chore(release): {{tag}}'`)
 - `tagPrefix`: release tag prefix (default: `'v'`)
 - `dryRun`: run in dry mode (no modifications)

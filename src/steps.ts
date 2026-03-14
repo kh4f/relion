@@ -4,7 +4,7 @@ import { promptToContinue } from '@/utils'
 import type { ResolvedCfg, Commit } from '@/types'
 
 export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
-	if (!await promptToContinue(`About to write context to '${cfg.contextFile}'`)) return
+	if (!await promptToContinue(`About to write context to 'RELEASE.md'`)) return
 	if (cfg.dryRun) return
 	let output = ''
 	const frontMatter = '---'
@@ -16,7 +16,7 @@ export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: strin
 	output += frontMatter + '\n'
 	const commitsString = commits.map(c => `[${c.hash}] ${c.message}`).join(`\n${'-'.repeat(30)}\n`)
 	output += `## Commit Log\n\n\`\`\`\n${commitsString}\n\`\`\``
-	writeFileSync(cfg.contextFile, output, 'utf8')
+	writeFileSync('RELEASE.md', output, 'utf8')
 }
 
 export const bump = async (cfg: ResolvedCfg) => {
