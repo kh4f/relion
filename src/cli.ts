@@ -6,6 +6,7 @@ const HELP = `Usage: relion [options]
 Options:
   -b <files>    Files to bump version in
   -v <version>  Set the new version explicitly
+  -t <prefix>   Release tag prefix
   -d            Run in dry run mode
 
 Examples:
@@ -22,11 +23,13 @@ if (args.includes('-h')) {
 
 const bump = /-b (.+?)( -|$)/.exec(args)?.[1].split(' ')
 const newVersion = /-v (\S+)/.exec(args)?.[1]
+const tagPrefix = /-t (\S+)/.exec(args)?.[1]
 const dryRun = /-\w*d/.test(args)
 
 void relion({
 	...(bump && { bump }),
 	...(newVersion && { newVersion }),
+	...(tagPrefix && { tagPrefix }),
 	...(dryRun && { dryRun }),
 }).catch((err: unknown) => {
 	console.error(err)
