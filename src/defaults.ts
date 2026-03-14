@@ -1,19 +1,14 @@
-import type { Bumper, Step, ResolvedConfig } from '@/types'
+import type { Step, ResolvedCfg } from '@/types'
 
 export const STEP_ORDER: Step[] = ['context', 'bump', 'commit', 'tag']
 
-export const defaultBumper: Bumper = {
-	file: ['package.json', 'Cargo.toml'],
-	pattern: /(\bversion\b.*?)\d[\w.+-]*/,
-	replacement: '$1{{newVersion}}',
-}
+export const defManifestFiles = ['package.json', 'Cargo.toml']
 
-export const defaultManifestFiles = ['package.json', 'Cargo.toml']
-
-export const defaultCfg: ResolvedConfig = {
+export const defCfg: ResolvedCfg = {
+	manifest: 'package.json',
 	flow: STEP_ORDER,
 	newVersion: '',
-	bump: defaultManifestFiles,
+	bump: [],
 	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',

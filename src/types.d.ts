@@ -1,4 +1,4 @@
-export interface Config {
+export interface Cfg {
 	/** Manifest file path. Auto-detects `package.json` or `Cargo.toml` if omitted. */
 	manifest?: string
 
@@ -15,15 +15,10 @@ export interface Config {
 	newVersion?: string
 
 	/**
-	 * Files or bumpers for version update. Each item is either:
-	 * - a Bumper object specifying `file`, `pattern`, and `replacement`
-	 * - a file name for which a default bumper exists (currently only 'package.json', 'Cargo.toml')
-	 *
-	 * If a file doesn't exist, it will be skipped silently.
-	 *
-	 * @default ['package.json', 'Cargo.toml']
+	 * Files to bump version in. Manifest is auto-included.
+	 * @default ['<manifest>']
 	 */
-	bump?: (Bumper | string)[]
+	bump?: string[]
 
 	/**
 	 * Path to the release context output file
@@ -50,20 +45,9 @@ export interface Config {
 	dryRun?: boolean
 }
 
-export type ResolvedConfig = Required<Omit<Config, 'manifest'>>
+export type ResolvedCfg = Required<Cfg>
 
 export type Step = 'bump' | 'context' | 'commit' | 'tag'
-
-export interface Bumper {
-	/** Path or array of paths to the file(s) to bump version in */
-	file: string | string[]
-
-	/** Pattern to locate the version string (RegExp or a stringified RegExp) */
-	pattern: RegExp | string
-
-	/** Replacement string for the version (use `{{newVersion}}` as a placeholder) */
-	replacement: string
-}
 
 export interface Commit {
 	hash: string
@@ -73,4 +57,5 @@ export interface Commit {
 export interface RepoInfo {
 	name: string
 	url: string
+	relion?: Cfg
 }
