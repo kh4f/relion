@@ -33,11 +33,14 @@ export const relion = async (userCfg: Cfg) => {
 	const newTag = `${cfg.tagPrefix}${cfg.newVersion}`
 	console.log(`New tag: ${newTag}`)
 
+	const commitMsg = `chore(release): ${newTag}`
+	console.log(`Commit message: '${commitMsg}'`)
+
 	console.log('-'.repeat(30))
 
 	console.log(`\n('' to continue / 's' to skip)`)
 	await context(cfg, commits, curTag, newTag, repoInfo.url)
 	await bump(cfg)
-	await commit(cfg)
-	await tag(cfg, curTag, newTag)
+	await commit(cfg, commitMsg)
+	await tag(cfg, newTag, commitMsg)
 }

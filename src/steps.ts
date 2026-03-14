@@ -1,7 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { promptToContinue } from '@/utils'
-import { COMMIT_TEMPLATE } from '@/defaults'
 import type { ResolvedCfg, Commit } from '@/types'
 
 export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
@@ -33,8 +32,8 @@ export const bump = async (cfg: ResolvedCfg) => {
 	})
 }
 
-export const commit = async (cfg: ResolvedCfg) => {
-	const cmd = `git commit -m "${COMMIT_TEMPLATE}"`
+export const commit = async (cfg: ResolvedCfg, commitMsg: string) => {
+	const cmd = `git commit -m "${commitMsg}"`
 
 	if (!await promptToContinue(`About to commit changes: '${cmd}'`)) return
 
@@ -42,8 +41,8 @@ export const commit = async (cfg: ResolvedCfg) => {
 	execSync(cmd, { stdio: 'inherit' })
 }
 
-export const tag = async (cfg: ResolvedCfg, curTag: string, newTag: string) => {
-	const cmd = `git tag ${newTag} -m "${COMMIT_TEMPLATE}"`
+export const tag = async (cfg: ResolvedCfg, newTag: string, commitMsg: string) => {
+	const cmd = `git tag ${newTag} -m "${commitMsg}"`
 
 	if (!await promptToContinue(`About to create a tag: '${cmd}'`)) return
 
