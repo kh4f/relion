@@ -7,7 +7,6 @@ Options:
   -b <files>    Files to bump version in
   -v <version>  Set the new version explicitly
   -d            Run in dry run mode
-  -h            Show the help message
 
 Examples:
 - \`bun relion -b src/manifest.json\`
