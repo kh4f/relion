@@ -5,22 +5,16 @@ export interface Cfg {
 	manifest?: string
 
 	/**
-	 * Release workflow steps to execute (e.g. bump, context, commit, tag)
-	 * @default All steps
+	 * Files to bump version in
+	 * @default ['<manifest>']
 	 */
-	flow?: Step[]
+	bump?: string[]
 
 	/**
 	 * Explicitly set the version for the upcoming release
 	 * @default Determined automatically based on conventional commit messages
 	 */
 	newVersion?: string
-
-	/**
-	 * Files to bump version in
-	 * @default ['<manifest>']
-	 */
-	bump?: string[]
 
 	/**
 	 * Path to the release context output file
@@ -48,8 +42,6 @@ export interface Cfg {
 }
 
 export type ResolvedCfg = Required<Cfg>
-
-export type Step = 'bump' | 'context' | 'commit' | 'tag'
 
 export interface Commit {
 	hash: string

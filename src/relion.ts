@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
-import { defCfg, STEP_ORDER } from '@/defaults'
+import { defCfg } from '@/defaults'
 import { calculateNextVersion, getRepoInfo, parseCommits, parseManifest } from '@/utils'
 import type { Cfg, RepoInfo, ResolvedCfg } from '@/types'
 
@@ -55,10 +55,8 @@ export const relion = async (userCfg: Cfg) => {
 
 	console.log('\n(enter to continue / \'s\' to skip)')
 
-	for (const step of STEP_ORDER.filter(s => cfg.flow.includes(s))) await ({
-		context: () => context(cfg, commits, curTag, newTag, repoInfo.url),
-		bump: () => bump(cfg),
-		commit: () => commit(cfg),
-		tag: () => tag(cfg, curTag, newTag),
-	})[step]()
+	await context(cfg, commits, curTag, newTag, repoInfo.url)
+	await bump(cfg)
+	await commit(cfg)
+	await tag(cfg, curTag, newTag)
 }

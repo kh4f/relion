@@ -1,12 +1,9 @@
-import type { Step, ResolvedCfg } from '@/types'
-
-export const STEP_ORDER: Step[] = ['context', 'bump', 'commit', 'tag']
+import type { ResolvedCfg } from '@/types'
 
 export const defCfg: ResolvedCfg = {
 	manifest: 'package.json',
-	flow: STEP_ORDER,
-	newVersion: '',
 	bump: [],
+	newVersion: '',
 	contextFile: 'RELEASE.md',
 	commitMessage: 'chore(release): {{tag}}',
 	tagPrefix: 'v',
