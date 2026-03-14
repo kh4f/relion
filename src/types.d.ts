@@ -73,7 +73,7 @@ export interface Commit {
 	message: string
 }
 
-export interface Manifest {
+export interface RepoInfo {
 	name: string
 	url: string
 }

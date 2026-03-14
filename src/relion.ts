@@ -3,10 +3,10 @@ import { spawnSync } from 'node:child_process'
 import { bump, context, commit, tag } from '@/steps'
 import { defaultCfg, STEP_ORDER, defaultManifestFiles } from '@/defaults'
 import { calculateNextVersion, getRepoInfo, parseCommits, parseManifest } from '@/utils'
-import type { Config, Manifest } from '@/types'
+import type { Config, RepoInfo } from '@/types'
 
 export const relion = async (userCfg: Config) => {
-	let manifest: Manifest
+	let manifest: RepoInfo
 	if (userCfg.manifest && !existsSync(userCfg.manifest))
 		throw new Error(`Specified manifest file '${userCfg.manifest}' does not exist`)
 	const manifestFile = userCfg.manifest ?? defaultManifestFiles.find(existsSync)
