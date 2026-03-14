@@ -5,11 +5,11 @@ import { defaultCfg, STEP_ORDER, defaultManifestFiles } from '@/defaults'
 import { calculateNextVersion, getRepoInfo, parseCommits, parseManifest } from '@/utils'
 import type { Config, Manifest } from '@/types'
 
-export default async function relion(userCfg?: Config) {
+export const relion = async (userCfg: Config) => {
 	let manifest: Manifest
-	if (userCfg?.manifest && !existsSync(userCfg.manifest))
+	if (userCfg.manifest && !existsSync(userCfg.manifest))
 		throw new Error(`Specified manifest file '${userCfg.manifest}' does not exist`)
-	const manifestFile = userCfg?.manifest ?? defaultManifestFiles.find(existsSync)
+	const manifestFile = userCfg.manifest ?? defaultManifestFiles.find(existsSync)
 	if (manifestFile) {
 		console.log(`Manifest file: ${manifestFile}`)
 		manifest = parseManifest(manifestFile)
@@ -21,7 +21,6 @@ export default async function relion(userCfg?: Config) {
 	console.log(`Project: ${manifest.name}`)
 	console.log(`Repo: ${manifest.url}`)
 
-	userCfg = { ...manifest.relion, ...userCfg }
 	const cfg = { ...defaultCfg, ...userCfg }
 
 	if (!userCfg.tagPrefix && manifest.name.startsWith('@')) cfg.tagPrefix = `${manifest.name}@`

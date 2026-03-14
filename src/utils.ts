@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { createInterface } from 'node:readline'
 import semver from 'semver'
-import type { Commit, Config, Manifest } from '@/types'
+import type { Commit, Manifest } from '@/types'
 
 export const getRepoInfo = (): Manifest => {
 	const remote = execSync('git config --get remote.origin.url', { encoding: 'utf8' }).trim()
@@ -20,10 +20,7 @@ export const parseManifest = (manifestFile: string): Manifest => {
 	const url = /repository.*"(.*?)"/.exec(content)?.[1]
 	if (!url) throw new Error(`Manifest is missing 'repository' field`)
 
-	const relionRaw = manifestFile.endsWith('.json') ? /relion.*({.*?})/s.exec(content)?.[1] : undefined
-	const relion = relionRaw ? (JSON.parse(relionRaw) as Config) : undefined
-
-	return { name, url, relion }
+	return { name, url }
 }
 
 export const parseCommits = (curTag: string): Commit[] => (

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import relion from './index.js'
+import { relion } from './relion'
 import type { Step } from '@/types'
 
 const HELP = `Usage: relion [options]

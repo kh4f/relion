@@ -76,5 +76,4 @@ export interface Commit {
 export interface Manifest {
 	name: string
 	url: string
-	relion?: Partial<Config>
 }
