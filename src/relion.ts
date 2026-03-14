@@ -33,9 +33,6 @@ export const relion = async (userCfg: Cfg) => {
 	const newTag = `${cfg.tagPrefix}${cfg.newVersion}`
 	console.log(`New tag: ${newTag}`)
 
-	cfg.commitMessage = cfg.commitMessage.replace('{{tag}}', newTag)
-	console.log(`Commit message: '${cfg.commitMessage}'`)
-
 	console.log('-'.repeat(30))
 
 	console.log(`\n('' to continue / 's' to skip)`)

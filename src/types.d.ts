@@ -9,11 +9,6 @@ export interface Cfg {
 	 */
 	newVersion?: string
 
-	/** Release commit message template
-	 * @default 'chore(release): {{tag}}'
-	 */
-	commitMessage?: string
-
 	/** Release tag prefix
 	 * @default 'v'
 	 */

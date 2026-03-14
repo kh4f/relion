@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { promptToContinue } from '@/utils'
+import { COMMIT_TEMPLATE } from '@/defaults'
 import type { ResolvedCfg, Commit } from '@/types'
 
 export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
@@ -14,8 +15,8 @@ export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: strin
 		+ `\nrepoURL: ${repoURL}`
 		+ '\n---\n'
 	output += frontMatter + '\n'
-	const commitsString = commits.map(c => `[${c.hash}] ${c.message}`).join(`\n${'-'.repeat(30)}\n`)
-	output += `## Commit Log\n\n\`\`\`\n${commitsString}\n\`\`\``
+	const commitLog = commits.map(c => `[${c.hash}] ${c.message}`).join(`\n${'-'.repeat(30)}\n`)
+	output += `## Commit Log\n\n\`\`\`\n${commitLog}\n\`\`\``
 	writeFileSync('RELEASE.md', output, 'utf8')
 }
 
@@ -33,7 +34,7 @@ export const bump = async (cfg: ResolvedCfg) => {
 }
 
 export const commit = async (cfg: ResolvedCfg) => {
-	const cmd = `git commit -m "${cfg.commitMessage}"`
+	const cmd = `git commit -m "${COMMIT_TEMPLATE}"`
 
 	if (!await promptToContinue(`About to commit changes: '${cmd}'`)) return
 
@@ -42,7 +43,7 @@ export const commit = async (cfg: ResolvedCfg) => {
 }
 
 export const tag = async (cfg: ResolvedCfg, curTag: string, newTag: string) => {
-	const cmd = `git tag ${newTag} -m "${cfg.commitMessage}"`
+	const cmd = `git tag ${newTag} -m "${COMMIT_TEMPLATE}"`
 
 	if (!await promptToContinue(`About to create a tag: '${cmd}'`)) return
 
