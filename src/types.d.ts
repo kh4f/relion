@@ -66,10 +66,7 @@ export interface Bumper {
 }
 
 export interface Commit {
-	/** Commit hash */
 	hash: string
-
-	/** Full commit  message */
 	message: string
 }
 
