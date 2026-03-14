@@ -1,7 +1,7 @@
 {
 	"name": "relion",
 	"version": "0.42.1",
-	"description": "🏷️ Modern Release Workflow Helper",
+	"description": "🏷️ Release Workflow Helper",
 	"author": "kh4f <kh4f.dev@gmail.com>",
 	"license": "MIT",
 	"repository": "https://github.com/kh4f/relion",
