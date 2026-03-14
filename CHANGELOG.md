@@ -1,6 +1,22 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.43.0  `](https://github.com/kh4f/relion/compare/v0.42.1...v0.43.0)
+
+### &emsp; 🧨 BREAKING CHANGES
+- **CLI-only restriction**: Relion is now exclusively a CLI tool; all API entry points have been removed. [🡥](https://github.com/kh4f/relion/commit/2fd04c4)
+- **Manifest option removed**: project info is now derived solely from the git remote URL, and the `manifest` option is no longer accepted. [🡥](https://github.com/kh4f/relion/commit/1af819d)
+- **Workflow option removed**: the `flow` option is removed; Relion now defaults to the full release workflow (steps can be skipped interactively). [🡥](https://github.com/kh4f/relion/commit/8da6394)
+- **Simplified bumping**: custom bumpers are no longer supported; version bumping now uses a hardcoded pattern. [🡥](https://github.com/kh4f/relion/commit/7d87781)
+- **Fixed commit messages**: the release commit message template is now hardcoded to `chore(release): {{tag}}` and cannot be customized. [🡥](https://github.com/kh4f/relion/commit/1f5aa41)
+- **Fixed context output**: the `contextFile` option is removed; release context is now always written to `RELEASE.md`. [🡥](https://github.com/kh4f/relion/commit/7ecf6d0)
+
+### &emsp; 🎨 Style
+- **Streamlined CLI prompts**: the continuation prompt "('' to continue / 's' to skip)" is now displayed only once per session. [🡥](https://github.com/kh4f/relion/commit/44daf4c)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.42.1...v0.43.0) &ensp;•&ensp; Mar 14, 2026
+
+
 ## &ensp; [` 📦 v0.42.1  `](https://github.com/kh4f/relion/compare/v0.42.0...v0.42.1)
 
 ### &emsp; 📚 Documentation
