@@ -1,21 +1,23 @@
 export interface Cfg {
-	/** Manifest file path. Auto-detects `package.json` if omitted. */
+	/** Manifest file path
+	 * @default 'package.json'
+	*/
 	manifest?: string
 
 	/**
 	 * Release workflow steps to execute (e.g. bump, context, commit, tag)
-	 * @default []
+	 * @default All steps
 	 */
 	flow?: Step[]
 
 	/**
-	 * Explicitly set the version for the upcoming release. If not provided, the version will be determined automatically based on conventional commit messages.
-	 * @default ''
+	 * Explicitly set the version for the upcoming release
+	 * @default Determined automatically based on conventional commit messages
 	 */
 	newVersion?: string
 
 	/**
-	 * Files to bump version in. Manifest is auto-included.
+	 * Files to bump version in
 	 * @default ['<manifest>']
 	 */
 	bump?: string[]
