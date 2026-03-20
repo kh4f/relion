@@ -1,7 +1,7 @@
 <div align="center">
 	<picture>
-		<source media="(prefers-color-scheme: dark)" srcset=".github/logo-light.png">
-		<img alt="logo" src=".github/logo-dark.png">
+		<source media="(prefers-color-scheme: dark)" srcset=".github/logo-dark.png">
+		<img alt="logo" src=".github/logo-light.png">
 	</picture>
 	<br>
 	<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=B2BFFF&labelColor=303145" alt="npm version"/></a>&nbsp;
