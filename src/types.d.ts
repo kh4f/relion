@@ -1,10 +1,10 @@
 export interface Cfg {
-	/** Files to bump version in (package.json is always included if exists)
+	/** Files to bump the version in
 	 * @default ['package.json']
 	 */
 	bump?: string[]
 
-	/** @default Calculated from conventional commits */
+	/** @default Calculated from commits */
 	newVersion?: string
 
 	/** @default 'v' */

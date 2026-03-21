@@ -4,15 +4,15 @@ import { relion } from './relion'
 const HELP = `Usage: relion [options]
 
 Options:
-  -b <files>    Files to bump version in (def: ['package.json']; package.json is always included if exists)
-  -v <version>  Release version (def: calculated from commits)
-  -t <prefix>   Tag prefix (def: 'v')
-  -d            Dry run (def: false)
-  -y            Skip prompts (def: false)
+  -b <files>    Files to bump the version in ['package.json']
+  -v <version>  Release version [calculated from commits]
+  -t <prefix>   Tag prefix [v]
+  -d            Dry run [false]
+  -y            Skip prompts [false]
 
 Examples:
-- \`bunx relion -b src/manifest.json\`
-- \`bunx relion -d -v 1.2.3\`
+  bunx relion -b src/manifest.json  Bump a custom file
+  bunx relion -d -v 1.2.3           Dry run with a custom version
 `
 
 const args = process.argv.slice(2).join(' ')

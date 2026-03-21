@@ -9,11 +9,11 @@
 	<a href="https://github.com/kh4f/relion/blob/master/LICENSE"><img src="https://img.shields.io/github/license/kh4f/relion?style=flat-square&label=%F0%9F%9B%A1%EF%B8%8F%20License&color=B2BFFF&labelColor=303145" alt="license"></a>&nbsp;
 	<a href="https://github.com/kh4f/relion/issues?q=is%3Aissue+is%3Aopen+label%3Abug"><img src="https://img.shields.io/github/issues/kh4f/relion/bug?label=%F0%9F%90%9B%20Bugs&style=flat-square&color=B2BFFF&labelColor=303145" alt="open bugs"></a>
 	<br><br>
-	<b>A minimal npm library for automating release workflow:<br></b> version bumping, release commit & tag creation, and AI‑assisted changelog generation
+	<b>A zero‑config npm lib for automating the release workflow:<br></b> version bumping, release commit & tag creation, and AI‑assisted changelog generation
 	<br><br>
 	<p><b>
 		<a href="#%EF%B8%8F-usage">Usage</a>&nbsp; •&nbsp;
-		<a href="#%EF%B8%8F-workflow-steps">Workflow Steps</a>&nbsp; •&nbsp;
+		<a href="#%EF%B8%8F-release-workflow">Release Workflow</a>&nbsp; •&nbsp;
 		<a href="#-changelog-generation">Changelog Generation</a>
 	</b></p>
 	<br>
@@ -24,18 +24,22 @@
 ```bash
 $ bunx relion -h
 
-Usage: relion [options]
-
 Options:
-  -b <files>    Files to bump version in (def: ['package.json']; package.json is always included if exists)
-  -v <version>  Release version (def: calculated from commits)
-  -t <prefix>   Tag prefix (def: 'v')
-  -d            Dry run (def: false)
+  -b <files>    Files to bump the version in ['package.json']
+  -v <version>  Release version [calculated from commits]
+  -t <prefix>   Tag prefix [v]
+  -d            Dry run [false]
+  -y            Skip prompts [false]
 
 Examples:
-- `bunx relion -b src/manifest.json`
-- `bunx relion -d -v 1.2.3`
+  bunx relion -b src/manifest.json  Bump a custom file
+  bunx relion -d -v 1.2.3           Dry run with a custom version
 ```
+
+Notes:
+- `package.json` is **always included** in the bump list if exists
+- most files are bumped with a [generic pattern](https://regex101.com/r/t570Gh/1); `.rc` files use a dedicated one  
+- changes are **not staged automatically** before committing
 
 <details><summary>Example output of running <code>bunx relion</code>:</summary>
 
@@ -57,12 +61,12 @@ About to create a tag: 'git tag v0.43.0 -m "chore(release): v0.43.0"'
 ```
 </details>
 
-## ♻️ Workflow Steps
+## ♻️ Release Workflow
 
-- **Context**: generates a `RELEASE.md` file with upcoming release metadata and commit log
-- **Bump**: updates version in specified files
-- **Commit**: creates a release commit
-- **Tag**: creates an annotated release tag
+1. **Context**: generates a `RELEASE.md` file with upcoming release metadata and commit log
+2. **Bump**: updates version in specified files
+3. **Commit**: creates a release commit
+4. **Tag**: creates an annotated release tag
 
 <details><summary>Generated release context example (*):</summary>
 
@@ -87,19 +91,18 @@ Previously, if commits contained both features and breaking changes, features wo
 ```
 </details>
 
-## 📚 Changelog Generation
+## 📋 Changelog Generation
 
-Relion doesn’t format the changelog itself — it produces a release context that can be turned into a user‑friendly changelog with AI.
+Relion doesn’t format the changelog itself — instead, it generates a release context that you can turn into a polished changelog using AI.
 
-Recommended workflow:
+Example workflow using GitHub Copilot:
 
-1. Set up GitHub Copilot instruction and prompt:
+1. Set up the instruction and prompt:
    - [.github/instructions/changelog-format.instructions.md](.github/instructions/changelog-format.instructions.md)
    - [.github/prompts/generate-changelog.prompt.md](.github/prompts/generate-changelog.prompt.md)
-2. Run Relion to generate `RELEASE.md` with the release context
-3. Review the release context, adjust as needed
-4. Run the prompt in VSCode Copilot chat: `/generate-changelog`
-5. Copilot produces a polished changelog entry based on the release context
+2. Run Relion to generate `RELEASE.md`
+3. Review the release context
+4. Run `/generate-changelog` in VS Code Copilot chat
 
 <details><summary>Generated changelog example (from the (*) release context using the instruction and prompt above; Gemini 3 Pro)</summary>
 
