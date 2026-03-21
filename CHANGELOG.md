@@ -1,6 +1,15 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.44.0  `](https://github.com/kh4f/relion/compare/v0.43.0...v0.44.0)
+
+### &emsp; 🎁 Features
+- **`.rc` version bumping**: added support for bumping version fields in Windows resource `.rc` files, including both string and numeric version values. [🡥](https://github.com/kh4f/relion/commit/5eaa18e)
+- **Non-interactive release mode**: added a `-y` flag to skip confirmation prompts, making automated and CI-driven releases easier. [🡥](https://github.com/kh4f/relion/commit/2feb0b5)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.43.0...v0.44.0) &ensp;•&ensp; Mar 21, 2026
+
+
 ## &ensp; [` 📦 v0.43.0  `](https://github.com/kh4f/relion/compare/v0.42.1...v0.43.0)
 
 ### &emsp; 🧨 BREAKING CHANGES
