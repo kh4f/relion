@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { promptToContinue } from '@/utils'
+import { defBumpers } from '@/defaults'
 import type { ResolvedCfg, Commit } from '@/types'
 
 export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
@@ -20,13 +21,16 @@ export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: strin
 }
 
 export const bump = async (cfg: ResolvedCfg) => {
-	const files = cfg.bump.filter(existsSync)
+	if (!await promptToContinue(`About to bump version in files: ${cfg.bump.join(', ')}`, cfg.yes)) return
 
-	if (!await promptToContinue(`About to bump version in files: ${files.join(', ')}`, cfg.yes)) return
+	cfg.bump.forEach(file => {
+		if (!existsSync(file)) return console.warn(`File '${file}' does not exist, skipping...`)
 
-	files.forEach(file => {
+		const bumper = defBumpers.find(b => b.filePattern.test(file))
+		if (!bumper) return console.warn(`No matching bumper found for file '${file}', skipping...`)
+
 		const content = readFileSync(file, 'utf8')
-		const updated = content.replace(/(\bversion\b.*?)\d[\w.+-]*/, `$1${cfg.newVersion}`)
+		const updated = bumper.bump(content, cfg.newVersion)
 		if (cfg.dryRun) return
 		writeFileSync(file, updated, 'utf8')
 	})

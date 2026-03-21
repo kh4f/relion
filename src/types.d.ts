@@ -29,3 +29,8 @@ export interface RepoInfo {
 	url: string
 	relion?: Cfg
 }
+
+export interface Bumper {
+	filePattern: RegExp
+	bump: (content: string, version: string) => string
+}

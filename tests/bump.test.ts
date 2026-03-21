@@ -2,19 +2,19 @@ import { expect, test } from 'bun:test'
 import { bump } from '@/steps'
 import type { ResolvedCfg } from '@/types'
 
-const cfg: ResolvedCfg = {
-	bump: ['tests/fixtures/package.json'],
-	newVersion: '1.2.3',
-	tagPrefix: 'v',
-	dryRun: false,
-	yes: true,
-}
-
-test('bump version in package.json', async () => {
-	const file = Bun.file('tests/fixtures/package.json')
+test.each(['package.json', 'resources.rc'])('bump version in %s', async fixture => {
+	const path = `tests/fixtures/${fixture}`
+	const cfg: ResolvedCfg = {
+		bump: [path],
+		newVersion: '1.2.3',
+		tagPrefix: 'v',
+		dryRun: false,
+		yes: true,
+	}
+	const file = Bun.file(path)
 	const orig = await file.text()
 	await bump(cfg)
 	const updated = await file.text()
-	expect(updated).toContain('"version": "1.2.3"')
-	await Bun.write('tests/fixtures/package.json', orig)
+	expect(updated).toMatchSnapshot()
+	await Bun.write(path, orig)
 })
