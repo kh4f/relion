@@ -8,6 +8,7 @@ Options:
   -v <version>  Release version (def: calculated from commits)
   -t <prefix>   Tag prefix (def: 'v')
   -d            Dry run (def: false)
+  -y            Skip prompts (def: false)
 
 Examples:
 - \`bunx relion -b src/manifest.json\`
@@ -25,12 +26,14 @@ const bump = /-b (.+?)( -|$)/.exec(args)?.[1].split(' ')
 const newVersion = /-v (\S+)/.exec(args)?.[1]
 const tagPrefix = /-t (\S+)/.exec(args)?.[1]
 const dryRun = /-\w*d/.test(args)
+const yes = /-\w*y/.test(args)
 
 void relion({
 	...(bump && { bump }),
 	...(newVersion && { newVersion }),
 	...(tagPrefix && { tagPrefix }),
-	...(dryRun && { dryRun }),
+	dryRun,
+	yes,
 }).catch((err: unknown) => {
 	console.error(err)
 	process.exit(1)

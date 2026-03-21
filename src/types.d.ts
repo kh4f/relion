@@ -12,6 +12,9 @@ export interface Cfg {
 
 	/** @default false */
 	dryRun?: boolean
+
+	/** @default false */
+	yes?: boolean
 }
 
 export type ResolvedCfg = Required<Cfg>

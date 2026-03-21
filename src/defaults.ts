@@ -5,4 +5,5 @@ export const defCfg: ResolvedCfg = {
 	newVersion: '',
 	tagPrefix: 'v',
 	dryRun: false,
+	yes: false,
 }
