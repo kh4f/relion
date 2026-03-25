@@ -21,11 +21,10 @@ export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: strin
 }
 
 export const bump = async (cfg: ResolvedCfg) => {
-	if (!await promptToContinue(`About to bump version in files: ${cfg.bump.join(', ')}`, cfg.yes)) return
+	const files = cfg.bump.filter(existsSync)
+	if (!await promptToContinue(`About to bump version in files: ${files.join(', ')}`, cfg.yes)) return
 
-	cfg.bump.forEach(file => {
-		if (!existsSync(file)) return console.warn(`File '${file}' does not exist, skipping...`)
-
+	files.forEach(file => {
 		const bumper = defBumpers.find(b => b.filePattern.test(file))
 		if (!bumper) return console.warn(`No matching bumper found for file '${file}', skipping...`)
 
