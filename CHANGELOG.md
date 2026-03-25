@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.44.1  `](https://github.com/kh4f/relion/compare/v0.44.0...v0.44.1)
+
+### &emsp; 🩹 Fixes
+- **Clearer bump prompt**: the version bump confirmation now lists only files that actually exist, skipping any missing files. [🡥](https://github.com/kh4f/relion/commit/976fda9)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.44.0...v0.44.1) &ensp;•&ensp; Mar 25, 2026
+
+
 ## &ensp; [` 📦 v0.44.0  `](https://github.com/kh4f/relion/compare/v0.43.0...v0.44.0)
 
 ### &emsp; 🎁 Features
