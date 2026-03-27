@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.44.3  `](https://github.com/kh4f/relion/compare/v0.44.2...v0.44.3)
+
+### &emsp; 🩹 Fixes
+- **Support empty tag prefix**: users can now specify a tag without a prefix by passing `-t ''` in the CLI. [🡥](https://github.com/kh4f/relion/commit/a7a11d1)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.44.2...v0.44.3) &ensp;•&ensp; Mar 27, 2026
+
+
 ## &ensp; [` 📦 v0.44.2  `](https://github.com/kh4f/relion/compare/v0.44.1...v0.44.2)
 
 ### &emsp; 🎨 Style
