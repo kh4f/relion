@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.44.2  `](https://github.com/kh4f/relion/compare/v0.44.1...v0.44.2)
+
+### &emsp; 🎨 Style
+- **Minor documentation improvements**: made small enhancements to the README. [🡥](https://github.com/kh4f/relion/commit/1f23e98) [🡥](https://github.com/kh4f/relion/commit/93bd979) [🡥](https://github.com/kh4f/relion/commit/4d38245)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.44.1...v0.44.2) &ensp;•&ensp; Mar 27, 2026
+
+
 ## &ensp; [` 📦 v0.44.1  `](https://github.com/kh4f/relion/compare/v0.44.0...v0.44.1)
 
 ### &emsp; 🩹 Fixes
