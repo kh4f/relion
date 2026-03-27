@@ -27,7 +27,6 @@ export interface Commit {
 export interface RepoInfo {
 	name: string
 	url: string
-	relion?: Cfg
 }
 
 export interface Bumper {
