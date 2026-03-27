@@ -40,6 +40,7 @@ Notes:
 - `package.json` is **always included** in the bump list if exists
 - most files are bumped with a [generic pattern](https://regex101.com/r/t570Gh/1); `.rc` files use a dedicated one  
 - changes are **not staged automatically** before committing
+- to create a tag without a prefix, use `-t ''`
 
 <details><summary>Example output of running <code>bunx relion</code>:</summary>
 
