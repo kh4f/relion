@@ -16,7 +16,6 @@
 		<a href="#%EF%B8%8F-release-workflow">Release Workflow</a>&nbsp; •&nbsp;
 		<a href="#-changelog-generation">Changelog Generation</a>
 	</b></p>
-	<br>
 </div>
 
 ## 🕹️ Usage
