@@ -1,10 +1,10 @@
 import type { UserConfig } from 'tsdown'
 
-const isProd = process.argv.includes('--prod')
+const prod = process.argv.includes('--prod')
 
 export default [{
 	entry: 'src/cli.ts',
-	minify: isProd,
-	sourcemap: isProd ? false : 'inline',
+	minify: prod,
+	sourcemap: prod ? false : 'inline',
 	fixedExtension: false,
 }] satisfies UserConfig[]
