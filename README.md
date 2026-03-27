@@ -116,7 +116,7 @@ Example workflow using GitHub Copilot:
 ```
 </details>
 
-</br>
+<br>
 
 <div align="center">
   <b>MIT License © 2025-2026 <a href="https://github.com/kh4f">kh4f</a></b>
