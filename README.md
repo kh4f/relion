@@ -97,9 +97,7 @@ Relion doesn’t format the changelog itself — instead, it generates a release
 
 Example workflow using GitHub Copilot:
 
-1. Set up the instruction and prompt:
-   - [.github/instructions/changelog-format.instructions.md](.github/instructions/changelog-format.instructions.md)
-   - [.github/prompts/generate-changelog.prompt.md](.github/prompts/generate-changelog.prompt.md)
+1. Set up the [instruction](.github/instructions/changelog-format.instructions.md) and [prompt](.github/prompts/generate-changelog.prompt.md)
 2. Run Relion to generate `RELEASE.md`
 3. Review the release context
 4. Run `/generate-changelog` in VS Code Copilot chat
