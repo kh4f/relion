@@ -36,7 +36,6 @@ Examples:
   bunx relion -d -v 1.2.3           Dry run with a custom version
 ```
 
-Notes:
 - `package.json` is **always included** in the bump list if exists
 - most files are bumped with a [generic pattern](https://regex101.com/r/t570Gh/1); `.rc` files use a dedicated one  
 - changes are **not staged automatically** before committing
