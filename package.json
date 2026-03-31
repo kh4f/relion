@@ -29,7 +29,7 @@
 		"@types/semver": "^7.7.1",
 		"eslint": "^10.1.0",
 		"jiti": "^2.6.1",
-		"tsdown": "^0.21.6",
+		"tsdown": "^0.21.7",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.57.2"
 	}
