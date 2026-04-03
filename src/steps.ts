@@ -5,6 +5,7 @@ import { defBumpers } from '@/defaults'
 import type { ResolvedCfg, Commit } from '@/types'
 
 export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: string, newTag: string, repoURL: string) => {
+	if (cfg.yes) return
 	if (!await promptToContinue(`About to write context to 'RELEASE.md'`, cfg.yes)) return
 	if (cfg.dryRun) return
 	let output = ''
@@ -36,7 +37,7 @@ export const bump = async (cfg: ResolvedCfg) => {
 }
 
 export const commit = async (cfg: ResolvedCfg, commitMsg: string) => {
-	const cmd = `git commit -m "${commitMsg}"`
+	const cmd = `${cfg.yes ? 'git add -A && ' : ''}git commit -m "${commitMsg}"`
 
 	if (!await promptToContinue(`About to commit changes: '${cmd}'`, cfg.yes)) return
 
