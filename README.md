@@ -36,8 +36,6 @@ Examples:
 ```
 
 - `package.json` is **always included** in the bump list if exists
-- most files are bumped with a [generic pattern](https://regex101.com/r/t570Gh/1); `.rc` files use a dedicated one  
-- changes are **not staged automatically** before committing
 - to create a tag without a prefix, use `-t ''`
 
 <details><summary>Example output of running <code>bunx relion</code>:</summary>
@@ -62,9 +60,12 @@ About to create a tag: 'git tag v0.43.0 -m "chore(release): v0.43.0"'
 
 ## ♻️ Release Workflow
 
-1. **Context**: generates a `RELEASE.md` file with upcoming release metadata and commit log
-2. **Bump**: updates version in specified files
-3. **Commit**: creates a release commit
+1. **Context**: generates a `RELEASE.md` file with upcoming release metadata and commit log  
+	The log is [automatically filtered](tests/context.test.ts) to exclude non-user-facing commits.
+2. **Bump**: updates version in specified files  
+	Most files are bumped with a [generic pattern](https://regex101.com/r/t570Gh/1); `.rc` files use a dedicated one.
+3. **Commit**: creates a release commit  
+	Changes are **not staged automatically** before committing, unless `-y` is passed.
 4. **Tag**: creates an annotated release tag
 
 <details><summary>Generated release context example (*):</summary>
