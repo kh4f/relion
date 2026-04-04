@@ -1,6 +1,17 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.45.0  `](https://github.com/kh4f/relion/compare/v0.44.3...v0.45.0)
+
+### &emsp; 🎁 Features
+- **Filter non-prod commits from `RELEASE.md`**: automatically excludes commits unrelated to production changes (such as `ci`, `build`, `test`, and non-breaking `chore(deps)`) from the changelog. [🡥](https://github.com/kh4f/relion/commit/1479e26)
+
+### &emsp; 🩹 Fixes
+- **Skip `RELEASE.md` and auto-stage with `-y` flag**: passing the `-y` flag now skips `RELEASE.md` creation and stages changes automatically prior to commit. [🡥](https://github.com/kh4f/relion/commit/780c1e7)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.44.3...v0.45.0) &ensp;•&ensp; Apr 4, 2026
+
+
 ## &ensp; [` 📦 v0.44.3  `](https://github.com/kh4f/relion/compare/v0.44.2...v0.44.3)
 
 ### &emsp; 🩹 Fixes
