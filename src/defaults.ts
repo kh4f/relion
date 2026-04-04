@@ -4,7 +4,7 @@ export const defCfg: ResolvedCfg = {
 	bump: ['package.json'],
 	newVersion: '',
 	tagPrefix: 'v',
-	commitsExclude: [/^ci|build|test\(/, /^chore\(deps\)(?!!)/],
+	commitsExclude: [/^(ci|build|test)\(/, /^chore\(deps\)(?!!)/],
 	dryRun: false,
 	yes: false,
 }
