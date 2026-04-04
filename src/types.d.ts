@@ -1,7 +1,6 @@
 export interface Cfg {
 	/** Files to bump the version in
-	 * @default ['package.json']
-	 */
+	 * @default ['package.json'] */
 	bump?: string[]
 
 	/** @default Calculated from commits */
@@ -11,7 +10,7 @@ export interface Cfg {
 	tagPrefix?: string
 
 	/** Commit patterns to exclude from the log
-      	@default [/^ci|build|test\(/, /^chore\(deps\)(?!!)/] */
+	 * @default [/^(ci|build|test)\(/, /^chore\(deps\)(?!!)/] */
 	commitsExclude?: RegExp[]
 
 	/** @default false */
