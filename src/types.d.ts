@@ -10,6 +10,10 @@ export interface Cfg {
 	/** @default 'v' */
 	tagPrefix?: string
 
+	/** Commit patterns to exclude from the log
+      	@default [/^ci|build|test\(/, /^chore\(deps\)(?!!)/] */
+	commitsExclude?: RegExp[]
+
 	/** @default false */
 	dryRun?: boolean
 

@@ -24,10 +24,11 @@ export const relion = async (userCfg: Cfg) => {
 	const curVersion = /\d+\.\d+\.\d+.*/.exec(curTag)?.[0] ?? '0.0.0'
 	console.log(`Current version: ${curVersion}`)
 
-	const commits = parseCommits(curTag)
-	console.log(`Parsed commits: ${commits.length}`)
+	const parsedCmts = parseCommits(curTag)
+	const filteredCmts = parsedCmts.filter(c => !cfg.commitsExclude.some(f => f.test(c.message)))
+	console.log(`Parsed commits: ${filteredCmts.length}`)
 
-	cfg.newVersion ||= calculateNextVersion(commits, curVersion)
+	cfg.newVersion ||= calculateNextVersion(parsedCmts, curVersion)
 	console.log(`New version: ${cfg.newVersion}`)
 
 	const newTag = `${cfg.tagPrefix}${cfg.newVersion}`
@@ -39,7 +40,7 @@ export const relion = async (userCfg: Cfg) => {
 	console.log('-'.repeat(30))
 
 	console.log(`\n('' to continue / 's' to skip)`)
-	await context(cfg, commits, curTag, newTag, repoInfo.url)
+	await context(cfg, filteredCmts, curTag, newTag, repoInfo.url)
 	await bump(cfg)
 	await commit(cfg, commitMsg)
 	await tag(cfg, newTag, commitMsg)
