@@ -16,6 +16,7 @@
 		"build:watch": "tsdown --watch",
 		"build:prod": "tsdown --prod",
 		"lint": "eslint",
+		"typecheck": "tsc",
 		"test": "bun test",
 		"release": "bun src/cli"
 	},

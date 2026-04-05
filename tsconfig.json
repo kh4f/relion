@@ -1,5 +1,7 @@
 {
 	"compilerOptions": {
+		"noEmit": true,
+		"skipLibCheck": true,
 		"moduleResolution": "bundler",
 		"verbatimModuleSyntax": true,
 		"moduleDetection": "force",
