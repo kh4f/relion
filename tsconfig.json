@@ -2,9 +2,7 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"skipLibCheck": true,
-		"moduleResolution": "bundler",
 		"verbatimModuleSyntax": true,
-		"moduleDetection": "force",
 		"types": ["bun"],
 		"paths": { "@/*": ["./src/*"] },
 	},
