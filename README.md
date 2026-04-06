@@ -69,7 +69,7 @@ About to create a tag: 'git tag v0.43.0 -m "chore(release): v0.43.0"'
 
 <details><summary>Generated release context example (*):</summary>
 
-```md
+```markdown
 ---
 tag: v0.33.0
 prevTag: v0.32.1
@@ -92,18 +92,19 @@ Previously, if commits contained both features and breaking changes, features wo
 
 ## 📋 Changelog Generation
 
-Relion doesn’t format the changelog itself — instead, it generates a release context that you can turn into a polished changelog using AI.
+Relion doesn’t format the changelog itself. Instead, it generates a `RELEASE.md` file with release metadata and commit log, and provides a [`generate-changelog`](skills/generate-changelog/SKILL.md) skill to turn that context into a polished changelog entry with AI.
 
-Example workflow using GitHub Copilot:
+Recommended workflow:
 
-1. Set up the [instruction](.github/instructions/changelog-format.instructions.md) and [prompt](.github/prompts/generate-changelog.prompt.md)
+1. Install the skill: `bunx skills add kh4f/relion [-g]`  
+  (see the [`skills` CLI docs](https://www.npmjs.com/package/skills))
 2. Run Relion to generate `RELEASE.md`
-3. Review the release context
-4. Run `/generate-changelog` in VS Code Copilot chat
+3. Review the generated release context
+4. Ask your AI agent to generate a changelog
 
-<details><summary>Generated changelog example (from the (*) release context using the instruction and prompt above; Gemini 3 Pro)</summary>
+<details><summary>Generated changelog example (from the (*) release context; Gemini 3 Pro)</summary>
 
-```md
+```markdown
 ## &ensp; [` 📦 v0.33.0  `](https://github.com/kh4f/relion/compare/v0.32.1...v0.33.0)
 
 ### &emsp; 🎁 Features

@@ -1,13 +1,24 @@
-# Changelog Format
+---
+name: generate-changelog
+description: Generate a changelog entry from `RELEASE.md`. Use when asked to generate a changelog.
+---
 
-## Template
+## Workflow
+1. Analyze the metadata and commit log from `RELEASE.md`
+2. Group user-facing changes into the allowed sections
+3. Write a polished changelog entry in the required format
+4. Wrap the result in a fenced `markdown` code block
 
-```md
+## Changelog Format
+
+### Template
+
+```markdown
 ## &ensp; [` 📦 <tag>  `](<repoURL>/compare/<prevTag>...<tag>)
 
 ### &emsp; <section-title>
 - **<brief>**: <user-friendly-description>. [🡥](<repoURL>/commit/<hash>)
-- **<brief>**: <description>. [🡥](<repoURL>/commit/<hash>) [#<issue>](<repoURL>/issues/<issue>)
+- **<brief>**: <description>. [🡥](<repoURL>/commit/<hash>) [#<issue-1>](<repoURL>/issues/<issue-1>) [#<issue-n>](<repoURL>/issues/<issue-n>)
 
 ### &emsp; <another-section-title>
 - **<brief>**:
@@ -17,26 +28,28 @@
 ##### &emsp;&emsp; [Full Changelog](<repoURL>/compare/<prevTag>...<tag>) &ensp;•&ensp; <date>
 ```
 
-> **Note:** If `<prevTag>` is missing (e.g., for the first release), use `<repoURL>/commits/<tag>` instead of a compare link.
+If `prevTag` is missing, use `<repoURL>/commits/<tag>` instead of a compare link everywhere.
 
-### Brief
-A brief title of the change in 2–4 words as either a noun phrase (e.g., "Auto‑scrolling during drag") or a past‑participle phrase (e.g., "Updated drag handle icon").
+### Sections
+- 🧨 BREAKING CHANGES — breaking user-visible changes
+- 🎁 Features — new capabilities
+- 🩹 Fixes — bug fixes and behavioral corrections
+- ⚡ Performance — measurable speed or efficiency improvements
+- 📋 Docs — user-facing documentation updates
+- 🎨 Style — purely visual or stylistic changes
+- ⚙️ Internal — maintenance or internal improvements worth mentioning
 
-### Description
-A concise, end-user-focused sentence describing the outcome of the change, using result-oriented language like "... now ...", "... no longer ...", "added...", "improved ...", "fixed ...", etc.
+If a commit is not user-facing, omit it.
 
-### Allowed Sections
-- 🧨 BREAKING CHANGES
-- 🎁 Features
-- 🩹 Fixes
-- ⚡ Performance
-- 📚 Documentation
-- 🎨 Style
-- ⚙️ Internal
+### Writing rules
+- Write for end users, not maintainers
+- Use a 2-4 word brief title for each entry
+- Use result-oriented descriptions: "added", "improved", "fixed", "now", "no longer", and similar phrasing
+- Merge closely related commits into a single bullet when it makes the changelog clearer
 
 ## Examples
 
-```md
+```markdown
 ## &ensp; [` 📦 v3.2.3  `](https://github.com/kh4f/manual-sorting/compare/v3.2.2...v3.2.3)
 
 ### &emsp; 🎁 Features
@@ -49,17 +62,17 @@ A concise, end-user-focused sentence describing the outcome of the change, using
 ##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/manual-sorting/compare/v3.2.2...v3.2.3) &ensp;•&ensp; Dec 26, 2025
 ```
 
-```md
+```markdown
 ## &ensp; [` 📦 v3.2.2  `](https://github.com/kh4f/manual-sorting/compare/v3.2.1...v3.2.2)
 
 ### &emsp; 🩹 Fixes
 - **Improved multi-selection dragging**:
-    - Nested folders no longer escape to the parent level. [🡥](https://github.com/kh4f/manual-sorting/commit/4a5b6c7) [#113](https://github.com/kh4f/manual-sorting/issues/113)
-    - Prevented accidental nesting of selected items. [🡥](https://github.com/kh4f/manual-sorting/commit/1d2e3f4)
-    - Disallowed dropping a multi-selection into folders that are part of the same selection. [🡥](https://github.com/kh4f/manual-sorting/commit/9e8d7c6)
+  - Nested folders no longer escape to the parent level. [🡥](https://github.com/kh4f/manual-sorting/commit/4a5b6c7) [#113](https://github.com/kh4f/manual-sorting/issues/113)
+  - Prevented accidental nesting of selected items. [🡥](https://github.com/kh4f/manual-sorting/commit/1d2e3f4)
+  - Disallowed dropping a multi-selection into folders that are part of the same selection. [🡥](https://github.com/kh4f/manual-sorting/commit/9e8d7c6)
 - **Refined drop zone behavior**:
-    - Drop zones no longer appear in default sorting modes. [🡥](https://github.com/kh4f/manual-sorting/commit/0f1e2d3)
-    - Fixed phantom drop zones appearing near empty folders. [🡥](https://github.com/kh4f/manual-sorting/commit/8a7b6c5)
+  - Drop zones no longer appear in default sorting modes. [🡥](https://github.com/kh4f/manual-sorting/commit/0f1e2d3)
+  - Fixed phantom drop zones appearing near empty folders. [🡥](https://github.com/kh4f/manual-sorting/commit/8a7b6c5)
 - **Accurate drag tooltip**: the drag tooltip now always displays the correct target folder name. [🡥](https://github.com/kh4f/manual-sorting/commit/3d4e5f6)
 
 ### &emsp; 🎨 Style
@@ -69,7 +82,7 @@ A concise, end-user-focused sentence describing the outcome of the change, using
 ##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/manual-sorting/compare/v3.2.1...v3.2.2) &ensp;•&ensp; Dec 24, 2025
 ```
 
-```md
+```markdown
 ## &ensp; [` 📦 v3.0.0  `](https://github.com/kh4f/manual-sorting/compare/v2.5.1...v3.0.0)
 
 ### &emsp; 🧨 BREAKING CHANGES
