@@ -1,6 +1,17 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.46.0  `](https://github.com/kh4f/relion/compare/v0.45.0...v0.46.0)
+
+### &emsp; 🎁 Features
+- **Changelog generation skill**: added the `generate-changelog` skill, so AI agents can turn `RELEASE.md` into a polished changelog entry without manual prompt or instruction setup. [🡥](https://github.com/kh4f/relion/commit/224dad8)
+
+### &emsp; 📋 Docs
+- **Updated changelog workflow**: revised the README to document the new skill-based changelog process and removed outdated prompt/instruction files. [🡥](https://github.com/kh4f/relion/commit/224dad8)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.45.0...v0.46.0) &ensp;•&ensp; Apr 6, 2026
+
+
 ## &ensp; [` 📦 v0.45.0  `](https://github.com/kh4f/relion/compare/v0.44.3...v0.45.0)
 
 ### &emsp; 🎁 Features
