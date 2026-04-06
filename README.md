@@ -6,8 +6,7 @@
 	<br>
 	<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=BCC7EC&labelColor=303145" alt="npm version"/></a>&nbsp;
 	<a href="https://www.npmjs.com/package/relion"><img src="https://img.badgesize.io/https:/unpkg.com/relion/dist/cli.js?label=Size&logo=hackthebox&logoColor=c97026&style=flat-square&color=BCC7EC&labelColor=303145" alt="bundle size"/></a>&nbsp;
-	<a href="https://github.com/kh4f/relion/issues?q=is%3Aissue+is%3Aopen+label%3Abug"><img src="https://img.shields.io/github/issues/kh4f/relion/bug?label=%F0%9F%90%9B%20Bugs&style=flat-square&color=BCC7EC&labelColor=303145" alt="open bugs"></a>&nbsp;
-	<a href="https://github.com/kh4f/relion/blob/master/LICENSE"><img src="https://img.shields.io/github/license/kh4f/relion?style=flat-square&label=%F0%9F%9B%A1%EF%B8%8F%20License&color=BCC7EC&labelColor=303145" alt="license"></a>
+	<a href="https://github.com/kh4f/relion/issues?q=is%3Aissue+is%3Aopen+label%3Abug"><img src="https://img.shields.io/github/issues/kh4f/relion/bug?label=%F0%9F%90%9B%20Bugs&style=flat-square&color=BCC7EC&labelColor=303145" alt="open bugs"></a>
 	<br><br>
 	<b>A zero‑config npm lib for automating the release workflow:<br></b> version bumping, release commit & tag creation, and AI‑assisted changelog generation
 	<br><br>
