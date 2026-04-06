@@ -116,9 +116,3 @@ Example workflow using GitHub Copilot:
 ##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.32.1...v0.33.0) &ensp;•&ensp; Jan 10, 2026
 ```
 </details>
-
-<br>
-
-<div align="center">
-  <b>MIT License © 2025-2026 <a href="https://github.com/kh4f">kh4f</a></b>
-</div>
