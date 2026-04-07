@@ -23,7 +23,7 @@ jobs:
       - run: bun build:prod
 
       - run: zip -r $ZIP package.json LICENSE README.md dist
-      - run: npm publish --access public
+      - run: npm publish
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release create $TAG --title $TAG --draft $ZIP
