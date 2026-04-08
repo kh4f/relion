@@ -7,7 +7,7 @@ export const getRepoInfo = (): RepoInfo => {
 	const remote = execSync('git config --get remote.origin.url', { encoding: 'utf8' }).trim()
 	const url = /(github\.com.*?)(\.git)?$/.exec(remote)?.[1] ?? ''
 	const name = url.split('/').at(-1) ?? ''
-	return { url, name }
+	return { url: `https://${url}`, name }
 }
 
 export const parseCommits = (curTag: string): Commit[] => (
