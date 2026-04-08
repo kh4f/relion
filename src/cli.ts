@@ -26,8 +26,8 @@ const bump = /-b (.+?)( -|$)/.exec(args)?.[1].split(' ')
 const newVersion = /-v (\S+)/.exec(args)?.[1]
 let tagPrefix = /-t (\S+)/.exec(args)?.[1]
 if (tagPrefix === `''`) tagPrefix = ''
-const dryRun = /-\w*d/.test(args)
-const yes = /-\w*y/.test(args)
+const dryRun = /\b-d\b/.test(args)
+const yes = /\b-y\b/.test(args)
 
 void relion({
 	...(bump && { bump }),
