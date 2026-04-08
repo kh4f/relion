@@ -1,6 +1,15 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.46.1  `](https://github.com/kh4f/relion/compare/v0.46.0...v0.46.1)
+
+### &emsp; 🩹 Fixes
+- **Accurate flag parsing**: tag values like `create-rawstyle@` are no longer misread as the `-y` or `-d` flags. [🡥](https://github.com/kh4f/relion/commit/440a487)
+- **Valid repository links**: generated release output now includes absolute GitHub URLs with `https://`, so repository links are clickable. [🡥](https://github.com/kh4f/relion/commit/f733175)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.46.0...v0.46.1) &ensp;•&ensp; Apr 8, 2026
+
+
 ## &ensp; [` 📦 v0.46.0  `](https://github.com/kh4f/relion/compare/v0.45.0...v0.46.0)
 
 ### &emsp; 🎁 Features
