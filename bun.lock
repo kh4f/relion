@@ -5,7 +5,7 @@
     "": {
       "name": "relion",
       "dependencies": {
-        "semver": "^7.7.4",
+        "semver": "^7.8.0",
       },
       "devDependencies": {
         "@eslint/js": "^10.0.1",
@@ -281,7 +281,7 @@
 
     "rolldown-plugin-dts": ["rolldown-plugin-dts@0.23.2", "", { "dependencies": { "@babel/generator": "8.0.0-rc.3", "@babel/helper-validator-identifier": "8.0.0-rc.3", "@babel/parser": "8.0.0-rc.3", "@babel/types": "8.0.0-rc.3", "ast-kit": "^3.0.0-beta.1", "birpc": "^4.0.0", "dts-resolver": "^2.1.3", "get-tsconfig": "^4.13.7", "obug": "^2.1.1", "picomatch": "^4.0.4" }, "peerDependencies": { "@ts-macro/tsc": "^0.3.6", "@typescript/native-preview": ">=7.0.0-dev.20260325.1", "rolldown": "^1.0.0-rc.12", "typescript": "^5.0.0 || ^6.0.0", "vue-tsc": "~3.2.0" }, "optionalPeers": ["@ts-macro/tsc", "@typescript/native-preview", "typescript", "vue-tsc"] }, "sha512-PbSqLawLgZBGcOGT3yqWBGn4cX+wh2nt5FuBGdcMHyOhoukmjbhYAl8NT9sE4U38Cm9tqLOIQeOrvzeayM0DLQ=="],
 
-    "semver": ["semver@7.7.4", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA=="],
+    "semver": ["semver@7.8.0", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-AcM7dV/5ul4EekoQ29Agm5vri8JNqRyj39o0qpX6vDF2GZrtutZl5RwgD1XnZjiTAfncsJhMI48QQH3sN87YNA=="],
 
     "shebang-command": ["shebang-command@2.0.0", "", { "dependencies": { "shebang-regex": "^3.0.0" } }, "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA=="],
 
@@ -333,6 +333,8 @@
 
     "@typescript-eslint/typescript-estree/@typescript-eslint/types": ["@typescript-eslint/types@8.59.2", "", {}, "sha512-e82GVOE8Ps3E++Egvb6Y3Dw0S10u8NkQ9KXmtRhCWJJ8kDhOJTvtMAWnFL16kB1583goCWXsr0NieKCZMs2/0Q=="],
 
+    "@typescript-eslint/typescript-estree/semver": ["semver@7.7.4", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA=="],
+
     "@typescript-eslint/utils/@typescript-eslint/types": ["@typescript-eslint/types@8.59.2", "", {}, "sha512-e82GVOE8Ps3E++Egvb6Y3Dw0S10u8NkQ9KXmtRhCWJJ8kDhOJTvtMAWnFL16kB1583goCWXsr0NieKCZMs2/0Q=="],
 
     "@typescript-eslint/visitor-keys/@typescript-eslint/types": ["@typescript-eslint/types@8.59.2", "", {}, "sha512-e82GVOE8Ps3E++Egvb6Y3Dw0S10u8NkQ9KXmtRhCWJJ8kDhOJTvtMAWnFL16kB1583goCWXsr0NieKCZMs2/0Q=="],
@@ -342,5 +344,7 @@
     "eslint/eslint-visitor-keys": ["eslint-visitor-keys@5.0.1", "", {}, "sha512-tD40eHxA35h0PEIZNeIjkHoDR4YjjJp34biM0mDvplBe//mB+IHCqHDGV7pxF+7MklTvighcCPPZC7ynWyjdTA=="],
 
     "eslint/espree": ["espree@11.2.0", "", { "dependencies": { "acorn": "^8.16.0", "acorn-jsx": "^5.3.2", "eslint-visitor-keys": "^5.0.1" } }, "sha512-7p3DrVEIopW1B1avAGLuCSh1jubc01H2JHc8B4qqGblmg5gI9yumBgACjWo4JlIc04ufug4xJ3SQI8HkS/Rgzw=="],
+
+    "tsdown/semver": ["semver@7.7.4", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA=="],
   }
 }
