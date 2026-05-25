@@ -24,15 +24,17 @@ if (args.includes('-h')) {
 
 const bump = /-b (.+?)( -|$)/.exec(args)?.[1].split(' ')
 const newVersion = /-v (\S+)/.exec(args)?.[1]
-let tagPrefix = /-t (\S+)/.exec(args)?.[1]
-if (tagPrefix === `''`) tagPrefix = ''
+
+const tIndex = process.argv.indexOf('-t')
+const tagPrefix = tIndex !== -1 ? process.argv[tIndex + 1] : undefined
+
 const dryRun = /\b-d\b/.test(args)
 const yes = /\b-y\b/.test(args)
 
 void relion({
 	...(bump && { bump }),
 	...(newVersion && { newVersion }),
-	...(tagPrefix && { tagPrefix }),
+	...(tagPrefix !== undefined && { tagPrefix }),
 	dryRun,
 	yes,
 }).catch((err: unknown) => {
