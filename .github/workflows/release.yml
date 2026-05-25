@@ -9,7 +9,6 @@ jobs:
     env:
       TAG: ${{ github.ref_name }}
       ZIP: ${{ github.event.repository.name }}-${{ github.ref_name }}.zip
-
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -17,12 +16,12 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - run: bun i
-      - run: bun lint
       - run: bun typecheck
+      - run: bun lint
       - run: bun test
-      - run: bun build:prod
+      - run: bun -b run build
 
-      - run: zip -r $ZIP package.json LICENSE README.md dist
+      - run: zip -r$ZIP package.json LICENSE README.md dist
       - run: npm publish
       - run: gh release create $TAG --title $TAG --draft $ZIP
         env:

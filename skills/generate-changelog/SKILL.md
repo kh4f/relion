@@ -31,7 +31,7 @@ description: Generate a changelog entry from `RELEASE.md`. Use when asked to gen
 If `prevTag` is missing, use `<repoURL>/commits/<tag>` instead of a compare link everywhere.
 
 ### Sections
-- 🧨 BREAKING CHANGES — breaking user-visible changes
+- 📢 BREAKING CHANGES — breaking user-visible changes
 - 🎁 Features — new capabilities
 - 🩹 Fixes — bug fixes and behavioral corrections
 - ⚡ Performance — measurable speed or efficiency improvements
@@ -85,7 +85,7 @@ If a commit is not user-facing, omit it.
 ```markdown
 ## &ensp; [` 📦 v3.0.0  `](https://github.com/kh4f/manual-sorting/compare/v2.5.1...v3.0.0)
 
-### &emsp; 🧨 BREAKING CHANGES
+### &emsp; 📢 BREAKING CHANGES
 - The settings storage format has been completely redesigned. **Your existing settings, including custom order, will be reset.** [🡥](https://github.com/kh4f/manual-sorting/commit/4l5m6n7)
 - The option to **disable dragging has been removed**. [🡥](https://github.com/kh4f/manual-sorting/commit/8o9p0q1)
 

@@ -1,6 +1,6 @@
 import { defineConfig, globalIgnores } from 'eslint/config'
-import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import js from '@eslint/js'
+import ts from 'typescript-eslint'
 import stylistic from '@stylistic/eslint-plugin'
 
 export default defineConfig([
@@ -8,12 +8,12 @@ export default defineConfig([
 	{
 		name: 'Base Rules',
 		files: ['**/*.ts'],
-		extends: [eslint.configs.recommended],
+		extends: [js.configs.recommended],
 	},
 	{
 		name: 'Type-Aware Rules',
 		files: ['**/*.ts'],
-		extends: [tseslint.configs.strictTypeChecked, tseslint.configs.stylisticTypeChecked],
+		extends: [ts.configs.strictTypeChecked, ts.configs.stylisticTypeChecked],
 		languageOptions: { parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname } },
 		rules: {
 			'@typescript-eslint/no-confusing-void-expression': 'off',
