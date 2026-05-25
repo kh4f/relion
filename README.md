@@ -4,7 +4,7 @@
 		<img alt="logo" src="https://raw.githubusercontent.com/kh4f/relion/refs/heads/assets/logo-light.png">
 	</picture>
 	<br>
-	<b>A zero‑config npm lib for automating the release workflow:<br></b> version bumping, release commit & tag creation, and AI‑assisted changelog generation
+	<b>A zero‑config release automation tool<br></b>version bumping, tagging, committing, and AI changelog generation
 	<br><br>
 	<p>
 		<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=C9CCCF&labelColor=2D3352" alt="npm version"/></a>&nbsp;
@@ -24,20 +24,31 @@
 ```bash
 $ bunx relion -h
 
-Options:
-  -b <files>    Files to bump the version in ['package.json']
+Usage: relion [steps] [options]
+
+Steps (e.g. 'bm' = bump + commit; omit to run all):
+  c  Generate release context
+  b  Bump version in files
+  m  Create commit
+  t  Create tag
+
+Options (with defaults):
   -v <version>  Release version [calculated from commits]
+  -b <files>    Files to bump the version in [package.json]
   -t <prefix>   Tag prefix [v]
   -d            Dry run [false]
   -y            Skip prompts [false]
 
 Examples:
-  bunx relion -b src/manifest.json  Bump a custom file
-  bunx relion -d -v 1.2.3           Dry run with a custom version
+  bunx relion bm -v 1.2.3           Bump and commit with custom version
+  bunx relion ct -t relion@         Generate context and create tag with custom prefix
+  bunx relion -b src/manifest.json  Bump version in custom file
+  bunx relion -d           			Dry run of all steps
 ```
 
 - `package.json` is **always included** in the bump list if exists
 - to create a tag without a prefix, use `-t ''`
+- type 's' at any prompt to skip that step
 
 <details><summary>Example output of running <code>bunx relion</code>:</summary>
 
@@ -49,9 +60,9 @@ Current version: 0.42.1
 Parsed commits: 26
 New version: 0.43.0
 New tag: v0.43.0
+Commit message: 'chore(release): v0.43.0'
+Setps: context, bump, commit, tag
 ------------------------------
-
-('' to continue / 's' to skip)
 About to write context to 'RELEASE.md'
 About to bump version in files: package.json
 About to commit changes: 'git commit -m "chore(release): v0.43.0"'

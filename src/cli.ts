@@ -7,25 +7,24 @@ const STEP_ALIASES: Record<Step, string> = { context: 'c', bump: 'b', commit: 'm
 
 const HELP = `Usage: relion [steps] [options]
 
-Steps (first positional argument, e.g. "bm" = bump+commit):
-  c  context   Generate RELEASE.md
-  b  bump      Bump version in files
-  m  commit    Commit changes
-  t  tag       Create git tag
-  (omit to run all steps)
+Steps (e.g. 'bm' = bump + commit; omit to run all):
+  c  Generate release context
+  b  Bump version in files
+  m  Create commit
+  t  Create tag
 
-Options:
-  -b <files>    Files to bump the version in ['package.json']
+Options (with defaults):
   -v <version>  Release version [calculated from commits]
+  -b <files>    Files to bump the version in [package.json]
   -t <prefix>   Tag prefix [v]
   -d            Dry run [false]
   -y            Skip prompts [false]
 
 Examples:
-  bunx relion bm -t v           Bump and commit with tag prefix v
-  bunx relion ct -v 0.0.1       Generate context and tag with version
-  bunx relion -b src/manifest.json  Bump a custom file
-  bunx relion -d -v 1.2.3       Dry run with a custom version
+  bunx relion bm -v 1.2.3           Bump and commit with custom version
+  bunx relion ct -t relion@         Generate context and create tag with custom prefix
+  bunx relion -b src/manifest.json  Bump version in custom file
+  bunx relion -d           			Dry run of all steps
 `
 
 const args = process.argv.slice(2)
