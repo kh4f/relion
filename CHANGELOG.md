@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.47.1  `](https://github.com/kh4f/relion/compare/v0.47.0...v0.47.1)
+
+### &emsp; 🩹 Fixes
+- **Prevent flags as step codes**: the CLI no longer treats flag arguments (starting with `-`) as positional step code arguments. [🡥](https://github.com/kh4f/relion/commit/b06bfa4)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.47.0...v0.47.1) &ensp;•&ensp; May 26, 2026
+
+
 ## &ensp; [` 📦 v0.47.0  `](https://github.com/kh4f/relion/compare/v0.46.1...v0.47.0)
 
 ### &emsp; 🎁 Features
