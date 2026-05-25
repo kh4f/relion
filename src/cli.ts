@@ -29,7 +29,7 @@ Examples:
 
 const args = process.argv.slice(2)
 
-const stepsArg = args[0] ? args.shift() : ''
+const stepsArg = args[0] && !args[0].startsWith('-') ? args.shift() : ''
 
 if (args.includes('-h')) {
 	console.log(HELP)
