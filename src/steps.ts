@@ -17,7 +17,7 @@ export const context = async (cfg: ResolvedCfg, commits: Commit[], curTag: strin
 		+ '\n---\n'
 	output += frontMatter + '\n'
 	const commitLog = commits.map(c => `[${c.hash}] ${c.message}`).join(`\n${'-'.repeat(30)}\n`)
-	output += `## Commit Log\n\n\`\`\`\n${commitLog}\n\`\`\``
+	output += `## Commit Log\n\n${commitLog}`
 	writeFileSync('RELEASE.md', output, 'utf8')
 }
 
