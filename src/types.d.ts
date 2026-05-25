@@ -1,4 +1,9 @@
+export type Step = 'context' | 'bump' | 'commit' | 'tag'
+
 export interface Cfg {
+	/** Steps to run (omit to run all) */
+	steps?: Step[]
+
 	/** Files to bump the version in
 	 * @default ['package.json'] */
 	bump?: string[]

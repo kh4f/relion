@@ -19,6 +19,7 @@ export default defineConfig([
 			'@typescript-eslint/no-confusing-void-expression': 'off',
 			'@typescript-eslint/restrict-template-expressions': 'off',
 			'@typescript-eslint/no-non-null-assertion': 'off',
+			'@typescript-eslint/no-misused-spread': 'off',
 		},
 	},
 	{

@@ -37,11 +37,11 @@ export const relion = async (userCfg: Cfg) => {
 	const commitMsg = `chore(release): ${newTag}`
 	console.log(`Commit message: '${commitMsg}'`)
 
+	console.log(`Steps: ${cfg.steps.join(', ')}`)
 	console.log('-'.repeat(30))
 
-	console.log(`\n('' to continue / 's' to skip)`)
-	await context(cfg, filteredCmts, curTag, newTag, repoInfo.url)
-	await bump(cfg)
-	await commit(cfg, commitMsg)
-	await tag(cfg, newTag, commitMsg)
+	if (cfg.steps.includes('context')) await context(cfg, filteredCmts, curTag, newTag, repoInfo.url)
+	if (cfg.steps.includes('bump')) await bump(cfg)
+	if (cfg.steps.includes('commit')) await commit(cfg, commitMsg)
+	if (cfg.steps.includes('tag')) await tag(cfg, newTag, commitMsg)
 }

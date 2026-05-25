@@ -1,6 +1,7 @@
 import type { ResolvedCfg, Bumper } from '@/types'
 
 export const defCfg: ResolvedCfg = {
+	steps: ['context', 'bump', 'commit', 'tag'],
 	bump: ['package.json'],
 	newVersion: '',
 	tagPrefix: 'v',
