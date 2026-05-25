@@ -1,10 +1,23 @@
-# Relion
+<div align="center">
+	<picture>
+		<source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/kh4f/relion/refs/heads/assets/logo-dark.png">
+		<img alt="logo" src="https://raw.githubusercontent.com/kh4f/relion/refs/heads/assets/logo-light.png">
+	</picture>
+	<br>
+	<b>A zero‑config npm lib for automating the release workflow:<br></b> version bumping, release commit & tag creation, and AI‑assisted changelog generation
+	<br><br>
+	<p>
+		<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=C9CCCF&labelColor=2D3352" alt="npm version"/></a>&nbsp;
+		<a href="https://www.npmjs.com/package/relion"><img src="https://img.badgesize.io/https:/unpkg.com/relion/dist/cli.js?label=Size&logo=hackthebox&logoColor=c97026&style=flat-square&color=C9CCCF&labelColor=2D3352" alt="bundle size"/></a>&nbsp;
+		<a href="https://github.com/kh4f/relion/issues?q=is%3Aissue+is%3Aopen+label%3Abug"><img src="https://img.shields.io/github/issues/kh4f/relion/bug?label=%F0%9F%90%9B%20Bugs&style=flat-square&color=C9CCCF&labelColor=2D3352" alt="open bugs"></a>
+	</p>
+	<b>
+		<a href="#%EF%B8%8F-usage">Usage</a>&nbsp; •&nbsp;
+		<a href="#%EF%B8%8F-release-workflow">Release Workflow</a>&nbsp; •&nbsp;
+		<a href="#-changelog-generation">Changelog Generation</a>
+	</b>
+</div>
 
-**A zero‑config npm library for automating the release workflow**: version bumping, release commit & tag creation, and AI‑assisted changelog generation
-
-<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=BCC7EC&labelColor=303145" alt="npm version"/></a>&nbsp;
-<a href="https://www.npmjs.com/package/relion"><img src="https://img.badgesize.io/https:/unpkg.com/relion/dist/cli.js?label=Size&logo=hackthebox&logoColor=c97026&style=flat-square&color=BCC7EC&labelColor=303145" alt="bundle size"/></a>&nbsp;
-<a href="https://github.com/kh4f/relion/issues?q=is%3Aissue+is%3Aopen+label%3Abug"><img src="https://img.shields.io/github/issues/kh4f/relion/bug?label=%F0%9F%90%9B%20Bugs&style=flat-square&color=BCC7EC&labelColor=303145" alt="open bugs"></a>
 
 ## 🕹️ Usage
 
