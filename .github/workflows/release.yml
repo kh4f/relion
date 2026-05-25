@@ -21,7 +21,7 @@ jobs:
       - run: bun test
       - run: bun -b run build
 
-      - run: zip -r$ZIP package.json LICENSE README.md dist
+      - run: zip -r $ZIP package.json LICENSE README.md dist
       - uses: actions/attest@v4
         with:
           subject-path: ${{ env.ZIP }}
