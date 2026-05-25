@@ -1,6 +1,17 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.47.0  `](https://github.com/kh4f/relion/compare/v0.46.1...v0.47.0)
+
+### &emsp; 🎁 Features
+- **Select release steps**: CLI now accepts an optional first positional argument of step codes (`c`, `b`, `m`, `t`) to run only the matching phases. When omitted, all steps execute as before. [🡥](https://github.com/kh4f/relion/commit/341fc51)
+
+### &emsp; 🩹 Fixes
+- **Fixed empty `-t` flag parsing**: the `-t ''` flag now properly yields an empty string instead of `undefined`. [🡥](https://github.com/kh4f/relion/commit/3de8f25)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.46.1...v0.47.0) &ensp;•&ensp; May 26, 2026
+
+
 ## &ensp; [` 📦 v0.46.1  `](https://github.com/kh4f/relion/compare/v0.46.0...v0.46.1)
 
 ### &emsp; 🩹 Fixes
