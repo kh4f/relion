@@ -1,6 +1,14 @@
 # Changelog
 
 
+## &ensp; [` 📦 v0.47.2  `](https://github.com/kh4f/relion/compare/v0.47.1...v0.47.2)
+
+### &emsp; 📋 Docs
+- **README polish**: rephrased the tagline and standardized default value notation for better clarity. [🡥](https://github.com/kh4f/relion/commit/32dbdc1)
+
+##### &emsp;&emsp; [Full Changelog](https://github.com/kh4f/relion/compare/v0.47.1...v0.47.2) &ensp;•&ensp; Jun 1, 2026
+
+
 ## &ensp; [` 📦 v0.47.1  `](https://github.com/kh4f/relion/compare/v0.47.0...v0.47.1)
 
 ### &emsp; 🩹 Fixes
