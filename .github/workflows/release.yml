@@ -5,7 +5,7 @@ on: { push: { tags: 'v[0-9]+.[0-9]+.[0-9]+*' } }
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions: { contents: write, id-token: write }
+    permissions: { contents: write, id-token: write, attestations: write }
     env:
       TAG: ${{ github.ref_name }}
       ZIP: ${{ github.event.repository.name }}-${{ github.ref_name }}.zip
@@ -22,6 +22,9 @@ jobs:
       - run: bun prod
 
       - run: zip -r $ZIP package.json LICENSE README.md dist
+      - uses: actions/attest@v4
+        with:
+          subject-path: ${{ env.ZIP }}
       - run: npm publish
       - run: gh release create $TAG --title $TAG --draft $ZIP
         env:
