@@ -10,6 +10,7 @@
 	"keywords": ["relion", "release", "release-automation", "release-workflow", "release-helper"],
 	"files": ["dist"],
 	"type": "module",
+	"main": "dist/cli.js",
 	"bin": "dist/cli.js",
 	"scripts": {
 		"dev": "tsdown",
