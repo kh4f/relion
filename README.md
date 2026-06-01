@@ -4,7 +4,7 @@
 		<img alt="logo" src="https://raw.githubusercontent.com/kh4f/relion/refs/heads/assets/logo-light.png">
 	</picture>
 	<br>
-	<b>A zero‑config release automation tool<br></b>version bumping, tagging, committing, and AI changelog generation
+	A zero‑config <b>release automation</b> tool<br>version bumping, committing, tagging, and AI changelog generation
 	<br><br>
 	<p>
 		<a href="https://www.npmjs.com/package/relion"><img src="https://img.shields.io/npm/v/relion?label=npm&logo=npm&style=flat-square&color=C9CCCF&labelColor=2D3352" alt="npm version"/></a>&nbsp;
@@ -26,24 +26,24 @@ $ bunx relion -h
 
 Usage: relion [steps] [options]
 
-Steps (e.g. 'bm' = bump + commit; omit to run all):
+Steps (omit to run all):
   c  Generate release context
   b  Bump version in files
   m  Create commit
   t  Create tag
 
 Options (with defaults):
-  -v <version>  Release version [calculated from commits]
-  -b <files>    Files to bump the version in [package.json]
-  -t <prefix>   Tag prefix [v]
-  -d            Dry run [false]
-  -y            Skip prompts [false]
+  -v <version>  Release version (calculated from commits)
+  -b <files>    Files to bump the version in (package.json)
+  -t <prefix>   Tag prefix (v)
+  -d            Dry run (false)
+  -y            Skip prompts (false)
 
 Examples:
   bunx relion bm -v 1.2.3           Bump and commit with custom version
   bunx relion ct -t relion@         Generate context and create tag with custom prefix
   bunx relion -b src/manifest.json  Bump version in custom file
-  bunx relion -d           			Dry run of all steps
+  bunx relion -d                    Dry run of all steps
 ```
 
 - `package.json` is **always included** in the bump list if exists
